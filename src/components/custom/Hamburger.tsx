@@ -1,21 +1,31 @@
-"use client"
 import Link from "next/link";
-import Header from "./Header";
-import { useState } from "react";
+import { MenuState } from "./Header";
+import { useEffect, useState } from "react";
 
-export default function Menu() {
+interface Props {
+    state: MenuState
+}
+export default function Menu({ state }: Props) {
+    const  [menuVisible , setMenuVisibility] = useState(false)
 
-    const [menuState, setMenuState] = useState({
-        initial: false,
-        clicked: null,
-        menuName: "menu"
-    })
+    useEffect(() => {
+        const menuStuff = () => {
+            if (state.clicked === false) {
+                //close the menu
+                setMenuVisibility(false)
+            } else if (state.clicked === true || state.initial === null) {
+                //open the menu
+                setMenuVisibility(true)
+            }
+        }
+        menuStuff()
+    }, [state])
 
     const liStyle = "text-[6rem]/tight font-extrabold -tracking-widest overflow-hidden text-white"
     const aStyle = "hover:text-black"
 
     return (
-        <section id="menu" className="z-10 fixed top-0 bottom-0 left-0 right-0 h-full bg-red-700 w-full ">
+        <section id="menu" className={`z-[-1] fixed top-0 bottom-0 left-0 right-0 h-full bg-red-700 w-full ${!menuVisible ? "hidden" : ""}`}>
             <div id="menu-seconday-bg" className="z-[-1] fixed top-0 bottom-0 left-0 right-0 h-full bg-black w-full" />
             <div id="menu-layer" className="bg-red-900 h-full relative overflow-hidden">
                 <div id="menu-free-bg" className="absolute top-0 bottom-0 left-0 right-0 h-full opacity-0" />
