@@ -65,7 +65,7 @@ export default function Menu({ state }: Props) {
 
 
     // a styles
-    const liStyle = "text-[6rem]/none font-extrabold -tracking-widest overflow-hidden text-white"
+    const liStyle = "text-[4rem]/none lg:text-[6rem]/none font-extrabold -tracking-widest overflow-hidden text-white"
     const aStyle = "hover:text-black"
 
     return (
