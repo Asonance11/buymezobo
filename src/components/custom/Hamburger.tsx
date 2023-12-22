@@ -61,7 +61,7 @@ export default function Menu({ state }: Props) {
         }
         menuStuff()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [state ])
+    }, [state])
 
 
     // a styles
@@ -74,7 +74,7 @@ export default function Menu({ state }: Props) {
             <div ref={revealMenu} id="menu-layer" className="bg-red-900 h-full relative overflow-hidden">
                 <div id="menu-free-bg" className="absolute top-0 bottom-0 left-0 right-0 h-full opacity-0" />
                 <section id="menu-container" className="lg:w-2/3 mx-auto relative h-full ">
-                    <div id="menu-links" className="grid grid-cols-1 lg:grid-cols-2 items-center w-full h-full px-5">
+                    <div id="menu-links" className="flex justify-center items-start flex-col gap-4 lg:grid grid-cols-1 lg:grid-cols-2 lg:items-center w-full h-full px-3">
                         <nav className="">
                             <ul className="flex flex-col gap-1">
                                 <li id="link" className={`${liStyle}`}><Link ref={line1} href="/about" className={`${aStyle}`}>About</Link></li>
@@ -82,7 +82,7 @@ export default function Menu({ state }: Props) {
                                 <li id="link" className={`${liStyle}`}><Link ref={line3} href="/contact" className={`${aStyle}`}>Contact</Link></li>
                             </ul>
                         </nav>
-                        <div ref={info} id="menu-info gap-8 flex flex-col">
+                        <div ref={info} id="menu-info gap-8 flex flex-col ">
                             <h3 className="font-bold -tracking-wider text-white">Oluwasijibomi</h3>
                             <p className="font-light text-sm text-white">On behalf of the welfare of all mankind, I aspire to utilize my skills as a software developer to create solutions that transcend boundaries and uplift humanity. I aim to contribute to a world where technology enhances lives and leaves no one behind. Together, let us code a better future for everyone.</p>
                         </div>
