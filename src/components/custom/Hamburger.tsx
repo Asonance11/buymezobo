@@ -39,7 +39,7 @@ export default function Menu({ state }: Props) {
                     }
 
                 })
-               //setMenuVisibility(false)
+                //setMenuVisibility(false)
             } else if (state.clicked === true || state.initial === null) {
                 //open the menu
                 tl2.to(menu.current, {
@@ -53,14 +53,15 @@ export default function Menu({ state }: Props) {
                     opacity: 1,
                     height: "100%",
                 })
-                staggerReveal(tl2 , revealMenuBackground.current , revealMenu.current)
-                fadeInUp(tl2,info.current)
+                staggerReveal(tl2, revealMenuBackground.current, revealMenu.current)
+                fadeInUp(tl2, info.current)
                 staggerText(tl2, line1.current, line2.current, line3.current)
-               //setMenuVisibility(true)
+                //setMenuVisibility(true)
             }
         }
         menuStuff()
-    }, [state])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [state ])
 
 
     // a styles
@@ -83,7 +84,7 @@ export default function Menu({ state }: Props) {
                         </nav>
                         <div ref={info} id="menu-info gap-8 flex flex-col">
                             <h3 className="font-bold -tracking-wider text-white">Oluwasijibomi</h3>
-                            <p className="font-light text-sm text-white">On behalf of the welfare of all mankind, I aspire to utilize my skills as a software developer to create solutions that transcend boundaries and uplift humanity. I aim to contribute to a world where technology enhances lives and leaves no one behind. Together, let's code a better future for everyone.</p>
+                            <p className="font-light text-sm text-white">On behalf of the welfare of all mankind, I aspire to utilize my skills as a software developer to create solutions that transcend boundaries and uplift humanity. I aim to contribute to a world where technology enhances lives and leaves no one behind. Together, let us code a better future for everyone.</p>
                         </div>
                     </div>
                 </section>
