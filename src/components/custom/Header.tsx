@@ -1,24 +1,40 @@
 "use client"
-
 import Link from "next/link";
 import Menu from "./Hamburger";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from 'next/navigation'
 
 export interface MenuState {
     initial?: boolean | null,
     clicked?: boolean | null,
     menuName?: "close" | "menu"
 }
+export default function Header({ }) {
 
-export default function Header() {
-
+    //state for menu state
     const [menuState, setMenuState] = useState<MenuState>({
         initial: false,
         clicked: null,
         menuName: "menu"
     })
+
+    //listen when routes change
+    const pathname = usePathname()
+    useEffect(() => {
+        const handleRouteChange = () => {
+            console.log("url changed, close the fucking menu")
+            setMenuState({ clicked: false, menuName: "menu" })
+        }
+        handleRouteChange()
+        return () => {
+            handleRouteChange()
+        };
+    }, [pathname])
+
+    //state for menu disabled state
     const [disabled, setDisabled] = useState(false)
 
+    //onclick the menu button
     const handleMenu = () => {
         disableAnimation()
         if (menuState.initial === false) {
@@ -66,3 +82,4 @@ export default function Header() {
         </header>
     )
 }
+//export default withRouter(Header)
