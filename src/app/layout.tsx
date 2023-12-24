@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/custom/Header'
 import Cursor from '@/components/custom/CustomCursor'
+import Loader from '@/components/custom/Loader'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +17,6 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
-
 
 
     return (
