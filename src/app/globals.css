@@ -36,3 +36,8 @@ body {
 .cursor{
     mix-blend-mode: difference;
 }
+
+#hero-image{}
+#hero-image-cont:hover img{
+    width: 110%;
+}

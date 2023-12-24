@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import MyLink from "./CustomLink";
 import gsap from "gsap";
 import { fadeInUp, staggerReveal, staggerText } from "@/lib/animations";
+import { manrope } from "@/lib/fonts";
 
 interface Props {
     state: MenuState
@@ -65,7 +66,7 @@ export default function Menu({ state }: Props) {
 
 
     // a styles
-    const liStyle = "text-[4rem]/none lg:text-[6rem]/none font-extrabold -tracking-widest overflow-hidden text-white"
+    const liStyle = `text-[4rem]/none lg:text-[6rem]/none font-extrabold -tracking-widest overflow-hidden text-white `
     const aStyle = "hover:text-black overflow-hidden"
 
     return (
@@ -78,13 +79,13 @@ export default function Menu({ state }: Props) {
                         <nav className="">
                             <ul className="flex flex-col gap-1">
                                 <li id="link" className={`${liStyle}`}><Link ref={line1} href="/about" className={`${aStyle}`}>About</Link></li>
-                                <li id="link" className={`${liStyle}`}><Link ref={line2} href="/solution" className={`${aStyle}`}>Solution</Link></li>
+                                <li id="link" className={`${liStyle}`}><Link ref={line2} href="/solution" className={`${aStyle}`}>Writings</Link></li>
                                 <li id="link" className={`${liStyle}`}><Link ref={line3} href="/contact" className={`${aStyle}`}>Contact</Link></li>
                             </ul>
                         </nav>
                         <div ref={info} id="menu-info gap-8 flex flex-col ">
                             <h3 className="font-bold -tracking-wider text-white">Oluwasijibomi</h3>
-                            <p className="font-light text-sm text-white">On behalf of the welfare of all mankind, I aspire to utilize my skills as a software developer to create solutions that transcend boundaries and uplift humanity. I aim to contribute to a world where technology enhances lives and leaves no one behind. Together, let us code a better future for everyone.</p>
+                            <p className={`font-light text-sm text-white ${manrope.className}`}>On behalf of the welfare of all mankind, I aspire to utilize my skills as a software developer to create solutions that transcend boundaries and uplift humanity. I aim to contribute to a world where technology enhances lives and leaves no one behind. Together, let us code a better future for everyone.</p>
                         </div>
                     </div>
                 </section>

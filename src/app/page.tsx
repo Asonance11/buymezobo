@@ -61,8 +61,8 @@ export default function Home() {
                 </h1>
             </div>
             <div className="w-full">
-                <div className="h-48 lg:h-56 w-full overflow-hidden">
-                    <img ref={image} src="/images/aphrodite.jpg" alt="image" className="w-full h-full object-cover" />
+                <div className="h-48 lg:h-56 w-full overflow-hidden " id="hero-image-cont">
+                    <img ref={image} src="/images/aphrodite.jpg" id="hero-image" alt="image" className="w-full h-full object-cover" />
                 </div>
             </div>
             <div className="flex justify-between items-center text-start lg:text-end w-full">
