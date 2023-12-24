@@ -72,7 +72,7 @@ export default function Home() {
                         <FaStarOfLife size={72} />
                     </div>
                     <div className="text-black w-72 h-5/6">
-                        <p className={`text-xs font-light text-start ${manrope.className}`}>Greetings! I'm a passionate developer driven by the belief that technology can shape a better tomorrow. With a commitment to innovation and sustainable solutions, I embark on a coding journey to contribute my part in saving the future. Let's create a world where technology serves humanity and preserves our planet for generations to come.</p>
+                        <p className={`text-xs font-light text-start ${manrope.className}`}>Greetings! I am a passionate developer driven by the belief that technology can shape a better tomorrow. With a commitment to innovation and sustainable solutions, I embark on a coding journey to contribute my part in saving the future. Let us create a world where technology serves humanity and preserves our planet for generations to come.</p>
                     </div>
                 </div>
 
