@@ -1,5 +1,4 @@
 "use client"
-import { FaArrowDownLong } from "react-icons/fa6";
 import { FaStarOfLife } from "react-icons/fa6";
 import { manrope } from "@/lib/fonts"
 import gsap from "gsap"
@@ -7,49 +6,49 @@ import { useRef } from "react"
 import { useGSAP } from "@gsap/react"
 
 export default function Home() {
+
     const name1 = useRef(null)
     const name2 = useRef(null)
-    const image = useRef(null)
+    const image = useRef<HTMLImageElement>(null)
     const title = useRef(null)
     const title2 = useRef(null)
     const icon = useRef(null)
 
     useGSAP(() => {
-        const tl = gsap.timeline({})
-        tl.from([name1.current, name2.current], {
-            y: 100,
-            opacity: 0,
-            duration: 1,
-            ease: "power3.inOut",
-            stagger: {
-                amount: 0.1
-            }
-        })
+            const tl = gsap.timeline({})
+            tl.from([name1.current, name2.current], {
+                y: 100,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.inOut",
+                stagger: {
+                    amount: 0.1
+                }
+            })
 
-        tl.from([title.current, title2.current], {
-            y: 100,
-            opacity: 0,
-            duration: 1,
-            ease: "power3.inOut",
-            stagger: {
-                amount: 0.1
-            }
+            tl.from([title.current, title2.current], {
+                y: 100,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.inOut",
+                stagger: {
+                    amount: 0.1
+                }
 
-        }, ">")
-        tl.from(image.current, {
-            duration: 0.75,
-            y: 100,
-            opacity: 0,
-            ease: 'power2.inOut' // Easing function for the animation
-        }, ">+0.2");
+            }, ">")
+            tl.from(image.current, {
+                duration: 0.75,
+                y: 100,
+                opacity: 0,
+                ease: 'power2.inOut' // Easing function for the animation
+            }, ">+0.2");
 
-        tl.to(icon.current, {
-            rotate: 360,
-            duration: 2,
-            repeat:-1,
-            ease:"none"
-        }, ">+0.5")
-
+            tl.to(icon.current, {
+                rotate: 360,
+                duration: 2,
+                repeat: -1,
+                ease: "none"
+            }, ">+0.5")
     }, { scope: title })
 
     return (
@@ -67,7 +66,7 @@ export default function Home() {
             </div>
             <div className="flex justify-between items-center text-start lg:text-end w-full">
 
-                <div className="lg:flex gap-7 items-center hidden ">
+                <div className="md:flex gap-7 items-center hidden ">
                     <div ref={icon} className="bg-black rounded-full h-36 w-36 text-white font-extrabold flex items-center justify-center">
                         <FaStarOfLife size={72} />
                     </div>
