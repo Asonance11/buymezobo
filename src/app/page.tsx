@@ -6,6 +6,7 @@ import { useRef } from "react"
 import { useGSAP } from "@gsap/react"
 import About from "@/components/About";
 import { maintimeline as tl } from "@/lib/animations";
+import LatestUpdateComponent from "@/components/custom/LifeUpdate";
 
 export default function Home() {
 
@@ -84,6 +85,7 @@ export default function Home() {
                     </h1>
                 </div>
             </section>
+            <LatestUpdateComponent />
             <section className="bg-purple-800 h-[33rem]  lg:h-72">
                 <About />
             </section>
