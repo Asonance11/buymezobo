@@ -10,8 +10,9 @@ export const LatestUpdateComponent = () => {
     }
 
     const router = useRouter()
+
     const handleClick = () => {
-        router.push(update.link)
+        //router.push(update.link)
     }
 
     return (
