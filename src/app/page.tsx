@@ -5,6 +5,7 @@ import gsap from "gsap"
 import { useRef } from "react"
 import { useGSAP } from "@gsap/react"
 import About from "@/components/About";
+import { maintimeline as tl } from "@/lib/animations";
 
 export default function Home() {
 
@@ -16,7 +17,7 @@ export default function Home() {
     const icon = useRef(null)
 
     useGSAP(() => {
-        const tl = gsap.timeline({})
+        //const tl = gsap.timeline({})
         tl.from([name1.current, name2.current], {
             y: 100,
             opacity: 0,

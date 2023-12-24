@@ -1,3 +1,8 @@
+import gsap from "gsap"
+
+export const maintimeline = gsap.timeline({})
+
+
 export const staggerReveal = (tl2: gsap.core.Timeline, node1: any, node2: any) => {
     tl2.from([node1, node2], {
         duration: 0.8,
