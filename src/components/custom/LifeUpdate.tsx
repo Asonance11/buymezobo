@@ -2,18 +2,19 @@
 import { FaArrowRight } from "react-icons/fa6";
 import React from 'react';
 import { update } from '@/lib/update';
-import { useRouter } from "next/navigation";
+//import { useRouter } from "next/navigation";
 
 export const LatestUpdateComponent = () => {
-    if (!update.show) {
-        return null; // Don't render the component if show is set to false
-    }
-
-    const router = useRouter()
+    //const router = useRouter()
 
     const handleClick = () => {
         //router.push(update.link)
     }
+
+    if (!update.show) {
+        return null; // Don't render the component if show is set to false
+    }
+
 
     return (
         <div className='flex items-center justify-center gap-3 h-12 w-full bg-black text-white text-sm'>
