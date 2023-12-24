@@ -69,7 +69,7 @@ export default function Header({ }) {
 
 
     return (
-        <header className="z-10 w-full p-3 bg-green-900 fixed top-0">
+        <header className="z-10 w-full p-3 bg-black fixed top-0">
             <main className="z-50 flex justify-between lg:w-5/6 mx-auto">
                 <div>
                     <Link href="/" className="-tracking-widest font-bold">playground</Link>

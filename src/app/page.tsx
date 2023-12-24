@@ -48,7 +48,7 @@ export default function Home() {
             duration: 2,
             repeat:-1,
             ease:"none"
-        }, ">+1")
+        }, ">+0.5")
 
     }, { scope: title })
 
