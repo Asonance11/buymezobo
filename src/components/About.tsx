@@ -24,7 +24,7 @@ export default function About() {
                     start: mark.start,
                     end: mark.end,
                     scrub: true,
-                    markers:true 
+                    //markers:true 
                 },
                 opacity: 0.1,
                 stagger: 0.1
