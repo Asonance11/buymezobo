@@ -89,6 +89,8 @@ export default function Home() {
             </section>
             <section className="bg-purple-800 h-[33rem]  lg:h-72">
             </section>
+            <section className="bg-green-800 h-[33rem]  lg:h-72">
+            </section>
         </main>
     )
 }

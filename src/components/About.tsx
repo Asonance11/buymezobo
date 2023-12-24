@@ -13,8 +13,8 @@ export default function About() {
     useGSAP(() => {
         const animate = () => {
             const mark = {
-                start: "top 70%",
-                end: "top 40%"
+                start: "top 60%",
+                end: "top 30%"
             }
             const text = new SplitType('#target').words
             gsap.registerPlugin(ScrollTrigger)
@@ -24,7 +24,7 @@ export default function About() {
                     start: mark.start,
                     end: mark.end,
                     scrub: true,
-                    //markers:true 
+                    markers:true 
                 },
                 opacity: 0.1,
                 stagger: 0.1
