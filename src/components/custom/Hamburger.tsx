@@ -70,7 +70,7 @@ export default function Menu({ state }: Props) {
 
     return (
         <section ref={menu} id="menu" className={`z-[-1] fixed top-0 bottom-0 left-0 right-0 h-full w-full ${!menuVisible ? "hidden" : ""}`}>
-            <div ref={revealMenuBackground} id="menu-seconday-bg" className="z-[-1] fixed top-0 bottom-0 left-0 right-0 h-full bg-purple-700 w-full" />
+            <div ref={revealMenuBackground} id="menu-seconday-bg" className="z-[-1] fixed top-0 bottom-0 left-0 right-0 h-full bg-black w-full" />
             <div ref={revealMenu} id="menu-layer" className="bg-red-900 h-full relative overflow-hidden">
                 <div id="menu-free-bg" className="absolute top-0 bottom-0 left-0 right-0 h-full opacity-0" />
                 <section id="menu-container" className="lg:w-2/3 mx-auto relative h-full ">
