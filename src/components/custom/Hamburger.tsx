@@ -66,7 +66,7 @@ export default function Menu({ state }: Props) {
 
     // a styles
     const liStyle = "text-[4rem]/none lg:text-[6rem]/none font-extrabold -tracking-widest overflow-hidden text-white"
-    const aStyle = "hover:text-black"
+    const aStyle = "hover:text-black overflow-hidden"
 
     return (
         <section ref={menu} id="menu" className={`z-[-1] fixed top-0 bottom-0 left-0 right-0 h-full w-full ${!menuVisible ? "hidden" : ""}`}>
