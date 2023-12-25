@@ -7,6 +7,8 @@ import { useGSAP } from "@gsap/react"
 import About from "@/components/About";
 import { maintimeline as tl } from "@/lib/animations";
 import LatestUpdateComponent from "@/components/custom/LifeUpdate";
+import Image from "next/image";
+import bgImg from '../../public/images/aphrodite.webp'
 
 export default function Home() {
 
@@ -65,7 +67,7 @@ export default function Home() {
                 </div>
                 <div className="w-full">
                     <div className="h-48 lg:h-56 w-full overflow-hidden " id="hero-image-cont">
-                        <img ref={image} src="/images/aphrodite.jpg" id="hero-image" alt="image" className="w-full h-full object-cover" />
+                        <Image ref={image} src={bgImg} id="hero-image" alt="image" className="w-full h-full object-cover" />
                     </div>
                 </div>
                 <div className="flex justify-between items-center text-start lg:text-end w-full">
