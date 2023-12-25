@@ -1,4 +1,4 @@
-import { Bai_Jamjuree , Manrope } from "next/font/google"
+import { Bai_Jamjuree , Manrope , Rubik } from "next/font/google"
 
 export const bai = Bai_Jamjuree({
     weight: ['400', '500','700'],
@@ -8,3 +8,4 @@ export const bai = Bai_Jamjuree({
 })
 
 export const manrope = Manrope({subsets:["latin"]})
+export const rubik = Rubik({subsets:["latin"]})
