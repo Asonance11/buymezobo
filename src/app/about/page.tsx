@@ -80,7 +80,7 @@ export default function About() {
                         <li>studying software engineering at Babcock University (i graduate june 2024!)</li>
                         <li>making preparations to begin reading the Bhagavad Gita, a Hindu holy book.</li>
                         <li>building projects to begin my Job hunt next year</li>
-                        <li>my final year project for university.</li>
+                        <li>preparing my final year project for university.</li>
                     </ul>
                 </div>
                 <div className="w-full">
