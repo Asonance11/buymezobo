@@ -8,7 +8,7 @@ import About from "@/components/About";
 import { maintimeline as tl } from "@/lib/animations";
 import LatestUpdateComponent from "@/components/custom/LifeUpdate";
 import Image from "next/image";
-import bgImg from '../../public/images/aphrodite.webp'
+import bgImg from '../../public/images/aphroditex.jpg'
 import JobHunt from "@/components/JobHunt";
 
 export default function Home() {
@@ -89,7 +89,7 @@ export default function Home() {
                 </div>
             </section>
             <LatestUpdateComponent />
-            <section className="bg-purple-800 h-[25rem]  lg:h-52">
+            <section className="bg-purple-800 h-[20rem]  lg:h-52">
                 <JobHunt />
             </section>
         </main>

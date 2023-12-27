@@ -48,7 +48,7 @@ export default function About() {
             stagger:{
                 amount:0.2
             }
-        }, ">+0.3")
+        }, ">+0.1")
     }, { scope: title })
 
     return (
