@@ -52,13 +52,13 @@ export default function About() {
     }, { scope: title })
 
     return (
-        <main className={`min-h-screen items-center pt-8 md:pt-10 lg:pt-14 -tracking-wider bg-black ${manrope.className} grid grid-cols-1 md:grid-cols-2 grid-rows-5 md:grid-rows-1 text-gray-200`}>
-            <div className={`h-full w-full bg-black flex flex-col items-center justify-center gap-2`}>
-                <p ref={title} className={`text-[4rem] lg:text-[6rem] font-semibold ${rubik.className} -tracking-widest px-5 md:text-center w-full`}>About Me</p>
+        <main className={`min-h-screen items-center pt-8 md:pt-10 lg:pt-14 -tracking-wider bg-white ${manrope.className} grid grid-cols-1 md:grid-cols-2 grid-rows-5 md:grid-rows-1 text-black`}>
+            <div className={`h-full w-full flex flex-col items-center justify-center gap-2`}>
+                <p ref={title} className={`text-[4rem] lg:text-[6rem] font-semibold ${rubik.className} -tracking-widest px-5 md:text-center w-full`}>about /</p>
                 <div className="flex gap-3 items-center justify-start md:justify-center w-full px-5">
                     {socials.map((social, index) => (
                         <a key={index} href={`${social.link}`} ref={social.ref} target="_blank">
-                            <div className="p-2 bg-black hover:text-gray-500  cursor-pointer border border-zinc-900 rounded-[0.58rem] flex items-center justify-center text-gray-600 transition-colors duration-200 text-sm md:text-xl" >{social.icon}</div>
+                            <div className="p-2 hover:text-gray-500  cursor-pointer border border-zinc-900 rounded-[0.58rem] flex items-center justify-center text-gray-600 transition-colors duration-200 text-sm md:text-xl" >{social.icon}</div>
                         </a>
                     ))}
                 </div>
@@ -66,10 +66,9 @@ export default function About() {
             <div className="h-full w-full row-span-4 flex flex-col items-center justify-center px-5 gap-2 py-7 -tracking-wider">
                 <div className="mx-auto flex gap-1 flex-col ">
                     <p>
-                        Hey there! my name is Oluwasijibomi Ilesanmi, currently software engineering as a final year student at Babcock University. I have a deep passion for crafting applications that not only solve problems but also contribute positively to the well-being of humanity.
+                        my name is Oluwasijibomi Ilesanmi, currently studying software engineering as a final year student at Babcock University. I have a deep passion for crafting applications that not only solve problems but also contribute positively to the well-being of humanity.
                     </p>
                     <p>
-                        In my academic pursuit, I have delved into the intricacies of software engineering at Babcock University, honing my skills and building a foundation for my future endeavors. I believe in the power of technology to transform lives, and my goal is to channel that power into applications that might just save lives someday.
                     </p>
                     <p>
                         My dream is to work in an environment where I feel like a superhero, saving lives with the code I write. I aim to build applications that make a real impact and become lifelines for those who need it most.
@@ -90,6 +89,7 @@ export default function About() {
                         <li>the interesting discourse at intersection of science and religion, exploring nuanced discussions on origins, evolution, and ultimate outcomes.</li>
                         <li>engineering that can transform lives.</li>
                         <li>music and people that share music, sharing music is a love language.</li>
+                        <li>the future and what it holds for us.</li>
                     </ul>
                 </div>
 

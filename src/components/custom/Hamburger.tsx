@@ -66,26 +66,28 @@ export default function Menu({ state }: Props) {
 
 
     // a styles
-    const liStyle = `text-[4rem]/none lg:text-[6rem]/none font-extrabold -tracking-widest overflow-hidden text-white `
+    const liStyle = `text-[4rem]/none md:text-[5rem]/none lg:text-[5.9rem]/none font-extrabold -tracking-widest overflow-hidden text-black `
     const aStyle = "hover:text-black overflow-hidden"
 
     return (
         <section ref={menu} id="menu" className={`z-[-1] fixed top-0 bottom-0 left-0 right-0 h-full w-full ${!menuVisible ? "hidden" : ""}`}>
             <div ref={revealMenuBackground} id="menu-seconday-bg" className="z-[-1] fixed top-0 bottom-0 left-0 right-0 h-full bg-black w-full" />
-            <div ref={revealMenu} id="menu-layer" className="bg-red-900 h-full relative overflow-hidden">
+            <div ref={revealMenu} id="menu-layer" className="bg-white h-full relative overflow-hidden">
                 <div id="menu-free-bg" className="absolute top-0 bottom-0 left-0 right-0 h-full opacity-0" />
                 <section id="menu-container" className="lg:w-2/3 mx-auto relative h-full ">
                     <div id="menu-links" className="flex justify-center items-start flex-col gap-4 lg:grid grid-cols-1 lg:grid-cols-2 lg:items-center w-full h-full px-3">
                         <nav className="">
                             <ul className="flex flex-col gap-1">
-                                <li id="link" className={`${liStyle}`}><Link ref={line1} href="/about" className={`${aStyle}`}>About</Link></li>
-                                <li id="link" className={`${liStyle}`}><Link ref={line2} href="/solution" className={`${aStyle}`}>Writings</Link></li>
-                                <li id="link" className={`${liStyle}`}><Link ref={line3} href="/contact" className={`${aStyle}`}>Contact</Link></li>
+                                <li id="link" className={`${liStyle}`}><Link ref={line1} href="/about" className={`${aStyle}`}>about /</Link></li>
+                                <li id="link" className={`${liStyle}`}><Link ref={line2} href="/writing" className={`${aStyle}`}>writings #</Link></li>
+                                <li id="link" className={`${liStyle}`}><Link ref={line3} href="/portfolio" className={`${aStyle}`}>portfolio &#169;</Link></li>
                             </ul>
                         </nav>
                         <div ref={info} id="menu-info gap-8 flex flex-col ">
-                            <h3 className="font-bold -tracking-wider text-white">Oluwasijibomi</h3>
-                            <p className={`font-light text-sm text-white ${manrope.className}`}>On behalf of the welfare of all mankind, I aspire to utilize my skills as a software developer to create solutions that transcend boundaries and uplift humanity. I aim to contribute to a world where technology enhances lives and leaves no one behind. Together, let us code a better future for everyone.</p>
+                            <p className={`font-light text-xs md:text-sm text-black ${manrope.className}`}>
+                                To know more about me and what i'm currently working on you can check the about page, writing has always been my way of gaining a deeper understanding, which is why you'll find a collection of my thoughts on the writings page. Additionally, I enjoy expressing myself through words, so you can expect a lot of content on this page, in case you're a recruiter and want to see what i've been working on, check out the portfolio page, and pls hire me, i'm currently unemployed, fun fact: I not only designed but also built this site entirely on my own – you can check out the code <a href="https://github.com/sijirama/playground" className="underline underline-offset-2">here</a>, by the way, I collaborated with Pinterest on the design. 
+
+                            </p>
                         </div>
                     </div>
                 </section>

@@ -1,6 +1,6 @@
 "use client"
 import { FaStarOfLife } from "react-icons/fa6";
-import { manrope } from "@/lib/fonts"
+import { manrope , inter } from "@/lib/fonts"
 import gsap from "gsap"
 import { useRef } from "react"
 import { useGSAP } from "@gsap/react"
@@ -9,6 +9,7 @@ import { maintimeline as tl } from "@/lib/animations";
 import LatestUpdateComponent from "@/components/custom/LifeUpdate";
 import Image from "next/image";
 import bgImg from '../../public/images/aphrodite.webp'
+import JobHunt from "@/components/JobHunt";
 
 export default function Home() {
 
@@ -60,7 +61,7 @@ export default function Home() {
         <main className="w-full h-full">
             <section className=" min-h-screen gap-2 flex flex-col justify-center lg:justify-normal lg:grid grid-col-1 w-screen px-2 lg:px-5 items-center py-10 lg:pt-16 bg-white text-black">
                 <div className="flex items-center justify-start w-full text-start overflow-hidden ">
-                    <h1 ref={name1} className={`overflow-hidden text-6xl/none md:text-7xl/none lg:text-[7rem]/none font-bold -tracking-widest ${manrope.className}`}>
+                    <h1 ref={name1} className={`overflow-hidden text-6xl/none md:text-7xl/none lg:text-[6.5rem]/none font-bold -tracking-widest ${inter.className}`}>
                         Oluwasijibomi{" "}
                         <span ref={name2} className="block">Ilesanmi</span>
                     </h1>
@@ -81,19 +82,15 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <h1 ref={title} className={`text-6xl/none md:text-7xl/none lg:text-[7rem]/none font-bold -tracking-widest ${manrope.className}`}>
+                    <h1 ref={title} className={`text-6xl/none md:text-7xl/none lg:text-[7rem]/none font-bold -tracking-widest ${inter.className}`}>
                         Software
                         <span ref={title2} className="block">Developer</span>
                     </h1>
                 </div>
             </section>
             <LatestUpdateComponent />
-            <section className="bg-purple-800 h-[33rem]  lg:h-72">
-                <About />
-            </section>
-            <section className="bg-purple-800 h-[33rem]  lg:h-72">
-            </section>
-            <section className="bg-green-800 h-[33rem]  lg:h-72">
+            <section className="bg-purple-800 h-[25rem]  lg:h-52">
+                <JobHunt />
             </section>
         </main>
     )

@@ -1,6 +1,6 @@
 
 export const update = {
-    show: true,
+    show: false,
     category:"current project:",
     message: "my portfolio.",
     type: "NEW",
