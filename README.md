@@ -15,7 +15,7 @@ $ npm run dev
 ### Build
 
 ```bash
-# For windows
+# For windows lmao
 $ npm run build:win
 
 # For macOS
