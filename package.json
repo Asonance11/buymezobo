@@ -22,7 +22,9 @@
     },
     "dependencies": {
         "@electron-toolkit/preload": "^3.0.0",
-        "@electron-toolkit/utils": "^3.0.0"
+        "@electron-toolkit/utils": "^3.0.0",
+        "tailwind-merge": "^2.2.1",
+        "tailwindcss-animate": "^1.0.7"
     },
     "devDependencies": {
         "@electron-toolkit/eslint-config-prettier": "^2.0.0",

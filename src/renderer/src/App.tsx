@@ -1,17 +1,13 @@
-import { Button } from '@/components/ui/button'
-import { PopoverDemo } from './components/custom/CardPopOver'
+import { Content, RootLayout, Sidebar } from './components/custom/AppLayout'
 
 function App(): JSX.Element {
     //const ipcHandle = (): void => window.Electron.ipcRenderer.send('ping')
 
     return (
-        <>
-            <p className='text-black text-3xl font-bold underline flex flex-col space-y-3 items-center justify-center'>
-                Hello world Bitches
-                <Button>Hello world</Button>
-                <PopoverDemo />
-            </p>
-        </>
+        <RootLayout>
+            <Sidebar className='p-2 border-4 border-red-700'>Sidebar</Sidebar>
+            <Content className='border-4 border-blue-800'>Content</Content>
+        </RootLayout>
     )
 }
 
