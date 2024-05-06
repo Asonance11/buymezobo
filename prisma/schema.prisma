@@ -14,16 +14,17 @@ datasource db {
 }
 
 model Profile {
-    id        String  @id @default(uuid())
-    userId    String  @unique
-    email     String  @db.Text
-    firstname String
-    lastname  String
-    username  String?
-    imageUrl  String  @db.Text
+    id             String  @id @default(uuid())
+    userId         String  @unique
+    email          String  @db.Text
+    firstName      String
+    lastName       String
+    userName       String?
+    imageUrl       String  @db.Text
+    headerImageUrl String  @db.Text
 
-    AccountNumber String?
-    BankCode      String?
+    accountNumber String?
+    bankCode      String?
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

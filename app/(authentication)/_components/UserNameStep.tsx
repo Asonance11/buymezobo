@@ -67,8 +67,8 @@ export default function UserNameStep() {
     }
 
     return (
-        <section className='flex-col flex gap-3 p-3 lg:p-4 w-full md:w-2/3  mx-auto' >
-            <p className='text-2xl/none -tracking-wider font-bold'>Choose a username for your page</p>
+        <section className='flex-col flex gap-1.5 lg:gap-3 p-3 lg:p-4 w-full md:w-2/3  mx-auto' >
+            <p className='text-lg lg:text-2xl/none -tracking-wider font-bold'>Choose a username for your page</p>
             <p className='text-sm font-normal'>add a username to start recieving payment.</p>
 
             <div className={`gap-0.5 flex items-center w-full border-2 ${available === true ? "border-green-700" : available === false ? "border-red-700" : "border-black"} rounded-lg p-2.5 bg-gray-100`}
