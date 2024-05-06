@@ -2,12 +2,14 @@ import { Profile } from "@prisma/client";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { db } from "./database";
 
+//------------------------------------------------------------------------------------------------
+
 //INFO: if someone is signed in and the profile has not been created in the db, create it.
 export async function createInitialProfile(): Promise<Profile | null> {
 
     const user = await currentUser()
 
-    if (user == null){
+    if (user == null) {
         return null //INFO: means user needs to sign in
     }
 
@@ -28,6 +30,25 @@ export async function createInitialProfile(): Promise<Profile | null> {
     });
 
     return newProfile; // done
+}
+
+//INFO: tell us if the user has a set username or not
+export async function hasUserName(): Promise<boolean> {
+    const profile = await getCurrentUser()
+
+    if (!profile) {
+        return false
+    }
+
+    if (!profile.username) {
+        return false
+    }
+
+    if (profile.username?.length < 3) {
+        return false
+    }
+
+    return true
 }
 
 //INFO: get the user currently signed in from database, if return null, no user is signed in

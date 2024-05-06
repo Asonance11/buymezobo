@@ -6,7 +6,7 @@ export default function ClerkLayout({
     children: React.ReactNode;
 }) {
     return (
-        <section className="min-h-dvh bg-red-300 ">
+        <section className="min-h-dvh bg-white">
             {children}
         </section>
     );
