@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Provider from "@/providers";
+import { cn } from "@/utility/style";
+import { fontSans } from "@/utility/fonts";
 
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
     title: "Buy me Zobo",
@@ -18,7 +18,14 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning suppressContentEditableWarning>
             <Provider>
-                <body className={inter.className}>{children}</body>
+                <body
+                    className={cn(
+                        "min-h-dvh bg-background font-sans antialiased",
+                        fontSans.variable
+                    )}
+                >
+                    {children}
+                </body>
             </Provider>
         </html>
     );
