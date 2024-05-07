@@ -1,23 +1,46 @@
+"use client"
 import SignOut from "@/components/signout";
 import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/authentication";
-import { redirect } from "next/navigation";
+import { Profile } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-export default async function Home() {
-    const profile = await getCurrentUser()
+export default function Home() {
+
+    const router = useRouter()
+    const [profile, setProfile] = useState<Profile | null>(null)
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            const profile = await getCurrentUser()
+            setProfile(profile)
+        }
+        fetchProfile()
+    }, [])
+
     if (profile) {
-        redirect(`/dashboard`)
+        //redirect(`/dashboard`)
     }
+
+    const signIn = () => {
+        router.push(`/signin`)
+    }
+
+    const alertt = () => {
+        alert(profile)
+    }
+
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
 
             buy me zobo again
-            
+
             {
-                profile ?? <SignOut />
+                profile ? <SignOut />: <Button onClick={signIn}>Sign In</Button>
             }
 
-            <Button>Click me</Button>
+            <Button onClick={alertt}>Click me</Button>
         </main>
     );
 }
