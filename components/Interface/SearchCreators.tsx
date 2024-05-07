@@ -11,6 +11,7 @@ import { Profile } from "@prisma/client"
 import { useEffect, useState } from "react"
 import { debounce } from "lodash"
 import axios from "axios"
+import CreatorSearchButton from "../common/CreatorSearchButton"
 
 
 export function SearchCreatorMenu() {
@@ -45,7 +46,6 @@ export function SearchCreatorMenu() {
             const response = await axios.get(`/api/creators?creator=${username}`);
             const data = await response.data;
 
-            console.log(data)
             if (data.creators) {
                 setLoading(false);
                 setCreators(data.creators)
@@ -65,9 +65,12 @@ export function SearchCreatorMenu() {
     const handleCreatorSearch = (event: any) => {
         event.preventDefault();
         const username = event.target.value;
-        console.log(username)
         debouncedSearchCreator(username)
     };
+
+    const selectCreator = (event: any) => {
+        console.log(event)
+    }
 
 
     return (
@@ -77,7 +80,7 @@ export function SearchCreatorMenu() {
                 {
                     creators.length > 0 ? (
                         creators.map((creator) => (
-                            <div key={creator.id} >{creator.userName}</div>
+                            <CreatorSearchButton onSelect={selectCreator} key={creator.id} profile={creator} />
                         ))
                     ) : (
                         <CommandEmpty>No results found.</CommandEmpty>
