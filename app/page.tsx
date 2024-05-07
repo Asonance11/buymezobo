@@ -1,4 +1,5 @@
 "use client"
+import MainHeader from "@/components/common/MainHeader";
 import SignOut from "@/components/signout";
 import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/authentication";
@@ -32,15 +33,16 @@ export default function Home() {
     }
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <main className="min-h-screen">
+            <MainHeader />
 
+            {/*
             buy me zobo again
 
-            {
-                profile ? <SignOut />: <Button onClick={signIn}>Sign In</Button>
-            }
+                profile ? <SignOut /> : <Button onClick={signIn}>Sign In</Button>
 
             <Button onClick={alertt}>Click me</Button>
+            */}
         </main>
     );
 }
