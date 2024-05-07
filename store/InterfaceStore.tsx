@@ -4,6 +4,7 @@ import { create } from 'zustand';
 
 export type InterfaceType =
     | 'searchCreators'
+    | 'sideMenuNavigation'
 
 interface InterfaceStore {
     type: InterfaceType | null;

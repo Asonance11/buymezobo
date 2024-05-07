@@ -1,6 +1,7 @@
 'use client'
 
 import { SearchCreatorMenu } from "@/components/Interface/SearchCreators";
+import { SideMenuNavigationComponent } from "@/components/Interface/SideMenuNavigationHeader";
 import { useEffect, useState } from "react";
 export function InterfaceProvider() {
     const [isMounted, setIsMounted] = useState(false);
@@ -16,6 +17,7 @@ export function InterfaceProvider() {
     return (
         <>
             <SearchCreatorMenu />
+            <SideMenuNavigationComponent />
         </>
     )
 
