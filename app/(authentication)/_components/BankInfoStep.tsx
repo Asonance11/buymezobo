@@ -1,10 +1,11 @@
+"use client"
 import React, { useEffect, useState } from 'react'
 import { useWizard } from 'react-use-wizard';
 import { usePersonForm } from './UserAfterForm';
 import { Button } from '@/components/ui/button';
 import { CONFIG } from '@/utility/config';
 import axios from 'axios';
-
+import { useRouter } from 'next/navigation';
 import {
     Select,
     SelectContent,
@@ -20,6 +21,7 @@ export default function BankInfoStep() {
     const { state, } = usePersonForm()
     const [banks, setBanks] = useState<Bank[]>([])
     const [accountNumber, setAccountNumber] = useState('');
+    const route = useRouter()
 
     useEffect(() => {
         const fetchBanks = async () => {
@@ -30,7 +32,6 @@ export default function BankInfoStep() {
                     }
                 });
                 setBanks(response.data.data);
-                console.log(banks)
             } catch (error) {
                 console.error('Error fetching banks:', error);
             }
@@ -44,7 +45,6 @@ export default function BankInfoStep() {
     }
 
     const next = async () => {
-        console.log(state.values)
         const data = {
             "accountNumber": state.values.AccountNumber,
             "bankCode": state.values.BankCode,
@@ -69,6 +69,9 @@ export default function BankInfoStep() {
             try {
                 const postResponse = await axios.post("/api/auth/aftersignup", data);
                 console.log("POST request sent to /api/auth/aftersignup:", postResponse.data);
+                if (postResponse.status === 200) {
+                    route.push('/dashboard')
+                }
             } catch (error) {
                 console.error("Error sending POST request to /api/auth/aftersignup:", error);
             }
@@ -81,7 +84,6 @@ export default function BankInfoStep() {
 
     const handleBankSelect = (bank: any) => {
         state.values.BankCode = bank
-        console.log(state.values)
     };
 
     const handleAccountNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {

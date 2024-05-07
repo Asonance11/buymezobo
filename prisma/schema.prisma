@@ -19,10 +19,11 @@ model Profile {
     email          String  @db.Text
     firstName      String
     lastName       String
-    userName       String?
     imageUrl       String  @db.Text
-    headerImageUrl String  @db.Text
 
+    headerImageUrl String?  @db.Text
+
+    userName       String?
     accountNumber String?
     bankCode      String?
 

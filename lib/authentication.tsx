@@ -22,8 +22,8 @@ export async function createInitialProfile(): Promise<Profile | null> {
     const newProfile = await db.profile.create({
         data: {
             userId: user.id,
-            firstname: user.firstName!,
-            lastname: user.lastName!,
+            firstName: user.firstName!,
+            lastName: user.lastName!,
             imageUrl: user.imageUrl,
             email: user.emailAddresses[0].emailAddress,
         },
@@ -40,11 +40,11 @@ export async function hasUserName(): Promise<boolean> {
         return false
     }
 
-    if (!profile.username) {
+    if (!profile.userName) {
         return false
     }
 
-    if (profile.username?.length < 3) {
+    if (profile.userName?.length < 3) {
         return false
     }
 

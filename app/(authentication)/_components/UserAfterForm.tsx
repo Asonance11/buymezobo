@@ -16,11 +16,11 @@ export function UserAfterform() {
     const form = usePersonForm()
 
     function handleSubmit(e: any) {
-        console.log(e);
+        //console.log(e);
     }
 
     function handleReset(e: any) {
-        console.log(e);
+        //console.log(e);
     }
 
 

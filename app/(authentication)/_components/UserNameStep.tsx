@@ -61,7 +61,6 @@ export default function UserNameStep() {
 
     const next = () => {
         if (!loading) {
-            console.log(state.values)
             nextStep()
         }
     }
