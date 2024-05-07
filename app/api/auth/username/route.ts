@@ -1,7 +1,7 @@
 import { db } from "@/lib/database";
 import { NextRequest, NextResponse } from "next/server";
 
-export function GET(req: NextRequest) {
+export async function GET(req: NextRequest) {
     const url = new URL(req.url)
     const username = url.searchParams.get('username')
 
@@ -9,9 +9,9 @@ export function GET(req: NextRequest) {
         return NextResponse.json({ available: false })
     }
 
-    const available = db.profile.findFirst({
+    const available = await db.profile.findFirst({
         where: {
-            username
+            userName:username
         }
     })
 
