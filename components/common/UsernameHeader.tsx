@@ -40,6 +40,11 @@ export default function UserNameHeader({ user }: Props) {
             <div className="navbar-end flex gap-2">
                 <div>
                     <SlOptions />
+                    {
+                        profile?.id == user.id ? (
+                            <Button>Edit page</Button>
+                        ) : (null)
+                    }
                 </div>
                 {
                     profile ? (null) : (

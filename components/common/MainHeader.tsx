@@ -10,6 +10,7 @@ import { Logo } from "./Logo";
 import { useEffect, useState } from "react";
 import { getCurrentUser } from "@/lib/authentication";
 import { Profile } from "@prisma/client";
+import Link from "next/link";
 
 export default function MainHeader() {
     const { onOpen } = useInterface()
@@ -64,7 +65,17 @@ export default function MainHeader() {
                     <input onClick={openMenu} type='text' placeholder='Search Creators' className='focus:outline-none flex-1 bg-transparent text-sm font-semibold placeholder-zinc-700' />
                 </div>
                 {
-                    profile ? (null) : (
+                    profile ? (
+                        <>
+                            <Link href={`/${profile.userName}`} >
+                                <Button variant={"secondary"}>View page</Button>
+                            </Link>
+
+                            <Link href={`/dashboard`} >
+                                <Button>Dashboard</Button>
+                            </Link>
+                        </>
+                    ) : (
                         <>
 
                             <Button variant={"secondary"} className="text-sm lg:text-base font-semibold tracking-tight" >
