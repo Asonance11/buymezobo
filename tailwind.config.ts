@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss"
 const { fontFamily } = require("tailwindcss/defaultTheme")
+import { withUt } from "uploadthing/tw";
 
 const config = {
     darkMode: ["class"],
@@ -84,4 +85,4 @@ const config = {
     ],
 } satisfies Config
 
-export default config
+export default withUt(config)
