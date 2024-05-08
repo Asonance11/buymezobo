@@ -1,7 +1,5 @@
 "use client"
 import MainHeader from "@/components/common/MainHeader";
-import SignOut from "@/components/signout";
-import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/authentication";
 import { Profile } from "@prisma/client";
 import { useRouter } from "next/navigation";
@@ -35,14 +33,6 @@ export default function Home() {
     return (
         <main className="min-h-screen">
             <MainHeader />
-
-            {/*
-            buy me zobo again
-
-                profile ? <SignOut /> : <Button onClick={signIn}>Sign In</Button>
-
-            <Button onClick={alertt}>Click me</Button>
-            */}
         </main>
     );
 }

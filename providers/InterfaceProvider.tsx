@@ -1,5 +1,6 @@
 'use client'
 
+import EditUsernamePageModal from "@/components/Interface/EditUsernamePageModal";
 import { SearchCreatorMenu } from "@/components/Interface/SearchCreators";
 import { SideMenuNavigationComponent } from "@/components/Interface/SideMenuNavigationHeader";
 import { useEffect, useState } from "react";
@@ -18,6 +19,7 @@ export function InterfaceProvider() {
         <>
             <SearchCreatorMenu />
             <SideMenuNavigationComponent />
+            <EditUsernamePageModal />
         </>
     )
 

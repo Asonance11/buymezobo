@@ -1,6 +1,5 @@
 'use client'
 
-import { Profile } from '@prisma/client';
 import { create } from 'zustand';
 
 export type InterfaceType =
@@ -8,16 +7,10 @@ export type InterfaceType =
     | 'sideMenuNavigation'
     | 'editUsernamePage'
 
-
-interface InterfaceDataType {
-    creator?:Profile
-}
-
 interface InterfaceStore {
     type: InterfaceType | null;
-    data:InterfaceDataType
     isOpen: boolean;
-    onOpen: (type: InterfaceType, data?:InterfaceDataType) => void;
+    onOpen: (type: InterfaceType) => void;
     onClose: () => void;
 }
 
@@ -25,8 +18,8 @@ export const useInterface = create<InterfaceStore>(set => ({
     type: null,
     data: {},
     isOpen: false,
-    onOpen(type: InterfaceType, data = {}) {
-        set({ isOpen: true, type, data });
+    onOpen(type: InterfaceType) {
+        set({ isOpen: true, type });
     },
     onClose() {
         set({ isOpen: false, type: null });
