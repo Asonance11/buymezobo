@@ -6,9 +6,6 @@ import {
     Dialog,
     DialogContent,
     DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
 import { ImageUpload } from '../tools/ImageUploadButton'
 import { Profile } from '@prisma/client'
@@ -41,18 +38,9 @@ export default function EditUsernamePageModal() {
     const [profileImage, setProfileImage] = useState(creator?.imageUrl)
     const [headerImage, setHeaderImage] = useState(creator?.imageUrl)
 
-    const updateProfileImage = (image: string) => {
-        setProfileImage(image)
-    }
-
-    const updateHeaderImage = (image: string) => {
-        setHeaderImage(image)
-    }
 
     const formSchema = z.object({
         bio: z.string().optional(),
-        imageUrl: z.string().optional(),
-        headerUrl: z.string().optional()
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -62,17 +50,33 @@ export default function EditUsernamePageModal() {
         },
     })
 
+    const updateProfileImage = (image: string) => {
+        setProfileImage(image)
+    }
+
+    const updateHeaderImage = (image: string) => {
+        setHeaderImage(image)
+    }
+
+    function onSubmit(values: z.infer<typeof formSchema>) {
+        const data: Optional<Profile> = {
+            id: creator?.id,
+            imageUrl: profileImage,
+            headerImageUrl: headerImage,
+            ...values
+        }
+        onSubmitFinally(data)
+    }
+
     const onSubmitFinally = async (data: Optional<Profile>) => {
         const [profile, error] = await updateProfile(data)
         if (error) {
             return
         }
-    }
-
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        onSubmitFinally(values)
+        console.log(profile)
         onClose()
     }
+
 
     return (
         <Dialog open={open} onOpenChange={onClose}>
@@ -88,6 +92,25 @@ export default function EditUsernamePageModal() {
                 </div>
                 <Form {...form} >
                     <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-3'>
+
+                        <FormField
+                            control={form.control}
+                            name="bio"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Bio</FormLabel>
+                                    <FormControl>
+                                        <Textarea className='resize-none' {...field} />
+                                    </FormControl>
+                                    <FormDescription>
+                                        What do you want your supporters to know about you
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <Button type="submit">Save</Button>
 
                     </form>
                 </Form>
