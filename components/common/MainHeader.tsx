@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { getCurrentUser } from "@/lib/authentication";
 import { Profile } from "@prisma/client";
 import Link from "next/link";
+import UserButton from "./UserButton";
 
 export default function MainHeader() {
     const { onOpen } = useInterface()
@@ -74,6 +75,8 @@ export default function MainHeader() {
                             <Link href={`/dashboard`} >
                                 <Button>Dashboard</Button>
                             </Link>
+
+                            <UserButton />
                         </>
                     ) : (
                         <>

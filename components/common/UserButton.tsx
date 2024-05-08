@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from '../ui/button';
 import { truncateText } from '@/utility/text';
+import Link from 'next/link';
 
 
 export default function UserButton() {
@@ -45,7 +46,9 @@ export default function UserButton() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>Dashboard</DropdownMenuItem>
                 <DropdownMenuItem className='lg:hidden'>Edit my page</DropdownMenuItem>
-                <DropdownMenuItem>View my page</DropdownMenuItem>
+                <Link href={`/${profile.userName}`}>
+                    <DropdownMenuItem>View my page</DropdownMenuItem>
+                </Link>
                 <DropdownMenuItem>My account</DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>Logout</DropdownMenuItem>
