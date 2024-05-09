@@ -37,7 +37,7 @@ export default function EditUsernamePageModal() {
 
     const [profileImage, setProfileImage] = useState(creator?.imageUrl)
     const [headerImage, setHeaderImage] = useState(creator?.imageUrl)
-
+    const [loading, setLoading] = useState(false)
 
     const formSchema = z.object({
         bio: z.string().optional(),
@@ -87,8 +87,8 @@ export default function EditUsernamePageModal() {
                     </p>
                 </DialogDescription>
                 <div className='flex '>
-                    <ImageUpload value={creator?.imageUrl} onChange={updateProfileImage} endpoint='Image' />
-                    <HeaderImageUpload value={creator?.headerImageUrl!} onChange={updateHeaderImage} endpoint='Image' />
+                    <ImageUpload setLoading={setLoading} value={creator?.imageUrl} onChange={updateProfileImage} endpoint='Image' />
+                    <HeaderImageUpload setLoading={setLoading} value={creator?.headerImageUrl!} onChange={updateHeaderImage} endpoint='Image' />
                 </div>
                 <Form {...form} >
                     <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-3'>
@@ -110,7 +110,7 @@ export default function EditUsernamePageModal() {
                             )}
                         />
 
-                        <Button type="submit">Save</Button>
+                        <Button disabled={loading} type="submit">Save</Button>
 
                     </form>
                 </Form>

@@ -7,6 +7,7 @@ interface FileUploadProps {
     onChange: (url: string) => void;
     endpoint: "Image"
     value: string | undefined;
+    setLoading: (loading: boolean) => any
 }
 
 export const HeaderImageUpload = (props: FileUploadProps) => {
@@ -51,12 +52,17 @@ export const HeaderImageUpload = (props: FileUploadProps) => {
             onClientUploadComplete={res => {
                 setImage(res?.[0].url!);
                 onChange(res?.[0].url!);
+                props.setLoading(false)
             }}
             onUploadError={(error: Error) => {
                 alert(`ERROR! ${error.message}`);
+                props.setLoading(false)
             }}
             onUploadBegin={name => {
+                props.setLoading(true)
             }}
         />
     );
 };
+
+//WARN: onbeforeupload begin may be a better choice than onuploadbegin, just docking
