@@ -29,7 +29,7 @@ export default function Page(props: any) {
                 <div className="w-full h-64 bg-pink-500 bg-center bg-cover bg-no-repeat" style={{ backgroundImage: `url(${creator?.headerImageUrl})` }}></div>
                 <div className="flex-1 bg-green-600 flex flex-col lg:flex-row justify-center gap-3 relative items-center lg:items-start">
                     <div className="bg-black w-[33rem] h-96 md:-mt-20 lg:-mt-32"></div>
-                    <div className="bg-black w-[33rem] h-96 md:-mt-20 lg:-mt-32"></div>
+                    <BuyCard creator={creator} />
                 </div>
             </section>
         </main>

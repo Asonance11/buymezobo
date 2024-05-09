@@ -26,6 +26,7 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Textarea } from '../ui/textarea'
+import { DeleteFileFromUploadthing } from '@/lib/uploadthing'
 
 
 
@@ -36,7 +37,7 @@ export default function EditUsernamePageModal() {
     const { creator } = data
 
     const [profileImage, setProfileImage] = useState(creator?.imageUrl)
-    const [headerImage, setHeaderImage] = useState(creator?.imageUrl)
+    const [headerImage, setHeaderImage] = useState(creator?.headerImageUrl)
     const [loading, setLoading] = useState(false)
 
     const formSchema = z.object({
@@ -69,11 +70,15 @@ export default function EditUsernamePageModal() {
     }
 
     const onSubmitFinally = async (data: Optional<Profile>) => {
+
+        // await DeleteFileFromUploadthing(creator?.imageUrl)
+        // await DeleteFileFromUploadthing(creator?.headerImageUrl)
+
         const [profile, error] = await updateProfile(data)
+
         if (error) {
             return
         }
-        console.log(profile)
         onClose()
     }
 

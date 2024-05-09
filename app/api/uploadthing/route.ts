@@ -9,8 +9,12 @@ export const { GET, POST } = createRouteHandler({
 });
 
 export async function DELETE(request: Request) {
-    const data = await request.json();
-    const newUrl = data.url.substring(data.url.lastIndexOf("/") + 1);
+    const url = new URL(request.url).searchParams.get("imageUrl");
+    if (!url) {
+        return new Response("URL parameter is missing", { status: 400 });
+    }
+    console.table(url)
+    const newUrl = url.substring(url.lastIndexOf("/") + 1);
     const utapi = new UTApi();
     await utapi.deleteFiles(newUrl);
 

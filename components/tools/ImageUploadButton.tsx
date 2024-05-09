@@ -1,7 +1,6 @@
 'use client';
 
-import { UploadButton } from '@/utility/uploadthing';
-import { Button } from '../ui/button';
+import { UploadButton } from '@/lib/uploadthing';
 import { useState } from 'react';
 
 interface FileUploadProps {
