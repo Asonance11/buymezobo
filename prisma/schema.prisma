@@ -32,7 +32,42 @@ model Profile {
 
     balance Int @default(0)
 
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    support   Support[]
+}
+
+model Support {
+    id        String  @id @default(uuid())
+    profileId String
+    profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+    name      String
+    anonymous Boolean @default(false)
+    content   String  @db.Text
+
+    amount        Int
+    numberOfZobo  Int
+    paymentRef    String? // Field for the reference of the payment
+    paymentStatus PaymentStatus? // Field for the status of the payment
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    comments Comment[] // Relation to comments
+}
+
+enum PaymentStatus {
+    PENDING
+    COMPLETED
+    FAILED
+}
+
+model Comment {
+    id        String   @id @default(uuid())
+    supportId String
+    support   Support  @relation(fields: [supportId], references: [id], onDelete: Cascade)
+    content   String   @db.Text
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
-

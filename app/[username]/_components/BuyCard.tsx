@@ -1,5 +1,5 @@
 import { PaystackButton, usePaystackPayment } from 'react-paystack';
-import { Profile } from '@prisma/client'
+import { PaymentStatus, Profile, Support } from '@prisma/client'
 import React, { HTMLAttributes, useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -23,6 +23,7 @@ import { ZoboPrice } from '@/lib/zobo'
 import { CONFIG } from '@/utility/config'
 import { HookConfig } from 'react-paystack/dist/types';
 import { cn } from '@/utility/style';
+import { Optional } from '@prisma/client/runtime/library';
 
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -53,8 +54,23 @@ export default function BuyCard({ creator, className }: Props) {
     })
 
 
-    const handlePaystackSuccessAction = (reference: any) => {
-        console.log(reference);
+    const handleSuccessAction = (reference: any) => {
+        let data: Optional<Support>
+
+        data = {
+            profileId: creator.id,
+            name: form.getValues("name"),
+            anonymous: form.getValues().privateMessage,
+            content: form.getValues("content"),
+            amount: finalAmount, //TODO: we need to create a monetisation model, how will we make money ourselves
+            numberOfZobo: amountToPay,
+            paymentStatus: PaymentStatus.COMPLETED,
+            paymentRef: reference.reference
+        }
+
+        console.table(data)
+
+        form.reset
     };
 
     const handlePaystackCloseAction = () => {
@@ -70,11 +86,8 @@ export default function BuyCard({ creator, className }: Props) {
     const initializePayment = usePaystackPayment(config);
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-
         console.log(values)
-
-        initializePayment({ onSuccess: handlePaystackSuccessAction, onClose: handlePaystackCloseAction })
-
+        initializePayment({ onSuccess: handleSuccessAction, onClose: handlePaystackCloseAction })
     }
 
     const nairaSymbol = "₦"
