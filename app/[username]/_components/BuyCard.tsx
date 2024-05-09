@@ -1,4 +1,4 @@
-
+import { PaystackButton, usePaystackPayment } from 'react-paystack';
 import { Profile } from '@prisma/client'
 import React, { useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -19,6 +19,9 @@ import { Input } from '@/components/ui/input'
 import { z } from 'zod'
 import { Checkbox } from '@/components/ui/checkbox'
 import ZoboAmountPicker from '@/components/tools/ZoboAmountPicker'
+import { ZoboPrice } from '@/lib/zobo'
+import { CONFIG } from '@/utility/config'
+import { HookConfig } from 'react-paystack/dist/types';
 
 
 interface Props {
@@ -29,11 +32,18 @@ export default function BuyCard({ creator }: Props) {
     const [loading, setLoading] = useState(false)
     const [amountToPay, setAmountToPay] = useState(0)
 
+    const [finalAmount, setFinalAmount] = useState(amountToPay * ZoboPrice)
+
+    const setFinalAmountFunction = (amount: number) => {
+        setFinalAmount(amount * ZoboPrice)
+        setAmountToPay(amount)
+    }
+
 
     const formSchema = z.object({
         name: z.string(),
         content: z.string(),
-        privateMessage: z.boolean().default(false).optional(),
+        privateMessage: z.boolean().default(false),
     })
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -41,17 +51,37 @@ export default function BuyCard({ creator }: Props) {
         },
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+
+    const handlePaystackSuccessAction = (reference: any) => {
+        console.log(reference);
+    };
+
+    const handlePaystackCloseAction = () => {
+        console.log('closed')
     }
 
+    const config: HookConfig = {
+        email: creator.email,
+        amount: finalAmount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+        publicKey: CONFIG.paystack_public_key!,
+    };
 
+    const initializePayment = usePaystackPayment(config);
 
+    function onSubmit(values: z.infer<typeof formSchema>) {
+
+        console.log(values)
+
+        initializePayment({ onSuccess: handlePaystackSuccessAction, onClose: handlePaystackCloseAction })
+
+    }
+
+    const nairaSymbol = "₦"
 
     return (
         <div className='p-5 w-[33rem] rounded-xl bg-white flex flex-col gap-3 items-start h-fit'>
             <div>Buy {creator.userName} Zobo</div>
-            <ZoboAmountPicker setAmount={setAmountToPay} amount={amountToPay} creator={creator} />
+            <ZoboAmountPicker setAmount={setFinalAmountFunction} amount={amountToPay} creator={creator} />
             <Form {...form} >
                 <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-3 w-full'>
 
@@ -103,7 +133,7 @@ export default function BuyCard({ creator }: Props) {
                             </FormItem>
                         )}
                     />
-                    <Button disabled={loading} className='w-full' type="submit">Support N{amountToPay}</Button>
+                    <Button disabled={loading} className='w-full font-semibold ' type="submit">Support {nairaSymbol + finalAmount}</Button>
                 </form>
             </Form>
 
