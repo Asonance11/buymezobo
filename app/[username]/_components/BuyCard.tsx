@@ -1,6 +1,6 @@
 import { PaystackButton, usePaystackPayment } from 'react-paystack';
 import { Profile } from '@prisma/client'
-import React, { useState } from 'react'
+import React, { HTMLAttributes, useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
@@ -22,12 +22,13 @@ import ZoboAmountPicker from '@/components/tools/ZoboAmountPicker'
 import { ZoboPrice } from '@/lib/zobo'
 import { CONFIG } from '@/utility/config'
 import { HookConfig } from 'react-paystack/dist/types';
+import { cn } from '@/utility/style';
 
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLDivElement> {
     creator: Profile
 }
-export default function BuyCard({ creator }: Props) {
+export default function BuyCard({ creator, className }: Props) {
 
     const [loading, setLoading] = useState(false)
     const [amountToPay, setAmountToPay] = useState(0)
@@ -79,8 +80,12 @@ export default function BuyCard({ creator }: Props) {
     const nairaSymbol = "₦"
 
     return (
-        <div className='p-5 w-[33rem] rounded-xl bg-white flex flex-col gap-3 items-start h-fit'>
-            <div>Buy {creator.userName} Zobo</div>
+        <div className={cn(` p-10 w-[33rem] rounded-2xl bg-white flex flex-col gap-3 items-start h-fit`, className)}>
+            <div>
+                <p className='font-bold text-xl -tracking-wide'>
+                    Buy {creator.userName} Zobo
+                </p>
+            </div>
             <ZoboAmountPicker setAmount={setFinalAmountFunction} amount={amountToPay} creator={creator} />
             <Form {...form} >
                 <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-3 w-full'>
