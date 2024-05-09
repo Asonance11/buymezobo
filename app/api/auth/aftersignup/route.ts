@@ -1,10 +1,13 @@
 import { getCurrentUser } from "@/lib/authentication";
 import { db } from "@/lib/database";
+import { createTransferRecipient } from "@/lib/paystack";
+import { Profile } from "@prisma/client";
+import { Optional } from "@prisma/client/runtime/library";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-    const data = await req.json()
-
+    const data: Optional<Profile> = await req.json()
+    console.table(data)
     try {
 
         const profile = await getCurrentUser()
@@ -14,6 +17,12 @@ export async function POST(req: NextRequest) {
         }
 
         //TODO: create and save a transfer recipient https://paystack.com/docs/transfers/creating-transfer-recipients/#create-recipient
+        const paystackResponse = await createTransferRecipient({ data })
+
+
+        if (data.bankAccountName !== paystackResponse.data.details.account_name) {
+            return new NextResponse("Unauthorized", { status: 400 });
+        }
 
         const updated = await db.profile.update({
             where: {
@@ -22,14 +31,18 @@ export async function POST(req: NextRequest) {
             data: {
                 accountNumber: data.accountNumber,
                 userName: data.userName,
-                bankCode: data.bankCode
+                bankCode: data.bankCode,
+                bankAccountName: data.bankAccountName,
+                transferRecipientCode: paystackResponse.data.recipient_code
             }
         })
+
+        console.table(updated)
 
         return new NextResponse("Bank details saved successfully", { status: 200 });
 
     } catch (err) {
-        console.log("SERVER ERROR, POST AFTER SIGNUP", { status: 500 })
+        console.log("SERVER ERROR, POST AFTER SIGNUP", { status: 500, err })
         return new NextResponse("Server error occurred", { status: 500 });
     }
 }

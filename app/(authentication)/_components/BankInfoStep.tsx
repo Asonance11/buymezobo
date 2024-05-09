@@ -48,7 +48,8 @@ export default function BankInfoStep() {
         const data = {
             "accountNumber": state.values.AccountNumber,
             "bankCode": state.values.BankCode,
-            "userName": state.values.UserName
+            "userName": state.values.UserName,
+            "bankAccountName": ""
         }
 
         try {
@@ -64,13 +65,17 @@ export default function BankInfoStep() {
                 throw new Error("Failed to resolve bank info")
             }
 
+            data.bankAccountName = responseData.data.account_name
+
+            console.table(data)
+
             console.log("Bank account resolved successfully.");
 
             try {
                 const postResponse = await axios.post("/api/auth/aftersignup", data);
                 console.log("POST request sent to /api/auth/aftersignup:", postResponse.data);
                 if (postResponse.status === 200) {
-                    route.push('/dashboard')
+                    //route.push('/dashboard')
                 }
             } catch (error) {
                 console.error("Error sending POST request to /api/auth/aftersignup:", error);

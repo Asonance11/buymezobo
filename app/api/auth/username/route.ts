@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
     const url = new URL(req.url)
-    const username = url.searchParams.get('username')
+    const username = url.searchParams.get('username')?.toLowerCase()
 
     if (username == "siji") {
         return NextResponse.json({ available: false })
@@ -11,11 +11,11 @@ export async function GET(req: NextRequest) {
 
     const available = await db.profile.findFirst({
         where: {
-            userName:username
+            userName: username
         }
     })
 
-    if (available != null) {
+    if (available == null) {
         return NextResponse.json({ available: true })
     }
 

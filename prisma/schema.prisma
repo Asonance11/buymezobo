@@ -23,9 +23,11 @@ model Profile {
     imageUrl       String  @db.Text
     headerImageUrl String? @db.Text
 
-    userName      String?
-    accountNumber String?
-    bankCode      String?
+    userName              String?
+    accountNumber         String?
+    bankCode              String?
+    bankAccountName       String?
+    transferRecipientCode String?
 
     bio String?
 
