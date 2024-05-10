@@ -24,6 +24,7 @@ import { CONFIG } from '@/utility/config'
 import { HookConfig } from 'react-paystack/dist/types';
 import { cn } from '@/utility/style';
 import { Optional } from '@prisma/client/runtime/library';
+import axios from 'axios';
 
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -53,8 +54,11 @@ export default function BuyCard({ creator, className }: Props) {
         },
     })
 
+    const preHandleSuccessAction = (reference: any) => {
+        handleSuccessAction(reference)
+    }
 
-    const handleSuccessAction = (reference: any) => {
+    const handleSuccessAction = async (reference: any) => {
         let data: Optional<Support>
 
         data = {
@@ -68,9 +72,16 @@ export default function BuyCard({ creator, className }: Props) {
             paymentRef: reference.reference
         }
 
-        console.table(data)
+        try {
+            const response = await axios.post("/api/support", data)
+            //TODO: add after support action like thank the user, show some more content, etc
+            //TODO: sonner over here
+            console.table(response.data)
+            form.reset()
+        } catch (error) {
+        }
 
-        form.reset
+
     };
 
     const handlePaystackCloseAction = () => {
@@ -86,8 +97,7 @@ export default function BuyCard({ creator, className }: Props) {
     const initializePayment = usePaystackPayment(config);
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
-        initializePayment({ onSuccess: handleSuccessAction, onClose: handlePaystackCloseAction })
+        initializePayment({ onSuccess: preHandleSuccessAction, onClose: handlePaystackCloseAction })
     }
 
     const nairaSymbol = "₦"

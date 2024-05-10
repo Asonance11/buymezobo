@@ -28,7 +28,7 @@ export default function Page(props: any) {
             <section className="flex-1 bg-blue-700 w-full flex flex-col ">
                 <div className="w-full h-72 bg-pink-500 bg-center bg-cover bg-no-repeat" style={{ backgroundImage: `url(${creator?.headerImageUrl})` }}></div>
                 <div className="flex-1 flex flex-col lg:flex-row justify-center gap-3 relative items-center lg:items-start bg-gray-300">
-                    <div className="bg-transparent w-[33rem] h-96 md:-mt-20 lg:-mt-32"></div>
+                    <SupportersCard className="-mt-32" creator={creator} />
                     <BuyCard className="-mt-32" creator={creator} />
                 </div>
             </section>
