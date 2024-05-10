@@ -2,6 +2,7 @@ import { Profile } from '@prisma/client'
 import React, { HTMLAttributes } from 'react'
 import { useRouter } from "next/navigation"
 import { useInterface } from '@/store/InterfaceStore'
+import { truncateText } from '@/utility/text'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
     profile: Profile
@@ -10,7 +11,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 export default function CreatorSearchButton({ profile, ...props }: Props) {
 
     const router = useRouter()
-    const {onClose} = useInterface()    
+    const { onClose } = useInterface()
 
     const selectCreactor = () => {
         onClose()
@@ -22,7 +23,7 @@ export default function CreatorSearchButton({ profile, ...props }: Props) {
             <div className="cursor-pointer rounded-full w-7 h-7 bg-center bg-cover bg-no-repeat" style={{ backgroundImage: `url(${profile?.imageUrl})` }}></div>
             <div className='flex-col gap-1 items-center justify-start'>
                 <p className='text-xs font-semibold'>{profile.userName}</p>
-                <p className='text-xs'>{profile.email}</p>
+                <p className='text-xs'>{truncateText(profile.bio ? profile.bio : "", 50)}</p>
             </div>
         </div>
     )

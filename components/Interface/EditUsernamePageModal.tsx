@@ -1,6 +1,6 @@
 
 import { useInterface } from '@/store/InterfaceStore'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
     Dialog,
@@ -46,10 +46,14 @@ export default function EditUsernamePageModal() {
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: {
-            bio: creator?.bio || ""
-        },
     })
+
+    useEffect(() => {
+        const addBioFirst = () => {
+            form.setValue("bio", creator?.bio?? creator?.bio!)
+        }
+        addBioFirst()
+    }, [open])
 
     const updateProfileImage = (image: string) => {
         setProfileImage(image)
