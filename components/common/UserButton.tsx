@@ -15,10 +15,12 @@ import {
 import { Button } from '../ui/button';
 import { truncateText } from '@/utility/text';
 import Link from 'next/link';
+import { useClerk } from "@clerk/nextjs";
 
 
 export default function UserButton() {
     const [profile, setProfile] = useState<Profile | null>(null)
+    const { signOut } = useClerk();
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -30,6 +32,10 @@ export default function UserButton() {
 
     if (!profile) {
         return null
+    }
+
+    const OnSignOut = async () => {
+        signOut()
     }
 
 
@@ -51,7 +57,7 @@ export default function UserButton() {
                 </Link>
                 <DropdownMenuItem>My account</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <DropdownMenuItem onClick={OnSignOut}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     )

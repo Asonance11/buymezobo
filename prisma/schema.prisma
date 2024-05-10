@@ -24,6 +24,8 @@ model Profile {
     headerImageUrl String? @db.Text
     bio            String?
 
+    amount Int @default(0)
+
     userName              String?
     accountNumber         String?
     bankCode              String?
