@@ -1,8 +1,8 @@
 
 import { getCreatorSupports } from '@/actions/support'
+import { Separator } from '@/components/ui/separator'
 import { cn } from '@/utility/style'
 import { Profile, Support } from '@prisma/client'
-import { Separator } from '@radix-ui/react-dropdown-menu'
 import React, { HTMLAttributes, useEffect, useState } from 'react'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -37,7 +37,7 @@ export default function SupportersCard({ creator, className }: Props) {
                 <p className='text-lg font-bold -tracking-wide'>About {creator.userName}</p>
                 <p className='text-sm font-semibold text-zinc-500'>{creator.bio}</p>
             </div>
-            <Separator />
+            <Separator className='my-2' />
             <div className='spce-y-4 w-full'>
                 {
                     supports.map((support) => (
