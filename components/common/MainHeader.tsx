@@ -45,7 +45,7 @@ export default function MainHeader() {
                         <div className="flex items-center gap-8">
                             <div className="flex items-center justify-center w-fit gap-1.5">
                                 <FaQuoteLeft />
-                                <a className="text-base font-semibold tracking-tight" >FAQ</a>
+                                <Link href="/faq" className="text-base font-semibold tracking-tight" >FAQ</Link>
                             </div>
 
                             <div className="flex items-center justify-center w-fit gap-1">
