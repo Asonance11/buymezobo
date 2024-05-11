@@ -15,7 +15,7 @@ const FaqAccordionItem = ({ index, question, answer }: FaqAccordionProps) => {
   return (
     <AccordionItem
       value={index.toString()}
-      className="border-none bg-neutral-100 rounded-md px-4"
+      className="border-none bg-neutral-100 rounded-md px-4 mb-4"
     >
       <AccordionTrigger className="font-bold text-lg">
         {question}

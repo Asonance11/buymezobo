@@ -8,9 +8,11 @@ import React from "react";
 
 const FaqPage = () => {
   return (
-    <section className="mt-24 flex flex-col justify-center mx-auto md:max-w-3xl">
+    <section className="mt-24 px-4 flex flex-col justify-center mx-auto md:max-w-3xl pb-12">
       <div className="text-center">
-        <h1 className={`${DancingScript.className} text-5xl font-bold `}>
+        <h1
+          className={`${DancingScript.className} text-4xl md:text-5xl font-bold`}
+        >
           Frequently Asked Questions
         </h1>
         <p className="mt-6 text-lg">
