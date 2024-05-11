@@ -39,9 +39,28 @@ export default function BankInfoStep() {
         fetchBanks();
     }, []);
 
-    const skip = () => {
-        state.values.UserName = ""
-        nextStep()
+    const skip = async () => {
+
+        state.values.BankCode = ""
+        state.values.AccountNumber = ""
+
+        const data = {
+            "userName": state.values.UserName,
+        }
+
+        try {
+            const postResponse = await axios.post("/api/auth/aftersignup", data);
+            console.log("POST request sent to /api/auth/aftersignup:", postResponse.data);
+            if (postResponse.status === 200) {
+                route.push('/')
+            }
+
+        } catch (err) {
+            console.error("Error sending POST request to /api/auth/aftersignup:", err);
+        }
+
+
+        route.push("/dashboard")
     }
 
     const next = async () => {
@@ -93,7 +112,7 @@ export default function BankInfoStep() {
 
     const handleAccountNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const input = e.target.value;
-        if (input.length <= 20) {
+        if (input.length <= 11) {
             setAccountNumber(input);
             state.values.AccountNumber = input
         }
