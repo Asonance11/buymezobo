@@ -39,7 +39,7 @@ export default function UserNameHeader({ user: visitedUser, className, ...props 
                     <div className="cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat" style={{ backgroundImage: `url(${visitedUser?.imageUrl})` }}></div>
                     <div className='flex-col gap-1 items-center justify-start'>
                         <p className='text-xs font-semibold'>{visitedUser.userName}</p>
-                        <p className='text-xs'>{visitedUser.email}</p>
+                        <p className='text-xs'>{visitedUser.bio}</p>
                     </div>
                 </div>
                 <div className="navbar-end flex gap-2">
