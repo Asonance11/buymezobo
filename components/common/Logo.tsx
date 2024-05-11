@@ -1,12 +1,12 @@
 import { FaWineBottle } from "react-icons/fa6";
 import React from 'react'
+import { DancingScript, shadowLight } from "@/utility/fonts";
 
 export const Logo = ({ }) => {
     return (
         <a href="/">
             <div className="flex items-center justify-center gap-0.5">
-                <FaWineBottle className="text-2xl text-purple-950 " />
-                <p className="text-xl tracking-tighter font-bold">Buy me Zobo</p>
+                <p className={`text-2xl lg:text-3xl tracking-tighter font-extrabold ${shadowLight.className}`}>Buy me Zobo &copy;</p>
             </div>
         </a>
     )

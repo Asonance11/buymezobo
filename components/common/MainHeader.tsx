@@ -57,7 +57,7 @@ export default function MainHeader() {
                     )
                 }
             </div>
-            <div className="navbar-center hidden lg:flex">
+            <div className="navbar-center flex">
                 <Logo />
             </div>
             <div className="navbar-end flex gap-3">
@@ -68,11 +68,11 @@ export default function MainHeader() {
                 {
                     profile ? (
                         <>
-                            <Link href={`/${profile.userName}`} >
+                            <Link className="hidden lg:block" href={`/${profile.userName}`} >
                                 <Button variant={"secondary"}>View page</Button>
                             </Link>
 
-                            <Link href={`/dashboard`} >
+                            <Link className="hidden lg:block" href={`/dashboard`} >
                                 <Button>Dashboard</Button>
                             </Link>
 

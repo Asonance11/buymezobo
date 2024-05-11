@@ -27,8 +27,8 @@ export default function Home() {
         <main className="min-h-dvh flex flex-col">
             <MainHeader />
             <section className="flex flex-col items-center justify-center grow">
-                <div className="w-16 h-7 lg:w-40 lg:h-12 bg-black"></div>
-                <div className="lg:w-2/3 xl:w-1/3 mx-auto p-1 lg:p-5 flex items-center justify-center flex-col gap-2 lg:gap-3 text-center">
+                <div className="lg:w-2/3 xl:w-[40%] mx-auto p-2 lg:p-6 flex items-center justify-center flex-col gap-2 lg:gap-3 text-center rounded-lg lg:shadow-md">
+                    <div className="w-16 h-7 lg:w-40 lg:h-12 bg-black"></div>
                     <h1 className={`text-4xl md:text-6xl lg:text-8xl  dark:text-neutral-400  text-neutral-800 mb-4 lg:mb-6 text-center -tracking-wider font-bold ${InterTight.className} `}>
                         Fund your creative work
                     </h1>
