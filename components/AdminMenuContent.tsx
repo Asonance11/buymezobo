@@ -9,6 +9,7 @@ import { RiHomeSmileLine } from "react-icons/ri";
 import { MdOutlineExplore } from "react-icons/md";
 import { PiLayout } from "react-icons/pi";
 import { PiArrowSquareOutLight } from "react-icons/pi";
+import { Logo } from './common/Logo'
 
 export default function AdminMenuContent() {
     const pathname = usePathname()
@@ -38,7 +39,9 @@ export default function AdminMenuContent() {
 
     return (
         <main className='w-full h-full bg-white flex flex-col'>
-            <div className='bg-blue-50 h-[3rem] lg:h-[4rem]'></div>
+            <div className='h-[3rem] lg:h-[4rem] flex items-center justify-evenly'>
+                <Logo />
+            </div>
             <section className='flex-1 p-3 '>
                 {mainOptions.map(option => (
                     <Link href={option.route} target={option.newTab ? '_blank' : '_self'} rel={option.newTab ? 'noopener noreferrer' : ''}
