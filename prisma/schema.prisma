@@ -14,11 +14,11 @@ datasource db {
 }
 
 model Profile {
-    id        String @id @default(uuid())
-    userId    String @unique
-    email     String @db.Text
-    firstName String
-    lastName  String
+    id        String  @id @default(uuid())
+    userId    String  @unique
+    email     String  @db.Text
+    firstName String?
+    lastName  String?
 
     imageUrl       String  @db.Text
     headerImageUrl String? @db.Text
@@ -26,7 +26,7 @@ model Profile {
 
     amount Int @default(0)
 
-    userName              String?
+    userName              String? @unique
     accountNumber         String?
     bankCode              String?
     bankAccountName       String?
