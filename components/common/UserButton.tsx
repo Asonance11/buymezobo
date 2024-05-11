@@ -50,7 +50,9 @@ export default function UserButton() {
                     <p className='text-xs'>{truncateText(profile.email, 23)}</p>
                 </div>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                <Link href={"/dashboard"}>
+                    <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                </Link>
                 <DropdownMenuItem className='lg:hidden'>Edit my page</DropdownMenuItem>
                 <Link href={`/${profile.userName}`}>
                     <DropdownMenuItem>View my page</DropdownMenuItem>
