@@ -5,3 +5,4 @@
 - [x] create the schema for payment
 - [x] create payment logic
 - [ ] cards in username page are too large for mobile
+- [ ] FAQ page is actually really needed - the data should be dynamic and stored in the data folder, so like a new file, data.ts, and return an array of question and answer type, the faq file has already been created in /app/(marketing)/FAQ/page.tsx, shadcn component will be preferred
