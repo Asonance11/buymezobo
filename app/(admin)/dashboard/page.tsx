@@ -1,8 +1,5 @@
 import DashBoardEarningPage from '@/components/AdminComponents/DashBoardEarningPage';
 import { getCurrentUser } from '@/lib/authentication';
-import React from 'react';
-import DashBoardEarningPage from "@/components/AdminComponents/DashBoardEarningPage";
-import { getCurrentUser } from "@/lib/authentication";
 import { CircularProgress } from "@mui/material";
 import React, { Suspense } from "react";
 
