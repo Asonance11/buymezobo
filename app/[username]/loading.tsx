@@ -1,10 +1,10 @@
-import { CircularProgress } from '@mui/material';
+import Loader from '@/components/common/Loader';
 import React from 'react';
 
 function Loading() {
 	return (
 		<div className="md:min-h-screen md:w-full flex justify-center items-center">
-			<CircularProgress color="error" className="md:min-w-[200px] md:min-h-[200px] w-1/2 h-1/2 mx-auto block" />
+	<Loader className="md:w-[100px] md:min-h-[100px] w-[50px] h-[50px] mx-auto block" />
 		</div>
 	);
 }

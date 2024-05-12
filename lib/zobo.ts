@@ -18,4 +18,4 @@ export const ZoboAmounts: ZoboAMountsInterface[] = [
 	},
 ];
 
-export const ZoboPrice = 400;
+export const ZoboPrice = 250;

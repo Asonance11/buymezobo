@@ -8,6 +8,8 @@ import { Profile } from '@prisma/client';
 import { cn } from '@/utility/style';
 import UserButton from './UserButton';
 import { truncateText } from '@/utility/text';
+import { Logo } from './Logo';
+import Link from 'next/link';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	user: Profile;
@@ -45,6 +47,9 @@ export default function UserNameHeader({ user: visitedUser, className, ...props 
 						<p className="text-xs">{truncateText(visitedUser?.bio || visitedUser.email, 35)}</p>
 					</div>
 				</div>
+				<div className="navbar-center flex">
+				<Logo />
+			</div>
 				<div className="navbar-end flex gap-2">
 					<div className="flex items-center gap-5">
 						<SlOptions />

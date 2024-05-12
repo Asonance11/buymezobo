@@ -6,7 +6,7 @@ export default function Loader({ className }: Props) {
 	return (
 		<div
 			className={cn(
-				`border-gray-300 h-8 w-8 animate-spin rounded-full border-[6px] border-t-blue-600`,
+				`border-gray-300 h-8 w-8 animate-spin rounded-full border-[6px] border-t-[#B91C1C]`,
 				className,
 			)}
 		/>
