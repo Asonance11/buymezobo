@@ -43,8 +43,8 @@ export default function AdminMenuContent() {
                 <Logo />
             </div>
             <section className='flex-1 p-3 '>
-                {mainOptions.map(option => (
-                    <Link href={option.route} target={option.newTab ? '_blank' : '_self'} rel={option.newTab ? 'noopener noreferrer' : ''}
+                {mainOptions.map( (option, index) => (
+                    <Link key={index} href={option.route} target={option.newTab ? '_blank' : '_self'} rel={option.newTab ? 'noopener noreferrer' : ''}
                         className={``}
                     >
                         <div className={`mb-2 flex gap-1.5 items-center justify-around transition-all duration-300 py-2.5 px-3.5 rounded-lg ${pathname === option.route ? 'bg-zinc-100' : 'hover:bg-zinc-100'}`}>
