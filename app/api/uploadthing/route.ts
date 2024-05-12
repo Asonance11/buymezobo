@@ -1,22 +1,21 @@
-import { createRouteHandler } from "uploadthing/next";
-import { ourFileRouter } from "./core";
-import { UTApi } from "uploadthing/server"
-
+import { createRouteHandler } from 'uploadthing/next';
+import { ourFileRouter } from './core';
+import { UTApi } from 'uploadthing/server';
 
 // Export routes for Next App Router
 export const { GET, POST } = createRouteHandler({
-    router: ourFileRouter,
+	router: ourFileRouter,
 });
 
 export async function DELETE(request: Request) {
-    const url = new URL(request.url).searchParams.get("imageUrl");
-    if (!url) {
-        return new Response("URL parameter is missing", { status: 400 });
-    }
-    console.table(url)
-    const newUrl = url.substring(url.lastIndexOf("/") + 1);
-    const utapi = new UTApi();
-    await utapi.deleteFiles(newUrl);
+	const url = new URL(request.url).searchParams.get('imageUrl');
+	if (!url) {
+		return new Response('URL parameter is missing', { status: 400 });
+	}
+	console.table(url);
+	const newUrl = url.substring(url.lastIndexOf('/') + 1);
+	const utapi = new UTApi();
+	await utapi.deleteFiles(newUrl);
 
-    return Response.json({ message: "ok" });
+	return Response.json({ message: 'ok' });
 }
