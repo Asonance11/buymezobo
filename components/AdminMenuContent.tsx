@@ -38,8 +38,8 @@ export default function AdminMenuContent() {
     ];
 
     const categorizedOptions = [
-        { category: 'Profile', routes: [{ name: 'Settings', route: '/profile/settings', icon: IoSettingsOutline }] },
-        { category: 'Monetization', routes: [{ name: 'Payouts', route: '/monetization/payout', icon: MdOutlinePayments }] },
+        { category: 'Profile', routes: [{ name: 'Settings', route: '/settings', icon: IoSettingsOutline }] },
+        { category: 'Monetization', routes: [{ name: 'Payouts', route: '/payout', icon: MdOutlinePayments }] },
     ];
 
     return (
