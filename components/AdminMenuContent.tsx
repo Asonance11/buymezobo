@@ -59,7 +59,7 @@ export default function AdminMenuContent() {
 							className={`mb-2 flex gap-1.5 items-center justify-around transition-all duration-300 py-2.5 px-3.5 rounded-lg ${pathname === option.route ? 'bg-zinc-100' : 'hover:bg-zinc-100'}`}
 						>
 							<option.icon
-								className={` ${pathname === option.route ? 'text-red-500 ' : null} text-2xl `}
+								className={` ${pathname === option.route ? 'text-red-500 ' : null} text-lg lg:text-2xl `}
 							/>
 							<p className="flex-1 text-zinc-800 text-sm font-normal">{option.name}</p>
 							{option.newTab ? <RedirectIcon className={` text-lg text-zinc-600`} /> : null}
@@ -75,7 +75,7 @@ export default function AdminMenuContent() {
 									className={`mb-2 flex gap-1.5 items-center justify-around transition-all duration-300 py-2.5 px-3.5 rounded-lg ${pathname === route.route ? 'bg-zinc-100' : 'hover:bg-zinc-100'}`}
 								>
 									<route.icon
-										className={` ${pathname === route.route ? 'text-red-500 ' : null} text-2xl `}
+										className={` ${pathname === route.route ? 'text-red-500 ' : null} text-lg  lg:text-2xl `}
 									/>
 									<p className="flex-1 text-zinc-800 text-sm font-normal">{route.name}</p>
 								</div>

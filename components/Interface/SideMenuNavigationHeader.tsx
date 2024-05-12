@@ -2,7 +2,6 @@ import { FaQuoteLeft } from 'react-icons/fa';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { useInterface } from '@/store/InterfaceStore';
 import { IoMdSearch } from 'react-icons/io';
-import SideBarCard from './SideBarCard';
 import { Logo } from '../common/Logo';
 
 export function SideMenuNavigationComponent() {

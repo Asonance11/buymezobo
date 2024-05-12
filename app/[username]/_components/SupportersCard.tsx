@@ -22,12 +22,11 @@ export default function SupportersCard({ creator, className }: Props) {
 				setLoading(false);
 				return;
 			}
-			console.log(supports);
 			setSupports(supports);
 			setLoading(false);
 		};
 		getSupports();
-	}, []);
+	}, [creator.id]);
 
 	return (
 		<div

@@ -14,7 +14,7 @@ const FaqPage = () => {
 					Frequently Asked Questions
 				</h1>
 				<p className="mt-6 text-sm xl:text-lg">
-					If you can't find an answer that you're looking for, feel free to drop us a line.
+					If you cannot find an answer that you are looking for, feel free to drop us a line.
 				</p>
 			</div>
 			<div className="mt-6 flex items-center justify-center gap-x-4">
@@ -38,7 +38,7 @@ const FaqPage = () => {
 
 			<section className="mt-16">
 				{faqs.map((faq, index) => (
-					<Accordion type="multiple">
+					<Accordion key={index} type="multiple">
 						<FaqAccordionItem index={index} question={faq.question} answer={faq.answer} />
 					</Accordion>
 				))}
