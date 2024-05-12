@@ -1,18 +1,18 @@
-import { createUploadthing, type FileRouter } from "uploadthing/next";
-import { currentUser } from "@clerk/nextjs/server";
+import { createUploadthing, type FileRouter } from 'uploadthing/next';
+import { currentUser } from '@clerk/nextjs/server';
 
 const f = createUploadthing();
 
 const handleAuth = () => {
-    const  user = currentUser()
-    if (!user) throw new Error("Unauthorized")
-    return { user };
-}
+	const user = currentUser();
+	if (!user) throw new Error('Unauthorized');
+	return { user };
+};
 
 export const ourFileRouter = {
-    Image: f({ image: { maxFileSize: "4MB", maxFileCount: 1 } })
-        .middleware(() => handleAuth())
-        .onUploadComplete(() => { }),
+	Image: f({ image: { maxFileSize: '4MB', maxFileCount: 1 } })
+		.middleware(() => handleAuth())
+		.onUploadComplete(() => {}),
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;

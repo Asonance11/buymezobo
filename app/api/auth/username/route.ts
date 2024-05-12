@@ -1,23 +1,23 @@
-import { db } from "@/lib/database";
-import { NextRequest, NextResponse } from "next/server";
+import { db } from '@/lib/database';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
-    const url = new URL(req.url)
-    const username = url.searchParams.get('username')?.toLowerCase()
+	const url = new URL(req.url);
+	const username = url.searchParams.get('username')?.toLowerCase();
 
-    if (username == "siji") {
-        return NextResponse.json({ available: false })
-    }
+	if (username == 'siji') {
+		return NextResponse.json({ available: false });
+	}
 
-    const available = await db.profile.findFirst({
-        where: {
-            userName: username
-        }
-    })
+	const available = await db.profile.findFirst({
+		where: {
+			userName: username,
+		},
+	});
 
-    if (available == null) {
-        return NextResponse.json({ available: true })
-    }
+	if (available == null) {
+		return NextResponse.json({ available: true });
+	}
 
-    return NextResponse.json({ available: false })
+	return NextResponse.json({ available: false });
 }
