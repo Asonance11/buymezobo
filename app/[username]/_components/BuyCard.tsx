@@ -103,7 +103,7 @@ export default function BuyCard({ creator, className }: Props) {
     const nairaSymbol = "₦"
 
     return (
-        <div className={cn(` p-10 w-[33rem] rounded-2xl bg-white flex flex-col gap-3 items-start h-fit`, className)}>
+        <div className={cn(`transition-all duration-300 p-7 md:p-10 w-[27rem] md:w-[33rem] rounded-2xl bg-white flex flex-col gap-3 items-start h-fit`, className)}>
             <div>
                 <p className='font-bold text-xl -tracking-wide'>
                     Buy {creator.userName} Zobo

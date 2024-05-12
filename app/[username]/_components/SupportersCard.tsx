@@ -32,10 +32,10 @@ export default function SupportersCard({ creator, className }: Props) {
     }, [])
 
     return (
-        <div className={cn(` p-10 w-[33rem] rounded-2xl bg-white flex flex-col gap-3 items-start h-fit`, className)}>
+        <div className={cn(`transition-all duration-300 p-7 md:p-10 w-[27rem] md:w-[33rem] rounded-2xl bg-white flex flex-col gap-3 items-start h-fit`, className)}>
             <div className='space-y-3'>
-                <p className='text-lg font-bold -tracking-wide'>About {creator.userName}</p>
-                <p className='text-sm font-semibold text-zinc-500'>{creator.bio}</p>
+                <p className='text-base md:text-lg font-bold -tracking-wide'>About {creator.userName}</p>
+                <p className='text-xs md:text-sm font-semibold text-zinc-500'>{creator.bio}</p>
             </div>
             <Separator className='my-2' />
             <div className='spce-y-4 w-full'>
