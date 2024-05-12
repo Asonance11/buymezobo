@@ -5,6 +5,7 @@ import { Separator } from '../ui/separator'
 import { Button } from '../ui/button'
 import { MdIosShare } from "react-icons/md";
 import SharePage from '../common/SharePage'
+import { formatNumberWithCommas } from '@/utility/text'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
     profile: Profile
@@ -30,7 +31,7 @@ export default function DashBoardEarningPage({ profile, className }: Props) {
                     <div className='w-20 h-7 bg-black'></div>
                 </div>
                 <p className='text-5xl font-bold'>
-                    {nairaSymbol}{profile.balance}
+                    {nairaSymbol}{formatNumberWithCommas(profile.balance)}
                 </p>
             </div>
 
