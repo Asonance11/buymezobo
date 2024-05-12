@@ -1,6 +1,7 @@
 import DashBoardEarningPage from '@/components/AdminComponents/DashBoardEarningPage';
 import { getCurrentUser } from '@/lib/authentication';
-import React from 'react';
+import { CircularProgress } from "@mui/material";
+import React, { Suspense } from "react";
 
 export default async function page() {
 	const profile = await getCurrentUser();
