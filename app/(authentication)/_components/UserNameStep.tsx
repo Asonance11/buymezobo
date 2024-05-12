@@ -56,11 +56,6 @@ export default function UserNameStep() {
     debouncedCheckUsername(username);
   };
 
-  const skip = () => {
-    state.values.UserName = "";
-    nextStep();
-  };
-
   const next = () => {
     if (!loading) {
       nextStep();
@@ -106,13 +101,6 @@ export default function UserNameStep() {
         <p className="text-red-500 font-semibold text-sm">{usernameError}</p>
       )}
       <div className="flex gap-3">
-        <Button
-          onClick={skip}
-          variant={"secondary"}
-          className="text-sm lg:text-base"
-        >
-          i&apos;m not here to earn
-        </Button>
         <Button
           onClick={next}
           disabled={loading}

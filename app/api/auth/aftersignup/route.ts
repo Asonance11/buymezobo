@@ -17,11 +17,16 @@ export async function POST(req: NextRequest) {
         }
 
         //TODO: create and save a transfer recipient https://paystack.com/docs/transfers/creating-transfer-recipients/#create-recipient
-        const paystackResponse = await createTransferRecipient({ data })
 
+        let paystackResponse
 
-        if (data.bankAccountName !== paystackResponse.data.details.account_name) {
-            return new NextResponse("Unauthorized", { status: 400 });
+        if (data.bankCode && data.accountNumber && data.bankAccountName) {
+            paystackResponse = await createTransferRecipient({ data })
+
+            if (data.bankAccountName !== paystackResponse.data.details.account_name) {
+                return new NextResponse("Unauthorized", { status: 400 });
+            }
+
         }
 
         const updated = await db.profile.update({
@@ -29,11 +34,11 @@ export async function POST(req: NextRequest) {
                 id: profile.id
             },
             data: {
-                accountNumber: data.accountNumber,
+                accountNumber: data.accountNumber || null,
                 userName: data.userName,
-                bankCode: data.bankCode,
-                bankAccountName: data.bankAccountName,
-                transferRecipientCode: paystackResponse.data.recipient_code
+                bankCode: data.bankCode || null,
+                bankAccountName: data.bankAccountName || null,
+                transferRecipientCode: paystackResponse?.data.recipient_code || null
             }
         })
 

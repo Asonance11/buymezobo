@@ -18,7 +18,7 @@ export default function DashBoardEarningPage({ profile, className }: Props) {
             <div className='flex items-center gap-2'>
                 <div className="cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat" style={{ backgroundImage: `url(${profile?.imageUrl})` }}></div>
                 <div className='flex-1'>
-                    <p className='text-xl font-semibold tracking-tight'>Hi, {profile.firstName}</p>
+                    <p className='text-xl font-semibold tracking-tight'>Hi, {profile.firstName || profile.userName }</p>
                     <p className='font-light text-sm text-zinc-700'>buymezobo.com/{profile.userName}</p>
                 </div>
                 <SharePage profile={profile} />
