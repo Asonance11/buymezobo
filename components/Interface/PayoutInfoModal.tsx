@@ -1,30 +1,134 @@
 import { useInterface } from '@/store/InterfaceStore';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Bank } from '@/types/bank';
+import axios from 'axios';
+import { CONFIG } from '@/utility/config';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
 
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import Loader from '../common/Loader';
 export default function PayoutInfoModal() {
-    const { type, isOpen, onClose, data } = useInterface();
-    const open = isOpen && type == 'payoutInfoModal';
+	const { type, isOpen, onClose, data } = useInterface();
+	const open = isOpen && type == 'payoutInfoModal';
+	const [loading, setLoading] = useState(false);
+	const [readyToLoadBanks, setReadyToLoadBanks] = useState(false);
 
-    return (
-        <Dialog open={open} onOpenChange={onClose}>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>Payout info for {data.creator?.userName}?</DialogTitle>
-                    <DialogDescription>
-                        To enable payouts, you'll need to provide your bank details to our payment partner. Rest
-                        assured, your information is secure and will be encrypted on our servers.
-                    </DialogDescription>
-                </DialogHeader>
-            </DialogContent>
-        </Dialog>
-    );
+	const [banks, setBanks] = useState<Bank[]>([]);
+
+	useEffect(() => {
+		const fetchBanks = async () => {
+			try {
+				setLoading(true);
+				const response = await axios.get('https://api.paystack.co/bank', {
+					headers: {
+						Authorization: `Bearer ${CONFIG.paystack_key}`,
+					},
+				});
+				setBanks(response.data.data);
+				console.log(response.data.data);
+			} catch (error) {
+				console.error('Error fetching banks:', error);
+			} finally {
+				setLoading(false);
+			}
+		};
+		if (open == true || readyToLoadBanks == true) {
+			fetchBanks();
+		}
+	}, [open, readyToLoadBanks]);
+
+	const formSchema = z.object({
+		accountNumber: z.string(),
+		banckCode: z.string(),
+	});
+
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			banckCode: '',
+		},
+	});
+
+	const handleBankSelect = (bank: any) => {
+		form.setValue('banckCode', bank);
+	};
+
+	function onSubmit(values: z.infer<typeof formSchema>) {
+		console.table(values);
+	}
+
+	return (
+		<Dialog open={open} onOpenChange={onClose}>
+			<DialogContent className="space-y-4">
+				<DialogHeader>
+					<DialogTitle>Payout info for {data.creator?.userName}?</DialogTitle>
+					<DialogDescription>
+						To enable payouts, you'll need to provide your bank details to our payment partner. Rest
+						assured, your information is secure and will be encrypted on our servers.
+					</DialogDescription>
+				</DialogHeader>
+				<Form {...form}>
+					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+						<FormField
+							control={form.control}
+							name="accountNumber"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Account number</FormLabel>
+									<FormControl>
+										<Input className="" placeholder="Enter your account number" {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
+						<FormField
+							control={form.control}
+							name="banckCode"
+							render={({ field }) => (
+								<FormItem className="flex flex-col">
+									<FormLabel>Bank Account</FormLabel>
+									<Select onValueChange={field.onChange} defaultValue={field.value}>
+										<SelectTrigger onClick={() => setReadyToLoadBanks(true)} className="w-[full]">
+											<SelectValue placeholder="Select Bank" />
+										</SelectTrigger>
+										<SelectContent>
+											{loading ? (
+												<Loader />
+											) : (
+												banks.map((bank) => (
+													<SelectItem
+														key={bank.code}
+														value={bank.code}
+														onSelect={handleBankSelect}
+													>
+														{bank.name}
+													</SelectItem>
+												))
+											)}
+										</SelectContent>
+									</Select>
+
+									<FormDescription>choose your bank for the payout</FormDescription>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
+						<Button disabled={loading} type="submit">
+							{data.creator?.transferRecipientCode ? 'Update Bank Info' : 'Save Bank Info'}
+						</Button>
+					</form>
+				</Form>
+			</DialogContent>
+		</Dialog>
+	);
 }
