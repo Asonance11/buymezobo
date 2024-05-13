@@ -1,4 +1,5 @@
 import { FaQuoteLeft } from 'react-icons/fa';
+import { IoInformationCircle } from 'react-icons/io5';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { useInterface } from '@/store/InterfaceStore';
 import { IoMdSearch } from 'react-icons/io';
@@ -45,6 +46,14 @@ export function SideMenuNavigationComponent() {
 							>
 								<FaQuoteLeft />
 								<span className="mx-2 text-sm font-medium">FAQ</span>
+							</a>
+
+							<a
+								className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+								href="/about"
+							>
+								<IoInformationCircle className="" />
+								<span className="mx-2 text-sm font-medium">About</span>
 							</a>
 						</nav>
 					</div>
