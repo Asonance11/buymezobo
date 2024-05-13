@@ -112,7 +112,7 @@ export default function PayoutInfoModal() {
 				<DialogHeader>
 					<DialogTitle>Payout info for {data.creator?.userName}?</DialogTitle>
 					<DialogDescription>
-						To enable payouts, you'll need to provide your bank details to our payment partner.
+						To enable payouts, you will need to provide your bank details to our payment partner.
 					</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
