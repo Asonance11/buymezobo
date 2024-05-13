@@ -60,8 +60,50 @@ export default function PayoutInfoModal() {
 		form.setValue('banckCode', bank);
 	};
 
-	function onSubmit(values: z.infer<typeof formSchema>) {
-		console.table(values);
+	async function onSubmit(values: z.infer<typeof formSchema>) {
+		const data = {
+			accountNumber: values.accountNumber,
+			bankCode: values.banckCode,
+			bankAccountName: '',
+		};
+
+		try {
+			setLoading(true);
+			const response = await axios.get(
+				`https://api.paystack.co/bank/resolve?account_number=${values.accountNumber}&bank_code=${values.banckCode}`,
+				{
+					headers: {
+						Authorization: `Bearer ${CONFIG.paystack_key}`,
+					},
+				},
+			);
+
+			const responseData = response.data;
+
+			if (!responseData.status) {
+				throw new Error('Failed to resolve bank info');
+			}
+
+			data.bankAccountName = responseData.data.account_name;
+
+			console.table(data);
+
+			console.log('Bank account resolved successfully.');
+
+			try {
+				const postResponse = await axios.post('/api/profile/payoutInfo', data);
+				console.log('POST request sent to /api/auth/aftersignup:', postResponse.data);
+				if (postResponse.status === 200) {
+					onClose();
+				}
+			} catch (error) {
+				console.error('Error sending POST request to /api/auth/aftersignup:', error);
+			}
+		} catch (err) {
+			console.error('Error resolving bank account:', err);
+		} finally {
+			setLoading(false);
+		}
 	}
 
 	return (
@@ -70,8 +112,7 @@ export default function PayoutInfoModal() {
 				<DialogHeader>
 					<DialogTitle>Payout info for {data.creator?.userName}?</DialogTitle>
 					<DialogDescription>
-						To enable payouts, you'll need to provide your bank details to our payment partner. Rest
-						assured, your information is secure and will be encrypted on our servers.
+						To enable payouts, you'll need to provide your bank details to our payment partner.
 					</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
