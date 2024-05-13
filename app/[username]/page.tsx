@@ -5,7 +5,7 @@ import { Profile } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import BuyCard from './_components/BuyCard';
 import SupportersCard from './_components/SupportersCard';
-import { ThreeCircles } from 'react-loader-spinner';
+import Loading from './loading';
 
 export default function Username(props: any) {
 	const creatorname = props.params.username;
@@ -27,15 +27,7 @@ export default function Username(props: any) {
 	return (
 		<main className="min-h-screen bg-red-700 flex flex-col ">
 			{loading ? (
-				<ThreeCircles
-					visible={true}
-					height="100"
-					width="100"
-					color="#DC2626"
-					ariaLabel="three-circles-loading"
-					wrapperStyle={{}}
-					wrapperClass="mx-auto block"
-				/>
+				<Loading />
 			) : (
 				<>
 					<UserNameHeader className="" user={creator} />

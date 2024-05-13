@@ -49,7 +49,7 @@ export default function SupportersCard({ creator, className }: Props) {
 								<div>
 									<p className="text-sm ">
 										<span className="font-semibold">{support.name}</span> bought{' '}
-										{support.numberOfZobo} zobos{' '}
+										{support.numberOfZobo} {support.numberOfZobo > 1 ? 'zobos' : 'zobo'}
 									</p>
 								</div>
 								{support.content ? (

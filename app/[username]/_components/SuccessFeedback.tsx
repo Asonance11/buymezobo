@@ -1,7 +1,7 @@
 import React from 'react';
 import Lottie from 'react-lottie-player';
-import lottieJson from '../../lottieanimations/fiillzoboanimation.json';
-import successAnimation from '../../lottieanimations/fireworksanimation.json';
+import lottieJson from '../../../components/lottieanimations/fiillzoboanimation.json';
+import successAnimation from '../../../components/lottieanimations/fireworksanimation.json';
 import { CommandDialog } from '@/components/ui/command';
 import { shadowLight } from '@/utility/fonts';
 

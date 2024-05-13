@@ -3,9 +3,9 @@ import React from 'react';
 
 function Loading() {
 	return (
-		<div className='relative top-0 left-0 w-full h-full flex justify-center items-center'>
-  <Loader className="block w-[50px] h-[50px] md:w-[100px] md:h-[100px]" />
-</div>
+		<div className="md:min-h-screen md:w-full flex justify-center items-center">
+			<Loader className="md:w-[100px] md:min-h-[100px] w-[50px] h-[50px] mx-auto block" />
+		</div>
 	);
 }
 

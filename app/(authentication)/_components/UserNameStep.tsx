@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useWizard } from 'react-use-wizard';
 import { usePersonForm } from './UserAfterForm';
 import { Button } from '@/components/ui/button';
-import { Loader2 as Loader } from 'lucide-react';
+import { CheckCircleIcon, Loader2 as Loader } from 'lucide-react';
 import axios from 'axios';
 import { debounce } from 'lodash';
 
@@ -82,6 +82,11 @@ export default function UserNameStep() {
 				{loading ? (
 					<div className={''}>
 						<Loader className="animate-spin" />
+					</div>
+				) : null}
+				{available ? (
+					<div className={''}>
+						<CheckCircleIcon color="green" />
 					</div>
 				) : null}
 			</div>
