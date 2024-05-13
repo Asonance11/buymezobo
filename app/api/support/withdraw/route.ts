@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
 			return new NextResponse('Bad request', { status: 401 });
 		}
 
-		if (profileData.amount > profile.balance) {
+		if (profileData.amount > profile.balance * 100) {
 			return new NextResponse('Insufficient balance', { status: 401 });
 		}
 

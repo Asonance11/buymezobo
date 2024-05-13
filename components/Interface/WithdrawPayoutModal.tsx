@@ -11,8 +11,8 @@ import { Input } from '../ui/input';
 import Loader from '../common/Loader';
 import { getCurrentUser } from '@/lib/authentication';
 import { Profile } from '@prisma/client';
-import { FaNairaSign } from 'react-icons/fa6';
 import { toast } from 'sonner';
+import { formatNumberWithCommas } from '@/utility/text';
 export default function WithdrawPayoutModal() {
 	const { type, isOpen, onClose } = useInterface();
 	const open = isOpen && type == 'withdrawPayoutModal';
@@ -36,13 +36,13 @@ export default function WithdrawPayoutModal() {
 	}, [open]);
 
 	const formSchema = z.object({
-		Amount: z.number(),
+		Amount: z.string(),
 	});
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			Amount: profile?.balance || 0,
+			Amount: String(profile?.balance || ''),
 		},
 	});
 
@@ -50,14 +50,12 @@ export default function WithdrawPayoutModal() {
 		const amount = Number(values.Amount);
 
 		if (isNaN(amount) || amount <= 0) {
-			toast.error('Please enter a valid amount');
-			form.reset();
+			toast('Please enter a valid amount');
 			return;
 		}
 
 		if (amount > profile?.balance!) {
-			toast.error("You don't have enough balance to withdraw");
-			form.reset();
+			toast("You don't have enough balance to withdraw");
 			return;
 		}
 
@@ -115,7 +113,7 @@ export default function WithdrawPayoutModal() {
 								/>
 
 								<Button disabled={loading} type="submit">
-									Withdraw {form.getValues('Amount')}
+									Withdraw {formatNumberWithCommas(Number(form.getValues('Amount')))}
 								</Button>
 							</form>
 						</Form>

@@ -12,8 +12,8 @@ export async function transferMoneyPayoutFunction(
 ): Promise<TransferResponse | null> {
 	try {
 		const url = 'https://api.paystack.co/transfer';
-		const authorization = `Authorization: Bearer ${CONFIG.paystack_key}`;
-		const contentType = 'Content-Type: application/json';
+		const authorization = `Bearer ${CONFIG.paystack_key}`;
+		const contentType = 'application/json';
 		const data = {
 			source: 'balance',
 			reason: 'for all the wonderful content you have created for your supporters',
