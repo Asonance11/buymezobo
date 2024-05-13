@@ -20,11 +20,12 @@ type personType = {
 export default function BankInfoStep() {
 	const { nextStep } = useWizard();
 	const { state } = usePersonForm();
-	const [banks, setBanks] = useState<Bank[]>([]);
 	const [accountNumber, setAccountNumber] = useState('');
 	const [personData, setPersonData] = useState<personType | null>(null);
 	const route = useRouter();
 	const [checking, setChecking] = useState(false);
+	const [banks, setBanks] = useState<Bank[]>([]);
+
 	useEffect(() => {
 		const fetchBanks = async () => {
 			try {
