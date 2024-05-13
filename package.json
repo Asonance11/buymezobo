@@ -8,6 +8,7 @@
 		"start": "next start",
 		"prisma:update": "prisma db push && prisma generate",
 		"stage": "pnpm run prisma:update",
+		"prepare": "pnpm install && pnpm run prisma:update",
 		"lint": "next lint"
 	},
 	"dependencies": {
