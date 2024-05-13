@@ -17,6 +17,7 @@ import { HookConfig } from 'react-paystack/dist/types';
 import { cn } from '@/utility/style';
 import { Optional } from '@prisma/client/runtime/library';
 import axios from 'axios';
+import SuccessFeedback from './SuccessFeedback';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	creator: Profile;
@@ -24,7 +25,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 export default function BuyCard({ creator, className }: Props) {
 	const [loading, setLoading] = useState(false);
 	const [amountToPay, setAmountToPay] = useState(0);
-
+	const [success, setSuccess] = useState(false);
 	const [finalAmount, setFinalAmount] = useState(amountToPay * ZoboPrice);
 
 	const setFinalAmountFunction = (amount: number) => {
@@ -41,7 +42,6 @@ export default function BuyCard({ creator, className }: Props) {
 		resolver: zodResolver(formSchema),
 		defaultValues: {},
 	});
-
 	const preHandleSuccessAction = (reference: any) => {
 		handleSuccessAction(reference);
 	};
@@ -63,6 +63,7 @@ export default function BuyCard({ creator, className }: Props) {
 		try {
 			const response = await axios.post('/api/support', data);
 			//TODO: add after support action like thank the user, show some more content, etc
+			setSuccess(true);
 			//TODO: sonner over here
 			console.table(response.data);
 			form.reset();
@@ -152,6 +153,7 @@ export default function BuyCard({ creator, className }: Props) {
 					</Button>
 				</form>
 			</Form>
+			<SuccessFeedback open={success} onClose={() => setSuccess(false)} />
 		</div>
 	);
 }
