@@ -1,11 +1,9 @@
 'use client';
 import MainHeader from '@/components/common/MainHeader';
-import { Button } from '@/components/ui/button';
 import { getCurrentUser } from '@/lib/authentication';
 import { InterTight } from '@/utility/fonts';
-import { cn } from '@/utility/style';
 import { Profile } from '@prisma/client';
-import { Link, Medal } from 'lucide-react';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
@@ -37,9 +35,9 @@ export default function Home() {
 					<p className="text-sm lg:text-lg font-semibold text-gray-800">
 						Accept support. Start a membership. Setup a shop. It’s easier than you think.
 					</p>
-					<Button className="p-3 lg:p-6 text-base lg:text-xl font-semibold">
+					<Link href={'/dashboard'} className="p-3 lg:p-6 text-base lg:text-xl font-semibold">
 						{profile ? 'Go to dashboard' : 'Start my page'}
-					</Button>
+					</Link>
 					<p className="text-xs lg:text-base font-light text-gray-600">
 						It’s free and takes less than a minute!{' '}
 					</p>
