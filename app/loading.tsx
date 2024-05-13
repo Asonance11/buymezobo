@@ -1,6 +1,5 @@
 import Loader from '@/components/common/Loader';
 import React from 'react';
-
 function Loading() {
 	return (
 		<div className="md:min-h-screen md:w-full flex justify-center items-center">

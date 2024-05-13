@@ -22,7 +22,7 @@ export default function PayoutEarningPage({ profile, className }: Props) {
 					<div className="flex flex-col items-start gap-4 p-4 bg-red-100 rounded-lg">
 						<p className="font-semibold text-xl">Enter your payout info to start accepting payments </p>
 						<p className="font-light text-zinc-700 text-sm">
-							To enable payouts, you'll need to provide your bank details to our payment partner. Rest
+							To enable payouts, you will need to provide your bank details to our payment partner. Rest
 							assured, your information is secure and will be encrypted on our servers.{' '}
 						</p>
 						<div className="flex items-center gap-4">
