@@ -3,7 +3,7 @@
 import { Profile } from '@prisma/client';
 import { create } from 'zustand';
 
-export type InterfaceType = 'searchCreators' | 'sideMenuNavigation' | 'editUsernamePage';
+export type InterfaceType = 'searchCreators' | 'sideMenuNavigation' | 'editUsernamePage' | 'payoutInfoModal';
 
 interface InterfaceDataType {
 	creator?: Profile;

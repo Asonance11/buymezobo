@@ -24,7 +24,9 @@ model Profile {
     headerImageUrl String? @db.Text
     bio            String?
 
-    userName              String? @unique
+    userName      String? @unique
+    password_hash String?
+
     accountNumber         String?
     bankCode              String?
     bankAccountName       String?
@@ -35,7 +37,17 @@ model Profile {
     createdAt DateTime  @default(now())
     updatedAt DateTime  @updatedAt
     support   Support[]
+
+    //sessions Session[]
 }
+
+//INFO: for lucia auth, will remove soon
+// model Session {
+//     id        String   @id
+//     userId    String
+//     expiresAt DateTime
+//     user      Profile  @relation(references: [id], fields: [userId], onDelete: Cascade)
+// }
 
 model Support {
     id        String  @id @default(uuid())
