@@ -25,7 +25,6 @@ model Profile {
     bio            String?
 
     userName      String? @unique
-    password_hash String?
 
     accountNumber         String?
     bankCode              String?
