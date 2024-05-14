@@ -47,13 +47,13 @@ const Button: FC = () => {
 		<section className="mt-4 md:mt-10 flex justify-center mx-auto pb-12">
 			<main className="w-4/5 lg:w-2/3">
 				<div className="mb-10">
-					<h1 className="font-bold text-2xl mb-5">Buttons & Graphics</h1>
+					<h1 className="font-bold text-xl mb-5">Buttons & Graphics</h1>
 					<div className="">
 						<ButtonGraphicsCard mainOptions={mainOptions} />
 					</div>
 				</div>
 				<div className="mb-10">
-					<h1 className="font-bold text-2xl mb-5">Images & Shareables</h1>
+					<h1 className="font-bold text-xl mb-5">Images & Shareables</h1>
 					<div className="">
 						<ButtonGraphicsCard mainOptions={subOptions} />
 					</div>

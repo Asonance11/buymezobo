@@ -10,12 +10,17 @@ import Loading from './loading';
 
 export default function Home() {
 	const [profile, setProfile] = useState<Profile | null>(null);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 	useEffect(() => {
 		const fetchProfile = async () => {
-			const profile = await getCurrentUser();
-			setProfile(profile);
-			setLoading(false);
+			try {
+				setLoading(true);
+				const profile = await getCurrentUser();
+				setProfile(profile);
+			} catch (error) {
+			} finally {
+				setLoading(false);
+			}
 		};
 		fetchProfile();
 	}, []);
