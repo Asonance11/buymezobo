@@ -10,7 +10,7 @@ import { MdOutlineExplore } from 'react-icons/md';
 import { PiLayout } from 'react-icons/pi';
 import { PiArrowSquareOutLight } from 'react-icons/pi';
 import { Logo } from './common/Logo';
-import { IoSettingsOutline } from 'react-icons/io5';
+import { IoCodeOutline, IoSettingsOutline } from 'react-icons/io5';
 import { BsCashStack } from 'react-icons/bs';
 
 export default function AdminMenuContent() {
@@ -45,7 +45,13 @@ export default function AdminMenuContent() {
 
 	// Define options with categories and routes
 	const categorizedOptions = [
-		{ category: 'Profile', routes: [{ name: 'Settings', route: '/settings', icon: IoSettingsOutline }] },
+		{
+			category: 'Profile',
+			routes: [
+				{ name: 'Settings', route: '/settings', icon: IoSettingsOutline },
+				{ name: 'Buttons & Graphics', route: '/button-and-graphics', icon: IoCodeOutline },
+			],
+		},
 		{
 			category: 'Monetization',
 			routes: [{ name: 'Payouts', route: '/payout', icon: BsCashStack }],
