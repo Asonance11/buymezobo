@@ -4,7 +4,7 @@ import { useWizard } from 'react-use-wizard';
 import { usePersonForm } from './UserAfterForm';
 import { Button } from '@/components/ui/button';
 import { CONFIG } from '@/utility/config';
-import { Toaster, toast } from 'sonner';
+import { toast } from 'sonner';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -112,6 +112,9 @@ export default function BankInfoStep() {
 	const handleBankSelect = (bank: any) => {
 		state.values.BankCode = bank;
 		console.log(bank);
+		if (state.values.AccountNumber.length == 10 && state.values.BankCode != '') {
+			confirmAccount();
+		}
 	};
 
 	const handleAccountNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,11 +123,13 @@ export default function BankInfoStep() {
 			setAccountNumber(input);
 			state.values.AccountNumber = input;
 		}
+		if (input.length == 10 && state.values.BankCode != '') {
+			confirmAccount();
+		}
 	};
 
 	return (
 		<section className="flex-col flex gap-1.5 lg:gap-3 p-3 lg:p-4 w-full md:w-2/3  mx-auto ">
-			<Toaster richColors />
 			<p className="text-lg lg:text-2xl/none -tracking-wider font-bold">Enter your bank details </p>
 			<p className="text-sm font-normal">Add a bank account to start recieving payment.</p>
 			<div className="flex flex-col gap-3">
@@ -154,23 +159,21 @@ export default function BankInfoStep() {
 			{checking ? (
 				<Loader className="mx-auto" />
 			) : (
-				<p className="text-red-700 font-bold bg-red-100 p-1">{personData ? personData.bankAccountName : ''}</p>
+				<p className="text-green-700 font-bold bg-green-100 p-1">
+					{personData ? personData.bankAccountName : ''}
+				</p>
 			)}
 			<div className="flex gap-3">
 				<Button onClick={skip} variant={'secondary'} className="text-sm lg:text-base">
 					skip
 				</Button>
-				<Button onClick={confirmAccount} className="px-4 lg:px-8 text-sm lg:text-base">
-					Verify
+				<Button
+					onClick={next}
+					className="px-4 lg:px-8 text-sm lg:text-base"
+					disabled={personData ? false : true}
+				>
+					Proceed
 				</Button>
-				{personData && (
-					<Button
-						onClick={next}
-						className="px-4 lg:px-8 text-sm lg:text-base bg-lime-100 text-green-700 hover:bg-lime-800 hover:text-white"
-					>
-						Proceed
-					</Button>
-				)}
 			</div>
 		</section>
 	);
