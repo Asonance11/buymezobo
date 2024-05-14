@@ -2,16 +2,16 @@
 
 import MainHeader from '@/components/common/MainHeader';
 import React, { ReactNode } from 'react';
+
+// Added this main layout for all marketing so they all have the header
+
+const MarketingLayout = ({ children }: { children: ReactNode }) => {
 	return (
-		<section className="min-h-dvh bg-black flex">
-			<Sidebar />
-			<main className="flex-1 min-h-dvh bg-zinc-100 flex flex-col">
-				<AdminHeader />
-				<section className="flex-1">{children}</section>
-			</main>
-		</section>
-	    </div>
-    );
+		<div>
+			<MainHeader />
+			{children}
+		</div>
+	);
 };
 
 export default MarketingLayout;
