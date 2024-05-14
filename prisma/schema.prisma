@@ -24,8 +24,7 @@ model Profile {
     headerImageUrl String? @db.Text
     bio            String?
 
-    userName      String? @unique
-    password_hash String?
+    userName String? @unique
 
     accountNumber         String?
     bankCode              String?
@@ -34,20 +33,11 @@ model Profile {
 
     balance Int @default(0)
 
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
-    support   Support[]
-
-    //sessions Session[]
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+    support       Support[]
+    payoutHistory Payout[]
 }
-
-//INFO: for lucia auth, will remove soon
-// model Session {
-//     id        String   @id
-//     userId    String
-//     expiresAt DateTime
-//     user      Profile  @relation(references: [id], fields: [userId], onDelete: Cascade)
-// }
 
 model Support {
     id        String  @id @default(uuid())
@@ -67,6 +57,20 @@ model Support {
     updatedAt DateTime @updatedAt
 
     comments Comment[] // Relation to comments
+}
+
+model Payout {
+    id        String  @id @default(uuid())
+    profileId String
+    profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+    paystackTransferId    String
+    amount                Int
+    status                PaymentStatus @default(PENDING) // Field for the status of the payment
+    transferRecipientCode String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 enum PaymentStatus {

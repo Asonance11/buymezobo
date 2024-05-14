@@ -8,7 +8,6 @@
 		"start": "next start",
 		"prisma:update": "prisma db push && prisma generate",
 		"stage": "pnpm run prisma:update",
-		"prepare": "pnpm install && pnpm run prisma:update",
 		"lint": "next lint"
 	},
 	"dependencies": {
@@ -38,6 +37,7 @@
 		"lucide-react": "^0.378.0",
 		"moment": "^2.30.1",
 		"next": "14.2.3",
+		"next-themes": "^0.3.0",
 		"prettier": "^3.2.5",
 		"react": "^18",
 		"react-credit-card-input": "^1.1.5",
