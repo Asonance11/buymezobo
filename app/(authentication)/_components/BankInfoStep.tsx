@@ -167,11 +167,13 @@ export default function BankInfoStep() {
 				<Button onClick={skip} variant={'secondary'} className="text-sm lg:text-base">
 					skip
 				</Button>
-				{personData && (
-					<Button onClick={next} className="px-4 lg:px-8 text-sm lg:text-base">
-						Proceed
-					</Button>
-				)}
+				<Button
+					onClick={next}
+					className="px-4 lg:px-8 text-sm lg:text-base"
+					disabled={personData ? false : true}
+				>
+					Proceed
+				</Button>
 			</div>
 		</section>
 	);
