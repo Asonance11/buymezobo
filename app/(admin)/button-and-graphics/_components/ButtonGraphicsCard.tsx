@@ -4,6 +4,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import Image from 'next/image';
 import { QRMaker } from './QrMaker';
 import { FaXmark } from 'react-icons/fa6';
+import { FaArrowDown } from 'react-icons/fa';
+import { getCurrentUser } from '@/lib/authentication';
 
 interface Option {
 	title: string;
@@ -24,10 +26,19 @@ const ButtonGraphicsCard: FC<Props> = ({ mainOptions }) => {
 		setIsModalOpen(true);
 		setSelectedOption(option);
 	};
-
 	const closeModal = () => {
 		setIsModalOpen(false);
 		setSelectedOption(null);
+	};
+
+	const downloadQr = () => {
+		getCurrentUser().then((user) => {
+			const canvas = document.querySelector('canvas') as HTMLCanvasElement;
+			const a = document.createElement('a');
+			a.href = canvas.toDataURL('image/png');
+			a.download = `${user?.userName}-qr.png`;
+			a.click();
+		});
 	};
 
 	return (
@@ -65,13 +76,18 @@ const ButtonGraphicsCard: FC<Props> = ({ mainOptions }) => {
 			))}
 			{isModalOpen && selectedOption && (
 				<dialog open className="fixed inset-0 z-50 overflow-y-auto rounded-lg ">
-					<div className="flex items-center justify-center">
+					<div className="flex items-center justify-center w-[300px] h-[320px] overflow-hidden">
 						<div className="fixed inset-0 bg-black opacity-90"></div>
 						<div className="bg-white rounded-lg p-8 z-50">
+							<div className="flex justify-between px-8">
+								<button className="text-black" onClick={downloadQr}>
+									<FaArrowDown className="text-2xl" />
+								</button>
+								<button className="text-black" onClick={closeModal}>
+									<FaXmark className="text-3xl" />
+								</button>
+							</div>
 							<QRMaker />
-							<button className="absolute top-4 right-4 text-gray-600" onClick={closeModal}>
-								<FaXmark className="text-2xl" />
-							</button>
 						</div>
 					</div>
 				</dialog>
