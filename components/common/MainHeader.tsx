@@ -8,7 +8,7 @@ import { FaQuoteLeft } from 'react-icons/fa';
 import { IoInformationCircle } from 'react-icons/io5';
 import { Logo } from './Logo';
 import { useEffect, useState } from 'react';
-import { getCurrentUser } from '@/lib/authentication';
+import { getCurrentUser } from '../../lib/authentication';
 import { Profile } from '@prisma/client';
 import Link from 'next/link';
 import UserButton from './UserButton';
