@@ -47,6 +47,7 @@
 		"react-loader-spinner": "^6.1.6",
 		"react-lottie-player": "^2.0.0",
 		"react-paystack": "^5.0.0",
+		"react-qrcode-logo": "^2.10.0",
 		"react-use-wizard": "^2.3.0",
 		"sonner": "^1.4.41",
 		"styled-components": "^6.1.9",
