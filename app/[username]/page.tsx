@@ -11,6 +11,7 @@ export default function Username(props: any) {
 	const creatorname = props.params.username;
 	const [creator, setCreator] = useState<Profile | null>(null);
 	const [loading, setLoading] = useState(true);
+	const [reloadSupporters, setReloadSupporters] = useState(false);
 	useEffect(() => {
 		const getUser = async () => {
 			const creator = await getCreatorByName(creatorname);
@@ -37,8 +38,12 @@ export default function Username(props: any) {
 							style={{ backgroundImage: `url(${creator?.headerImageUrl})` }}
 						></div>
 						<div className="flex-1 flex flex-col-reverse lg:flex-row justify-center gap-3 relative items-center py-5 lg:py-3 lg:items-start bg-gray-300">
-							<SupportersCard className="lg:-mt-32" creator={creator} />
-							<BuyCard className="-mt-32" creator={creator} />
+							<SupportersCard className="lg:-mt-32" creator={creator} reload={reloadSupporters} />
+							<BuyCard
+								className="-mt-32"
+								creator={creator}
+								setReload={() => setReloadSupporters(!reloadSupporters)}
+							/>
 						</div>
 					</section>
 				</>

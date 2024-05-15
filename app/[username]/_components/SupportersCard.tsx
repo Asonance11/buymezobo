@@ -6,9 +6,10 @@ import React, { HTMLAttributes, useEffect, useState } from 'react';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	creator: Profile;
+	reload: boolean;
 }
 
-export default function SupportersCard({ creator, className }: Props) {
+export default function SupportersCard({ creator, reload, className }: Props) {
 	const [supports, setSupports] = useState<Support[]>([]);
 	const [loading, setLoading] = useState(false);
 
@@ -26,7 +27,7 @@ export default function SupportersCard({ creator, className }: Props) {
 			setLoading(false);
 		};
 		getSupports();
-	}, [creator.id]);
+	}, [creator.id, reload]);
 
 	return (
 		<div
