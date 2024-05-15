@@ -8,7 +8,10 @@ export type InterfaceType =
     | 'sideMenuNavigation'
     | 'editUsernamePage'
     | 'payoutInfoModal'
-    | 'withdrawPayoutModal';
+    | 'withdrawPayoutModal'
+
+    //Buttons and widget modal
+    | 'QRCodeModal';
 
 interface InterfaceDataType {
     creator?: Profile;
