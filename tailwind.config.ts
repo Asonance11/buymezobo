@@ -74,7 +74,7 @@ const config = {
 			},
 		},
 	},
-	plugins: [require('daisyui'), require('tailwindcss-animate')],
+	plugins: [require('daisyui'), require('tailwindcss-animate'), require('tailwind-scrollbar-hide')],
 } satisfies Config;
 
 export default withUt(config);
