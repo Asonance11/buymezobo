@@ -13,7 +13,7 @@ const mainOptions: Option[] = [
 		title: 'Website Buttons',
 		image: '/image.png',
 		description:
-			'Craft personalized buttons to guide your visitors to your "Buy Me Zobo" page. Add these buttons into your website or blog to enhance user experience and encourage engagement.',
+			'Craft personalized buttons for your websites or blog to guide your visitors to your "Buy Me Zobo" page.',
 		action: 'Get Crafting',
 	},
 	{
