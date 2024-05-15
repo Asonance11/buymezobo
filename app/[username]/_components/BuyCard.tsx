@@ -18,11 +18,13 @@ import { cn } from '@/utility/style';
 import { Optional } from '@prisma/client/runtime/library';
 import axios from 'axios';
 import SuccessFeedback from './SuccessFeedback';
+import { toast } from 'sonner';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	creator: Profile;
+	setReload: () => void;
 }
-export default function BuyCard({ creator, className }: Props) {
+export default function BuyCard({ creator, className, setReload }: Props) {
 	const [loading, setLoading] = useState(false);
 	const [amountToPay, setAmountToPay] = useState(0);
 	const [success, setSuccess] = useState(false);
@@ -40,7 +42,7 @@ export default function BuyCard({ creator, className }: Props) {
 	});
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
-		defaultValues: {},
+		defaultValues: { content: '', name: '', privateMessage: false },
 	});
 	const preHandleSuccessAction = (reference: any) => {
 		handleSuccessAction(reference);
@@ -64,10 +66,13 @@ export default function BuyCard({ creator, className }: Props) {
 			const response = await axios.post('/api/support', data);
 			//TODO: add after support action like thank the user, show some more content, etc
 			setSuccess(true);
+			setReload();
 			//TODO: sonner over here
 			console.table(response.data);
-			form.reset();
-		} catch (error) {}
+			form.reset({ content: '', name: '', privateMessage: false });
+		} catch (error) {
+			toast.error('An error occured');
+		}
 	};
 
 	const handlePaystackCloseAction = () => {
