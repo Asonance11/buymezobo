@@ -10,24 +10,22 @@ import { User } from 'lucia';
     from here we want the name, back account number and bank code  
 */
 
-export default async function Page() {
+export default function Page() {
 	const [profile, setProfile] = useState<User | null>(null);
-	useEffect(() => {
-		const FetchProfile = async () => {
-			const { user: myProfile } = await useAuth();
-			if (!myProfile) redirect('/signin');
-			setProfile(myProfile);
-		};
-		FetchProfile();
-	}, []);
-
+	useAuth()
+		.then(({ user }) => {
+			setProfile(user);
+		})
+		.catch((error) => {
+			console.error(error);
+		});
 	console.log(profile);
-	if (!profile) {
-		redirect('/signin');
-	}
-	if (profile?.userName) {
-		redirect('/dashboard');
-	}
+	// if (!profile) {
+	// 	redirect('/signin');
+	// }
+	// if (profile?.userName) {
+	// 	redirect('/dashboard');
+	// }
 
 	return (
 		<section className="w-full md:w-5/6 mx-auto  lg:w-1/2 min-h-dvh flex flex-col justify-center items-center">

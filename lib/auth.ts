@@ -26,6 +26,7 @@ export const lucia = new Lucia(adapter, {
 			bio: attributes.bio,
 			headerImageUrl: attributes.headerImageUrl,
 			balance: attributes.balance,
+			transferRecipientCode: attributes.transferRecipientCode,
 		};
 	},
 });
@@ -47,4 +48,5 @@ interface DatabaseUserAttributes {
 	headerImageUrl?: string;
 	bio?: string;
 	balance: number;
+	transferRecipientCode?: string;
 }
