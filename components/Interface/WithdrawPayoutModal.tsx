@@ -13,11 +13,12 @@ import { getCurrentUser } from '@/lib/authentication';
 import { Profile } from '@prisma/client';
 import { toast } from 'sonner';
 import { formatNumberWithCommas } from '@/utility/text';
+import { User } from 'lucia';
 export default function WithdrawPayoutModal() {
 	const { type, isOpen, onClose } = useInterface();
 	const open = isOpen && type == 'withdrawPayoutModal';
 	const [loading, setLoading] = useState(false);
-	const [profile, setProfile] = useState<Profile | null>(null);
+	const [profile, setProfile] = useState<User | null>(null);
 
 	useEffect(() => {
 		const fetchProfilw = async () => {

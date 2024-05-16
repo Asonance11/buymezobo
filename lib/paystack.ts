@@ -2,9 +2,10 @@ import { CONFIG } from '@/utility/config';
 import { Profile } from '@prisma/client';
 import { Optional } from '@prisma/client/runtime/library';
 import axios from 'axios';
+import { User } from 'lucia';
 
 export interface createTransferRecipientInterface {
-	data: Optional<Profile>;
+	data: Optional<User>;
 	type?: TransferRecipientType;
 }
 

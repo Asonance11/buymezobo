@@ -8,6 +8,7 @@ import { ActionResult } from 'next/dist/server/app-render/types';
 
 export const signOut = async (): Promise<ActionResult> => {
 	'use server';
+	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { session } = await useAuth();
 	if (!session) {
 		return {

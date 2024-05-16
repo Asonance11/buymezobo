@@ -62,7 +62,7 @@ export async function getCurrentUser(): Promise<User | null> {
 }
 
 //INFO: foundation function to get user by id
-export async function getUserbyId(userId: string | undefined): Promise<Profile | null> {
+export async function getUserbyId(userId: string | undefined): Promise<User | null> {
 	if (!userId) {
 		return null;
 	}
@@ -79,5 +79,5 @@ export async function getUserbyId(userId: string | undefined): Promise<Profile |
 		console.error('Error in Get Profile by ID Function! : ', error);
 	}
 
-	return profile;
+	return profile as User;
 }
