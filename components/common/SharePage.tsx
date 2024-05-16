@@ -16,9 +16,10 @@ import { useOrigin } from '@/hooks/useOrigin';
 import { IoCopyOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import { FaXTwitter } from 'react-icons/fa6';
+import { User } from 'lucia';
 
 interface SharePageProps extends HTMLAttributes<HTMLButtonElement> {
-	profile: Profile;
+	profile: User;
 }
 
 export default function SharePage({ profile, className }: SharePageProps) {

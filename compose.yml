@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
     db:
-        container_name: postgres
+        container_name: buy-me-zobo-db
         image: postgres
         environment:
             - POSTGRES_USER=postgres
