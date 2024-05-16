@@ -1,12 +1,13 @@
 import { ZoboAMountsInterface, ZoboAmounts } from '@/lib/zobo';
 import { Profile } from '@prisma/client';
 import { toString } from 'lodash';
+import { User } from 'lucia';
 import React, { useEffect, useState } from 'react';
 
 interface Props {
 	amount: number;
 	setAmount: (amount: number) => void;
-	creator: Profile;
+	creator: User;
 }
 
 export default function ZoboAmountPicker({ amount, creator, setAmount }: Props) {

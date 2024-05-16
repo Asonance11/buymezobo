@@ -19,9 +19,10 @@ import { Optional } from '@prisma/client/runtime/library';
 import axios from 'axios';
 import SuccessFeedback from './SuccessFeedback';
 import { toast } from 'sonner';
+import { User } from 'lucia';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-	creator: Profile;
+	creator: User;
 	setReload: () => void;
 }
 export default function BuyCard({ creator, className, setReload }: Props) {
