@@ -12,7 +12,6 @@
 	},
 	"dependencies": {
 		"@ant-design/icons": "^5.3.7",
-		"@clerk/nextjs": "^5.0.6",
 		"@createform/react": "^4.0.4",
 		"@hookform/resolvers": "^3.3.4",
 		"@lucia-auth/adapter-prisma": "^4.0.1",
@@ -28,6 +27,7 @@
 		"@radix-ui/react-separator": "^1.0.3",
 		"@radix-ui/react-slot": "^1.0.2",
 		"@radix-ui/react-switch": "^1.0.3",
+		"@radix-ui/react-toast": "^1.1.5",
 		"@types/lodash": "^4.17.1",
 		"@uploadthing/react": "^6.5.3",
 		"axios": "^1.6.8",

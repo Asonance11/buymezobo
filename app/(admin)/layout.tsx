@@ -6,6 +6,7 @@ import { useAuth } from '@/actions/use-auth';
 import { useEffect, useState } from 'react';
 import { User } from 'lucia';
 import { useRouter } from 'next/navigation';
+import { Toaster } from '@/components/ui/toaster';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
 	const [profile, setProfile] = useState<User | null>(null);
@@ -41,6 +42,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 				<AdminHeader />
 				<section className="flex-1 max-h-screen overflow-y-scroll scrollbar-hide">{children}</section>
 			</main>
+			<Toaster />
 		</section>
 	);
 }

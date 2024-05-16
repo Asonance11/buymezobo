@@ -1,8 +1,6 @@
 'use client';
 
-import { createInitialProfile } from '@/lib/authentication';
 import { UserAfterform } from '../_components/UserAfterForm';
-import { RedirectToSignIn } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 import { useAuth } from '@/actions/use-auth';
 import { useEffect, useState } from 'react';
@@ -25,7 +23,7 @@ export default async function Page() {
 
 	console.log(profile);
 	if (!profile) {
-		<RedirectToSignIn />;
+		redirect('/signin');
 	}
 	if (profile?.userName) {
 		redirect('/dashboard');
