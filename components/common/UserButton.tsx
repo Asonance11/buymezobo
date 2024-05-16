@@ -42,10 +42,16 @@ export default function UserButton() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger>
-				<div
-					className="cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat"
-					style={{ backgroundImage: `url(${profile?.imageUrl})` }}
-				></div>
+				{profile.imageUrl ? (
+					<div
+						className="cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat border border-purple-500"
+						style={{ backgroundImage: `url(${profile?.imageUrl})` }}
+					></div>
+				) : (
+					<div className="text-xl font-extrabold text-purple-900 bg-purple-100 cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat border border-purple-500">
+						<p className="text-center">{(profile?.firstName as string)[0]}</p>
+					</div>
+				)}
 			</DropdownMenuTrigger>
 			<DropdownMenuContent>
 				<div className="p-4 flex flex-col items-center justify-center">
