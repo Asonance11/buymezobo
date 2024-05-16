@@ -53,7 +53,7 @@ export default function AdminMenuContent() {
 			category: 'Profile',
 			routes: [
 				{ name: 'Settings', route: '/settings', icon: IoSettingsOutline },
-				{ name: 'Buttons & Graphics', route: '/button-and-graphics', icon: IoCodeOutline },
+				{ name: 'Buttons & Graphics', route: '/button-and-graphics', icon: RiImageEditFill },
 				{ name: 'Logout', route: '/logout', icon: IoLogOutOutline },
 			],
 		},

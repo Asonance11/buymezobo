@@ -4,18 +4,19 @@ import { Button } from '../components/ui/button';
 import { InterTight } from '@/utility/fonts';
 import Link from 'next/link';
 import Loading from './loading';
-import { useAuth } from '../actions/use-auth';
+import { useAuth as Auth } from '../actions/use-auth';
 import { useEffect, useState } from 'react';
 import { User } from 'lucia';
 
 export default function Home() {
 	const [profile, setProfile] = useState<User | null>(null);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const fetchProfile = async () => {
-			// eslint-disable-next-line react-hooks/rules-of-hooks
-			const { user } = await useAuth();
+			setLoading(true);
+			//INFO: an error here about a hook,, because it starts with use, in a function.
+			const { user } = await Auth();
 			setProfile(user);
 			setLoading(false);
 		};
