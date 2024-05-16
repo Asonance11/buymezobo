@@ -12,16 +12,20 @@ import { getCurrentUser } from '../../lib/authentication';
 import Link from 'next/link';
 import UserButton from './UserButton';
 import { User } from 'lucia';
+import { Skeleton } from '../ui/skeleton';
 
 export default function MainHeader() {
 	const { onOpen } = useInterface();
 	const isMobile = useIsMobile();
 	const [profile, setProfile] = useState<User | null>(null);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const fetchProfile = async () => {
+			setLoading(true);
 			const profile = await getCurrentUser();
 			setProfile(profile);
+			setLoading(false);
 		};
 		fetchProfile();
 	}, []);
@@ -74,27 +78,43 @@ export default function MainHeader() {
 						className="focus:outline-none flex-1 bg-transparent text-sm font-semibold placeholder-zinc-700"
 					/>
 				</div>
-				{profile ? (
-					<>
-						<Link className="hidden lg:block" href={`/${profile.userName}`}>
-							<Button variant={'secondary'}>View page</Button>
-						</Link>
+				{loading && (
+					<div className="flex gap-3">
+						<Skeleton className="lg:block bg-purple-300 w-[100px] p-2" />
 
-						<Link className="hidden lg:block" href={`/dashboard`}>
-							<Button className="font-bold">Dashboard</Button>
-						</Link>
+						<Skeleton className="lg:block bg-purple-300 w-[100px] p-2" />
 
-						<UserButton />
-					</>
-				) : (
-					<>
-						<Button variant={'secondary'} className="text-sm lg:text-base font-semibold tracking-tight">
-							<a href="/signin">Login</a>
-						</Button>
-						<Button className="rounded-lg text-sm lg:text-base font-semibold tracking-tight">
-							<a href="/signup">Sign up</a>
-						</Button>
-					</>
+						<Skeleton className="rounded-full w-[50px] h-[50px] p-2 bg-sky-200" />
+					</div>
+				)}
+				{!loading && (
+					<div className="flex gap-3">
+						{profile ? (
+							<>
+								<Link className="hidden lg:block" href={`/${profile.userName}`}>
+									<Button variant={'secondary'}>View page</Button>
+								</Link>
+
+								<Link className="hidden lg:block" href={`/dashboard`}>
+									<Button className="font-bold">Dashboard</Button>
+								</Link>
+
+								<UserButton />
+							</>
+						) : (
+							<>
+								<Button
+									variant={'secondary'}
+									className="text-sm lg:text-base font-semibold tracking-tight"
+								>
+									<a href="/signin">Login</a>
+								</Button>
+								<Button className="rounded-lg text-sm lg:text-base font-semibold tracking-tight">
+									<a href="/signup">Sign up</a>
+								</Button>
+							</>
+						)}
+					</div>
 				)}
 			</div>
 		</div>
