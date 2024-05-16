@@ -9,14 +9,14 @@ import { IoInformationCircle } from 'react-icons/io5';
 import { Logo } from './Logo';
 import { useEffect, useState } from 'react';
 import { getCurrentUser } from '../../lib/authentication';
-import { Profile } from '@prisma/client';
 import Link from 'next/link';
 import UserButton from './UserButton';
+import { User } from 'lucia';
 
 export default function MainHeader() {
 	const { onOpen } = useInterface();
 	const isMobile = useIsMobile();
-	const [profile, setProfile] = useState<Profile | null>(null);
+	const [profile, setProfile] = useState<User | null>(null);
 
 	useEffect(() => {
 		const fetchProfile = async () => {

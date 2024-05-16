@@ -3,14 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { getCurrentUser } from '@/lib/authentication';
-import { Profile } from '@prisma/client';
 import Link from 'next/link';
 import { RiHomeSmileLine } from 'react-icons/ri';
 import { MdOutlineExplore } from 'react-icons/md';
 import { PiLayout } from 'react-icons/pi';
 import { PiArrowSquareOutLight } from 'react-icons/pi';
 import { Logo } from './common/Logo';
-import { IoCodeOutline, IoSettingsOutline } from 'react-icons/io5';
+import { IoCodeOutline, IoSettingsOutline, IoLogOutOutline } from 'react-icons/io5';
 import { BsCashStack } from 'react-icons/bs';
 import { User } from 'lucia';
 import { RiImageEditFill } from 'react-icons/ri';
@@ -47,15 +46,16 @@ export default function AdminMenuContent() {
 	// Define options with categories and routes
 	const categorizedOptions = [
 		{
+			category: 'Monetization',
+			routes: [{ name: 'Payouts', route: '/payout', icon: BsCashStack }],
+		},
+		{
 			category: 'Profile',
 			routes: [
 				{ name: 'Settings', route: '/settings', icon: IoSettingsOutline },
-				{ name: 'Buttons & Graphics', route: '/button-and-graphics', icon: RiImageEditFill },
+				{ name: 'Buttons & Graphics', route: '/button-and-graphics', icon: IoCodeOutline },
+				{ name: 'Logout', route: '/logout', icon: IoLogOutOutline },
 			],
-		},
-		{
-			category: 'Monetization',
-			routes: [{ name: 'Payouts', route: '/payout', icon: BsCashStack }],
 		},
 	];
 
