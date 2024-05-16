@@ -3,10 +3,11 @@ import { db } from '@/lib/database';
 import { createTransferRecipient } from '@/lib/paystack';
 import { Profile } from '@prisma/client';
 import { Optional } from '@prisma/client/runtime/library';
+import { User } from 'lucia';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
-	const data: Optional<Profile> = await req.json();
+	const data: Optional<User> = await req.json();
 	console.table(data);
 	try {
 		const profile = await getCurrentUser();
