@@ -51,6 +51,7 @@
 		"react-paystack": "^5.0.0",
 		"react-qrcode-logo": "^2.10.0",
 		"react-use-wizard": "^2.3.0",
+		"sharp": "^0.33.4",
 		"sonner": "^1.4.41",
 		"styled-components": "^6.1.9",
 		"tailwind-merge": "^2.3.0",
