@@ -1,6 +1,5 @@
 'use server';
 import { Profile } from '@prisma/client';
-import { auth, currentUser } from '@clerk/nextjs/server';
 import { db } from './database';
 import { useAuth } from '../actions/use-auth';
 import { User } from 'lucia';

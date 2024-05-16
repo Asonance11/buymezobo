@@ -13,12 +13,12 @@ export default function Home() {
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const FetchProfile = async () => {
+		const fetchProfile = async () => {
 			const { user } = await useAuth();
 			setProfile(user);
 			setLoading(false);
 		};
-		FetchProfile();
+		fetchProfile();
 	}, []);
 
 	if (profile) {
@@ -42,7 +42,7 @@ export default function Home() {
 							<p className="text-sm lg:text-lg font-semibold text-gray-800">
 								Accept support. Start a membership. Setup a shop. It’s easier than you think.
 							</p>
-							<Link href={'/dashboard'}>
+							<Link href={profile ? '/dashboard' : '/signin'}>
 								<Button className="p-3 lg:p-6 text-base lg:text-xl font-semibold">
 									{profile ? 'Go to dashboard' : 'Start my page'}
 								</Button>
