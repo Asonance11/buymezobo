@@ -4,10 +4,14 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import { useInterface } from '@/store/InterfaceStore';
 import { IoMdSearch } from 'react-icons/io';
 import { Logo } from '../common/Logo';
+import { Button } from '../ui/button';
+import Link from 'next/link';
+import UserButton from '../common/UserButton';
 
 export function SideMenuNavigationComponent() {
-	const { onOpen, type, isOpen, onClose } = useInterface();
+	const { onOpen, type, isOpen, onClose, data } = useInterface();
 	const open = type == 'sideMenuNavigation' && isOpen;
+	const { creator } = data;
 
 	const openMenu = () => {
 		onOpen('searchCreators');
@@ -15,9 +19,6 @@ export function SideMenuNavigationComponent() {
 	return (
 		<Sheet open={open} onOpenChange={onClose}>
 			<SheetContent side={'left'} className="overflow-y-auto px-3 py-0">
-				<SheetHeader>
-					<SheetTitle></SheetTitle>
-				</SheetHeader>
 				<aside className="flex gap-6 flex-col w-full h-screen px-0 py-4 overflow-y-auto bg-white dark:bg-gray-900 ">
 					<a href="#">
 						<Logo />
@@ -55,6 +56,32 @@ export function SideMenuNavigationComponent() {
 								<IoInformationCircle className="" />
 								<span className="mx-2 text-sm font-medium">About</span>
 							</a>
+
+							{creator != null ? (
+								<>
+									<Link className="block" href={`/${creator.userName}`}>
+										<Button variant={'secondary'}>View page</Button>
+									</Link>
+
+									<Link className="block" href={`/dashboard`}>
+										<Button className="font-bold">Dashboard</Button>
+									</Link>
+
+									<UserButton />
+								</>
+							) : (
+								<div className="flex items-center gap-2">
+									<Button
+										variant={'secondary'}
+										className="hidden text-sm lg:text-base font-semibold tracking-tight flex-1"
+									>
+										<a href="/signin">Login</a>
+									</Button>
+									<Button className="block rounded-lg text-sm lg:text-base font-semibold tracking-tight flex-1">
+										<a href="/signup">Create my Page</a>
+									</Button>
+								</div>
+							)}
 						</nav>
 					</div>
 				</aside>

@@ -15,7 +15,7 @@ export type InterfaceType =
 	| 'QRCodeModal';
 
 interface InterfaceDataType {
-	creator?: User;
+	creator?: User | null;
 }
 
 interface InterfaceStore {
