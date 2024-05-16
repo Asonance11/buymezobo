@@ -8,7 +8,7 @@ import Loading from './loading';
 import { useAuth } from '../actions/use-auth';
 import { User } from 'lucia';
 
-export default async function Home() {
+export default function Home() {
 	const [profile, setProfile] = useState<User | null>(null);
 	const [loading, setLoading] = useState(true);
 
