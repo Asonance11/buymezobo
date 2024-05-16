@@ -22,7 +22,7 @@ model Profile {
     lastName  String?
     sessions        Session[]
 
-    imageUrl       String  @db.Text
+    imageUrl       String  @db.Text @default("https://www.kindpng.com/picc/m/171-1712282_profile-icon-png-profile-icon-vector-png-transparent.png")
     headerImageUrl String? @db.Text
     bio            String?
 
