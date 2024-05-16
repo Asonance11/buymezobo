@@ -44,12 +44,12 @@ export default function Page() {
 	return (
 		<section className=" w-full h-[100vh] flex items-center justify-center flex-col">
 			<nav className=" fixed top-3">
-				<Logo />
+				<Logo className="hidden lg:block" />
 			</nav>
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className=" flex flex-col gap-8 w-[25%] min-w-96 px-8 py-10 h-fit border-solid border-slate-300  rounded-lg shadow-[0px_10px_1px_rgba(221,_221,_221,_1),_0_10px_20px_rgba(204,_204,_204,_1)]
+					className=" flex flex-col gap-8 w-[25%] min-w-[22rem] px-2.5 md:px-4 lg:px-8 py-10 h-fit border-solid border-slate-300  rounded-lg md:shadow-sm  lg:shadow-[0px_10px_1px_rgba(221,_221,_221,_1),_0_10px_20px_rgba(204,_204,_204,_1)]
 
                     "
 				>
@@ -85,7 +85,7 @@ export default function Page() {
 						)}
 					/>
 
-					<Button className=" font-semibold self-center w-full " disabled={loading}>
+					<Button className="text-sm md:text-base font-semibold self-center w-full " disabled={loading}>
 						{loading ? <LoadingOutlined /> : 'Continue'}
 					</Button>
 
