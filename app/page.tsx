@@ -4,7 +4,7 @@ import { Button } from '../components/ui/button';
 import { InterTight } from '@/utility/fonts';
 import Link from 'next/link';
 import Loading from './loading';
-import { useAuth } from '../actions/use-auth';
+import { useAuth as Auth } from '../actions/use-auth';
 import { useEffect, useState } from 'react';
 import { User } from 'lucia';
 
@@ -15,7 +15,8 @@ export default function Home() {
 	useEffect(() => {
 		const fetchProfile = async () => {
 			setLoading(true);
-			const { user } = await useAuth();
+			//INFO: an error here about a hook,, because it starts with use, in a function.
+			const { user } = await Auth();
 			setProfile(user);
 			setLoading(false);
 		};
