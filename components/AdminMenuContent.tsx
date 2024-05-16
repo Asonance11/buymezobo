@@ -12,11 +12,12 @@ import { PiArrowSquareOutLight } from 'react-icons/pi';
 import { Logo } from './common/Logo';
 import { IoCodeOutline, IoSettingsOutline } from 'react-icons/io5';
 import { BsCashStack } from 'react-icons/bs';
-
+import { User } from 'lucia';
+import { RiImageEditFill } from 'react-icons/ri';
 export default function AdminMenuContent() {
 	const pathname = usePathname();
 
-	const [profile, setProfile] = useState<Profile | null>(null);
+	const [profile, setProfile] = useState<User | null>(null);
 
 	useEffect(() => {
 		const fetchProfile = async () => {
@@ -49,7 +50,7 @@ export default function AdminMenuContent() {
 			category: 'Profile',
 			routes: [
 				{ name: 'Settings', route: '/settings', icon: IoSettingsOutline },
-				{ name: 'Buttons & Graphics', route: '/button-and-graphics', icon: IoCodeOutline },
+				{ name: 'Buttons & Graphics', route: '/button-and-graphics', icon: RiImageEditFill },
 			],
 		},
 		{
