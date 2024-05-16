@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build",
+		"build": "pnpm run prisma:update &&  next build",
 		"start": "next start",
 		"prisma:update": "prisma db push && prisma generate",
 		"stage": "pnpm run prisma:update",
