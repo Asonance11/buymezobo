@@ -10,6 +10,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import * as z from 'zod';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { PasswordInput } from '@/components/ui/passwordInput';
 
 const SignUpSchema = z.object({
 	email: z.string().email().min(1, { message: 'This field is required' }).trim(),
@@ -80,7 +81,7 @@ export default function Page() {
 							<FormItem>
 								<FormLabel>Password</FormLabel>
 								<FormControl>
-									<Input className="w-full resize-none" {...field} placeholder="" />
+									<PasswordInput className="w-full resize-none" {...field} placeholder="" />
 								</FormControl>
 								<FormDescription>
 									We hash your passwords to prevent from malicios attacks
