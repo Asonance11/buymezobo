@@ -2,14 +2,14 @@ version: '3.4'
 
 services:
     db:
-        container_name: postgres
+        container_name: buy-me-zobo-db
         image: postgres
         environment:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
             - POSTGRES_DB=mydb
         ports:
-            - 6500:5432
+            - 5432:5432
         volumes:
             - pgdata:/var/lib/postgresql/data
 

@@ -1,26 +1,22 @@
 'use client';
 import MainHeader from '@/components/common/MainHeader';
-import { Button } from '@/components/ui/button';
-import { getCurrentUser } from '@/lib/authentication';
+import { Button } from '../components/ui/button';
 import { InterTight } from '@/utility/fonts';
-import { Profile } from '@prisma/client';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Loading from './loading';
+import { useAuth } from '../actions/use-auth';
+import { User } from 'lucia';
 
-export default function Home() {
-	const [profile, setProfile] = useState<Profile | null>(null);
-	const [loading, setLoading] = useState(false);
+export default async function Home() {
+	const [profile, setProfile] = useState<User | null>(null);
+	const [loading, setLoading] = useState(true);
+
 	useEffect(() => {
 		const fetchProfile = async () => {
-			try {
-				setLoading(true);
-				const profile = await getCurrentUser();
-				setProfile(profile);
-			} catch (error) {
-			} finally {
-				setLoading(false);
-			}
+			const { user } = await useAuth();
+			setProfile(user);
+			setLoading(false);
 		};
 		fetchProfile();
 	}, []);
