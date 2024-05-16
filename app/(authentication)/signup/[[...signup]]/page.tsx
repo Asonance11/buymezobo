@@ -19,6 +19,8 @@ const SignUpSchema = z.object({
 		.min(6, { message: 'Password must be a minimum of 6 characters' })
 		.max(12, { message: 'Password must not exceed 12 characters' })
 		.trim(),
+	firstName: z.string().optional(),
+	lastName: z.string().optional(),
 });
 
 export default function Page() {
@@ -60,6 +62,37 @@ export default function Page() {
 						<p className="text-2xl font-bold -tracking-wide">Create an Account</p>
 						<p className="text-sm text-gray-500 tracking-wide">to continue to buymezobo</p>
 					</div>
+
+					<div className="flex items-center gap-3">
+						<FormField
+							control={form.control}
+							name="firstName"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Firstname</FormLabel>
+									<FormControl>
+										<Input className="w-full resize-none" {...field} placeholder="" />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
+						<FormField
+							control={form.control}
+							name="lastName"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Lastname</FormLabel>
+									<FormControl>
+										<Input className="w-full resize-none" {...field} placeholder="" />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+					</div>
+
 					<FormField
 						control={form.control}
 						name="email"

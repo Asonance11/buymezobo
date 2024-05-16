@@ -12,6 +12,8 @@ import * as z from 'zod';
 interface SignUpData {
 	email: string;
 	password: string;
+	firstName?: string;
+	lastName?: string;
 }
 
 const SignUpSchema = z.object({
@@ -21,6 +23,8 @@ const SignUpSchema = z.object({
 		.min(6, { message: 'Password must be a minimum of 6 characters' })
 		.max(12, { message: 'Password must not exceed 12 characters' })
 		.trim(),
+	firstName: z.string().optional(),
+	lastName: z.string().optional(),
 });
 
 async function signup(formData: SignUpData): Promise<ActionResult> {
@@ -46,7 +50,9 @@ async function signup(formData: SignUpData): Promise<ActionResult> {
 
 	if (thisProfile) throw new Error('This user already exists.');
 
-	await db.profile.create({ data: { userId, email, passwordHash, imageUrl: '' } });
+	await db.profile.create({
+		data: { userId, firstName: formData.firstName, lastName: formData.lastName, email, passwordHash, imageUrl: '' },
+	});
 
 	const session = await lucia.createSession(userId, {});
 	const sessionCookie = lucia.createSessionCookie(session.id);
