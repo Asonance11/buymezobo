@@ -10,11 +10,11 @@ import { User } from 'lucia';
 
 export default function Home() {
 	const [profile, setProfile] = useState<User | null>(null);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const fetchProfile = async () => {
-			// eslint-disable-next-line react-hooks/rules-of-hooks
+			setLoading(true);
 			const { user } = await useAuth();
 			setProfile(user);
 			setLoading(false);
