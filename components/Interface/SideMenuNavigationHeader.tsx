@@ -7,15 +7,29 @@ import { Logo } from '../common/Logo';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import UserButton from '../common/UserButton';
+import { useEffect, useRef } from 'react';
 
 export function SideMenuNavigationComponent() {
 	const { onOpen, type, isOpen, onClose, data } = useInterface();
 	const open = type == 'sideMenuNavigation' && isOpen;
 	const { creator } = data;
 
+	const inputRef = useRef<HTMLInputElement>(null);
+
 	const openMenu = () => {
 		onOpen('searchCreators');
 	};
+
+	useEffect(() => {
+		if (open) {
+			const blurTimeout = setTimeout(() => {
+				inputRef?.current?.blur();
+			}, 0);
+
+			return () => clearTimeout(blurTimeout);
+		}
+	}, [open]);
+
 	return (
 		<Sheet open={open} onOpenChange={onClose}>
 			<SheetContent side={'left'} className="overflow-y-auto px-3 py-0">
@@ -34,6 +48,7 @@ export function SideMenuNavigationComponent() {
 							>
 								<IoMdSearch className="text-xl" />
 								<input
+									ref={inputRef}
 									onClick={openMenu}
 									type="text"
 									placeholder="Search Creators"
