@@ -2,111 +2,98 @@
 
 import { signup } from '@/actions/signup';
 import { Logo } from '@/components/common/Logo';
-import { TextInput } from '@/components/ui/TextInput';
 import { Button } from '@/components/ui/button';
-import { SignUp } from '@clerk/nextjs';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useRef, useState } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { LoadingOutlined } from '@ant-design/icons';
 import * as z from 'zod';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 
 const SignUpSchema = z.object({
-	email: z.string().email().min(1, { message: 'This field is required' }).trim(),
-	password: z
-		.string()
-		.min(6, { message: 'Password must be a minimum of 6 characters' })
-		.max(12, { message: 'Password must not exceed 12 characters' })
-		.trim(),
+    email: z.string().email().min(1, { message: 'This field is required' }).trim(),
+    password: z
+        .string()
+        .min(6, { message: 'Password must be a minimum of 6 characters' })
+        .max(12, { message: 'Password must not exceed 12 characters' })
+        .trim(),
 });
 
-type SignUpInputType = z.infer<typeof SignUpSchema>;
-
 export default function Page() {
-	const emailRef = useRef<HTMLInputElement | null>(null);
-	const passwordRef = useRef<HTMLInputElement | null>(null);
-	const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-	const {
-		handleSubmit,
-		control,
-		trigger,
-		reset,
-		watch,
-		formState: { errors },
-	} = useForm<SignUpInputType>({
-		resolver: zodResolver(SignUpSchema),
-		defaultValues: { email: '', password: '' },
-	});
+    const form = useForm<z.infer<typeof SignUpSchema>>({
+        resolver: zodResolver(SignUpSchema),
+        defaultValues: { email: '', password: '' },
+    });
 
-	useEffect(() => {
-		const subscription = watch((value, { name, type }) => console.log(value, name, type));
-		return () => subscription.unsubscribe();
-	}, [watch]);
+    async function onSubmit(values: z.infer<typeof SignUpSchema>) {
+        const isValid = await form.trigger();
+        if (isValid) {
+            setLoading(true);
+            try {
+                await signup(values);
+            } catch (error) {
+                throw error;
+            } finally {
+                setLoading(false);
+            }
+        }
+        form.reset();
+    }
 
-	useEffect(() => {
-		if (errors.email) {
-			emailRef.current?.focus();
-		} else if (errors.password) {
-			passwordRef.current?.focus();
-		}
-	}, [errors]);
+    return (
+        <section className=" w-full h-[100vh] flex items-center justify-center flex-col">
+            <nav className=" fixed top-3">
+                <Logo />
+            </nav>
+            <Form {...form}>
+                <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className=" flex flex-col gap-8 w-[30%] min-w-80 px-8 py-16 h-fit border-solid border-slate-300 border-[1px] rounded-sm shadow-sm"
+                >
+                    <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Email adress</FormLabel>
+                                <FormControl>
+                                    <Input className="w-full resize-none" {...field} placeholder="" />
+                                </FormControl>
+                                <FormDescription>your email address to sign up</FormDescription>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
 
-	const onSignUpSubmit: SubmitHandler<SignUpInputType> = async (data) => {
-		const isValid = await trigger();
-		if (isValid) {
-			setLoading(true);
-			try {
-				await signup(data);
-			} catch (error) {
-				throw error;
-			} finally {
-				setLoading(false);
-			}
-		}
-		reset();
-	};
+                    <FormField
+                        control={form.control}
+                        name="password"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Password</FormLabel>
+                                <FormControl>
+                                    <Input className="w-full resize-none" {...field} placeholder="" />
+                                </FormControl>
+                                <FormDescription>we hash your passwords for safety</FormDescription>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
 
-	return (
-		<section className=" w-full h-[100vh] flex items-center justify-center flex-col">
-			<nav className=" fixed top-3">
-				<Logo />
-			</nav>
-			<form
-				onSubmit={handleSubmit(onSignUpSubmit)}
-				className=" flex flex-col gap-8 w-[30%] min-w-80 px-8 py-16 h-fit border-solid border-slate-300 border-[1px] rounded-sm shadow-md"
-			>
-				<Controller
-					name="email"
-					control={control}
-					rules={{ required: true }}
-					render={({ field }) => (
-						<TextInput inputRef={emailRef} label="Email address" {...field} error={errors.email?.message} />
-					)}
-				/>
-				<Controller
-					name="password"
-					control={control}
-					rules={{ required: true }}
-					render={({ field }) => (
-						<TextInput
-							inputRef={passwordRef}
-							label="Password"
-							{...field}
-							error={errors.password?.message}
-						/>
-					)}
-				/>
-				<p className=" text-sm font-semibold">
-					Have an account?{' '}
-					<a href="/signin" className=" text-red-500">
-						Login
-					</a>
-				</p>
-				<Button className=" font-semibold self-center w-full " disabled={loading}>
-					{loading ? <LoadingOutlined /> : 'Sign Up'}
-				</Button>
-			</form>
-		</section>
-	);
+                    <p className=" text-sm font-semibold">
+                        Have an account?{' '}
+                        <a href="/signin" className=" text-purple-800">
+                            Login
+                        </a>
+                    </p>
+                    <Button className=" font-semibold self-center w-full " disabled={loading}>
+                        {loading ? <LoadingOutlined /> : 'Sign Up'}
+                    </Button>
+                </form>
+            </Form>
+        </section>
+    );
 }
