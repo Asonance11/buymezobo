@@ -10,9 +10,10 @@ import UserButton from './UserButton';
 import { truncateText } from '@/utility/text';
 import { Logo } from './Logo';
 import Link from 'next/link';
+import { User } from 'lucia';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-	user: Profile;
+	user: User;
 }
 
 //WARN: visitedUser is the page we are visiting, loggedInUser is the loggedin user
@@ -20,7 +21,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export default function UserNameHeader({ user: visitedUser, className, ...props }: Props) {
 	const { onOpen } = useInterface();
-	const [loggedInUser, setLoggedInUser] = useState<Profile | null>(null);
+	const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
 
 	useEffect(() => {
 		const fetchProfile = async () => {
@@ -48,8 +49,8 @@ export default function UserNameHeader({ user: visitedUser, className, ...props 
 					</div>
 				</div>
 				<div className="navbar-center flex">
-				<Logo />
-			</div>
+					<Logo />
+				</div>
 				<div className="navbar-end flex gap-2">
 					<div className="flex items-center gap-5">
 						<SlOptions />

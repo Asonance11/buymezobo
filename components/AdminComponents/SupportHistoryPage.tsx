@@ -1,3 +1,26 @@
+// import { getCreatorSupports } from '@/actions/support';
+// import { Profile, Support } from '@prisma/client';
+// import React, { HTMLAttributes, useState } from 'react';
+
+// interface Props extends HTMLAttributes<HTMLDivElement> {
+// 	profile: Profile;
+// }
+// function SupportHistoryPage({ profile }: Props) {
+// 	const [supports, setSupports] = useState<Support[]>([]);
+// 	const getSupports = async () => {
+// 		const [supports, error] = await getCreatorSupports(profile.id);
+// 		if (error != null) {
+// 			console.error(error);
+// 			//TODO: handle error
+// 			return;
+// 		}
+// 		setSupports(supports);
+// 	};
+// 	return <div>SupportHistoryPage</div>;
+// }
+
+// export default SupportHistoryPage;
+'use client';
 import { getCreatorSupports } from '@/actions/support';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/utility/style';
@@ -7,10 +30,9 @@ import React, { HTMLAttributes, useEffect, useState } from 'react';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	creator: User;
-	reload: boolean;
 }
 
-export default function SupportersCard({ creator, reload, className }: Props) {
+export default function SupportHistoryPage({ creator, className }: Props) {
 	const [supports, setSupports] = useState<Support[]>([]);
 	const [loading, setLoading] = useState(false);
 
@@ -28,19 +50,15 @@ export default function SupportersCard({ creator, reload, className }: Props) {
 			setLoading(false);
 		};
 		getSupports();
-	}, [creator.id, reload]);
+	}, [creator.id]);
 
 	return (
 		<div
 			className={cn(
-				`transition-all duration-300 p-7 md:p-10 w-[27rem] md:w-[33rem] rounded-2xl bg-white flex flex-col gap-3 items-start h-fit`,
+				`transition-all max-h-[40rem] overflow-y-auto duration-300 p-7 md:p-10 w-[27rem] md:w-full rounded-2xl bg-white flex flex-col gap-3 items-start h-fit`,
 				className,
 			)}
 		>
-			<div className="space-y-3">
-				<p className="text-base md:text-lg font-bold -tracking-wide">About {creator.userName}</p>
-				<p className="text-xs md:text-sm font-semibold text-zinc-500">{creator.bio}</p>
-			</div>
 			<Separator className="my-2" />
 			<div className="spce-y-4 w-full">
 				{supports.map((support) => (

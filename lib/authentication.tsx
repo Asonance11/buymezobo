@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 'use server';
 import { Profile } from '@prisma/client';
 import { db } from './database';

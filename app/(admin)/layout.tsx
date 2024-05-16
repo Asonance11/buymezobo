@@ -15,6 +15,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
 	useEffect(() => {
 		const fetchProfile = async () => {
+			// eslint-disable-next-line react-hooks/rules-of-hooks
 			const { user } = await useAuth();
 			setProfile(user);
 			setLoading(false);

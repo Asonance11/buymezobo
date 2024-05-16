@@ -6,10 +6,11 @@ import { useEffect, useState } from 'react';
 import BuyCard from './_components/BuyCard';
 import SupportersCard from './_components/SupportersCard';
 import Loading from './loading';
+import { User } from 'lucia';
 
 export default function Username(props: any) {
 	const creatorname = props.params.username;
-	const [creator, setCreator] = useState<Profile | null>(null);
+	const [creator, setCreator] = useState<User | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [reloadSupporters, setReloadSupporters] = useState(false);
 	useEffect(() => {

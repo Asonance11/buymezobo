@@ -1,6 +1,7 @@
 'use client';
 
 import { Profile } from '@prisma/client';
+import { User } from 'lucia';
 import { create } from 'zustand';
 
 export type InterfaceType =
@@ -14,7 +15,7 @@ export type InterfaceType =
 	| 'QRCodeModal';
 
 interface InterfaceDataType {
-	creator?: Profile;
+	creator?: User;
 }
 
 interface InterfaceStore {

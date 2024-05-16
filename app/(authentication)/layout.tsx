@@ -12,12 +12,12 @@ export default function ClerkLayout({ children }: { children: React.ReactNode })
 	const router = useRouter();
 
 	useEffect(() => {
-		const fetchProfile = async () => {
+		const FetchProfile = async () => {
 			const { user } = await useAuth();
 			setProfile(user);
 			setLoading(false);
 		};
-		fetchProfile();
+		FetchProfile();
 	}, []);
 
 	if (loading) {

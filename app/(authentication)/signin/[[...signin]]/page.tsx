@@ -90,7 +90,7 @@ export default function Page() {
 					</Button>
 
 					<p className=" text-sm font-light">
-						Don't have an account?{' '}
+						Do not have an account?{' '}
 						<a href="/signup" className="font-semibold text-purple-800">
 							Create a new account
 						</a>

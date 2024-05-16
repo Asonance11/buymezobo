@@ -17,7 +17,7 @@ const SignUpSchema = z.object({
 	password: z
 		.string()
 		.min(6, { message: 'Password must be a minimum of 6 characters' })
-		.max(12, { message: 'Password must not exceed 12 characters' })
+		.max(24, { message: 'Password must not exceed 24 characters' })
 		.trim(),
 	firstName: z.string().optional(),
 	lastName: z.string().optional(),
