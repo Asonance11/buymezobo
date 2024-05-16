@@ -6,9 +6,10 @@ import { Separator } from '../ui/separator';
 import { Button } from '../ui/button';
 import { formatNumberWithCommas } from '@/utility/text';
 import { useInterface } from '@/store/InterfaceStore';
+import { User } from 'lucia';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-	profile: Profile;
+	profile: User;
 }
 
 export default function PayoutEarningPage({ profile, className }: Props) {

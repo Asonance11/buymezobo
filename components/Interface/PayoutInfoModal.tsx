@@ -14,12 +14,21 @@ import { Input } from '../ui/input';
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Loader from '../common/Loader';
+import { toast } from 'sonner';
+
+type personType = {
+	accountNumber: string;
+	bankCode: string;
+	bankAccountName: string;
+};
+
 export default function PayoutInfoModal() {
 	const { type, isOpen, onClose, data } = useInterface();
 	const open = isOpen && type == 'payoutInfoModal';
 	const [loading, setLoading] = useState(false);
 	const [readyToLoadBanks, setReadyToLoadBanks] = useState(false);
 
+	const [personData, setPersonData] = useState<personType | null>(null);
 	const [banks, setBanks] = useState<Bank[]>([]);
 
 	useEffect(() => {
@@ -55,12 +64,12 @@ export default function PayoutInfoModal() {
 			banckCode: '',
 		},
 	});
-
 	const handleBankSelect = (bank: any) => {
 		form.setValue('banckCode', bank);
 	};
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
+		setPersonData(null);
 		const data = {
 			accountNumber: values.accountNumber,
 			bankCode: values.banckCode,
@@ -85,27 +94,27 @@ export default function PayoutInfoModal() {
 			}
 
 			data.bankAccountName = responseData.data.account_name;
-
+			setPersonData(data);
 			console.table(data);
 
 			console.log('Bank account resolved successfully.');
-
 			try {
-				const postResponse = await axios.post('/api/profile/payoutInfo', data);
+				const postResponse = await axios.post('/api/profile/payoutInfo', personData);
 				console.log('POST request sent to /api/auth/aftersignup:', postResponse.data);
 				if (postResponse.status === 200) {
 					onClose();
 				}
 			} catch (error) {
+				toast.error('An error occurred');
 				console.error('Error sending POST request to /api/auth/aftersignup:', error);
 			}
 		} catch (err) {
+			toast.error('Error getting details');
 			console.error('Error resolving bank account:', err);
 		} finally {
 			setLoading(false);
 		}
 	}
-
 	return (
 		<Dialog open={open} onOpenChange={onClose}>
 			<DialogContent className="space-y-4">
@@ -157,8 +166,14 @@ export default function PayoutInfoModal() {
 											)}
 										</SelectContent>
 									</Select>
-
-									<FormDescription>choose your bank for the payout</FormDescription>
+									{!personData && <FormDescription>choose your bank for the payout</FormDescription>}
+									{loading ? (
+										<Loader className="mx-auto" />
+									) : (
+										<p className="text-green-700 font-bold bg-green-100 p-1">
+											{personData ? personData.bankAccountName : ''}
+										</p>
+									)}
 									<FormMessage />
 								</FormItem>
 							)}

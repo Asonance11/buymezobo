@@ -14,20 +14,19 @@ datasource db {
 }
 
 model Profile {
-    id        String  @id @default(uuid())
-    userId    String  @unique
-    email     String  @unique @db.Text
-    passwordHash String 
-    firstName String?
-    lastName  String?
-    sessions        Session[]
+    id           String    @id @default(uuid())
+    userId       String    @unique
+    email        String    @unique @db.Text
+    passwordHash String
+    firstName    String?
+    lastName     String?
+    sessions     Session[]
 
-    imageUrl       String  @db.Text @default("https://www.kindpng.com/picc/m/171-1712282_profile-icon-png-profile-icon-vector-png-transparent.png")
+    imageUrl       String  @default("https://www.kindpng.com/picc/m/171-1712282_profile-icon-png-profile-icon-vector-png-transparent.png") @db.Text
     headerImageUrl String? @db.Text
     bio            String?
 
-    userName String? @unique
-
+    userName              String? @unique
     accountNumber         String?
     bankCode              String?
     bankAccountName       String?
@@ -42,10 +41,10 @@ model Profile {
 }
 
 model Session {
-  id        String   @id
-  expiresAt DateTime
-  userId    String
-  profile     Profile     @relation(references: [userId], fields: [userId], onDelete: Cascade)
+    id        String   @id
+    expiresAt DateTime
+    userId    String
+    profile   Profile  @relation(references: [userId], fields: [userId], onDelete: Cascade)
 }
 
 model Support {

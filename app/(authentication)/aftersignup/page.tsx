@@ -15,12 +15,12 @@ import { User } from 'lucia';
 export default async function Page() {
 	const [profile, setProfile] = useState<User | null>(null);
 	useEffect(() => {
-		const fetchProfile = async () => {
+		const FetchProfile = async () => {
 			const { user: myProfile } = await useAuth();
 			if (!myProfile) redirect('/signin');
 			setProfile(myProfile);
 		};
-		fetchProfile();
+		FetchProfile();
 	}, []);
 
 	console.log(profile);
