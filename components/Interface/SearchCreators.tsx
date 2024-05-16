@@ -14,11 +14,12 @@ import axios from 'axios';
 import CreatorSearchButton from '../common/CreatorSearchButton';
 import { ThreeCircles } from 'react-loader-spinner';
 import Loader from '../common/Loader';
+import { User } from 'lucia';
 
 export function SearchCreatorMenu() {
 	const { type, onOpen, onClose, isOpen } = useInterface();
 
-	const [creators, setCreators] = useState<Profile[]>([]);
+	const [creators, setCreators] = useState<User[]>([]);
 
 	const open = type === 'searchCreators' && isOpen;
 

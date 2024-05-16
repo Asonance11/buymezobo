@@ -1,25 +1,3 @@
-// import { getCreatorSupports } from '@/actions/support';
-// import { Profile, Support } from '@prisma/client';
-// import React, { HTMLAttributes, useState } from 'react';
-
-// interface Props extends HTMLAttributes<HTMLDivElement> {
-// 	profile: Profile;
-// }
-// function SupportHistoryPage({ profile }: Props) {
-// 	const [supports, setSupports] = useState<Support[]>([]);
-// 	const getSupports = async () => {
-// 		const [supports, error] = await getCreatorSupports(profile.id);
-// 		if (error != null) {
-// 			console.error(error);
-// 			//TODO: handle error
-// 			return;
-// 		}
-// 		setSupports(supports);
-// 	};
-// 	return <div>SupportHistoryPage</div>;
-// }
-
-// export default SupportHistoryPage;
 'use client';
 import { getCreatorSupports } from '@/actions/support';
 import { Separator } from '@/components/ui/separator';

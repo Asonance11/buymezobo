@@ -3,9 +3,10 @@ import React, { HTMLAttributes } from 'react';
 import { useRouter } from 'next/navigation';
 import { useInterface } from '@/store/InterfaceStore';
 import { truncateText } from '@/utility/text';
+import { User } from 'lucia';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-	profile: Profile;
+	profile: User;
 }
 
 export default function CreatorSearchButton({ profile, ...props }: Props) {
