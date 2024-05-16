@@ -6,9 +6,10 @@ import { Button } from '../ui/button';
 import { MdIosShare } from 'react-icons/md';
 import SharePage from '../common/SharePage';
 import { formatNumberWithCommas } from '@/utility/text';
+import { User } from 'lucia';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-	profile: Profile;
+	profile: User;
 }
 
 export default function DashBoardEarningPage({ profile, className }: Props) {

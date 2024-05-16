@@ -16,14 +16,17 @@ import { Button } from '../ui/button';
 import { truncateText } from '@/utility/text';
 import Link from 'next/link';
 import { useClerk } from '@clerk/nextjs';
+import { useAuth } from '@/actions/use-auth';
+import { User } from 'lucia';
+import { signOut } from '@/actions/signout';
 
 export default function UserButton() {
-	const [profile, setProfile] = useState<Profile | null>(null);
-	const { signOut } = useClerk();
+	const [profile, setProfile] = useState<User | null>(null);
+	// const { signOut } = useClerk();
 
 	useEffect(() => {
 		const fetchProfile = async () => {
-			const profile = await getCurrentUser();
+			const { user: profile } = await useAuth();
 			setProfile(profile);
 		};
 		fetchProfile();
