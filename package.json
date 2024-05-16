@@ -10,11 +10,11 @@
 		"stage": "pnpm run prisma:update",
 		"lint": "next lint"
 	},
-    "husly":{
-        "hooks":{
-            "pre-commit": "npm run build",
-        }
-    },
+	"husky": {
+		"hooks": {
+			"pre-commit": "npm run build"
+		}
+	},
 	"dependencies": {
 		"@ant-design/icons": "^5.3.7",
 		"@createform/react": "^4.0.4",
