@@ -48,7 +48,7 @@ export default function UserButton() {
 						style={{ backgroundImage: `url(${profile?.imageUrl})` }}
 					></div>
 				) : (
-					<div className="text-xl font-extrabold text-purple-900 bg-purple-100 cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat border border-purple-500">
+					<div className="text-xl font-extrabold text-purple-900 bg-purple-100 cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat border border-purple-500 flex justify-center items-center">
 						<p className="text-center">{(profile?.firstName as string)[0]}</p>
 					</div>
 				)}

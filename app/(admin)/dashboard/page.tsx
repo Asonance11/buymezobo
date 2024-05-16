@@ -16,11 +16,10 @@ export default async function Page() {
 			}
 		};
 		getUser();
-	});
+	}, []);
 
 	return (
 		<main className="w-full h-full transition-all duration-300">
-			<MainHeader />
 			<section className="h-full md:w-5/6 lg:w-3/5 mx-auto p-5 flex flex-col gap-4">
 				<DashBoardEarningPage profile={profile} />
 				<SupportHistoryPage creator={profile} />

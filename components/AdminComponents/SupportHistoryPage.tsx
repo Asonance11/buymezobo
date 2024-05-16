@@ -63,7 +63,7 @@ export default function SupportHistoryPage({ creator, className }: Props) {
 							<div key={support.id} className="py-3 w-full ">
 								<div className="lg:flex items-center gap-3 ">
 									<div className="cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat bg-black "></div>
-									<div className="flex-col space-y-1.5 items-center justify-start">
+									<div className="flex-col space-y-1.5 items-center justify-start w-full">
 										<div>
 											<p className="text-sm ">
 												<span className="font-semibold">{support.name}</span> bought{' '}
