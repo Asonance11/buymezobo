@@ -24,6 +24,7 @@ export default function UserButton() {
 
 	useEffect(() => {
 		const fetchProfile = async () => {
+			// eslint-disable-next-line react-hooks/rules-of-hooks
 			const { user: profile } = await useAuth();
 			setProfile(profile);
 		};

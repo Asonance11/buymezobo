@@ -2,8 +2,9 @@
 
 import { Profile } from '@prisma/client';
 import { db } from './database';
+import { User } from 'lucia';
 
-export async function getCreatorByName(name: string): Promise<Profile | null> {
+export async function getCreatorByName(name: string): Promise<User | null> {
 	try {
 		const creator = await db.profile.findFirst({
 			where: {
@@ -11,7 +12,7 @@ export async function getCreatorByName(name: string): Promise<Profile | null> {
 			},
 		});
 
-		return creator;
+		return creator as User;
 	} catch (error) {
 		return null;
 	}

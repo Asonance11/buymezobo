@@ -7,7 +7,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { redirect } from 'next/navigation';
 import { useEffect } from 'react';
 
-export default function page() {
+export default function Page() {
 	useEffect(() => {
 		signOut().catch((error) => {
 			toast({
@@ -20,7 +20,7 @@ export default function page() {
 	return (
 		<main className="  w-full h-full flex flex-col gap-3 justify-center items-center text-red-500">
 			<LoadingOutlined />
-			<p>Logging you out...</p>
+			<p>Logging you out...</p>cls
 		</main>
 	);
 }
