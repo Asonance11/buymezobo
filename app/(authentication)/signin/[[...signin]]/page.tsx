@@ -48,8 +48,14 @@ export default function Page() {
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className=" flex flex-col gap-8 w-[30%] min-w-80 px-8 py-16 h-fit border-solid border-slate-300 border-[1px] rounded-sm shadow-sm"
+					className=" flex flex-col gap-8 w-[25%] min-w-80 px-8 py-16 h-fit border-solid border-slate-300  rounded-lg shadow-[0px_10px_1px_rgba(221,_221,_221,_1),_0_10px_20px_rgba(204,_204,_204,_1)]
+
+                    "
 				>
+					<div className="spece-y-3">
+						<p className="text-2xl font-bold -tracking-wide">Sign In</p>
+						<p className="text-sm text-gray-500 tracking-wide">to continue to buymezobo</p>
+					</div>
 					<FormField
 						control={form.control}
 						name="email"
@@ -78,15 +84,16 @@ export default function Page() {
 						)}
 					/>
 
-					<p className=" text-sm font-semibold">
+					<Button className=" font-semibold self-center w-full " disabled={loading}>
+						{loading ? <LoadingOutlined /> : 'Continue'}
+					</Button>
+
+					<p className=" text-sm font-light">
 						Don't have an account?{' '}
-						<a href="/signup" className=" text-purple-800">
+						<a href="/signup" className="font-semibold text-purple-800">
 							Create a new account
 						</a>
 					</p>
-					<Button className=" font-semibold self-center w-full " disabled={loading}>
-						{loading ? <LoadingOutlined /> : 'Sign in'}
-					</Button>
 				</form>
 			</Form>
 		</section>
