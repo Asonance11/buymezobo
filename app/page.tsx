@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 'use client';
 import MainHeader from '@/components/common/MainHeader';
 import { Button } from '../components/ui/button';
@@ -40,7 +41,7 @@ export default function Home() {
 						Fund your creative work
 					</h1>
 					<p className="text-sm lg:text-lg font-semibold text-gray-800">
-						Accept support. Start a membership. Setup a shop. It’s easier than you think.
+						Accept support. Start a membership. Setup a shop. It's easier than you think.
 					</p>
 					{loading ? (
 						<Skeleton className="p-3 lg:p-6 text-base lg:text-xl bg-purple-300 font-semibold w-[200px] h-[40px]" />
@@ -52,7 +53,7 @@ export default function Home() {
 						</Link>
 					)}
 					<p className="text-xs lg:text-base font-light text-gray-600">
-						It’s free and takes less than a minute!{' '}
+						It's free and takes less than a minute!
 					</p>
 				</div>
 			</section>
