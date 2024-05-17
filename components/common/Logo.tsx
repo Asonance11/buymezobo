@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import { DancingScript, shadowLight } from '@/utility/fonts';
+import { cn } from '@/utility/style';
 
-export const Logo = ({}) => {
-	return (
-		<a href="/">
-			<div className="flex items-center justify-center gap-0.5">
-				<p className={`text-2xl lg:text-3xl tracking-tighter font-extrabold ${shadowLight.className}`}>
-					Buy me Zobo &copy;
-				</p>
-			</div>
-		</a>
-	);
+interface Props extends HTMLAttributes<HTMLDivElement> { }
+
+export const Logo = ({ className }: Props) => {
+    return (
+        <a href="/">
+            <div className={cn(` flex items-center justify-center gap-0.5`, className)}>
+                <p className={`text-2xl lg:text-3xl tracking-tighter font-extrabold ${shadowLight.className}`}>
+                    Buy me Zobo &copy;
+                </p>
+            </div>
+        </a>
+    );
 };

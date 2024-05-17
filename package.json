@@ -4,11 +4,16 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build",
+		"build": "pnpm run prisma:update &&  next build",
 		"start": "next start",
 		"prisma:update": "prisma db push && prisma generate",
 		"stage": "pnpm run prisma:update",
 		"lint": "next lint"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "npm run build"
+		}
 	},
 	"dependencies": {
 		"@ant-design/icons": "^5.3.7",
@@ -34,6 +39,7 @@
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
 		"cmdk": "^1.0.0",
+		"husky": "^9.0.11",
 		"lodash": "^4.17.21",
 		"lucia": "^3.2.0",
 		"lucide-react": "^0.378.0",
