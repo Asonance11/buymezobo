@@ -79,25 +79,25 @@ export default function AdminMenuContent() {
 							}`}
 						>
 							<option.icon
-								className={` ${pathname === option.route ? ' text-purple-800' : null} text-2xl `}
+								className={` ${pathname === option.route ? ' text-purple-800' : null} text-base lg:text-2xl `}
 							/>
-							<p className="flex-1 text-zinc-800 text-sm font-normal">{option.name}</p>
-							{option.newTab ? <RedirectIcon className={` text-lg text-zinc-600`} /> : null}
+							<p className="flex-1 text-zinc-800 text-xs md:text-sm font-normal">{option.name}</p>
+							{option.newTab ? <RedirectIcon className={`tex-sm lg:text-lg text-zinc-600`} /> : null}
 						</div>
 					</Link>
 				))}
 				{categorizedOptions.map(({ category, routes }, categoryIndex) => (
 					<div key={categoryIndex} className="mt-4">
-						<p className="text-sm font-light text-gray-500 mb-1">{category}</p>
+						<p className="text-xs md:text-sm font-light text-gray-500 mb-1">{category}</p>
 						{routes.map((route, routeIndex) => (
 							<Link key={routeIndex} href={route.route}>
 								<div
 									className={`mb-2 flex gap-1.5 items-center justify-around transition-all duration-300 py-2.5 px-3.5 rounded-lg ${pathname === route.route ? 'bg-zinc-100' : 'hover:bg-zinc-100'}`}
 								>
 									<route.icon
-										className={` ${pathname === route.route ? ' text-purple-800' : null} text-2xl `}
+										className={` ${pathname === route.route ? ' text-purple-800' : null} text-base lg:text-2xl `}
 									/>
-									<p className="flex-1 text-zinc-800 text-sm font-normal">{route.name}</p>
+									<p className="flex-1 text-zinc-800 text-xs md:text-sm font-normal">{route.name}</p>
 								</div>
 							</Link>
 						))}
