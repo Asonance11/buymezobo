@@ -18,6 +18,7 @@ import Link from 'next/link';
 import { useAuth } from '@/actions/use-auth';
 import { User } from 'lucia';
 import { signOut } from '@/actions/signout';
+import SharePage from './SharePage';
 
 export default function UserButton() {
 	const [profile, setProfile] = useState<User | null>(null);
@@ -66,7 +67,9 @@ export default function UserButton() {
 				<Link href={`/${profile.userName}`}>
 					<DropdownMenuItem>View my page</DropdownMenuItem>
 				</Link>
-				<DropdownMenuItem>My account</DropdownMenuItem>
+				<DropdownMenuItem>
+					<SharePage className="text-xs hidden" profile={profile} />
+				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem onClick={OnSignOut}>Logout</DropdownMenuItem>
 			</DropdownMenuContent>
