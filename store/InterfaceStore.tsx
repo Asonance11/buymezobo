@@ -7,6 +7,7 @@ import { create } from 'zustand';
 export type InterfaceType =
 	| 'searchCreators'
 	| 'sideMenuNavigation'
+	| 'adminSideMenuNavigation'
 	| 'editUsernamePage'
 	| 'payoutInfoModal'
 	| 'withdrawPayoutModal'

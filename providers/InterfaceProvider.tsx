@@ -1,5 +1,6 @@
 'use client';
 
+import { AdminSideMenuNavigationComponent } from '@/components/Interface/AdminSidebarMenuNavigationSheet';
 import EditUsernamePageModal from '@/components/Interface/EditUsernamePageModal';
 import PayoutInfoModal from '@/components/Interface/PayoutInfoModal';
 import QRCodeModal from '@/components/Interface/QRCodeModal';
@@ -8,24 +9,25 @@ import { SideMenuNavigationComponent } from '@/components/Interface/SideMenuNavi
 import WithdrawPayoutModal from '@/components/Interface/WithdrawPayoutModal';
 import { useEffect, useState } from 'react';
 export function InterfaceProvider() {
-	const [isMounted, setIsMounted] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
 
-	useEffect(() => {
-		setIsMounted(true);
-	}, []);
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
-	if (!isMounted) {
-		return null;
-	}
+    if (!isMounted) {
+        return null;
+    }
 
-	return (
-		<>
-			<QRCodeModal />
-			<WithdrawPayoutModal />
-			<PayoutInfoModal />
-			<SearchCreatorMenu />
-			<SideMenuNavigationComponent />
-			<EditUsernamePageModal />
-		</>
-	);
+    return (
+        <>
+            <QRCodeModal />
+            <WithdrawPayoutModal />
+            <PayoutInfoModal />
+            <SearchCreatorMenu />
+            <SideMenuNavigationComponent />
+            <AdminSideMenuNavigationComponent />
+            <EditUsernamePageModal />
+        </>
+    );
 }
