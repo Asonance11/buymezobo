@@ -8,11 +8,9 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Button } from '../ui/button';
 import { truncateText } from '@/utility/text';
 import Link from 'next/link';
 import { useAuth } from '@/actions/use-auth';
@@ -40,7 +38,6 @@ export default function UserButton() {
         signOut();
     };
 
-<<<<<<< HEAD
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className="border-none outline-none">
@@ -76,41 +73,4 @@ export default function UserButton() {
             </DropdownMenuContent>
         </DropdownMenu>
     );
-=======
-	return (
-		<DropdownMenu>
-			<DropdownMenuTrigger>
-				{profile.imageUrl ? (
-					<div
-						className="cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat border border-purple-500"
-						style={{ backgroundImage: `url(${profile?.imageUrl})` }}
-					></div>
-				) : (
-					<div className="text-xl font-extrabold text-purple-900 bg-purple-100 cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat border border-purple-500 flex justify-center items-center">
-						<p className="text-center">{(profile?.firstName as string)[0]}</p>
-					</div>
-				)}
-			</DropdownMenuTrigger>
-			<DropdownMenuContent>
-				<div className="p-4 flex flex-col items-center justify-center">
-					<p className="text-sm">My Account</p>
-					<p className="text-xs">{truncateText(profile.email, 23)}</p>
-				</div>
-				<DropdownMenuSeparator />
-				<Link href={'/dashboard'}>
-					<DropdownMenuItem>Dashboard</DropdownMenuItem>
-				</Link>
-				<DropdownMenuItem className="lg:hidden">Edit my page</DropdownMenuItem>
-				<Link href={`/${profile.userName}`}>
-					<DropdownMenuItem>View my page</DropdownMenuItem>
-				</Link>
-				<DropdownMenuItem>
-					<SharePage className="text-xs hidden" profile={profile} />
-				</DropdownMenuItem>
-				<DropdownMenuSeparator />
-				<DropdownMenuItem onClick={OnSignOut}>Logout</DropdownMenuItem>
-			</DropdownMenuContent>
-		</DropdownMenu>
-	);
->>>>>>> 61de9d7af342658f613c7f939d8a5a033f69a451
 }
