@@ -97,7 +97,7 @@ export default function BuyCard({ creator, className, setReload }: Props) {
 	return (
 		<div
 			className={cn(
-				`transition-all duration-300 p-5 lg:p-7 md:p-10 w-[27rem] md:w-[33rem] rounded-2xl bg-white flex flex-col gap-3 items-start h-fit`,
+				`transition-all duration-300 p-5 md:p-7 lg:p-10 w-[27rem] md:w-[33rem] rounded-2xl bg-white flex flex-col gap-3 items-start h-fit`,
 				className,
 			)}
 		>
