@@ -10,7 +10,6 @@ export default function AdminHeader() {
 	const [profile, setProfile] = useState<User | null>(null);
 	const isMobile = useIsMobile();
 	const openSide = () => {
-		console.log('Hello world');
 		onOpen('adminSideMenuNavigation');
 	};
 	return (
