@@ -154,7 +154,7 @@ export default function BuyCard({ creator, className, setReload }: Props) {
 							</FormItem>
 						)}
 					/>
-					<Button disabled={loading} className="w-full font-semibold " type="submit">
+					<Button disabled={loading} className="bg-purple-900 w-full font-semibold " type="submit">
 						Support {nairaSymbol + finalAmount}
 					</Button>
 				</form>

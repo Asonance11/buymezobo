@@ -48,7 +48,7 @@ export default function ZoboAmountPicker({ amount, creator, setAmount }: Props) 
 
 	return (
 		<div className="flex justify-center gap-4 lg:justify-around items-center p-2 lg:p-4 w-full h-28 rounded-2xl border border-zinc-300 ">
-			<div className="w-8 lg:w-12 h-9 bg-black"></div>
+			<div className="w-8 lg:w-10 h-9 bg-purple-900"></div>
 
 			{zoboAmounts.map((amount, index) => {
 				return (
@@ -57,10 +57,10 @@ export default function ZoboAmountPicker({ amount, creator, setAmount }: Props) 
 						onClick={() => {
 							setSeclected(amount.amount);
 						}}
-						className={`w-12 h-12 lg:w-16 lg:h-16 transition-colors duration-300 cursor-pointer rounded-full flex items-center border-2 border-red-800 justify-center ${amount.selected ? 'bg-red-700' : 'bg-white'}`}
+						className={`w-12 h-12 lg:w-16 lg:h-16 transition-colors duration-300 cursor-pointer rounded-full flex items-center border-2 border-purple-900 justify-center ${amount.selected ? 'bg-purple-900' : 'bg-white'}`}
 					>
 						<span
-							className={`text-md lg:text-xl transition-colors duration-300 font-bold ${amount.selected ? 'text-white' : 'text-red-700'}`}
+							className={`text-md lg:text-xl transition-colors duration-300 font-bold ${amount.selected ? 'text-white' : 'text-purple-900'}`}
 						>
 							{amount.amount}
 						</span>
