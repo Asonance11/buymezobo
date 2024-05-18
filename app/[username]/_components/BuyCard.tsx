@@ -146,8 +146,10 @@ export default function BuyCard({ creator, className, setReload }: Props) {
 									<Checkbox checked={field.value} onCheckedChange={field.onChange} />
 								</FormControl>
 								<div className="space-y-1 leading-none">
-									<FormLabel>Make this message a private message</FormLabel>
-									<FormDescription>
+									<FormLabel className="text-sm md:text-base">
+										Make this message a private message
+									</FormLabel>
+									<FormDescription className="text-xs md:text-sm">
 										The message will be visible to you and the creator only
 									</FormDescription>
 								</div>

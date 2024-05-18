@@ -60,7 +60,7 @@ export default function ZoboAmountPicker({ amount, creator, setAmount }: Props) 
 						className={`w-12 h-12 lg:w-16 lg:h-16 transition-colors duration-300 cursor-pointer rounded-full flex items-center border-2 border-purple-900 justify-center ${amount.selected ? 'bg-purple-900' : 'bg-white'}`}
 					>
 						<span
-							className={`text-md lg:text-xl transition-colors duration-300 font-bold ${amount.selected ? 'text-white' : 'text-purple-900'}`}
+							className={`text-sm md:text-lg lg:text-xl transition-colors duration-300 font-bold ${amount.selected ? 'text-white' : 'text-purple-900'}`}
 						>
 							{amount.amount}
 						</span>
