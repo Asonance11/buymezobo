@@ -13,64 +13,114 @@ import { getCurrentUser } from '@/lib/authentication';
 import { Profile } from '@prisma/client';
 import { toast } from 'sonner';
 import { formatNumberWithCommas } from '@/utility/text';
+import { User } from 'lucia';
+export default function WithdrawPayoutModal() {
+	const { type, isOpen, onClose } = useInterface();
+	const open = isOpen && type == 'withdrawPayoutModal';
+	const [loading, setLoading] = useState(false);
+	const [profile, setProfile] = useState<User | null>(null);
 
+	useEffect(() => {
+		const fetchProfilw = async () => {
+			try {
+				setLoading(true);
+				const profile = await getCurrentUser();
+				setProfile(profile);
+			} catch (error) {
+			} finally {
+				setLoading(false);
+			}
+		};
+		if (open == true) {
+			fetchProfilw();
+		}
+	}, [open]);
 
-        console.table(data);
+	const formSchema = z.object({
+		Amount: z.string(),
+	});
 
-        try {
-            setLoading(true);
-            const response = await axios.post('/api/support/withdraw', data);
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			Amount: String(profile?.balance || ''),
+		},
+	});
 
-            const responseData = response.data;
+	async function onSubmit(values: z.infer<typeof formSchema>) {
+		const amount = Number(values.Amount);
 
-            if (!responseData.status) {
-                throw new Error('Failed to transfer money');
-            }
-            toast.success('Withdraw successful');
-        } catch (err) {
-            console.error('Error with payout:', err);
-            toast.error(`Error with payout: ${err}`);
-        } finally {
-            setLoading(false);
-        }
-    }
+		if (isNaN(amount) || amount <= 0) {
+			toast('Please enter a valid amount');
+			return;
+		}
 
-    return (
-        <Dialog open={open} onOpenChange={onClose}>
-            <DialogContent className="space-y-4">
-                {loading ? (
-                    <Loader className="w-[30px] h-[30px] mx-auto block" />
-                ) : (
-                    <>
-                        <DialogHeader>
-                            <DialogTitle>Payout for {profile?.firstName}?</DialogTitle>
-                            <DialogDescription>
-                                how much do you want to withdraw from a balance of {profile?.balance}{' '}
-                            </DialogDescription>
-                        </DialogHeader>
-                        <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-                                <FormField
-                                    control={form.control}
-                                    name="Amount"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormControl>
-                                                <Input type="number" className="" {...field} />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
+		if (amount > profile?.balance!) {
+			toast("You don't have enough balance to withdraw");
+			return;
+		}
 
-                                <Button disabled={loading} type="submit" className="bg-purple-900">
-                                    Checkout
-                                </Button>
-                            </form>
-                        </Form>
-                    </>
-                )}
-            </DialogContent>
-        </Dialog>
-    );
+		const data = {
+			amount: amount * 100,
+			id: profile?.id,
+		};
+
+		console.table(data);
+
+		try {
+			setLoading(true);
+			const response = await axios.post('/api/support/withdraw', data);
+
+			const responseData = response.data;
+
+			if (!responseData.status) {
+				throw new Error('Failed to transfer money');
+			}
+			toast.success('Withdraw successful');
+		} catch (err) {
+			console.error('Error with payout:', err);
+			toast.error(`Error with payout: ${err}`);
+		} finally {
+			setLoading(false);
+		}
+	}
+
+	return (
+		<Dialog open={open} onOpenChange={onClose}>
+			<DialogContent className="space-y-4">
+				{loading ? (
+					<Loader className="w-[30px] h-[30px] mx-auto block" />
+				) : (
+					<>
+						<DialogHeader>
+							<DialogTitle>Payout for {profile?.firstName}?</DialogTitle>
+							<DialogDescription>
+								how much do you want to withdraw from a balance of {profile?.balance}{' '}
+							</DialogDescription>
+						</DialogHeader>
+						<Form {...form}>
+							<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+								<FormField
+									control={form.control}
+									name="Amount"
+									render={({ field }) => (
+										<FormItem>
+											<FormControl>
+												<Input type="number" className="" {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+
+								<Button disabled={loading} type="submit" className="bg-purple-900">
+									Checkout
+								</Button>
+							</form>
+						</Form>
+					</>
+				)}
+			</DialogContent>
+		</Dialog>
+	);
 }
