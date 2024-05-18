@@ -1,5 +1,6 @@
 'use client';
 
+import { AdminSideMenuNavigationComponent } from '@/components/Interface/AdminSidebarMenuNavigationSheet';
 import EditUsernamePageModal from '@/components/Interface/EditUsernamePageModal';
 import PayoutInfoModal from '@/components/Interface/PayoutInfoModal';
 import QRCodeModal from '@/components/Interface/QRCodeModal';
@@ -25,6 +26,7 @@ export function InterfaceProvider() {
 			<PayoutInfoModal />
 			<SearchCreatorMenu />
 			<SideMenuNavigationComponent />
+			<AdminSideMenuNavigationComponent />
 			<EditUsernamePageModal />
 		</>
 	);

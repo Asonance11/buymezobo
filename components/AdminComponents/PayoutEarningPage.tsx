@@ -21,8 +21,10 @@ export default function PayoutEarningPage({ profile, className }: Props) {
 			{!profile.transferRecipientCode ? (
 				<>
 					<div className="flex flex-col items-start gap-4 p-4 bg-red-100 rounded-lg">
-						<p className="font-semibold text-xl">Enter your payout info to start accepting payments </p>
-						<p className="font-light text-zinc-700 text-sm">
+						<p className="font-semibold text-base lg:text-xl tracking-tight">
+							Enter your payout info to start accepting payments{' '}
+						</p>
+						<p className="font-light text-zinc-700 text-xs md:text-sm tracking-tight">
 							To enable payouts, you will need to provide your bank details to our payment partner. Rest
 							assured, your information is secure and will be encrypted on our servers.{' '}
 						</p>
@@ -31,11 +33,13 @@ export default function PayoutEarningPage({ profile, className }: Props) {
 								onClick={() => {
 									onOpen('payoutInfoModal', { creator: profile });
 								}}
-								className="bg-zinc-950"
+								className="bg-zinc-950 text-sm"
 							>
-								Set Up Payouts
+								Update your payout info
 							</Button>
-							<p className="text-sm font-light text-zinc-700">It takes less than 3 minutes</p>
+							<p className="hidden md:block text-sm font-light text-zinc-700">
+								It takes less than 3 minutes
+							</p>
 						</div>
 					</div>
 					<Separator className="my-6" />
@@ -44,9 +48,9 @@ export default function PayoutEarningPage({ profile, className }: Props) {
 			<div className="flex items-start justify-between">
 				<div className="flex flex-col justify-center items-start gap-2">
 					<div className="flex items-center justify-start gap-3">
-						<p className="-tracking-wide text-sm text-zinc-600 font-light">CURRENT BALANCE</p>
+						<p className="-tracking-wide text-xs md:text-sm text-zinc-600 font-light">CURRENT BALANCE</p>
 					</div>
-					<p className="text-5xl font-bold">
+					<p className="text-xl lg:text-5xl font-bold">
 						{nairaSymbol}
 						{formatNumberWithCommas(profile.balance)}
 					</p>
@@ -55,7 +59,7 @@ export default function PayoutEarningPage({ profile, className }: Props) {
 					onClick={() => {
 						onOpen('withdrawPayoutModal');
 					}}
-					className="bg-zinc-950 disabled:bg-zinc-500"
+					className="bg-zinc-950 disabled:bg-zinc-500 text-xs md:text-sm"
 					disabled={!profile.transferRecipientCode}
 				>
 					Withdraw

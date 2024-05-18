@@ -41,7 +41,7 @@ export default function Username(props: any) {
 						<div className="flex-1 flex flex-col-reverse lg:flex-row justify-center gap-3 relative items-center py-5 lg:py-3 lg:items-start bg-gray-300">
 							<SupportersCard className="lg:-mt-32" creator={creator} reload={reloadSupporters} />
 							<BuyCard
-								className="-mt-32"
+								className="-mt-28 lg:-mt-32"
 								creator={creator}
 								setReload={() => setReloadSupporters(!reloadSupporters)}
 							/>

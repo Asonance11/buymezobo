@@ -97,12 +97,12 @@ export default function BuyCard({ creator, className, setReload }: Props) {
 	return (
 		<div
 			className={cn(
-				`transition-all duration-300 p-7 md:p-10 w-[27rem] md:w-[33rem] rounded-2xl bg-white flex flex-col gap-3 items-start h-fit`,
+				`transition-all duration-300 p-5 md:p-7 lg:p-10 w-screen md:w-[27rem] lg:w-[33rem] rounded-none md:rounded-2xl bg-white flex flex-col gap-3 items-start h-fit `,
 				className,
 			)}
 		>
 			<div>
-				<p className="font-bold text-xl -tracking-wide">Buy {creator.userName} Zobo</p>
+				<p className="font-bold text-md lg:text-xl -tracking-wide">Buy {creator.userName} Zobo</p>
 			</div>
 			<ZoboAmountPicker setAmount={setFinalAmountFunction} amount={amountToPay} creator={creator} />
 			<Form {...form}>
@@ -146,15 +146,17 @@ export default function BuyCard({ creator, className, setReload }: Props) {
 									<Checkbox checked={field.value} onCheckedChange={field.onChange} />
 								</FormControl>
 								<div className="space-y-1 leading-none">
-									<FormLabel>Make this message a private message</FormLabel>
-									<FormDescription>
+									<FormLabel className="text-sm md:text-base">
+										Make this message a private message
+									</FormLabel>
+									<FormDescription className="text-xs md:text-sm">
 										The message will be visible to you and the creator only
 									</FormDescription>
 								</div>
 							</FormItem>
 						)}
 					/>
-					<Button disabled={loading} className="w-full font-semibold " type="submit">
+					<Button disabled={loading} className="bg-purple-900 w-full font-semibold " type="submit">
 						Support {nairaSymbol + finalAmount}
 					</Button>
 				</form>

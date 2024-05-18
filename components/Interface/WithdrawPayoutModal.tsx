@@ -113,8 +113,8 @@ export default function WithdrawPayoutModal() {
 									)}
 								/>
 
-								<Button disabled={loading} type="submit">
-									Withdraw {formatNumberWithCommas(Number(form.getValues('Amount')))}
+								<Button disabled={loading} type="submit" className="bg-purple-900">
+									Checkout
 								</Button>
 							</form>
 						</Form>

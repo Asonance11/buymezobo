@@ -1,0 +1,2 @@
+pnpx prettier --write .
+npm run build

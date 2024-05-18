@@ -8,16 +8,15 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Button } from '../ui/button';
 import { truncateText } from '@/utility/text';
 import Link from 'next/link';
 import { useAuth } from '@/actions/use-auth';
 import { User } from 'lucia';
 import { signOut } from '@/actions/signout';
+import SharePage from './SharePage';
 
 export default function UserButton() {
 	const [profile, setProfile] = useState<User | null>(null);
@@ -41,10 +40,10 @@ export default function UserButton() {
 
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger>
+			<DropdownMenuTrigger className="border-none outline-none">
 				{profile.imageUrl ? (
 					<div
-						className="cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat border border-purple-500"
+						className="cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat border-2 border-purple-500"
 						style={{ backgroundImage: `url(${profile?.imageUrl})` }}
 					></div>
 				) : (
@@ -66,7 +65,9 @@ export default function UserButton() {
 				<Link href={`/${profile.userName}`}>
 					<DropdownMenuItem>View my page</DropdownMenuItem>
 				</Link>
-				<DropdownMenuItem>My account</DropdownMenuItem>
+				<DropdownMenuItem>
+					<SharePage className="text-xs hidden" profile={profile} />
+				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem onClick={OnSignOut}>Logout</DropdownMenuItem>
 			</DropdownMenuContent>

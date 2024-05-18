@@ -40,16 +40,16 @@ export default function UserNameHeader({ user: visitedUser, className, ...props 
 			<div className="navbar bg-white  lg:max-w-[95%] mx-auto">
 				<div className="navbar-start lg:flex items-center gap-3">
 					<div
-						className="cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat border border-purple-500"
+						className="cursor-pointer hidden lg:block rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat border border-purple-500"
 						style={{ backgroundImage: `url(${visitedUser?.imageUrl})` }}
 					></div>
-					<div className="flex-col gap-1 items-center justify-start">
+					<div className="flex-col gap-1  hidden lg:block items-center justify-start">
 						<p className="text-xs font-semibold">{visitedUser.userName}</p>
 						<p className="text-xs">{truncateText(visitedUser?.bio || visitedUser.email, 35)}</p>
 					</div>
 				</div>
 				<div className="navbar-center flex">
-					<Logo />
+					<Logo className=" hidden lg:block " />
 				</div>
 				<div className="navbar-end flex gap-2">
 					<div className="flex items-center gap-5">

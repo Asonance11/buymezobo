@@ -1,4 +1,5 @@
 //import { getCurrentUser } from "@/lib/authentication";
+import { getCurrentUser } from '@/lib/authentication';
 import { db } from '@/lib/database';
 import { decrementProfileSupportBalance, transferMoneyPayoutFunction } from '@/lib/monetization';
 import { PaymentStatus } from '@prisma/client';
@@ -13,6 +14,12 @@ export async function POST(request: NextRequest) {
 			return new NextResponse('Bad request', { status: 401 });
 		}
 
+		const loggedInUser = await getCurrentUser();
+
+		if (!loggedInUser || loggedInUser.id != profileData.id) {
+			return new NextResponse('Unauthorized', { status: 401 }); //PERF: idk about this tbh
+		}
+
 		console.table(profileData);
 
 		const profile = await db.profile.findFirst({
@@ -25,6 +32,7 @@ export async function POST(request: NextRequest) {
 			return new NextResponse('Bad request', { status: 401 });
 		}
 
+		//INFO: convert the amount in the db to kobo
 		if (profileData.amount > profile.balance * 100) {
 			return new NextResponse('Insufficient balance', { status: 401 });
 		}
@@ -40,7 +48,6 @@ export async function POST(request: NextRequest) {
 		}
 
 		console.table(transferResponse);
-		//finalize transfer should be here
 
 		const payout = await db.payout.create({
 			data: {
@@ -52,7 +59,7 @@ export async function POST(request: NextRequest) {
 			},
 		});
 
-		// Increase the user's balance with userMoney
+		//INFO: decrease the user's balance with profile.amount
 		await decrementProfileSupportBalance(profile.id, profileData.amount);
 
 		return new NextResponse(JSON.stringify({ payout }), { status: 200 });
