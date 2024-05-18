@@ -40,7 +40,11 @@ export default function SharePage({ profile, className }: SharePageProps) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
+<<<<<<< HEAD
                 <Button className={cn(`flex items-center gap-1.5 hover:bg-zinc-900`, className)}>
+=======
+                <Button className={cn(`flex items-center gap-1.5 bg-zinc-800 hover:bg-zinc-900`, className)}>
+>>>>>>> 61de9d7af342658f613c7f939d8a5a033f69a451
                     <MdIosShare className="text-lg" />
                     Share Page
                 </Button>
