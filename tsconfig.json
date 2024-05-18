@@ -21,6 +21,12 @@
 			"@/*": ["./*"]
 		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/(admin)/button-and-graphics/_components/QrMaker.tsx"],
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts",
+		"app/(admin)/button-and-graphics/_components/QrMaker.tsx"
+	],
 	"exclude": ["node_modules"]
 }
