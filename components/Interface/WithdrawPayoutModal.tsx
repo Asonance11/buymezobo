@@ -13,114 +13,113 @@ import { getCurrentUser } from '@/lib/authentication';
 import { Profile } from '@prisma/client';
 import { toast } from 'sonner';
 import { formatNumberWithCommas } from '@/utility/text';
-import { User } from 'lucia';
-export default function WithdrawPayoutModal() {
-	const { type, isOpen, onClose } = useInterface();
-	const open = isOpen && type == 'withdrawPayoutModal';
-	const [loading, setLoading] = useState(false);
-	const [profile, setProfile] = useState<User | null>(null);
+		console.table(profileData);
 
-	useEffect(() => {
-		const fetchProfilw = async () => {
-			try {
-				setLoading(true);
-				const profile = await getCurrentUser();
-				setProfile(profile);
-			} catch (error) {
-			} finally {
-				setLoading(false);
-			}
-		};
-		if (open == true) {
-			fetchProfilw();
-		}
-	}, [open]);
+		const profile = await db.profile.findFirst({
+			where: {
+				id: profileData.id,
+			},
+		});
 
-	const formSchema = z.object({
-		Amount: z.string(),
-	});
-
-	const form = useForm<z.infer<typeof formSchema>>({
-		resolver: zodResolver(formSchema),
-		defaultValues: {
-			Amount: String(profile?.balance || ''),
-		},
-	});
-
-	async function onSubmit(values: z.infer<typeof formSchema>) {
-		const amount = Number(values.Amount);
-
-		if (isNaN(amount) || amount <= 0) {
-			toast('Please enter a valid amount');
-			return;
+		if (!profile) {
+			return new NextResponse('Bad request', { status: 401 });
 		}
 
-		if (amount > profile?.balance!) {
-			toast("You don't have enough balance to withdraw");
-			return;
+		if (profileData.amount > profile.balance * 100) {
+			return new NextResponse('Insufficient balance', { status: 401 });
 		}
 
-		const data = {
-			amount: amount * 100,
-			id: profile?.id,
-		};
-
-		console.table(data);
-
-		try {
-			setLoading(true);
-			const response = await axios.post('/api/support/withdraw', data);
-
-			const responseData = response.data;
-
-			if (!responseData.status) {
-				throw new Error('Failed to transfer money');
-			}
-			toast.success('Withdraw successful');
-		} catch (err) {
-			console.error('Error with payout:', err);
-			toast.error(`Error with payout: ${err}`);
-		} finally {
-			setLoading(false);
+		if (!profile.transferRecipientCode) {
+			return new NextResponse('Bad request: transfer recipient code not set', { status: 401 });
 		}
+
+		const transferResponse = await transferMoneyPayoutFunction(profileData.amount, profile.transferRecipientCode);
+
+		if (!transferResponse) {
+			return new NextResponse('Server Error with transferring money', { status: 401 });
+		}
+
+		console.table(transferResponse);
+		//finalize transfer should be here
+
+		const payout = await db.payout.create({
+			data: {
+				amount: profileData.amount,
+				status: PaymentStatus.COMPLETED,
+				profileId: profile.id,
+				paystackTransferId: transferResponse.data.transfer_code,
+				transferRecipientCode: profile.transferRecipientCode,
+			},
+		});
+
+		// Increase the user's balance with userMoney
+		await decrementProfileSupportBalance(profile.id, profileData.amount);
+
+		return new NextResponse(JSON.stringify({ payout }), { status: 200 });
+	} catch (error) {
+		console.error('[SERVER CREATE TRANSFER SUPPORT ERROR]', error);
+		return new NextResponse('Internal Server Error', {
+			status: 500,
+		});
 	}
+}
 
-	return (
-		<Dialog open={open} onOpenChange={onClose}>
-			<DialogContent className="space-y-4">
-				{loading ? (
-					<Loader className="w-[30px] h-[30px] mx-auto block" />
-				) : (
-					<>
-						<DialogHeader>
-							<DialogTitle>Payout for {profile?.firstName}?</DialogTitle>
-							<DialogDescription>
-								how much do you want to withdraw from a balance of {profile?.balance}{' '}
-							</DialogDescription>
-						</DialogHeader>
-						<Form {...form}>
-							<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-								<FormField
-									control={form.control}
-									name="Amount"
-									render={({ field }) => (
-										<FormItem>
-											<FormControl>
-												<Input type="number" className="" {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
+        console.table(data);
 
-								<Button disabled={loading} type="submit">
-									Withdraw {formatNumberWithCommas(Number(form.getValues('Amount')))}
-								</Button>
-							</form>
-						</Form>
-					</>
-				)}
-			</DialogContent>
-		</Dialog>
-	);
+        try {
+            setLoading(true);
+            const response = await axios.post('/api/support/withdraw', data);
+
+            const responseData = response.data;
+
+            if (!responseData.status) {
+                throw new Error('Failed to transfer money');
+            }
+            toast.success('Withdraw successful');
+        } catch (err) {
+            console.error('Error with payout:', err);
+            toast.error(`Error with payout: ${err}`);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    return (
+        <Dialog open={open} onOpenChange={onClose}>
+            <DialogContent className="space-y-4">
+                {loading ? (
+                    <Loader className="w-[30px] h-[30px] mx-auto block" />
+                ) : (
+                    <>
+                        <DialogHeader>
+                            <DialogTitle>Payout for {profile?.firstName}?</DialogTitle>
+                            <DialogDescription>
+                                how much do you want to withdraw from a balance of {profile?.balance}{' '}
+                            </DialogDescription>
+                        </DialogHeader>
+                        <Form {...form}>
+                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+                                <FormField
+                                    control={form.control}
+                                    name="Amount"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormControl>
+                                                <Input type="number" className="" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <Button disabled={loading} type="submit" className="bg-purple-900">
+                                    Checkout
+                                </Button>
+                            </form>
+                        </Form>
+                    </>
+                )}
+            </DialogContent>
+        </Dialog>
+    );
 }
