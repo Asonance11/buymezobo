@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
 
 		console.table(updated);
 
-		return new NextResponse('Bank details saved successfully', { status: 200 });
+		return NextResponse.json({ message: 'Bank details saved successfully', user: updated, status: 200 });
 	} catch (err) {
 		console.log('SERVER ERROR, PAYMENT INFO SIGNUP', { status: 500, err });
 		return new NextResponse('Server error occurred', { status: 500 });

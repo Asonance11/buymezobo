@@ -13,29 +13,36 @@ import Link from 'next/link';
 import UserButton from './UserButton';
 import { User } from 'lucia';
 import { Skeleton } from '../ui/skeleton';
+import { useUser } from '@/store/UserDataStore';
+import { Profile } from '@prisma/client';
 
 export default function MainHeader() {
 	const { onOpen } = useInterface();
 	const isMobile = useIsMobile();
+	const [loading, setLoading] = useState(false);
+	const { user } = useUser();
+
 	const [profile, setProfile] = useState<User | null>(null);
-	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const fetchProfile = async () => {
 			setLoading(true);
-			const profile = await getCurrentUser();
+			//const profile = await getCurrentUser();
+			const profile = user;
+			//@ts-ignore
 			setProfile(profile);
 			setLoading(false);
 		};
 		fetchProfile();
-	}, []);
+		console.log('FROM HEADER: ', profile);
+	}, [user]);
 
 	const openMenu = () => {
 		onOpen('searchCreators');
 	};
 
 	const openSide = () => {
-		onOpen('sideMenuNavigation', { creator: profile });
+		onOpen('sideMenuNavigation', { creator: profile as User });
 	};
 
 	return (
