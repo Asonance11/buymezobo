@@ -55,7 +55,7 @@ export default function DashBoardEarningPage({ profile, className }: Props) {
 								buymezobo.com/{profile.userName}
 							</p>
 						</div>
-						<SharePage className="hidden md:block text-xs lg:text-sm" profile={profile} />
+						<SharePage className="hidden md:flex text-xs lg:text-sm" profile={profile} />
 					</div>
 					<Separator className="my-6" />
 					<div className="flex flex-col justify-center items-start gap-2">
