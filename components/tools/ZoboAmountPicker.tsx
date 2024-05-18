@@ -47,7 +47,7 @@ export default function ZoboAmountPicker({ amount, creator, setAmount }: Props) 
 	};
 
 	return (
-		<div className="flex justify-center gap-4 lg:justify-around items-center p-2 lg:p-4 w-full h-28 rounded-2xl border border-zinc-300 bg-red-300">
+		<div className="flex justify-center gap-4 lg:justify-around items-center p-2 lg:p-4 w-full h-28 rounded-2xl border border-zinc-300 ">
 			<div className="w-8 lg:w-12 h-9 bg-black"></div>
 
 			{zoboAmounts.map((amount, index) => {
