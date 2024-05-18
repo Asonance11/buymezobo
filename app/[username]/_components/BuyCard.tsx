@@ -97,12 +97,12 @@ export default function BuyCard({ creator, className, setReload }: Props) {
 	return (
 		<div
 			className={cn(
-				`transition-all duration-300 p-7 md:p-10 w-[27rem] md:w-[33rem] rounded-2xl bg-white flex flex-col gap-3 items-start h-fit`,
+				`transition-all duration-300 p-5 lg:p-7 md:p-10 w-[27rem] md:w-[33rem] rounded-2xl bg-white flex flex-col gap-3 items-start h-fit`,
 				className,
 			)}
 		>
 			<div>
-				<p className="font-bold text-xl -tracking-wide">Buy {creator.userName} Zobo</p>
+				<p className="font-bold text-md lg:text-xl -tracking-wide">Buy {creator.userName} Zobo</p>
 			</div>
 			<ZoboAmountPicker setAmount={setFinalAmountFunction} amount={amountToPay} creator={creator} />
 			<Form {...form}>

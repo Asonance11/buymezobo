@@ -57,17 +57,17 @@ export default function ZoboAmountPicker({ amount, creator, setAmount }: Props) 
 						onClick={() => {
 							setSeclected(amount.amount);
 						}}
-						className={`w-16 transition-colors duration-300 cursor-pointer rounded-full h-16 flex items-center border-2 border-red-800 justify-center ${amount.selected ? 'bg-red-700' : 'bg-white'}`}
+						className={`w-12 h-12 lg:w-16 lg:h-16 transition-colors duration-300 cursor-pointer rounded-full flex items-center border-2 border-red-800 justify-center ${amount.selected ? 'bg-red-700' : 'bg-white'}`}
 					>
 						<span
-							className={`text-xl transition-colors duration-300 font-bold ${amount.selected ? 'text-white' : 'text-red-700'}`}
+							className={`text-md lg:text-xl transition-colors duration-300 font-bold ${amount.selected ? 'text-white' : 'text-red-700'}`}
 						>
 							{amount.amount}
 						</span>
 					</div>
 				);
 			})}
-			<div className="w-14 h-14 flex items-center justify-center p-1 bg-white border-lg border border-zinc-300 rounded-xl ">
+			<div className="w-12 h-12 lg:w-14 lg:h-14 flex items-center justify-center p-1 bg-white border-lg border border-zinc-300 rounded-xl ">
 				<input
 					value={amount}
 					onChange={onInputChange}

@@ -10,13 +10,13 @@ export default function AdminHeader() {
 	const [profile, setProfile] = useState<User | null>(null);
 	const isMobile = useIsMobile();
 	const openSide = () => {
-        console.log("Hello world")
+		console.log('Hello world');
 		onOpen('adminSideMenuNavigation');
 	};
 	return (
 		<div className="w-full bg-red-50 h-[3rem] lg:h-[4rem] lg:px-12 shadow-sm flex items-center justify-end">
 			{isMobile ? (
-				<div className="navbar px-2">
+				<div className="navbar px-4">
 					<div className="navbar-start ">
 						<HiMenu className="text-2xl" onClick={openSide} />
 					</div>

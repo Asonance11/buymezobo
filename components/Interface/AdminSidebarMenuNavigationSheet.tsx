@@ -9,7 +9,7 @@ export function AdminSideMenuNavigationComponent() {
 
 	return (
 		<Sheet open={open} onOpenChange={onClose}>
-			<SheetContent side={'left'}>
+			<SheetContent side={'left'} className="p-1">
 				<AdminMenuContent />
 			</SheetContent>
 		</Sheet>
