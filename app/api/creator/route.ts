@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(req: NextRequest) {
 	const url = new URL(req.url);
 	const username = url.searchParams.get('username');
+	console.log(username);
 	if (username) {
 		const creator = await db.profile.findUnique({
 			where: {
