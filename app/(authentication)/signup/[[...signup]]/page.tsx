@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import { signup } from '@/actions/signup';
 import { Logo } from '@/components/common/Logo';
@@ -14,13 +14,9 @@ import { PasswordInput } from '@/components/ui/passwordInput';
 
 const SignUpSchema = z.object({
 	email: z.string().email().min(1, { message: 'This field is required' }).trim(),
-	password: z
-		.string()
-		.min(6, { message: 'Password must be a minimum of 6 characters' })
-		.max(24, { message: 'Password must not exceed 24 characters' })
-		.trim(),
-	firstName: z.string().optional(),
-	lastName: z.string().optional(),
+	password: z.string().min(6, { message: 'Password must be a minimum of 6 characters' }).trim(),
+	firstName: z.string(),
+	lastName: z.string(),
 });
 
 export default function Page() {

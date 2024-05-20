@@ -23,11 +23,12 @@ export default function AdminMenuContent() {
 			const profile = await getCurrentUser();
 			setProfile(profile);
 		};
+
 		fetchProfile();
 	}, []);
 
 	if (!profile) {
-		return null;
+		//return null; TODO: it creates a delay when we open the mobile sheet, do something
 	}
 
 	const RedirectIcon = PiArrowSquareOutLight;

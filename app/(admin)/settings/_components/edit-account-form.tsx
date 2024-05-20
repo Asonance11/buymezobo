@@ -5,18 +5,19 @@ import Loading from '../../loading';
 import { getCurrentUser } from '@/lib/authentication';
 import { useEffect, useState } from 'react';
 import { User } from 'lucia';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { changePassword, updateProfile } from '@/actions/profile';
 import { TextInput } from '@/components/ui/TextInput';
 import { toast } from '@/components/ui/use-toast';
 import { LoadingOutlined } from '@ant-design/icons';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 
 const accountInputSchema = z.object({
-	firstName: z.string().min(1).max(20).trim(),
-	lastName: z.string().min(1).max(20).trim(),
-	userName: z.string().min(3).max(20).trim(),
+	firstName: z.string().min(1).max(40).trim(),
+	lastName: z.string().min(1).max(40).trim(),
+	userName: z.string().min(1).max(40).trim(),
 	email: z.string().email().min(1).max(60),
 });
 
@@ -58,12 +59,7 @@ export default function EditAccountForm() {
 		fetchProfile();
 	}, []);
 
-	useEffect(() => {
-		const subscription = accountForm.watch((value, { name, type }) => console.log(value, name, type));
-		return () => subscription.unsubscribe();
-	}, [accountForm.watch]);
-
-	const onUpdateAccount: SubmitHandler<AccountInput> = async (data) => {
+	async function onUpdateAccount(data: z.infer<typeof accountInputSchema>) {
 		setAccountLoading(true);
 		try {
 			// throw new Error('');
@@ -86,7 +82,7 @@ export default function EditAccountForm() {
 		} finally {
 			setAccountLoading(false);
 		}
-	};
+	}
 
 	const onUpdatePassword: SubmitHandler<PasswordInput> = async (data) => {
 		setPasswordLoading(true);
@@ -116,7 +112,7 @@ export default function EditAccountForm() {
 
 	if (loading) return <Loading />;
 	return (
-		<div className=" w-[80%] flex justify-center ">
+		<div className=" w-[90%] flex justify-center ">
 			<Tabs defaultValue="account" className="w-full max-w-[36rem] ">
 				<TabsList className="grid w-full grid-cols-3">
 					<TabsTrigger value="account">Account</TabsTrigger>
@@ -124,133 +120,142 @@ export default function EditAccountForm() {
 					<TabsTrigger value="bank">Bank Details</TabsTrigger>
 				</TabsList>
 				<TabsContent value="account">
-					<Card>
-						<CardHeader>
-							<CardTitle>Account</CardTitle>
-							<CardDescription>
-								Make changes to your account here. Click save when you&apos;re done.
-							</CardDescription>
-						</CardHeader>
-						<CardContent className="space-y-2">
-							<div className=" grid w-full grid-cols-2 gap-3">
-								<Controller
-									name="firstName"
-									control={accountForm.control}
-									rules={{ required: true }}
-									render={({ field }) => (
-										<TextInput
-											label="First name"
-											id="firstname"
-											error={accountForm.formState.errors.firstName?.message}
-											{...field}
-											disabled
+					<Form {...accountForm}>
+						<form onSubmit={accountForm.handleSubmit(onUpdateAccount)}>
+							<Card>
+								<CardHeader>
+									<CardTitle>Account</CardTitle>
+									<CardDescription>
+										Make changes to your account here. Click save when you&apos;re done.
+									</CardDescription>
+								</CardHeader>
+								<CardContent className="space-y-2">
+									<div className=" grid w-full grid-cols-2 gap-3">
+										<FormField
+											name="firstName"
+											control={accountForm.control}
+											rules={{ required: true }}
+											render={({ field }) => (
+												<TextInput
+													label="First name"
+													id="firstname"
+													error={accountForm.formState.errors.firstName?.message}
+													{...field}
+													disabled
+												/>
+											)}
 										/>
-									)}
-								/>
-								<Controller
-									name="lastName"
-									control={accountForm.control}
-									rules={{ required: true }}
-									render={({ field }) => (
-										<TextInput
-											label="Last name"
-											id="lastname"
-											error={accountForm.formState.errors.lastName?.message}
-											{...field}
-											disabled
+										<FormField
+											name="lastName"
+											control={accountForm.control}
+											rules={{ required: true }}
+											render={({ field }) => (
+												<TextInput
+													label="Last name"
+													id="lastname"
+													error={accountForm.formState.errors.lastName?.message}
+													{...field}
+													disabled
+												/>
+											)}
 										/>
-									)}
-								/>
-							</div>
-							<Controller
-								name="email"
-								control={accountForm.control}
-								rules={{ required: true }}
-								render={({ field }) => (
-									<TextInput
-										label="Email address"
-										id="email"
-										error={accountForm.formState.errors.email?.message}
-										{...field}
-										disabled
+									</div>
+									<FormField
+										name="email"
+										control={accountForm.control}
+										rules={{ required: true }}
+										render={({ field }) => (
+											<TextInput
+												label="Email address"
+												id="email"
+												error={accountForm.formState.errors.email?.message}
+												{...field}
+												disabled
+											/>
+										)}
 									/>
-								)}
-							/>
-							<Controller
-								name="userName"
-								control={accountForm.control}
-								rules={{ required: true }}
-								render={({ field }) => (
-									<TextInput
-										label="Username"
-										id="username"
-										error={accountForm.formState.errors.userName?.message}
-										{...field}
+									<FormField
+										name="userName"
+										control={accountForm.control}
+										rules={{ required: true }}
+										render={({ field }) => (
+											<TextInput
+												disabled
+												label="Username"
+												id="username"
+												error={accountForm.formState.errors.userName?.message}
+												{...field}
+											/>
+										)}
 									/>
-								)}
-							/>
-						</CardContent>
-						<CardFooter>
-							<Button
-								className=" bg-black hover:bg-purple-700"
-								onClick={accountForm.handleSubmit(onUpdateAccount)}
-								disabled={!accountForm.formState.isDirty || accountLoading}
-							>
-								{accountLoading ? <LoadingOutlined /> : 'Save changes'}
-							</Button>
-						</CardFooter>
-					</Card>
+								</CardContent>
+								<CardFooter>
+									<Button
+										className=" bg-black hover:bg-purple-700"
+										onClick={accountForm.handleSubmit(onUpdateAccount)}
+										disabled={!accountForm.formState.isDirty || accountLoading}
+									>
+										{accountLoading ? <LoadingOutlined /> : 'Save changes'}
+									</Button>
+								</CardFooter>
+							</Card>
+						</form>
+					</Form>
 				</TabsContent>
 				<TabsContent value="password">
-					<Card>
-						<CardHeader>
-							<CardTitle>Password</CardTitle>
-							<CardDescription>
-								Change your password here. After saving, you&apos;ll be logged out.
-							</CardDescription>
-						</CardHeader>
-						<CardContent className="space-y-2">
-							<Controller
-								name="oldPassword"
-								control={passwordForm.control}
-								rules={{ required: true }}
-								render={({ field }) => (
-									<TextInput
-										version="password"
-										id="current-password"
-										label="Current Password"
-										error={passwordForm.formState.errors.oldPassword?.message}
-										{...field}
-										required
+					<Form {...passwordForm}>
+						<form onSubmit={passwordForm.handleSubmit(onUpdatePassword)}>
+							<Card>
+								<CardHeader>
+									<CardTitle>Password</CardTitle>
+									<CardDescription>
+										Change your password here. After saving, you&apos;ll be logged out.
+									</CardDescription>
+								</CardHeader>
+								<CardContent className="space-y-2">
+									<FormField
+										name="oldPassword"
+										control={passwordForm.control}
+										rules={{ required: true }}
+										render={({ field }) => (
+											<TextInput
+												version="password"
+												id="current-password"
+												label="Current Password"
+												error={passwordForm.formState.errors.oldPassword?.message}
+												{...field}
+												required
+											/>
+										)}
 									/>
-								)}
-							/>
-							<Controller
-								name="newPassword"
-								control={passwordForm.control}
-								rules={{ required: true }}
-								render={({ field }) => (
-									<TextInput
-										version="password"
-										id="new-password"
-										label="New Password"
-										error={passwordForm.formState.errors.newPassword?.message}
-										{...field}
-										required
+									<FormField
+										name="newPassword"
+										control={passwordForm.control}
+										rules={{ required: true }}
+										render={({ field }) => (
+											<TextInput
+												version="password"
+												id="new-password"
+												label="New Password"
+												error={passwordForm.formState.errors.newPassword?.message}
+												{...field}
+												required
+											/>
+										)}
 									/>
-								)}
-							/>
-						</CardContent>
-						<CardFooter>
-							<Button
-								className=" bg-black hover:bg-purple-700"
-								onClick={passwordForm.handleSubmit(onUpdatePassword)}
-								disabled={!passwordForm.formState.isDirty || passwordLoading}
-							>
-								{passwordLoading ? <LoadingOutlined /> : 'Save password'}
-							</Button>
-						</CardFooter>
-					</Card>
+								</CardContent>
+								<CardFooter>
+									<Button
+										className=" bg-black hover:bg-purple-700"
+										onClick={passwordForm.handleSubmit(onUpdatePassword)}
+										disabled={!passwordForm.formState.isDirty || passwordLoading}
+									>
+										{passwordLoading ? <LoadingOutlined /> : 'Save password'}
+									</Button>
+								</CardFooter>
+							</Card>
+						</form>
+					</Form>
 				</TabsContent>
 				<TabsContent value="bank">
 					<Card>
