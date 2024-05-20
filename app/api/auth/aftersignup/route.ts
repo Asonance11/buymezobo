@@ -36,6 +36,7 @@ export async function POST(req: NextRequest) {
 				accountNumber: data.accountNumber || null,
 				userName: data.userName,
 				bankCode: data.bankCode || null,
+				bankName: data.bankName || null,
 				bankAccountName: data.bankAccountName || null,
 				transferRecipientCode: paystackResponse?.data.recipient_code || null,
 			},

@@ -23,6 +23,7 @@ export const lucia = new Lucia(adapter, {
 			id: attributes.id,
 			userName: attributes.userName,
 			imageUrl: attributes.imageUrl,
+			bankName: attributes.bankName,
 			bio: attributes.bio,
 			headerImageUrl: attributes.headerImageUrl,
 			balance: attributes.balance,
@@ -55,4 +56,5 @@ interface DatabaseUserAttributes {
 	bankCode?: string;
 	bankAccountName?: string;
 	accountNumber?: string;
+	bankName?: string;
 }

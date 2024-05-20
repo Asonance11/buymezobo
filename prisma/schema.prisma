@@ -27,9 +27,10 @@ model Profile {
     bio            String?
 
     userName              String? @unique
-    accountNumber         String?
+    accountNumber         String? @unique
     bankCode              String?
     bankAccountName       String?
+    bankName              String?
     transferRecipientCode String?
 
     balance Int @default(0)
