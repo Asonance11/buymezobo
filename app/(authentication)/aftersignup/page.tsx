@@ -2,7 +2,7 @@
 
 import { UserAfterform } from '../_components/UserAfterForm';
 import { redirect } from 'next/navigation';
-import { useAuth } from '../../../actions/use-auth';
+import { useAuth as getAuth } from '../../../actions/use-auth';
 import { useEffect, useState } from 'react';
 import { User } from 'lucia';
 
@@ -14,7 +14,7 @@ export default function Page() {
 	const [profile, setProfile] = useState<User | null>(null);
 	useEffect(() => {
 		const fetchProfile = async () => {
-			const { user } = await useAuth();
+			const { user } = await getAuth();
 			setProfile(user);
 		};
 		fetchProfile();
