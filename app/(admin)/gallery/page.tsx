@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useInterface } from '@/store/InterfaceStore';
 import React from 'react';
 
-export default function page() {
+export default function Page() {
 	const { onOpen } = useInterface();
 	return (
 		<div>
