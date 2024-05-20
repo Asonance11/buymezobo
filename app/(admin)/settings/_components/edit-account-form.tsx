@@ -21,16 +21,8 @@ const accountInputSchema = z.object({
 });
 
 const passwordInputSchema = z.object({
-	oldPassword: z
-		.string()
-		.min(6, { message: 'Password must be a minimum of 6 characters' })
-		.max(12, { message: 'Password must not exceed 12 characters' })
-		.trim(),
-	newPassword: z
-		.string()
-		.min(6, { message: 'Password must be a minimum of 6 characters' })
-		.max(12, { message: 'Password must not exceed 12 characters' })
-		.trim(),
+	oldPassword: z.string().min(6, { message: 'Password must be a minimum of 6 characters' }).trim(),
+	newPassword: z.string().min(6, { message: 'Password must be a minimum of 6 characters' }).trim(),
 });
 
 type AccountInput = z.infer<typeof accountInputSchema>;
