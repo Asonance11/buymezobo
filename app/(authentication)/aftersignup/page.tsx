@@ -2,7 +2,7 @@
 
 import { UserAfterform } from '../_components/UserAfterForm';
 import { redirect } from 'next/navigation';
-import { useAuth } from '@/actions/use-auth';
+import { useAuth } from '../../../actions/use-auth';
 import { useEffect, useState } from 'react';
 import { User } from 'lucia';
 
@@ -12,18 +12,19 @@ import { User } from 'lucia';
 
 export default function Page() {
 	const [profile, setProfile] = useState<User | null>(null);
-	useAuth()
-		.then(({ user }) => {
+	useEffect(() => {
+		const fetchProfile = async () => {
+			const { user } = await useAuth();
 			setProfile(user);
-		})
-		.catch((error) => {
-			console.error(error);
-		});
-	console.log(profile);
+		};
+		fetchProfile();
+	}, []);
+
 	// if (!profile) {
 	// 	redirect('/signin');
 	// }
-	// if (profile?.userName) {
+
+	// if (profile?.bankName) {
 	// 	redirect('/dashboard');
 	// }
 

@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useWizard } from 'react-use-wizard';
 import { usePersonForm } from './UserAfterForm';
 import { Button } from '@/components/ui/button';
@@ -10,13 +10,16 @@ import { useRouter } from 'next/navigation';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Bank } from '@/types/bank';
 import Loader from '@/components/common/Loader';
+import { LoadingOutlined } from '@ant-design/icons';
 
 type personType = {
 	accountNumber: string;
 	bankCode: string;
 	userName: string;
 	bankAccountName: string;
+	bankName: string;
 };
+
 export default function BankInfoStep() {
 	const { nextStep } = useWizard();
 	const { state } = usePersonForm();
@@ -25,6 +28,7 @@ export default function BankInfoStep() {
 	const route = useRouter();
 	const [checking, setChecking] = useState(false);
 	const [banks, setBanks] = useState<Bank[]>([]);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const fetchBanks = async () => {
@@ -42,7 +46,7 @@ export default function BankInfoStep() {
 		fetchBanks();
 	}, []);
 
-	const skip = async () => {
+	const skip = useCallback(async () => {
 		state.values.BankCode = '';
 		state.values.AccountNumber = '';
 
@@ -61,9 +65,9 @@ export default function BankInfoStep() {
 		}
 
 		route.push('/dashboard');
-	};
+	}, [state.values, route]);
 
-	const confirmAccount = async () => {
+	const confirmAccount = useCallback(async () => {
 		setChecking(true);
 		setPersonData(null);
 		const data = {
@@ -71,6 +75,7 @@ export default function BankInfoStep() {
 			bankCode: state.values.BankCode,
 			userName: state.values.UserName,
 			bankAccountName: '',
+			bankName: '',
 		};
 
 		try {
@@ -86,17 +91,19 @@ export default function BankInfoStep() {
 			const responseData = response.data;
 
 			data.bankAccountName = responseData.data.account_name;
-			console.table(data);
-			setPersonData(data);
+
+			const bankName = banks.find((bank) => bank.code === data.bankCode)?.name ?? '';
+			setPersonData({ ...data, bankName });
 			setChecking(false);
-			console.log('Bank account resolved successfully.');
 		} catch (err) {
 			console.error('Error resolving bank account:', err);
 			setChecking(false);
 			toast.error('Invalid Account Details');
 		}
-	};
-	const next = async () => {
+	}, [banks, state.values]);
+
+	const next = useCallback(async () => {
+		setLoading(true);
 		try {
 			if (personData) {
 				const postResponse = await axios.post('/api/auth/aftersignup', personData);
@@ -107,31 +114,40 @@ export default function BankInfoStep() {
 			}
 		} catch (error) {
 			console.error('Error sending POST request to /api/auth/aftersignup:', error);
+		} finally {
+			setLoading(false);
 		}
-	};
-	const handleBankSelect = (bank: any) => {
-		state.values.BankCode = bank;
-		console.log(bank);
-		if (state.values.AccountNumber.length == 10 && state.values.BankCode != '') {
-			confirmAccount();
-		}
-	};
+	}, [personData, route]);
 
-	const handleAccountNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const input = e.target.value;
-		if (input.length <= 11) {
-			setAccountNumber(input);
-			state.values.AccountNumber = input;
-		}
-		if (input.length == 10 && state.values.BankCode != '') {
-			confirmAccount();
-		}
-	};
+	const handleBankSelect = useCallback(
+		(bankCode: string) => {
+			state.values.BankCode = bankCode;
+			console.log(bankCode);
+			if (accountNumber.length === 10 && bankCode) {
+				confirmAccount();
+			}
+		},
+		[accountNumber.length, confirmAccount, state.values],
+	);
+
+	const handleAccountNumberChange = useCallback(
+		(e: React.ChangeEvent<HTMLInputElement>) => {
+			const input = e.target.value;
+			if (input.length <= 10) {
+				setAccountNumber(input);
+				state.values.AccountNumber = input;
+			}
+			if (input.length === 10 && state.values.BankCode) {
+				confirmAccount();
+			}
+		},
+		[confirmAccount, state.values],
+	);
 
 	return (
 		<section className="flex-col flex gap-1.5 lg:gap-3 p-3 lg:p-4 w-full md:w-2/3  mx-auto ">
 			<p className="text-lg lg:text-2xl/none -tracking-wider font-bold">Enter your bank details </p>
-			<p className="text-sm font-normal">Add a bank account to start recieving payment.</p>
+			<p className="text-sm font-normal">Add a bank account to start receiving payment.</p>
 			<div className="flex flex-col gap-3">
 				<div className="p-2 bg-gray-50 rounded-lg  focus-within:border-2 focus-within:border-red-700">
 					<input
@@ -149,7 +165,7 @@ export default function BankInfoStep() {
 					</SelectTrigger>
 					<SelectContent>
 						{banks.map((bank) => (
-							<SelectItem key={bank.code} value={bank.code} onSelect={handleBankSelect}>
+							<SelectItem key={bank.code} value={bank.code}>
 								{bank.name}
 							</SelectItem>
 						))}
@@ -165,14 +181,14 @@ export default function BankInfoStep() {
 			)}
 			<div className="flex gap-3">
 				<Button onClick={skip} variant={'secondary'} className="text-sm lg:text-base">
-					skip
+					Skip
 				</Button>
 				<Button
 					onClick={next}
 					className="px-4 lg:px-8 text-sm lg:text-base"
 					disabled={personData ? false : true}
 				>
-					Proceed
+					{loading ? <LoadingOutlined /> : 'Proceed'}
 				</Button>
 			</div>
 		</section>
