@@ -9,10 +9,7 @@ import * as z from 'zod';
 import { signOut } from './signout';
 import { redirect } from 'next/navigation';
 
-const newPasswordSchema = z
-	.string()
-	.min(6, { message: 'Password must be a minimum of 6 characters' })
-	.trim();
+const newPasswordSchema = z.string().min(6, { message: 'Password must be a minimum of 6 characters' }).trim();
 
 export async function updateProfile(data: Partial<User>): Promise<[Profile | null, Error | null]> {
 	const user = await getCurrentUser();
