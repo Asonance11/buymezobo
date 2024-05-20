@@ -124,8 +124,8 @@ export default function EditAccountForm() {
 
 	if (loading) return <Loading />;
 	return (
-		<div className=" w-[80%] flex justify-center">
-			<Tabs defaultValue="account" className="w-full max-w-[500px]">
+		<div className=" w-[80%] flex justify-center ">
+			<Tabs defaultValue="account" className="w-full max-w-[36rem] ">
 				<TabsList className="grid w-full grid-cols-3">
 					<TabsTrigger value="account">Account</TabsTrigger>
 					<TabsTrigger value="password">Password</TabsTrigger>
