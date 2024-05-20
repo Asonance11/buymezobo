@@ -21,6 +21,7 @@ model Profile {
     firstName    String?
     lastName     String?
     sessions     Session[]
+    posts        Post[]
 
     imageUrl       String  @default("https://www.kindpng.com/picc/m/171-1712282_profile-icon-png-profile-icon-vector-png-transparent.png") @db.Text
     headerImageUrl String? @db.Text
@@ -86,6 +87,17 @@ enum PaymentStatus {
     PENDING
     COMPLETED
     FAILED
+}
+
+model Post {
+    id        String   @id @default(uuid())
+    profileId String
+    profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+    imageUrl  String
+    caption   String   @db.Text
+    title     String   @db.Text
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model Comment {

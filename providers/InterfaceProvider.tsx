@@ -2,6 +2,7 @@
 
 import { AdminSideMenuNavigationComponent } from '@/components/Interface/AdminSidebarMenuNavigationSheet';
 import EditUsernamePageModal from '@/components/Interface/EditUsernamePageModal';
+import { MakeImagePostModal } from '@/components/Interface/MakeImagePostModal';
 import PayoutInfoModal from '@/components/Interface/PayoutInfoModal';
 import QRCodeModal from '@/components/Interface/QRCodeModal';
 import { SearchCreatorMenu } from '@/components/Interface/SearchCreators';
@@ -28,6 +29,7 @@ export function InterfaceProvider() {
 			<SideMenuNavigationComponent />
 			<AdminSideMenuNavigationComponent />
 			<EditUsernamePageModal />
+			<MakeImagePostModal />
 		</>
 	);
 }

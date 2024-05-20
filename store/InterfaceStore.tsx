@@ -11,6 +11,7 @@ export type InterfaceType =
 	| 'editUsernamePage'
 	| 'payoutInfoModal'
 	| 'withdrawPayoutModal'
+	| 'makeImagePostModal'
 
 	//Buttons and widget modal
 	| 'QRCodeModal';

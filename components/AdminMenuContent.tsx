@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { getCurrentUser } from '@/lib/authentication';
 import Link from 'next/link';
 import { RiHomeSmileLine } from 'react-icons/ri';
-import { MdOutlineExplore } from 'react-icons/md';
+import { MdOutlineExplore, MdOutlinePhotoSizeSelectActual } from 'react-icons/md';
 import { PiLayout } from 'react-icons/pi';
 import { PiArrowSquareOutLight } from 'react-icons/pi';
 import { Logo } from './common/Logo';
@@ -42,6 +42,7 @@ export default function AdminMenuContent() {
 			icon: PiLayout,
 			newTab: true,
 		},
+		{ name: 'Gallery', route: '/gallery', icon: MdOutlinePhotoSizeSelectActual },
 	];
 
 	// Define options with categories and routes
