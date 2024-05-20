@@ -80,7 +80,9 @@ export default function SupportHistoryPage({ creator, className }: Props) {
 							</div>
 						))}
 					</div>
-					<Button variant={'secondary'}>See all aupporters</Button>
+					<Button className="w-full" variant={'secondary'}>
+						See all aupporters
+					</Button>
 				</div>
 			)}
 		</div>
