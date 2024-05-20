@@ -12,7 +12,6 @@ import { redirect } from 'next/navigation';
 const newPasswordSchema = z
 	.string()
 	.min(6, { message: 'Password must be a minimum of 6 characters' })
-	.max(12, { message: 'Password must not exceed 12 characters' })
 	.trim();
 
 export async function updateProfile(data: Partial<User>): Promise<[Profile | null, Error | null]> {
@@ -55,5 +54,4 @@ export async function changePassword(id: string, oldPassword: string, newPasswor
 	await db.profile.update({ where: { id }, data: { passwordHash } });
 
 	signOut();
-	return redirect('/signin');
 }

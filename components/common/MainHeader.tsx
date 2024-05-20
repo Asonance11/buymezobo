@@ -34,7 +34,7 @@ export default function MainHeader() {
 			setLoading(false);
 		};
 		fetchProfile();
-		console.log('FROM HEADER: ', profile);
+		//console.log('FROM HEADER: ', profile);
 	}, [user]);
 
 	const openMenu = () => {

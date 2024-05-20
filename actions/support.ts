@@ -2,18 +2,23 @@
 import { db } from '@/lib/database';
 import { Support } from '@prisma/client';
 
-export async function getCreatorSupports(creatorId: string, take?: number): Promise<[Support[], Error | null]> {
+export async function getCreatorSupports(creatorId: string, take?: number): Promise<[Support[], number, Error | null]> {
 	try {
 		const supports = await db.support.findMany({
 			where: {
 				profileId: creatorId,
 			},
 			take: take ? take : 10,
+			orderBy: {
+				createdAt: 'desc',
+			},
 		});
 
-		return [supports, null];
+		const count = await db.support.count();
+
+		return [supports, count, null];
 	} catch (error) {
 		console.log(error);
-		return [[], error as Error];
+		return [[], 0, error as Error];
 	}
 }

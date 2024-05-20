@@ -13,6 +13,7 @@ import { TextInput } from '@/components/ui/TextInput';
 import { toast } from '@/components/ui/use-toast';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { useRouter } from 'next/navigation';
 
 const accountInputSchema = z.object({
 	firstName: z.string().min(1).max(40).trim(),
@@ -48,7 +49,7 @@ export default function EditAccountForm() {
 	useEffect(() => {
 		async function fetchProfile() {
 			const user = await getCurrentUser();
-			console.log(user);
+			//console.log(user);
 			setProfile(user);
 			if (user) {
 				const { firstName, lastName, email, userName } = user;
@@ -84,6 +85,8 @@ export default function EditAccountForm() {
 		}
 	}
 
+	const router = useRouter();
+
 	const onUpdatePassword: SubmitHandler<PasswordInput> = async (data) => {
 		setPasswordLoading(true);
 		try {
@@ -97,6 +100,7 @@ export default function EditAccountForm() {
 					description: 'Sucessfully updated password',
 					variant: 'success',
 				});
+				router.push('/signin');
 			}
 		} catch (err: any) {
 			toast({
