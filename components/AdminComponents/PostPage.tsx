@@ -51,7 +51,7 @@ export default function PostPage({ creator, className }: Props) {
 						className,
 					)}
 				>
-					<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+					<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-4 p-2 lg:p-4">
 						{posts.map((post) => (
 							<div key={post.id} className="bg-red-700 w-full h-full overflow-hidden rounded-lg">
 								<img

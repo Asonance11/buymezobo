@@ -63,7 +63,7 @@ export default function DashBoardEarningPage({ profile, className }: Props) {
 							<p className="text-sm lg:text-base">Earning</p>
 							<div className="w-12 h-5 lg:w-20 lg:h-7 bg-black"></div>
 						</div>
-						<p className="text-3xl lg:text-5xl font-bold">
+						<p className="text-2xl -tracking-wide md:text-3xl lg:text-5xl font-bold">
 							{nairaSymbol}
 							{formatNumberWithCommas(profile.balance)}
 						</p>
