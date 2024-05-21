@@ -25,7 +25,7 @@ export default function Username(props: any) {
 		if (creator) {
 			getPost();
 		}
-	}, [creator?.id]);
+	}, [creator?.id, creator]);
 
 	useEffect(() => {
 		const getUser = async () => {
@@ -34,7 +34,7 @@ export default function Username(props: any) {
 			setLoading(false);
 		};
 		getUser();
-	}, []);
+	}, [creatorname]);
 
 	if (!creator) {
 		return null;

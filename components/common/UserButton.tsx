@@ -43,11 +43,11 @@ export default function UserButton() {
 			<DropdownMenuTrigger className="border-none outline-none">
 				{profile.imageUrl ? (
 					<div
-						className="cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat border-2 border-purple-500"
+						className="cursor-pointer rounded-lg w-10 lg:w-12 h-10 lg:h-12 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
 						style={{ backgroundImage: `url(${profile?.imageUrl})` }}
 					></div>
 				) : (
-					<div className="text-xl font-extrabold text-purple-900 bg-purple-100 cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat border border-purple-500 flex justify-center items-center">
+					<div className="text-xl font-extrabold text-purple-900 bg-purple-100 cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat border-[0.5px] border-purple-300 flex justify-center items-center">
 						<p className="text-center">{(profile?.firstName as string)[0]}</p>
 					</div>
 				)}

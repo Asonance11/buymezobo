@@ -58,7 +58,7 @@ export default function EditAccountForm() {
 			setLoading(false);
 		}
 		fetchProfile();
-	}, []);
+	}, [accountForm]);
 
 	async function onUpdateAccount(data: z.infer<typeof accountInputSchema>) {
 		setAccountLoading(true);

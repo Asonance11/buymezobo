@@ -47,17 +47,17 @@ export default function PostPage({ creator, className }: Props) {
 			{creator && (
 				<div
 					className={cn(
-						`transition-all lg:max-h-[20rem] bg-white overflow-y-auto duration-300 p-2 md:px-3 md:py-2 w-full rounded-2xl flex flex-col gap-3 items-start h-fit`,
+						`transition-all h-fit bg-white overflow-y-auto duration-300 p-2 md:px-3 md:py-2 w-full rounded-2xl flex flex-col gap-3 items-start `,
 						className,
 					)}
 				>
 					<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-4 p-2 lg:p-4">
 						{posts.map((post) => (
-							<div key={post.id} className="bg-red-700 w-full h-full overflow-hidden rounded-lg">
+							<div key={post.id} className="w-full overflow-hidden rounded-lg">
 								<img
 									src={post.imageUrl}
 									alt={post.title}
-									className="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
+									className="w-full h-full xl:max-h-[30rem] object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
 								/>
 							</div>
 						))}

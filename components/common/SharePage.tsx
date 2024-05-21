@@ -40,7 +40,9 @@ export default function SharePage({ profile, className }: SharePageProps) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger>
-				<Button className={cn("px-2.5 lg:px-4 flex gap-1.5 bg-black flex-nowrap text-xs hover:bg-black", className)}>
+				<Button
+					className={cn('px-2.5 lg:px-4 flex gap-1.5 bg-black flex-nowrap text-xs hover:bg-black', className)}
+				>
 					<MdIosShare className="text-lg" />
 					Share Page
 				</Button>
