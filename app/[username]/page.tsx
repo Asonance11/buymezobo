@@ -49,7 +49,7 @@ export default function Username(props: any) {
 					<UserNameHeader className="" user={creator} />
 					<section className="flex-1 bg-blue-700 w-full flex flex-col ">
 						<div
-							className="w-full h-72 bg-pink-500 bg-center bg-cover bg-no-repeat"
+							className="w-full h-72 bg-gray-300 bg-center bg-cover bg-no-repeat"
 							style={{ backgroundImage: `url(${creator?.headerImageUrl})` }}
 						></div>
 						<div className="flex-1 flex flex-col-reverse lg:flex-row justify-center gap-3 relative items-center py-5 lg:py-3 lg:items-start bg-gray-300">
