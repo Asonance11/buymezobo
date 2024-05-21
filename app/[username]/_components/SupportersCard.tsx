@@ -5,6 +5,7 @@ import { Separator } from '@/components/ui/separator';
 import { cn } from '@/utility/style';
 import { Post, Profile, Support } from '@prisma/client';
 import { User } from 'lucia';
+import Link from 'next/link';
 import React, { HTMLAttributes, useEffect, useState } from 'react';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -16,17 +17,19 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 export default function SupportersCard({ post, creator, reload, className }: Props) {
 	const [supports, setSupports] = useState<Support[]>([]);
 	const [loading, setLoading] = useState(false);
+	const [count, setCount] = useState(0);
 
 	useEffect(() => {
 		const getSupports = async () => {
 			setLoading(true);
-			const [supports, _count, error] = await getCreatorSupports(creator.id, 5);
+			const [supports, count, error] = await getCreatorSupports(creator.id, 5);
 			if (error != null) {
 				console.error(error);
 				//TODO: handle error
 				setLoading(false);
 				return;
 			}
+			setCount(count);
 			setSupports(supports);
 			setLoading(false);
 		};
@@ -45,6 +48,13 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 				<p className="text-xs md:text-sm font-semibold text-zinc-500">{creator.bio}</p>
 			</div>
 			{post ? <PostImageComponent post={post} /> : null}
+			{count > 1 ? (
+				<Link className="w-full" href={`/${creator.userName}/gallery`}>
+					<Button className="w-full" variant={'ghost'}>
+						See more photos
+					</Button>
+				</Link>
+			) : null}
 			<Separator className="my-1 md:my-2" />
 			<div className="space-y-2 md:spce-y-4 w-full">
 				{supports.map((support) => (
