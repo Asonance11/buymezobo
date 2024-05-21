@@ -1,18 +1,32 @@
 'use client';
 import UserNameHeader from '@/components/common/UsernameHeader';
 import { getCreatorByName } from '@/lib/creator';
-import { Profile } from '@prisma/client';
+import { Post, Profile } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import BuyCard from './_components/BuyCard';
 import SupportersCard from './_components/SupportersCard';
 import Loading from './loading';
 import { User } from 'lucia';
+import { getCreatorPosts } from '@/actions/posts';
 
 export default function Username(props: any) {
 	const creatorname = props.params.username;
 	const [creator, setCreator] = useState<User | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [reloadSupporters, setReloadSupporters] = useState(false);
+	const [latestPost, setLatestPost] = useState<Post | null>(null);
+
+	useEffect(() => {
+		const getPost = async () => {
+			const post = await getCreatorPosts(creator?.id!, 1);
+			setLatestPost(post[0]);
+			setLoading(false);
+		};
+		if (creator) {
+			getPost();
+		}
+	}, [creator?.id]);
+
 	useEffect(() => {
 		const getUser = async () => {
 			const creator = await getCreatorByName(creatorname);
@@ -39,7 +53,12 @@ export default function Username(props: any) {
 							style={{ backgroundImage: `url(${creator?.headerImageUrl})` }}
 						></div>
 						<div className="flex-1 flex flex-col-reverse lg:flex-row justify-center gap-3 relative items-center py-5 lg:py-3 lg:items-start bg-gray-300">
-							<SupportersCard className="lg:-mt-32" creator={creator} reload={reloadSupporters} />
+							<SupportersCard
+								post={latestPost ? latestPost : null}
+								className="lg:-mt-32"
+								creator={creator}
+								reload={reloadSupporters}
+							/>
 							<BuyCard
 								className="-mt-28 lg:-mt-32"
 								creator={creator}

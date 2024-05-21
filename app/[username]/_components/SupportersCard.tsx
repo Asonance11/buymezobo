@@ -2,16 +2,17 @@ import { getCreatorSupports } from '@/actions/support';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/utility/style';
-import { Profile, Support } from '@prisma/client';
+import { Post, Profile, Support } from '@prisma/client';
 import { User } from 'lucia';
 import React, { HTMLAttributes, useEffect, useState } from 'react';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
+	post: Post | null;
 	creator: User;
 	reload: boolean;
 }
 
-export default function SupportersCard({ creator, reload, className }: Props) {
+export default function SupportersCard({ post, creator, reload, className }: Props) {
 	const [supports, setSupports] = useState<Support[]>([]);
 	const [loading, setLoading] = useState(false);
 
@@ -31,6 +32,8 @@ export default function SupportersCard({ creator, reload, className }: Props) {
 		getSupports();
 	}, [creator.id, reload]);
 
+	console.log('POST:     ', post);
+
 	return (
 		<div
 			className={cn(
@@ -42,6 +45,19 @@ export default function SupportersCard({ creator, reload, className }: Props) {
 				<p className="text-sm md:text-lg font-bold -tracking-wide">About {creator.userName}</p>
 				<p className="text-xs md:text-sm font-semibold text-zinc-500">{creator.bio}</p>
 			</div>
+			{post ? (
+				<div className="bg-red-700 w-full h-[15rem] overflow-hidden rounded-lg flex flex-col items-center">
+					<img
+						src={post?.imageUrl}
+						alt={post?.title}
+						className="w-full object-cover flex-1 cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
+					/>
+					<div className="p-2">
+						<p>{post.title}</p>
+						<p>{post.caption}</p>
+					</div>
+				</div>
+			) : null}
 			<Separator className="my-1 md:my-2" />
 			<div className="space-y-2 md:spce-y-4 w-full">
 				{supports.map((support) => (
