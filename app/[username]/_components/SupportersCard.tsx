@@ -1,4 +1,5 @@
 import { getCreatorSupports } from '@/actions/support';
+import PostImageComponent from '@/components/common/Post';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/utility/style';
@@ -32,8 +33,6 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 		getSupports();
 	}, [creator.id, reload]);
 
-	console.log('POST:     ', post);
-
 	return (
 		<div
 			className={cn(
@@ -45,25 +44,13 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 				<p className="text-sm md:text-lg font-bold -tracking-wide">About {creator.userName}</p>
 				<p className="text-xs md:text-sm font-semibold text-zinc-500">{creator.bio}</p>
 			</div>
-			{post ? (
-				<div className="bg-red-700 w-full h-[15rem] overflow-hidden rounded-lg flex flex-col items-center">
-					<img
-						src={post?.imageUrl}
-						alt={post?.title}
-						className="w-full object-cover flex-1 cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
-					/>
-					<div className="p-2">
-						<p>{post.title}</p>
-						<p>{post.caption}</p>
-					</div>
-				</div>
-			) : null}
+			{post ? <PostImageComponent post={post} /> : null}
 			<Separator className="my-1 md:my-2" />
 			<div className="space-y-2 md:spce-y-4 w-full">
 				{supports.map((support) => (
 					<div key={support.id} className=" w-full ">
-						<div className="lg:flex items-center gap-3 ">
-							<div className="hidden md:block cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat bg-black "></div>
+						<div className="md:flex items-center gap-2 ">
+							<div className="hidden md:flex cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat bg-black "></div>
 							<div className="flex-col space-y-0.5 md:space-y-1.5 items-center justify-start">
 								<div>
 									<p className="text-xs lg:text-sm ">
