@@ -1,3 +1,4 @@
+import { useInterface } from '@/store/InterfaceStore';
 import { cn } from '@/utility/style';
 import { Post } from '@prisma/client';
 import React, { HTMLAttributes } from 'react';
@@ -8,8 +9,13 @@ interface PostProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export default function PostImageComponent({ post, imageOnly = false, className, ...props }: PostProps) {
+	const { onOpen } = useInterface();
 	return (
-		<div {...props} className={cn('cursor-pointer overflow-hidden border-[0.5px] rounded-lg', className)}>
+		<div
+			{...props}
+			onClick={() => onOpen('imageSelectModal', { post })}
+			className={cn('cursor-pointer overflow-hidden border-[0.5px] rounded-lg', className)}
+		>
 			<div className={cn('relative overflow-hidden', imageOnly ? 'h-full' : null)}>
 				<img
 					className="w-full h-auto transition-transform duration-500 hover:scale-110"

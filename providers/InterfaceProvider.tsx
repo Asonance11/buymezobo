@@ -2,6 +2,7 @@
 
 import { AdminSideMenuNavigationComponent } from '@/components/Interface/AdminSidebarMenuNavigationSheet';
 import EditUsernamePageModal from '@/components/Interface/EditUsernamePageModal';
+import ImageSeclectModal from '@/components/Interface/ImageSelectModal';
 import { MakeImagePostModal } from '@/components/Interface/MakeImagePostModal';
 import PayoutInfoModal from '@/components/Interface/PayoutInfoModal';
 import QRCodeModal from '@/components/Interface/QRCodeModal';
@@ -22,6 +23,7 @@ export function InterfaceProvider() {
 
 	return (
 		<>
+			<ImageSeclectModal />
 			<QRCodeModal />
 			<WithdrawPayoutModal />
 			<PayoutInfoModal />

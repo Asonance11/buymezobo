@@ -1,6 +1,6 @@
 'use client';
 
-import { Profile } from '@prisma/client';
+import { Post, Profile } from '@prisma/client';
 import { User } from 'lucia';
 import { create } from 'zustand';
 
@@ -12,12 +12,14 @@ export type InterfaceType =
 	| 'payoutInfoModal'
 	| 'withdrawPayoutModal'
 	| 'makeImagePostModal'
+	| 'imageSelectModal'
 
 	//Buttons and widget modal
 	| 'QRCodeModal';
 
 interface InterfaceDataType {
 	creator?: User | null;
+	post?: Post;
 }
 
 interface InterfaceStore {
