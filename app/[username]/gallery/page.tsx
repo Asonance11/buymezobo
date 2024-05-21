@@ -51,7 +51,7 @@ export default function Page(props: any) {
 							style={{ backgroundImage: `url(${creator?.headerImageUrl})` }}
 						></div>
 						<div className="flex-1 flex flex-col-reverse lg:flex-row justify-center gap-3 relative items-center py-5 lg:py-3 lg:items-start bg-gray-300">
-							<div className=" w-10/11 md:w-3/4 lg:w-3/5 p-3 space-y-3 -mt-16 md:-mt-24 lg:-mt-32 mx-auto bg-white lg:rounded-lg ">
+							<div className=" w-10/11 md:w-3/4 lg:w-3/5 p-3 space-y-3 -mt-28  lg:-mt-32 mx-auto bg-white lg:rounded-lg ">
 								<p className="text-lg font-semibold -tracking-wide">Gallery</p>
 								<GallerySection className="" posts={latestPost} />
 							</div>

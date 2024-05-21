@@ -11,7 +11,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 	isImageOnly?: boolean;
 }
 
-export default function GallerySection({ posts, className, isImageOnly = false }: Props) {
+export default function GallerySection({ posts, className, isImageOnly = true }: Props) {
 	if (posts == null) {
 		return null;
 	}
