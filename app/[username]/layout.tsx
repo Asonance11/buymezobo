@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	}
 
 	return {
-		title: creator?.userName,
+		title: 'Buy ' + creator?.userName + ' zobo',
 		description: 'from my website shelf',
 		openGraph: {
 			title: creator?.userName!,
