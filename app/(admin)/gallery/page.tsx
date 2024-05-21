@@ -1,5 +1,6 @@
 'use client';
 import { getCreatorPosts } from '@/actions/posts';
+import GallerySection from '@/components/GallerySection';
 import PostImageComponent from '@/components/common/Post';
 import { Button } from '@/components/ui/button';
 import { getCurrentUser } from '@/lib/authentication';
@@ -17,7 +18,7 @@ export default function Page() {
 	useEffect(() => {
 		const getPost = async () => {
 			setLoading(true);
-			const post = await getCreatorPosts(creator?.id!);
+			const post = await getCreatorPosts(creator?.id!, 0);
 			setLatestPost(post);
 			setLoading(false);
 		};
@@ -42,16 +43,15 @@ export default function Page() {
 
 	return (
 		<div className="w-11/12 lg:3/4 xl:w-2/3 mx-auto m-3 lg:my-8">
-			<section className="w-full flex items-center justify-end">
-				<Button onClick={() => onOpen('makeImagePostModal')} className="-tracking-wide font-bold bg-purple-800">
+			<section className="w-full flex items-center justify-end mb-2 md:mb-3 lg:mb-5">
+				<Button
+					onClick={() => onOpen('makeImagePostModal')}
+					className="-tracking-wide text-sm font-bold bg-purple-800"
+				>
 					Make New Post
 				</Button>
 			</section>
-			<section
-				className={`transition-all grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-4 p-2 lg:p-3 items-start content-evenly`}
-			>
-				{latestPost?.map((post) => <PostImageComponent imageOnly={false} post={post} key={post.id} />)}
-			</section>
+			<GallerySection posts={latestPost} />
 		</div>
 	);
 }

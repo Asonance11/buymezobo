@@ -1,25 +1,23 @@
 'use client';
+import { getCreatorPosts } from '@/actions/posts';
+import GallerySection from '@/components/GallerySection';
 import UserNameHeader from '@/components/common/UsernameHeader';
 import { getCreatorByName } from '@/lib/creator';
-import { Post, Profile } from '@prisma/client';
-import { useEffect, useState } from 'react';
-import BuyCard from './_components/BuyCard';
-import SupportersCard from './_components/SupportersCard';
-import Loading from './loading';
+import { Post } from '@prisma/client';
 import { User } from 'lucia';
-import { getCreatorPosts } from '@/actions/posts';
+import React, { useEffect, useState } from 'react';
+import Loading from '../loading';
 
-export default function Username(props: any) {
+export default function Page(props: any) {
 	const creatorname = props.params.username;
 	const [creator, setCreator] = useState<User | null>(null);
 	const [loading, setLoading] = useState(true);
-    const [latestPost, setLatestPost] = useState<Post | null>(null);
-	const [reloadSupporters, setReloadSupporters] = useState(false);
+	const [latestPost, setLatestPost] = useState<Post[] | null>(null);
 
 	useEffect(() => {
 		const getPost = async () => {
-			const post = await getCreatorPosts(creator?.id!, 1);
-			setLatestPost(post[0]);
+			const post = await getCreatorPosts(creator?.id!, 0); //0 means take all
+			setLatestPost(post);
 			setLoading(false);
 		};
 		if (creator) {
@@ -36,7 +34,7 @@ export default function Username(props: any) {
 		getUser();
 	}, [creatorname]);
 
-	if (!creator) {
+	if (!creator || loading) {
 		return null;
 	}
 
@@ -53,17 +51,10 @@ export default function Username(props: any) {
 							style={{ backgroundImage: `url(${creator?.headerImageUrl})` }}
 						></div>
 						<div className="flex-1 flex flex-col-reverse lg:flex-row justify-center gap-3 relative items-center py-5 lg:py-3 lg:items-start bg-gray-300">
-							<SupportersCard
-								post={latestPost ? latestPost : null}
-								className="lg:-mt-32"
-								creator={creator}
-								reload={reloadSupporters}
-							/>
-							<BuyCard
-								className="-mt-28 lg:-mt-32"
-								creator={creator}
-								setReload={() => setReloadSupporters(!reloadSupporters)}
-							/>
+							<div className=" w-10/11 md:w-3/4 lg:w-3/5 p-3 space-y-3 -mt-16 md:-mt-24 lg:-mt-32 mx-auto bg-white rounded-lg ">
+								<p className="text-lg font-semibold -tracking-wide">Gallery</p>
+								<GallerySection className="" posts={latestPost} />
+							</div>
 						</div>
 					</section>
 				</>
