@@ -13,7 +13,7 @@ export default function Username(props: any) {
 	const creatorname = props.params.username;
 	const [creator, setCreator] = useState<User | null>(null);
 	const [loading, setLoading] = useState(true);
-    const [latestPost, setLatestPost] = useState<Post | null>(null);
+	const [latestPost, setLatestPost] = useState<Post | null>(null);
 	const [reloadSupporters, setReloadSupporters] = useState(false);
 
 	useEffect(() => {
