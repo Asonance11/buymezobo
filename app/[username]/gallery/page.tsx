@@ -34,7 +34,7 @@ export default function Page(props: any) {
 		getUser();
 	}, [creatorname]);
 
-	if (!creator || loading) {
+	if (!creator || loading || !latestPost || latestPost?.length < 1) {
 		return null;
 	}
 
