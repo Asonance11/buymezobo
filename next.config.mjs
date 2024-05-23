@@ -18,14 +18,12 @@ const nextConfig = {
 						value: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
 					},
 				],
-
-                
 			},
 
-            // {
-            //     source:"/widget/:username",
-            //     headers:[]
-            // }
+			// {
+			//     source:"/widget/:username",
+			//     headers:[]
+			// }
 		];
 	},
 };
