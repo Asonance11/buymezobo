@@ -1,8 +1,8 @@
-import { WidgetProps } from "@/types/widget";
+import { WidgetProps } from '@/types/widget';
 
 interface PopUpWidgetCodeProps extends WidgetProps {
-    username: string;
+	username: string;
 }
-export function PopUpWidgetCode({ }: PopUpWidgetCodeProps): string {
-    return '';
+export function PopUpWidgetCode({}: PopUpWidgetCodeProps): string {
+	return '';
 }
