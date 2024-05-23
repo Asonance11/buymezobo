@@ -48,7 +48,10 @@ export default function Home() {
 				data-y_margin="18"
 				async
 				onLoad={() => console.log(`script loaded correctly, window.FB has been populated`)}
-			/>
+				onError={(e) => {
+					console.error('Script failed to load', e);
+				}}
+			></script>
 
 			<MainHeader />
 			<section className="flex flex-col items-center justify-center grow">
