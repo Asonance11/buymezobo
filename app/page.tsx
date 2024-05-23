@@ -35,20 +35,6 @@ export default function Home() {
 
 	return (
 		<main className="min-h-dvh flex flex-col">
-			<script
-				src="https://sijirama.github.io/static/js/widget.done.js"
-				data-name="BMC-Widget"
-				data-cfasync="false"
-				data-id="buymezobo"
-				data-description="buy me some fucking zobo!"
-				data-message=""
-				data-color="#7C3BED"
-				data-position="Right"
-				data-x_margin="18"
-				data-y_margin="18"
-				async
-				onLoad={() => console.log(`script loaded correctly, window.FB has been populated`)}
-			/>
 
 			<MainHeader />
 			<section className="flex flex-col items-center justify-center grow">
