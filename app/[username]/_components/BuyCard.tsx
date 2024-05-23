@@ -21,149 +21,149 @@ import { toast } from 'sonner';
 import { User } from 'lucia';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-    themeColor?: string;
-    creator: User;
-    setReload?: () => void;
+	themeColor?: string;
+	creator: User;
+	setReload?: () => void;
 }
 export default function BuyCard({ creator, className, setReload }: Props) {
-    const [loading, setLoading] = useState(false);
-    const [amountToPay, setAmountToPay] = useState(0);
-    const [success, setSuccess] = useState(false);
-    const [finalAmount, setFinalAmount] = useState(amountToPay * ZoboPrice);
+	const [loading, setLoading] = useState(false);
+	const [amountToPay, setAmountToPay] = useState(0);
+	const [success, setSuccess] = useState(false);
+	const [finalAmount, setFinalAmount] = useState(amountToPay * ZoboPrice);
 
-    const setFinalAmountFunction = (amount: number) => {
-        setFinalAmount(amount * ZoboPrice);
-        setAmountToPay(amount);
-    };
+	const setFinalAmountFunction = (amount: number) => {
+		setFinalAmount(amount * ZoboPrice);
+		setAmountToPay(amount);
+	};
 
-    const formSchema = z.object({
-        name: z.string(),
-        content: z.string(),
-        privateMessage: z.boolean().default(false),
-    });
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: { content: '', name: '', privateMessage: false },
-    });
-    const preHandleSuccessAction = (reference: any) => {
-        handleSuccessAction(reference);
-    };
+	const formSchema = z.object({
+		name: z.string(),
+		content: z.string(),
+		privateMessage: z.boolean().default(false),
+	});
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+		defaultValues: { content: '', name: '', privateMessage: false },
+	});
+	const preHandleSuccessAction = (reference: any) => {
+		handleSuccessAction(reference);
+	};
 
-    const handleSuccessAction = async (reference: any) => {
-        let data: Optional<Support>;
+	const handleSuccessAction = async (reference: any) => {
+		let data: Optional<Support>;
 
-        data = {
-            profileId: creator.id,
-            name: form.getValues('name'),
-            anonymous: form.getValues().privateMessage,
-            content: form.getValues('content'),
-            amount: finalAmount, //TODO: we need to create a monetisation model, how will we make money ourselves
-            numberOfZobo: amountToPay,
-            paymentStatus: PaymentStatus.COMPLETED,
-            paymentRef: reference.reference,
-        };
+		data = {
+			profileId: creator.id,
+			name: form.getValues('name'),
+			anonymous: form.getValues().privateMessage,
+			content: form.getValues('content'),
+			amount: finalAmount, //TODO: we need to create a monetisation model, how will we make money ourselves
+			numberOfZobo: amountToPay,
+			paymentStatus: PaymentStatus.COMPLETED,
+			paymentRef: reference.reference,
+		};
 
-        try {
-            const response = await axios.post('/api/support', data);
-            //TODO: add after support action like thank the user, show some more content, etc
-            setSuccess(true);
-            if (setReload) {
-                setReload();
-            }
-            //TODO: sonner over here
-            console.table(response.data);
-            form.reset({ content: '', name: '', privateMessage: false });
-        } catch (error) {
-            toast.error('An error occured');
-        }
-    };
+		try {
+			const response = await axios.post('/api/support', data);
+			//TODO: add after support action like thank the user, show some more content, etc
+			setSuccess(true);
+			if (setReload) {
+				setReload();
+			}
+			//TODO: sonner over here
+			console.table(response.data);
+			form.reset({ content: '', name: '', privateMessage: false });
+		} catch (error) {
+			toast.error('An error occured');
+		}
+	};
 
-    const handlePaystackCloseAction = () => {
-        console.log('closed');
-    };
+	const handlePaystackCloseAction = () => {
+		console.log('closed');
+	};
 
-    const config: HookConfig = {
-        email: creator.email,
-        amount: finalAmount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-        publicKey: CONFIG.paystack_public_key!,
-    };
+	const config: HookConfig = {
+		email: creator.email,
+		amount: finalAmount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+		publicKey: CONFIG.paystack_public_key!,
+	};
 
-    const initializePayment = usePaystackPayment(config);
+	const initializePayment = usePaystackPayment(config);
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        initializePayment({ onSuccess: preHandleSuccessAction, onClose: handlePaystackCloseAction });
-    }
+	function onSubmit(values: z.infer<typeof formSchema>) {
+		initializePayment({ onSuccess: preHandleSuccessAction, onClose: handlePaystackCloseAction });
+	}
 
-    const nairaSymbol = '₦';
+	const nairaSymbol = '₦';
 
-    return (
-        <div
-            className={cn(
-                `transition-all duration-300 p-5 md:p-7 lg:p-10 w-screen md:w-[27rem] lg:w-[33rem] rounded-none md:rounded-2xl bg-white flex flex-col gap-3 items-start h-fit `,
-                className,
-            )}
-        >
-            <div>
-                <p className="font-bold text-md lg:text-xl -tracking-wide">Buy {creator.userName} Zobo</p>
-            </div>
-            <ZoboAmountPicker setAmount={setFinalAmountFunction} amount={amountToPay} creator={creator} />
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 w-full">
-                    <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormControl>
-                                    <Input className="w-full resize-none" {...field} placeholder="Name or alias" />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+	return (
+		<div
+			className={cn(
+				`transition-all duration-300 p-5 md:p-7 lg:p-10 w-screen md:w-[27rem] lg:w-[33rem] rounded-none md:rounded-2xl bg-white flex flex-col gap-3 items-start h-fit `,
+				className,
+			)}
+		>
+			<div>
+				<p className="font-bold text-md lg:text-xl -tracking-wide">Buy {creator.userName} Zobo</p>
+			</div>
+			<ZoboAmountPicker setAmount={setFinalAmountFunction} amount={amountToPay} creator={creator} />
+			<Form {...form}>
+				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 w-full">
+					<FormField
+						control={form.control}
+						name="name"
+						render={({ field }) => (
+							<FormItem>
+								<FormControl>
+									<Input className="w-full resize-none" {...field} placeholder="Name or alias" />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
 
-                    <FormField
-                        control={form.control}
-                        name="content"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormControl>
-                                    <Textarea
-                                        className="w-full resize-none"
-                                        {...field}
-                                        placeholder="Say something nice"
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+					<FormField
+						control={form.control}
+						name="content"
+						render={({ field }) => (
+							<FormItem>
+								<FormControl>
+									<Textarea
+										className="w-full resize-none"
+										{...field}
+										placeholder="Say something nice"
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
 
-                    <FormField
-                        control={form.control}
-                        name="privateMessage"
-                        render={({ field }) => (
-                            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                                <FormControl>
-                                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                                </FormControl>
-                                <div className="space-y-1 leading-none">
-                                    <FormLabel className="text-sm md:text-base">
-                                        Make this message a private message
-                                    </FormLabel>
-                                    <FormDescription className="text-xs md:text-sm">
-                                        The message will be visible to you and the creator only
-                                    </FormDescription>
-                                </div>
-                            </FormItem>
-                        )}
-                    />
-                    <Button disabled={loading} className="bg-purple-900 w-full font-semibold " type="submit">
-                        Support {nairaSymbol + finalAmount}
-                    </Button>
-                </form>
-            </Form>
-            <SuccessFeedback open={success} onClose={() => setSuccess(false)} />
-        </div>
-    );
+					<FormField
+						control={form.control}
+						name="privateMessage"
+						render={({ field }) => (
+							<FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+								<FormControl>
+									<Checkbox checked={field.value} onCheckedChange={field.onChange} />
+								</FormControl>
+								<div className="space-y-1 leading-none">
+									<FormLabel className="text-sm md:text-base">
+										Make this message a private message
+									</FormLabel>
+									<FormDescription className="text-xs md:text-sm">
+										The message will be visible to you and the creator only
+									</FormDescription>
+								</div>
+							</FormItem>
+						)}
+					/>
+					<Button disabled={loading} className="bg-purple-900 w-full font-semibold " type="submit">
+						Support {nairaSymbol + finalAmount}
+					</Button>
+				</form>
+			</Form>
+			<SuccessFeedback open={success} onClose={() => setSuccess(false)} />
+		</div>
+	);
 }
