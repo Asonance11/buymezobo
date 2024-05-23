@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import ButtonGraphicsCard from './_components/ButtonGraphicsCard';
-import { InterfaceType } from '@/store/InterfaceStore';
+import { InterfaceDataType, InterfaceType } from '@/store/InterfaceStore';
 
 export interface ButtonOption {
 	title: string;
@@ -8,6 +8,7 @@ export interface ButtonOption {
 	description: string;
 	action: string;
 	type?: InterfaceType;
+	data?: InterfaceDataType;
 }
 
 const mainOptions: ButtonOption[] = [
@@ -24,6 +25,7 @@ const mainOptions: ButtonOption[] = [
 		description:
 			'Enable your visitors to support you with Zobo directly from your website. Personalize the widget with your own message and brand color scheme.',
 		action: 'Create Widget',
+		type: 'popupWidgetModal',
 	},
 	{
 		title: 'QR Code',
