@@ -49,7 +49,7 @@ export default function Home() {
 				async
 				onLoad={() => console.log(`script loaded correctly, window.FB has been populated`)}
 			/>
-	
+
 			<MainHeader />
 			<section className="flex flex-col items-center justify-center grow">
 				<div className="lg:w-2/3 xl:w-[40%] mx-auto p-2 lg:p-6 flex items-center justify-center flex-col gap-2 lg:gap-3 text-center rounded-lg lg:shadow-sm">
