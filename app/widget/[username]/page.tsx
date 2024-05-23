@@ -44,7 +44,8 @@ export default function Page({ params }: Props) {
 
 	const inviteUrl = `${origin}/${profile.userName}`;
 
-	const color = searchParams.get('color') || '';
+	const color = ""
+	//const color = searchParams.get('color') || '';
 	const message = searchParams.get('message') || '';
 	const description = searchParams.get('description') || '';
 
