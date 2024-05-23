@@ -21,6 +21,7 @@ const MarketingLayout = ({ children }: { children: ReactNode }) => {
                 data-position="Right"
                 data-x_margin="18"
                 data-y_margin="18"
+                async
                 onLoad={() => console.log(`script loaded correctly, window.FB has been populated`)}
             />
         </div>
