@@ -1,1 +1,1 @@
-pnpx prettier --write .
+echo "pnpx prettier --write . "
