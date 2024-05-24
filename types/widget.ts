@@ -1,5 +1,5 @@
 export interface WidgetProps {
-	color: string;
-	message: string | null;
-	description: string | null;
+    color?: string | null;
+    message?: string | null;
+    description?: string | null;
 }

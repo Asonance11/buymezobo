@@ -43,7 +43,7 @@ export default function Home() {
 				data-description="buy me some fucking zobo!"
 				data-message=""
 				data-color="#7C3BED"
-                async
+				async
 				data-position="Right"
 				data-x_margin="18"
 				data-y_margin="18"
