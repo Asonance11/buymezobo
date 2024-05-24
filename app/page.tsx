@@ -14,7 +14,7 @@ import StyledDiv, { StyledDiv2 } from '@/components/styles/Gradient';
 import { FaArrowRightLong } from 'react-icons/fa6';
 import { HomePageWords } from '@/lib/magicui';
 import { HomepageAlertButton } from '@/components/MarketingComponents/homepage-alert';
-//import WordRotate from '@/components/magicui/word-rotate';
+import WordRotate from '@/components/magicui/word-rotate';
 
 export default function Home() {
     const [profile, setProfile] = useState<User | null>(null);
@@ -37,8 +37,6 @@ export default function Home() {
     if (profile) {
         //redirect(`/dashboard`)
     }
-
-    //<WordRotate className="block" words={HomePageWords} />
 
     return (
         <main className="absolute w-full min-h-dvh flex flex-col overflow-hidden">
@@ -66,7 +64,7 @@ export default function Home() {
                     <h1
                         className={`text-4xl/none md:text-6xl lg:text-8xl  dark:text-neutral-400  text-neutral-800 text-center -tracking-wider font-bold leading-none ${helvetica.className} `}
                     >
-                        Fund your {HomePageWords[0]}
+                        Fund your <WordRotate className="block" words={HomePageWords} />
                     </h1>
                     <p className="text-xs lg:text-base font-semibold text-gray-500 ">
                         Accept support. Start a membership. Setup a shop. It's easier than you think.
