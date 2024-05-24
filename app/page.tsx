@@ -11,6 +11,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useUser } from '@/store/UserDataStore';
 import Script from 'next/script';
 import StyledDiv, { StyledDiv2 } from '@/components/styles/Gradient';
+import { FaArrowRightLong } from 'react-icons/fa6';
 
 export default function Home() {
 	const [profile, setProfile] = useState<User | null>(null);
@@ -57,7 +58,10 @@ export default function Home() {
 			<section className="flex flex-col items-center justify-center grow">
 				<div className="lg:w-2/3 xl:w-[40%] mx-auto p-2 lg:p-6 flex items-center justify-center flex-col gap-2 lg:gap-2 text-center rounded-lg lg:shadow-sm space-y-2">
 					<div className=" p-1.5 text-xs lg:text-sm border-[0.4px] border-zinc-300 text-zinc-700 rounded-xl">
-						We are almost set to launch! <span className="text-purple-950 font-extrabold">More Info</span>
+						We are almost set to launch!{' '}
+						<span className="text-purple-950 ml-2 font-extrabold items-center">
+							More Info <FaArrowRightLong className="inline" />
+						</span>
 					</div>
 					<h1
 						className={`text-4xl/none md:text-6xl lg:text-8xl  dark:text-neutral-400  text-neutral-800 text-center -tracking-wider font-bold leading-none ${helvetica.className} `}
