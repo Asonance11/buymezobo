@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { DancingScript, fontSans, shadowLight } from '@/utility/fonts';
+import { DancingScript, fontSans, helvetica, shadowLight } from '@/utility/fonts';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -10,11 +10,11 @@ export const metadata: Metadata = {
 const AboutPage = () => {
 	return (
 		<section className="mt-4 md:mt-16 lg:mt-20 px-4 flex flex-col justify-center mx-auto md:max-w-3xl pb-12 ">
-			<div className="text-center">
-				<h1 className={`${DancingScript.className} text-4xl md:text-5xl font-bold`}>Our Gist</h1>
+			<div className="text-left">
+				<h1 className={`${helvetica.className} text-base lg:text-xl font-semibold`}>Our Gist</h1>
 			</div>
-			<div className={`${fontSans}text-sm xl:text-lg font-light leading-7`}>
-				<p className="mt-6 mb-5 xl:mb-10">
+			<div className={`${fontSans.className} text-sm xl:text-base font-light leading-none`}>
+				<p className="mt-4 mb-3 xl:mb-5">
 					We're firm believers that every Nigerian has a creator within them. Our mission is to support as
 					many Nigerian creators in unlocking their full potential and effortlessly earning from their
 					creativity.

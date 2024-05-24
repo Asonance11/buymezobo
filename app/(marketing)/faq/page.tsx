@@ -10,10 +10,10 @@ const FaqPage = () => {
 	return (
 		<section className="mt-4 md:mt-16 lg:mt-24 px-4 flex flex-col justify-center mx-auto md:max-w-3xl pb-12">
 			<div className="text-center">
-				<h1 className={`${DancingScript.className} text-4xl md:text-5xl font-bold`}>
+				<h1 className={`${DancingScript.className} text-2xl lg:text-3xl font-bold`}>
 					Frequently Asked Questions
 				</h1>
-				<p className="mt-6 text-sm xl:text-lg">
+				<p className="mt-6 text-sm lg:text-base">
 					If you can&apos;t find an answer that you&apos;re looking for, feel free to drop us a line.
 				</p>
 			</div>
@@ -21,7 +21,7 @@ const FaqPage = () => {
 				<Link href="/about">
 					<Button
 						variant="outline"
-						className="font-semibold border-2 text-sm border-black transition-transform duration-300 rounded-full hover:bg-transparent hover:scale-105"
+						className="border text-sm border-black transition-transform duration-300 rounded-full hover:bg-transparent hover:scale-105"
 					>
 						About the company
 					</Button>
@@ -29,7 +29,7 @@ const FaqPage = () => {
 				<Link href="">
 					<Button
 						variant="outline"
-						className="font-semibold border-2 text-sm border-black transition-transform duration-300 rounded-full hover:bg-transparent hover:scale-105"
+						className="border text-sm border-black transition-transform duration-300 rounded-full hover:bg-transparent hover:scale-105"
 					>
 						Contact support
 					</Button>
