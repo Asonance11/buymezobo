@@ -56,7 +56,6 @@ export default function UserNameHeader({ user: visitedUser, className, ...props 
 				</div>
 				<div className="navbar-end flex gap-2">
 					<div className="flex items-center gap-5">
-						<SlOptions />
 						{loggedInUser?.id == visitedUser.id ? (
 							<Button
 								className="hidden lg:block"
@@ -70,11 +69,8 @@ export default function UserNameHeader({ user: visitedUser, className, ...props 
 						<UserButton />
 					) : (
 						<>
-							<Button variant={'secondary'} className="text-sm lg:text-base font-semibold tracking-tight">
-								<a href="/signin">Login</a>
-							</Button>
 							<Button className="rounded-lg text-sm lg:text-base font-semibold tracking-tight">
-								<a href="/signup">Create Account</a>
+								<a href="/signup">Create your own page</a>
 							</Button>
 						</>
 					)}

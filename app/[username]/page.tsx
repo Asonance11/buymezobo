@@ -52,7 +52,7 @@ export default function Username(props: any) {
 							className="w-full h-72 bg-gray-300 bg-center bg-cover bg-no-repeat"
 							style={{ backgroundImage: `url(${creator?.headerImageUrl})` }}
 						></div>
-						<div className="flex-1 flex flex-col-reverse lg:flex-row justify-center gap-3 relative items-center py-5 lg:py-3 lg:items-start bg-gray-300">
+						<div className="flex-1 flex flex-col-reverse lg:flex-row justify-center md:gap-3 relative items-center py-5 lg:py-3 lg:items-start bg-gray-300">
 							<SupportersCard
 								post={latestPost ? latestPost : null}
 								className="lg:-mt-32"
