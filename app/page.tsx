@@ -55,7 +55,7 @@ export default function Home() {
 			</div>
 			<section className="flex flex-col items-center justify-center grow">
 				<div className="lg:w-2/3 xl:w-[40%] mx-auto p-2 lg:p-6 flex items-center justify-center flex-col gap-2 lg:gap-2 text-center rounded-lg lg:shadow-sm space-y-2">
-					<div className=" p-1.5 text-sm border-[0.4px] border-zinc-300 text-zinc-700 rounded-xl">
+					<div className=" p-1.5 text-xs lg:text-sm border-[0.4px] border-zinc-300 text-zinc-700 rounded-xl">
 						We are almost set to launch! <span className="text-purple-950 font-extrabold">More Info</span>
 					</div>
 					<h1
