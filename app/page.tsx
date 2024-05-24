@@ -38,6 +38,8 @@ export default function Home() {
 		//redirect(`/dashboard`)
 	}
 
+	//<WordRotate className="block" words={HomePageWords} />
+
 	return (
 		<main className="absolute w-full min-h-dvh flex flex-col overflow-hidden">
 			<script
@@ -64,7 +66,7 @@ export default function Home() {
 					<h1
 						className={`text-4xl/none md:text-6xl lg:text-8xl  dark:text-neutral-400  text-neutral-800 text-center -tracking-wider font-bold leading-none ${helvetica.className} `}
 					>
-						Fund your <WordRotate className="block" words={HomePageWords} />
+						Fund your {HomePageWords[0]}
 					</h1>
 					<p className="text-xs lg:text-base font-semibold text-gray-500 ">
 						Accept support. Start a membership. Setup a shop. It's easier than you think.
