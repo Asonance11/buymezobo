@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 interface WordRotateProps {
 	words: string[];
 	duration?: number;
-	framerProps?: any;
+	framerProps?: HTMLMotionProps<'h1'>;
 	className?: string;
 }
 
