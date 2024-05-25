@@ -3,28 +3,43 @@
 import { Logo } from '@/components/common/Logo';
 import { Button } from '@/components/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { LoadingOutlined } from '@ant-design/icons';
+import { GoogleOutlined, LoadingOutlined } from '@ant-design/icons';
 import * as z from 'zod';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { login } from '@/actions/signin';
-import { useAuth } from '@/actions/use-auth';
+import { useAuth as getAuth } from '@/actions/use-auth';
 import { PasswordInput } from '@/components/ui/passwordInput';
+import { signIn, useSession } from 'next-auth/react';
+import { User } from 'lucia';
 
 const SignInSchema = z.object({
-	email: z.string({ required_error: 'This field is required' }).email().trim(),
-	password: z.string({ required_error: 'This field is required' }).trim(),
+	email: z.string().email().min(1, { message: 'This field is required' }).trim(),
+	password: z
+		.string()
+		.min(6, { message: 'Password must be a minimum of 6 characters' })
+		.max(12, { message: 'Password must not exceed 12 characters' })
+		.trim(),
 });
 
 export default function Page() {
 	const [loading, setLoading] = useState(false);
+	const [profile, setProfile] = useState<User | null>();
 
 	const form = useForm<z.infer<typeof SignInSchema>>({
 		resolver: zodResolver(SignInSchema),
 		defaultValues: { email: '', password: '' },
 	});
+
+	useEffect(() => {
+		const fetchUser = async () => {
+			const { user } = await getAuth();
+			setProfile(user);
+		};
+		fetchUser();
+	}, []);
 
 	async function onSubmit(values: z.infer<typeof SignInSchema>) {
 		const isValid = await form.trigger();
@@ -46,6 +61,7 @@ export default function Page() {
 			<nav className=" fixed top-3">
 				<Logo className="hidden lg:block" />
 			</nav>
+			{profile && profile.email}
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
@@ -53,16 +69,28 @@ export default function Page() {
 
                     "
 				>
-					<div className="spece-y-3">
+					<div className="space-y-3">
 						<p className="text-2xl font-bold -tracking-wide">Sign In</p>
 						<p className="text-sm text-gray-500 tracking-wide">to continue to buymezobo</p>
+					</div>
+					<div id="providers">
+						<Button
+							type="button"
+							onClick={() => {
+								signIn('google');
+							}}
+							className=" flex gap-2 bg-inherit text-sm text-black border-[1px] border-solid border-slate-300 w-full hover:text-initial hover:bg-initial shadow-md rounded-sm hover:shadow-none"
+						>
+							<GoogleOutlined />
+							Continue with Google
+						</Button>
 					</div>
 					<FormField
 						control={form.control}
 						name="email"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Email adress</FormLabel>
+								<FormLabel>Email address</FormLabel>
 								<FormControl>
 									<Input className="w-full resize-none" {...field} placeholder="" />
 								</FormControl>

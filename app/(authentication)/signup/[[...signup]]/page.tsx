@@ -14,11 +14,14 @@ import { PasswordInput } from '@/components/ui/passwordInput';
 
 const SignUpSchema = z.object({
 	email: z.string().email().min(1, { message: 'This field is required' }).trim(),
-	password: z.string().min(6, { message: 'Password must be a minimum of 6 characters' }).trim(),
-	firstName: z.string(),
-	lastName: z.string(),
+	password: z
+		.string()
+		.min(6, { message: 'Password must be a minimum of 6 characters' })
+		.max(12, { message: 'Password must not exceed 12 characters' })
+		.trim(),
+	firstName: z.string().max(50),
+	lastName: z.string().max(50),
 });
-
 export default function Page() {
 	const [loading, setLoading] = useState(false);
 
@@ -54,7 +57,7 @@ export default function Page() {
 
                     "
 				>
-					<div className="spece-y-3">
+					<div className="space-y-3">
 						<p className="text-lg lg:text-2xl font-bold -tracking-wide">Create an Account</p>
 						<p className="text-sm text-gray-500 tracking-wide">to continue to buymezobo</p>
 					</div>
