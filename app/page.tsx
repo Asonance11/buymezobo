@@ -68,7 +68,8 @@ export default function Home() {
 						<Link href={loggedInUser ? '/dashboard' : '/signin'}>
 							<Button className="p-3 lg:p-6 text-base lg:text-xl font-semibold">
 								{loggedInUser ? 'Go to dashboard' : 'Start my page'}
-
+							</Button>
+						</Link>
 					)}
 					<p className="text-xs lg:text-base font-light text-gray-500">
 						It's free and takes less than a minute!
