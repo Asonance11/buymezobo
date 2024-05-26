@@ -10,11 +10,10 @@ import { User } from 'lucia';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useUser } from '@/store/UserDataStore';
 import Script from 'next/script';
-import StyledDiv, { StyledDiv2 } from '@/components/styles/Gradient';
-import { FaArrowRightLong } from 'react-icons/fa6';
 import { HomePageWords } from '@/lib/magicui';
 import { HomepageAlertButton } from '@/components/MarketingComponents/homepage-alert';
 import WordRotate from '@/components/magicui/word-rotate';
+import BlurEffect from './(authentication)/_components/BlurEffect';
 
 export default function Home() {
 	const [profile, setProfile] = useState<User | null>(null);
@@ -54,10 +53,7 @@ export default function Home() {
 				data-y_margin="18"
 			></script>
 			<MainHeader />
-			<div className="pointer-events-none absolute inset-x-0 transform-gpu overflow-hidden blur-3xl sm:-top-80">
-				<StyledDiv />
-				<StyledDiv2 />
-			</div>
+			<BlurEffect />
 			<section className="flex flex-col items-center justify-center grow">
 				<div className="lg:w-3/4 xl:w-[60%] mx-auto p-2 lg:p-6 flex items-center justify-center flex-col gap-2 lg:gap-2 text-center rounded-lg lg:shadow-sm space-y-2">
 					<HomepageAlertButton />
