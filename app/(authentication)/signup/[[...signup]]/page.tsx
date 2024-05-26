@@ -11,14 +11,22 @@ import * as z from 'zod';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { PasswordInput } from '@/components/ui/passwordInput';
+import Image from 'next/image';
+import dashboardScreenShot from '../../../../assets/dashboard-screenshot.png';
+import buttonsAndGraphics from '../../../../assets/buttons-graphics-screenshot.png';
+import { signIn } from 'next-auth/react';
+import { FcGoogle } from 'react-icons/fc';
 
 const SignUpSchema = z.object({
 	email: z.string().email().min(1, { message: 'This field is required' }).trim(),
-	password: z.string().min(6, { message: 'Password must be a minimum of 6 characters' }).trim(),
-	firstName: z.string(),
-	lastName: z.string(),
+	password: z
+		.string()
+		.min(6, { message: 'Password must be a minimum of 6 characters' })
+		.max(12, { message: 'Password must not exceed 12 characters' })
+		.trim(),
+	firstName: z.string().max(50),
+	lastName: z.string().max(50),
 });
-
 export default function Page() {
 	const [loading, setLoading] = useState(false);
 
@@ -43,18 +51,17 @@ export default function Page() {
 	}
 
 	return (
-		<section className=" w-full h-[100vh] flex items-center justify-center flex-col">
+		<section className=" relative flex justify-center items-center w-full h-full">
 			<nav className=" fixed top-3">
 				<Logo className="hidden lg:block" textClassName="font-sm" />
 			</nav>
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className=" flex flex-col gap-4 w-[25%] min-w-[22rem] px-2.5 md:px-4 lg:px-6 py-8 h-fit border-solid border-slate-300  rounded-lg md:shadow-sm lg:shadow-[0px_10px_1px_rgba(221,_221,_221,_1),_0_10px_20px_rgba(204,_204,_204,_1)]
-
+					className=" flex flex-col gap-8 w-[50%] min-w-[22rem] px-2.5 md:px-4 lg:px-8 py-10 h-fit border-solid border-slate-300  
                     "
 				>
-					<div className="spece-y-3">
+					<div className="space-y-3">
 						<p className="text-lg lg:text-2xl font-bold -tracking-wide">Create an Account</p>
 						<p className="text-sm text-gray-500 tracking-wide">to continue to buymezobo</p>
 					</div>
@@ -94,7 +101,7 @@ export default function Page() {
 						name="email"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Email adress</FormLabel>
+								<FormLabel>Email address</FormLabel>
 								<FormControl>
 									<Input className="w-full resize-none" {...field} placeholder="" />
 								</FormControl>
@@ -112,17 +119,29 @@ export default function Page() {
 								<FormControl>
 									<PasswordInput className="w-full resize-none" {...field} placeholder="" />
 								</FormControl>
-								<FormDescription className="text-sm md:text-base">
-									We hash your passwords to prevent from malicios attacks
+								<FormDescription className="text-sm">
+									We hash your passwords to prevent from malicious attacks
 								</FormDescription>
 								<FormMessage />
 							</FormItem>
 						)}
 					/>
 
-					<Button className="text-sm md:text-base font-semibold self-center w-full " disabled={loading}>
-						{loading ? <LoadingOutlined /> : 'Continue'}
-					</Button>
+					<div id="providers" className=" space-y-2">
+						<Button className="text-sm md:text-base font-semibold self-center w-full " disabled={loading}>
+							{loading ? <LoadingOutlined /> : 'Continue'}
+						</Button>
+						<Button
+							type="button"
+							onClick={() => {
+								signIn('google');
+							}}
+							className=" flex gap-2 bg-inherit text-xs text-black border-[1px] border-solid border-slate-300 w-full hover:text-initial hover:bg-initial shadow-md rounded-sm hover:shadow-none font-bold"
+						>
+							<FcGoogle className=" text-lg" />
+							Continue with Google
+						</Button>
+					</div>
 
 					<p className=" text-sm font-light">
 						Have an account?{' '}

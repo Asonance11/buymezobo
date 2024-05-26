@@ -17,7 +17,7 @@ model Profile {
     id           String    @id @default(uuid())
     userId       String    @unique
     email        String    @unique @db.Text
-    passwordHash String
+    passwordHash String?
     firstName    String?
     lastName     String?
     sessions     Session[]
