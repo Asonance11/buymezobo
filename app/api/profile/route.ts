@@ -1,6 +1,5 @@
 import { getCurrentUser } from '@/lib/authentication';
 import { db } from '@/lib/database';
-import { Profile } from '@prisma/client';
 import { Optional } from '@prisma/client/runtime/library';
 import { User } from 'lucia';
 import { NextResponse } from 'next/server';

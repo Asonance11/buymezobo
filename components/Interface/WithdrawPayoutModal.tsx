@@ -1,5 +1,5 @@
 import { useInterface } from '@/store/InterfaceStore';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import axios from 'axios';
 import { z } from 'zod';
@@ -9,32 +9,14 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import Loader from '../common/Loader';
-import { getCurrentUser } from '@/lib/authentication';
-import { Profile } from '@prisma/client';
 import { toast } from 'sonner';
-import { formatNumberWithCommas } from '@/utility/text';
 import { User } from 'lucia';
+import { useUser } from '@/store/UserDataStore';
 export default function WithdrawPayoutModal() {
 	const { type, isOpen, onClose } = useInterface();
 	const open = isOpen && type == 'withdrawPayoutModal';
 	const [loading, setLoading] = useState(false);
-	const [profile, setProfile] = useState<User | null>(null);
-
-	useEffect(() => {
-		const fetchProfilw = async () => {
-			try {
-				setLoading(true);
-				const profile = await getCurrentUser();
-				setProfile(profile);
-			} catch (error) {
-			} finally {
-				setLoading(false);
-			}
-		};
-		if (open == true) {
-			fetchProfilw();
-		}
-	}, [open]);
+	const { loggedInUser } = useUser();
 
 	const formSchema = z.object({
 		Amount: z.string(),
@@ -43,7 +25,7 @@ export default function WithdrawPayoutModal() {
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			Amount: String(profile?.balance || ''),
+			Amount: String(loggedInUser?.balance || ''),
 		},
 	});
 
@@ -55,14 +37,14 @@ export default function WithdrawPayoutModal() {
 			return;
 		}
 
-		if (amount > profile?.balance!) {
+		if (amount > loggedInUser?.balance!) {
 			toast("You don't have enough balance to withdraw");
 			return;
 		}
 
 		const data = {
 			amount: amount * 100,
-			id: profile?.id,
+			id: loggedInUser?.id,
 		};
 
 		console.table(data);
@@ -93,9 +75,9 @@ export default function WithdrawPayoutModal() {
 				) : (
 					<>
 						<DialogHeader>
-							<DialogTitle>Payout for {profile?.firstName}?</DialogTitle>
+							<DialogTitle>Payout for {loggedInUser?.firstName}?</DialogTitle>
 							<DialogDescription>
-								how much do you want to withdraw from a balance of {profile?.balance}{' '}
+								how much do you want to withdraw from a balance of {loggedInUser?.balance}{' '}
 							</DialogDescription>
 						</DialogHeader>
 						<Form {...form}>

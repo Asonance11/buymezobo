@@ -3,22 +3,19 @@
 import { Logo } from '@/components/common/Logo';
 import { Button } from '@/components/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { LoadingOutlined } from '@ant-design/icons';
 import * as z from 'zod';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { login } from '@/actions/signin';
 import { useAuth as getAuth } from '@/actions/use-auth';
 import { PasswordInput } from '@/components/ui/passwordInput';
-import { signIn, useSession } from 'next-auth/react';
-import { User } from 'lucia';
-import BlurEffect from '../../_components/BlurEffect';
+import { signIn } from 'next-auth/react';
 import { FcGoogle } from 'react-icons/fc';
-import Image from 'next/image';
-import dashboardScreenShot from '../../../../assets/dashboard-screenshot.png';
-import buttonsAndGraphics from '../../../../assets/buttons-graphics-screenshot.png';
+import { redirect } from 'next/navigation';
+import { useUser } from '@/store/UserDataStore';
 
 const SignInSchema = z.object({
 	email: z.string().email().min(1, { message: 'This field is required' }).trim(),
@@ -31,7 +28,19 @@ const SignInSchema = z.object({
 
 export default function Page() {
 	const [loading, setLoading] = useState(false);
-
+	const { updateUser } = useUser();
+	useEffect(() => {
+		const fetchProfile = async () => {
+			setLoading(true);
+			const { user } = await getAuth();
+			if (user) {
+				redirect('/dashboard');
+			}
+			updateUser(user);
+			setLoading(false);
+		};
+		fetchProfile();
+	}, []);
 	const form = useForm<z.infer<typeof SignInSchema>>({
 		resolver: zodResolver(SignInSchema),
 		defaultValues: { email: '', password: '' },
@@ -42,7 +51,12 @@ export default function Page() {
 		if (isValid) {
 			setLoading(true);
 			try {
-				await login(values);
+				login(values).then(async () => {
+					const { user } = await getAuth();
+					if (user) {
+						updateUser(user);
+					}
+				});
 			} catch (error) {
 				throw error;
 			} finally {

@@ -7,7 +7,7 @@ import { Profile } from '@prisma/client';
 import { User } from 'lucia';
 import * as z from 'zod';
 import { signOut } from './signout';
-import { redirect } from 'next/navigation';
+import { useUser as changeUserState } from '@/store/UserDataStore';
 
 const newPasswordSchema = z.string().min(6, { message: 'Password must be a minimum of 6 characters' }).trim();
 
@@ -49,6 +49,5 @@ export async function changePassword(id: string, oldPassword: string, newPasswor
 	});
 
 	await db.profile.update({ where: { id }, data: { passwordHash } });
-
 	signOut();
 }

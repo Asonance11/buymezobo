@@ -10,12 +10,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { PopUpWidgetCodeProps, generatePopUpWidgetCode } from '@/lib/popup';
 import { getCurrentUser } from '@/lib/authentication';
 import { Button } from '../ui/button';
+import { useUser } from '@/store/UserDataStore';
 
 export default function PopUpWidgetModal() {
 	const { isOpen, onClose, type, data } = useInterface();
 	const [widgetCode, setWidgetCode] = useState<string | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [copied, setCopied] = useState(false);
+	const { loggedInUser: user } = useUser();
 
 	const open = isOpen && type == 'popupWidgetModal';
 
@@ -29,7 +31,6 @@ export default function PopUpWidgetModal() {
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		setLoading(true);
-		const user = await getCurrentUser();
 		if (!user || !user.userName) {
 			return;
 		}

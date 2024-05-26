@@ -1,11 +1,13 @@
 import { useAuth } from '@/actions/use-auth';
 import Loading from '@/app/(admin)/loading';
+import { useUser } from '@/store/UserDataStore';
 import { User } from 'lucia';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function AdminProvider({ children }: { children: React.ReactNode }) {
 	const [profile, setProfile] = useState<User | null>(null);
+	const { updateUser } = useUser();
 	const [loading, setLoading] = useState(true);
 	const router = useRouter();
 
@@ -13,6 +15,7 @@ export default function AdminProvider({ children }: { children: React.ReactNode 
 		const fetchProfile = async () => {
 			// eslint-disable-next-line react-hooks/rules-of-hooks
 			const { user } = await useAuth();
+			updateUser(user);
 			setProfile(user);
 			setLoading(false);
 		};

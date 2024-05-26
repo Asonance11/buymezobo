@@ -1,10 +1,7 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { db } from '@/lib/database';
-import { redirect } from 'next/navigation';
-import { PrismaAdapter } from '@auth/prisma-adapter';
 import { PrismaClient } from '@prisma/client';
-import { signOut } from '@/actions/signout';
 import { lucia } from '@/lib/auth';
 import { cookies } from 'next/headers';
 

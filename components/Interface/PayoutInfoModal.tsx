@@ -15,6 +15,8 @@ import { Input } from '../ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Loader from '../common/Loader';
 import { toast } from 'sonner';
+import { useUser } from '@/store/UserDataStore';
+import { useAuth as getAuth } from '@/actions/use-auth';
 
 type personType = {
 	accountNumber: string;
@@ -27,6 +29,7 @@ export default function PayoutInfoModal() {
 	const open = isOpen && type == 'payoutInfoModal';
 	const [loading, setLoading] = useState(false);
 	const [readyToLoadBanks, setReadyToLoadBanks] = useState(false);
+	const { updateUser } = useUser();
 
 	const [personData, setPersonData] = useState<personType | null>(null);
 	const [banks, setBanks] = useState<Bank[]>([]);
@@ -102,6 +105,10 @@ export default function PayoutInfoModal() {
 				const postResponse = await axios.post('/api/profile/payoutInfo', personData);
 				console.log('POST request sent to /api/auth/aftersignup:', postResponse.data);
 				if (postResponse.status === 200) {
+					const { user } = await getAuth();
+					if (user) {
+						updateUser(user);
+					}
 					onClose();
 				}
 			} catch (error) {
