@@ -7,6 +7,7 @@ import { lucia } from '../lib/auth';
 import { redirect } from 'next/navigation';
 import { ActionResult } from 'next/dist/server/app-render/types';
 import * as z from 'zod';
+import { useUser as updateUserState } from '@/store/UserDataStore';
 
 interface SignUpData {
 	email: string;
@@ -27,6 +28,7 @@ const SignUpSchema = z.object({
 });
 
 async function signup(formData: SignUpData): Promise<ActionResult> {
+	const { updateUser } = updateUserState();
 	SignUpSchema.parse(formData);
 
 	const email = formData.email.toLowerCase();
