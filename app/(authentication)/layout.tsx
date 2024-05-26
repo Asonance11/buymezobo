@@ -48,7 +48,7 @@ export default function ClerkLayout({ children }: { children: React.ReactNode })
 					<h1 className=" text-lg md:text-xl lg:text-2xl font-bold tracking-tighter">Empower Your Creativity. </h1>
 					<p className=" text-xs md:text-sm mt-5">
 						Join us now to connect with your supporters, share your journey, and keep your creativity
-						thriving. Let's make something amazing together!
+						thriving. Let us make something amazing together!
 					</p>
 				</p>
 				<Image
