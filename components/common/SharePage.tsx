@@ -17,9 +17,10 @@ import { IoCopyOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import { FaXTwitter } from 'react-icons/fa6';
 import { User } from 'lucia';
+import { Optional } from '@prisma/client/runtime/library';
 
 interface SharePageProps extends HTMLAttributes<HTMLButtonElement> {
-	profile: User;
+	profile: Optional<User>;
 }
 
 export default function SharePage({ profile, className }: SharePageProps) {

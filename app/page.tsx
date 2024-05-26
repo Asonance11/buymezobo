@@ -16,26 +16,23 @@ import WordRotate from '@/components/magicui/word-rotate';
 import BlurEffect from './(authentication)/_components/BlurEffect';
 
 export default function Home() {
-	const [profile, setProfile] = useState<User | null>(null);
+	// const [profile, setProfile] = useState<User | null>(null);
 	const [loading, setLoading] = useState(true);
-	const { updateUser, user: USerr } = useUser();
+	const { updateUser, loggedInUser } = useUser();
 
 	useEffect(() => {
 		const fetchProfile = async () => {
-			setLoading(true);
-			//INFO: an error here about a hook,, because it starts with use, in a function.
-			const { user } = await Auth();
-			updateUser(user);
-			setProfile(user);
+			if (!loggedInUser) {
+				setLoading(true);
+				const { user } = await Auth();
+				updateUser(user);
+			}
 			setLoading(false);
 		};
 		fetchProfile();
-		console.log('FROM APP/PAGE: ', USerr);
+		console.log('FROM APP/PAGE: ', loggedInUser);
+		// console.log('FROM normal: ', profile);
 	}, []);
-
-	if (profile) {
-		//redirect(`/dashboard`)
-	}
 
 	return (
 		<main className="absolute w-full min-h-dvh flex flex-col overflow-hidden">
@@ -68,11 +65,10 @@ export default function Home() {
 					{loading ? (
 						<Skeleton className="p-3 lg:p-6 text-base lg:text-xl bg-purple-300 font-semibold w-[200px] h-[40px]" />
 					) : (
-						<Link href={profile ? '/dashboard' : '/signin'}>
-							<Button className="p-1.5 md:p-3 lg:p-4 text-base rounded-md lg:text-sm font-semibold bg-purple-950">
-								{profile ? 'Go to dashboard' : 'Start my page'}
-							</Button>
-						</Link>
+						<Link href={loggedInUser ? '/dashboard' : '/signin'}>
+							<Button className="p-3 lg:p-6 text-base lg:text-xl font-semibold">
+								{loggedInUser ? 'Go to dashboard' : 'Start my page'}
+
 					)}
 					<p className="text-xs lg:text-base font-light text-gray-500">
 						It's free and takes less than a minute!
