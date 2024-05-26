@@ -1,6 +1,7 @@
 import React, { HTMLAttributes } from 'react';
 import { DancingScript, shadowLight } from '@/utility/fonts';
 import { cn } from '@/utility/style';
+import Link from 'next/link';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	textClassName?: string;
@@ -8,7 +9,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const Logo = ({ className, textClassName }: Props) => {
 	return (
-		<a href="/">
+		<Link href="/">
 			<div className={cn(` flex items-center justify-center gap-0.5`, className)}>
 				<p
 					className={cn(
@@ -19,6 +20,6 @@ export const Logo = ({ className, textClassName }: Props) => {
 					Buy me Zobo &copy;
 				</p>
 			</div>
-		</a>
+		</Link>
 	);
 };

@@ -15,34 +15,33 @@ import { User } from 'lucia';
 import { Skeleton } from '../ui/skeleton';
 import { useUser } from '@/store/UserDataStore';
 import { Profile } from '@prisma/client';
+import { useAuth as Auth } from '@/actions/use-auth';
 
 export default function MainHeader() {
 	const { onOpen } = useInterface();
 	const isMobile = useIsMobile();
-	const [loading, setLoading] = useState(false);
-	const { user } = useUser();
-
-	const [profile, setProfile] = useState<User | null>(null);
-
+	const [loading, setLoading] = useState(true);
+	const { loggedInUser, updateUser } = useUser();
+	console.log('checking: ', loggedInUser);
 	useEffect(() => {
 		const fetchProfile = async () => {
-			setLoading(true);
-			//const profile = await getCurrentUser();
-			const profile = user;
-			//@ts-ignore
-			setProfile(profile);
+			if (!loggedInUser) {
+				setLoading(true);
+				const { user } = await Auth();
+				updateUser(user);
+			}
 			setLoading(false);
 		};
 		fetchProfile();
 		//console.log('FROM HEADER: ', profile);
-	}, [user]);
+	}, []);
 
 	const openMenu = () => {
 		onOpen('searchCreators');
 	};
 
 	const openSide = () => {
-		onOpen('sideMenuNavigation', { creator: profile as User });
+		onOpen('sideMenuNavigation', { creator: loggedInUser as User });
 	};
 
 	return (
@@ -85,7 +84,7 @@ export default function MainHeader() {
 						className="focus:outline-none flex-1 bg-transparent text-sm font-semibold placeholder-zinc-700"
 					/>
 				</div>
-				{loading && (
+				{loading ? (
 					<div className="flex gap-3">
 						<Skeleton className="lg:block bg-purple-300 w-[100px] p-2" />
 
@@ -93,35 +92,30 @@ export default function MainHeader() {
 
 						<Skeleton className="rounded-full w-[50px] h-[50px] p-2 bg-sky-200" />
 					</div>
-				)}
-				{!loading && (
-					<div className="flex gap-3">
-						{profile ? (
-							<>
-								<Link className="hidden lg:block" href={`/${profile.userName}`}>
-									<Button variant={'secondary'}>View page</Button>
-								</Link>
+				) : loggedInUser ? (
+					<>
+						<Link className="hidden lg:block" href={`/${loggedInUser.userName}`}>
+							<Button variant={'secondary'}>View page</Button>
+						</Link>
 
-								<Link className="hidden lg:block" href={`/dashboard`}>
-									<Button className="font-bold">Dashboard</Button>
-								</Link>
+						<Link className="hidden lg:block" href={`/dashboard`}>
+							<Button className="font-bold">Dashboard</Button>
+						</Link>
 
-								<UserButton />
-							</>
-						) : (
-							<>
-								<Button
-									variant={'secondary'}
-									className="hidden lg:block text-sm lg:text-base font-semibold tracking-tight"
-								>
-									<a href="/signin">Login</a>
-								</Button>
-								<Button className=" hidden lg:block rounded-lg text-sm lg:text-base font-semibold tracking-tight">
-									<a href="/signup">Sign up</a>
-								</Button>
-							</>
-						)}
-					</div>
+						<UserButton />
+					</>
+				) : (
+					<>
+						<Button
+							variant={'secondary'}
+							className="hidden lg:block text-sm lg:text-base font-semibold tracking-tight"
+						>
+							<a href="/signin">Login</a>
+						</Button>
+						<Button className=" hidden lg:block rounded-lg text-sm lg:text-base font-semibold tracking-tight">
+							<a href="/signup">Sign up</a>
+						</Button>
+					</>
 				)}
 			</div>
 		</div>

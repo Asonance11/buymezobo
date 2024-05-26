@@ -1,14 +1,15 @@
 'use client';
 
 import { signOut } from '@/actions/signout';
-import { ToastAction } from '@/components/ui/toast';
 import { toast } from '@/components/ui/use-toast';
+import { useUser } from '@/store/UserDataStore';
 import { LoadingOutlined } from '@ant-design/icons';
-import { redirect } from 'next/navigation';
 import { useEffect } from 'react';
 
 export default function Page() {
+	const { logOut } = useUser();
 	useEffect(() => {
+		logOut();
 		signOut().catch((error) => {
 			toast({
 				title: 'Error logging out',
