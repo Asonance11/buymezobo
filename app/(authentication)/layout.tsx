@@ -45,10 +45,13 @@ export default function ClerkLayout({ children }: { children: React.ReactNode })
 		<section className=" w-[100vw] h-[100vh] flex justify-between items-center">
 			<div className=" relative w-[50vw] h-full hidden lg:flex overflow-hidden flex-col items-center px-10 py-7 gap-12 bg-purple-200 text-slate-800">
 				<p className=" mt-[25%]">
-					<h1 className=" text-lg md:text-xl lg:text-2xl font-bold tracking-tighter">Empower Your Creativity. </h1>
-					<p className=" text-xs md:text-sm mt-5">
-						Join us now to connect with your supporters, share your journey, and keep your creativity
-						thriving. Let us make something amazing together!
+					<h1 className=" text-lg md:text-xl lg:text-2xl font-bold tracking-tighter">
+						Empower Your Creativity.{' '}
+					</h1>
+					<p className=" text-xs md:text-sm mt-1.5 lg:mt-3">
+						Join us now to connect with your supporters, share your journey, and fuel your creativity.
+						Engage with your audience, receive donations, and turn your passion into a thriving endeavor.
+						Your community is ready to back you—let's make something incredible together!
 					</p>
 				</p>
 				<Image
