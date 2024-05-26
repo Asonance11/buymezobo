@@ -51,7 +51,7 @@ export default function ClerkLayout({ children }: { children: React.ReactNode })
 					<p className=" text-xs md:text-sm mt-1.5 lg:mt-3">
 						Join us now to connect with your supporters, share your journey, and fuel your creativity.
 						Engage with your audience, receive donations, and turn your passion into a thriving endeavor.
-						Your community is ready to back you—let's make something incredible together!
+						Your community is ready to back you—let us make something incredible together!
 					</p>
 				</p>
 				<Image
