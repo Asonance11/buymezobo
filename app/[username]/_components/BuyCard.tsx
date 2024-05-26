@@ -19,13 +19,16 @@ import axios from 'axios';
 import SuccessFeedback from './SuccessFeedback';
 import { toast } from 'sonner';
 import { User } from 'lucia';
+import { WidgetProps } from '@/types/widget';
+import { stringify } from 'querystring';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	themeColor?: string;
 	creator: User;
 	setReload?: () => void;
+	widgetprops?: WidgetProps;
 }
-export default function BuyCard({ creator, className, setReload }: Props) {
+export default function BuyCard({ creator, className, setReload, widgetprops }: Props) {
 	const [loading, setLoading] = useState(false);
 	const [amountToPay, setAmountToPay] = useState(0);
 	const [success, setSuccess] = useState(false);
@@ -96,6 +99,8 @@ export default function BuyCard({ creator, className, setReload }: Props) {
 
 	const nairaSymbol = '₦';
 
+	console.log(widgetprops);
+
 	return (
 		<div
 			className={cn(
@@ -105,8 +110,16 @@ export default function BuyCard({ creator, className, setReload }: Props) {
 		>
 			<div>
 				<p className="font-bold text-md lg:text-xl -tracking-wide">Buy {creator.userName} Zobo</p>
+				{widgetprops?.description ?? (
+					<p className="font-extralight text-xs text-zinc-400 ">{widgetprops?.description}</p>
+				)}
 			</div>
-			<ZoboAmountPicker setAmount={setFinalAmountFunction} amount={amountToPay} creator={creator} />
+			<ZoboAmountPicker
+				widgetProps={widgetprops}
+				setAmount={setFinalAmountFunction}
+				amount={amountToPay}
+				creator={creator}
+			/>
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 w-full">
 					<FormField
@@ -158,7 +171,16 @@ export default function BuyCard({ creator, className, setReload }: Props) {
 							</FormItem>
 						)}
 					/>
-					<Button disabled={loading} className="bg-purple-900 w-full font-semibold " type="submit">
+					<Button
+						disabled={loading}
+						className={cn(
+							`bg-purple-900 w-full font-semibold `,
+							widgetprops?.color
+								? `bg-[${String(widgetprops.color)}] hover:bg-[${String(widgetprops.color)}] `
+								: null,
+						)}
+						type="submit"
+					>
 						Support {nairaSymbol + finalAmount}
 					</Button>
 				</form>
@@ -167,3 +189,6 @@ export default function BuyCard({ creator, className, setReload }: Props) {
 		</div>
 	);
 }
+
+//bg-yellow-400
+//bg-[#34f]

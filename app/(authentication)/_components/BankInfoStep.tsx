@@ -65,7 +65,7 @@ export default function BankInfoStep() {
 		}
 
 		route.push('/dashboard');
-	}, [state.values, route]);
+	}, [state.values]);
 
 	const confirmAccount = useCallback(async () => {
 		setChecking(true);

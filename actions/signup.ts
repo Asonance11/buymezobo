@@ -5,7 +5,6 @@ import { hash } from '@node-rs/argon2';
 import { cookies } from 'next/headers';
 import { lucia } from '../lib/auth';
 import { redirect } from 'next/navigation';
-import { generateIdFromEntropySize } from 'lucia';
 import { ActionResult } from 'next/dist/server/app-render/types';
 import * as z from 'zod';
 
@@ -21,10 +20,10 @@ const SignUpSchema = z.object({
 	password: z
 		.string()
 		.min(6, { message: 'Password must be a minimum of 6 characters' })
-		.max(20, { message: 'Password must not exceed 20 characters' })
+		.max(12, { message: 'Password must not exceed 20 characters' })
 		.trim(),
-	firstName: z.string().optional(),
-	lastName: z.string().optional(),
+	firstName: z.string().max(50),
+	lastName: z.string().max(50),
 });
 
 async function signup(formData: SignUpData): Promise<ActionResult> {

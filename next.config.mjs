@@ -19,6 +19,11 @@ const nextConfig = {
 					},
 				],
 			},
+
+			// {
+			//     source:"/widget/:username",
+			//     headers:[]
+			// }
 		];
 	},
 };

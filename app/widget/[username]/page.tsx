@@ -19,14 +19,10 @@ export default function Page({ params }: Props) {
 	const origin = useOrigin();
 	const searchParams = useSearchParams();
 
-	const color = searchParams.get('color') || '#000000';
-	const description = searchParams.get('description') || 'Buy me Zobo';
-
 	useEffect(() => {
 		const fetchProfile = async () => {
 			try {
 				const user = await getCreatorByName(params.username);
-				console.log('Fetched user:', user); // Debugging log
 				setProfile(user);
 				setLoading(false);
 			} catch (error) {
@@ -48,9 +44,14 @@ export default function Page({ params }: Props) {
 
 	const inviteUrl = `${origin}/${profile.userName}`;
 
+	const color = '';
+	//const color = searchParams.get('color') || '';
+	const message = searchParams.get('message') || '';
+	const description = searchParams.get('description') || '';
+
 	return (
 		<div className="w-full flex flex-col items-center min-h-screen justify-between">
-			<BuyCard creator={profile} className={`${color}`} />
+			<BuyCard creator={profile} className={`${color}`} widgetprops={{ color, message, description }} />
 			<div className="w-full p-4 shadow-xl flex items-center justify-center">
 				{
 					<Link href={inviteUrl} target="_blank">

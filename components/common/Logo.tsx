@@ -13,7 +13,7 @@ export const Logo = ({ className, textClassName }: Props) => {
 			<div className={cn(` flex items-center justify-center gap-0.5`, className)}>
 				<p
 					className={cn(
-						`text-2xl lg:text-3xl tracking-tighter font-extrabold ${shadowLight.className}`,
+						`text-xl lg:text-2xl tracking-tighter font-extrabold ${shadowLight.className}`,
 						textClassName,
 					)}
 				>

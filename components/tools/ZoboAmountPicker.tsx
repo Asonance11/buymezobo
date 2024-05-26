@@ -1,4 +1,5 @@
 import { ZoboAMountsInterface, ZoboAmounts } from '@/lib/zobo';
+import { WidgetProps } from '@/types/widget';
 import { Profile } from '@prisma/client';
 import { toString } from 'lodash';
 import { User } from 'lucia';
@@ -8,9 +9,10 @@ interface Props {
 	amount: number;
 	setAmount: (amount: number) => void;
 	creator: User;
+	widgetProps?: WidgetProps;
 }
 
-export default function ZoboAmountPicker({ amount, creator, setAmount }: Props) {
+export default function ZoboAmountPicker({ amount, creator, setAmount, widgetProps }: Props) {
 	const [zoboAmounts, setZoboAmounts] = useState(ZoboAmounts);
 
 	useEffect(() => {
@@ -46,9 +48,11 @@ export default function ZoboAmountPicker({ amount, creator, setAmount }: Props) 
 		setAmount(amount);
 	};
 
+	const themeColor = widgetProps?.color ? String('[' + widgetProps.color + ']') : 'purple-900';
+
 	return (
 		<div className="flex justify-center gap-4 lg:justify-around items-center p-2 lg:p-4 w-full h-28 rounded-2xl border border-zinc-300 ">
-			<div className="w-8 lg:w-10 h-9 bg-purple-900"></div>
+			<div className={`w-8 lg:w-10 h-9 bg-${themeColor}`}></div>
 
 			{zoboAmounts.map((amount, index) => {
 				return (
@@ -57,10 +61,10 @@ export default function ZoboAmountPicker({ amount, creator, setAmount }: Props) 
 						onClick={() => {
 							setSeclected(amount.amount);
 						}}
-						className={`w-12 h-12 lg:w-16 lg:h-16 transition-colors duration-300 cursor-pointer rounded-full flex items-center border-2 border-purple-900 justify-center ${amount.selected ? 'bg-purple-900' : 'bg-white'}`}
+						className={`w-12 h-12 lg:w-16 lg:h-16 transition-colors duration-300 cursor-pointer rounded-full flex items-center border-2 border-${themeColor} justify-center ${amount.selected ? `bg-${themeColor}` : 'bg-white'}`}
 					>
 						<span
-							className={`text-sm md:text-lg lg:text-xl transition-colors duration-300 font-bold ${amount.selected ? 'text-white' : 'text-purple-900'}`}
+							className={`text-sm md:text-lg lg:text-xl transition-colors duration-300 font-bold ${amount.selected ? 'text-white' : `text-${themeColor}`}`}
 						>
 							{amount.amount}
 						</span>

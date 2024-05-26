@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import ButtonGraphicsCard from './_components/ButtonGraphicsCard';
-import { InterfaceType } from '@/store/InterfaceStore';
+import { InterfaceDataType, InterfaceType } from '@/store/InterfaceStore';
 
 export interface ButtonOption {
 	title: string;
@@ -8,26 +8,28 @@ export interface ButtonOption {
 	description: string;
 	action: string;
 	type?: InterfaceType;
+	data?: InterfaceDataType;
 }
 
 const mainOptions: ButtonOption[] = [
-	{
-		title: 'Website Buttons',
-		image: '/image.png',
-		description:
-			'Craft personalized buttons for your websites or blog to guide your visitors to your "Buy Me Zobo" page.',
-		action: 'Get Crafting',
-	},
+	// {
+	// 	title: 'Website Buttons',
+	// 	image: '/image.png',
+	// 	description:
+	// 		'Craft personalized buttons for your websites or blog to guide your visitors to your "Buy Me Zobo" page.',
+	// 	action: 'Get Crafting',
+	// },
 	{
 		title: 'Website Widgets',
 		image: '/image.png',
 		description:
 			'Enable your visitors to support you with Zobo directly from your website. Personalize the widget with your own message and brand color scheme.',
 		action: 'Create Widget',
+		type: 'popupWidgetModal',
 	},
 	{
 		title: 'QR Code',
-		image: '/image.png',
+		image: '/qrimage.png',
 		description:
 			'Quick and modern way to receive appreciation from your fans. Use it on your business card, website, or social media.',
 		action: 'Generate QR Code',
@@ -36,13 +38,13 @@ const mainOptions: ButtonOption[] = [
 ];
 
 const subOptions: ButtonOption[] = [
-	{
-		title: 'Website Badge',
-		image: '/image.png',
-		description:
-			'Add a "Buy Me Zobo" badge to your website. Let your visitors know they can support you with a bottle of Zobo.',
-		action: 'Add to Website',
-	},
+	// {
+	// 	title: 'Website Badge',
+	// 	image: '/image.png',
+	// 	description:
+	// 		'Add a "Buy Me Zobo" badge to your website. Let your visitors know they can support you with a bottle of Zobo.',
+	// 	action: 'Add to Website',
+	// },
 ];
 
 const Button: FC = () => {
@@ -55,12 +57,14 @@ const Button: FC = () => {
 						<ButtonGraphicsCard mainOptions={mainOptions} />
 					</div>
 				</div>
-				<div className="mb-10">
-					<h1 className="font-bold text-xl mb-5">Images & Shareables</h1>
-					<div className="">
-						<ButtonGraphicsCard mainOptions={subOptions} />
+				{subOptions.length > 0 && (
+					<div className="mb-10">
+						<h1 className="font-bold text-xl mb-5">Images & Shareables</h1>
+						<div className="">
+							<ButtonGraphicsCard mainOptions={subOptions} />
+						</div>
 					</div>
-				</div>
+				)}
 			</main>
 		</section>
 	);

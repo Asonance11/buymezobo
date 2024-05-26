@@ -31,7 +31,7 @@ export async function changePassword(id: string, oldPassword: string, newPasswor
 	if (!user) throw new Error('User not found');
 
 	// validate old password
-	const validPassword = await verify(user.passwordHash, oldPassword, {
+	const validPassword = await verify(user.passwordHash ?? '', oldPassword, {
 		memoryCost: 19456,
 		timeCost: 2,
 		outputLen: 32,

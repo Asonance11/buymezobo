@@ -50,26 +50,25 @@ export default function MainHeader() {
 				{isMobile ? (
 					<HiMenu className="text-2xl" onClick={openSide} />
 				) : (
-					<div className="flex items-center gap-8">
-						<div className="flex items-center justify-center w-fit gap-1.5">
-							<FaQuoteLeft />
-							<Link href="/faq" className="text-base font-semibold tracking-tight">
-								FAQ
+					<div className="flex items-center gap-5">
+						<div className="flex items-center justify-center w-fit gap-1">
+							<FaQuoteLeft className="text-sm" />
+							<Link href="/faq" className="text-base font-light tracking-tight">
+								faq
 							</Link>
 						</div>
 
 						<div className="flex items-center justify-center w-fit gap-1">
-							<IoInformationCircle className="text-lg" />
-							<Link href="/about" className="text-base font-semibold tracking-tight">
-								About
+							<IoInformationCircle className="text-base" />
+							<Link href="/about" className="text-base font-light tracking-tight">
+								about
 							</Link>
 						</div>
-						<a className="text-base font-semibold tracking-tight">Resources</a>
 					</div>
 				)}
 			</div>
 			<div className="navbar-center flex">
-				<Logo />
+				<Logo textClassName="text-lg" />
 			</div>
 			<div className="navbar-end flex gap-3">
 				<div

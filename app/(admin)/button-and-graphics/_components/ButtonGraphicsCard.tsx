@@ -22,7 +22,7 @@ const ButtonGraphicsCard: FC<Props> = ({ mainOptions }) => {
 		<div className="grid md:grid-cols-1 lg:grid-cols-2 place-items-stretch gap-4 lg:gap-7 xl:gap-9 ">
 			{mainOptions.map((option, index) => (
 				<Card key={index} className="text-center py-3 rounded-xl shadow-md">
-					<CardHeader className="space-y-2">
+					<CardHeader className="space-y-1">
 						<Image
 							src={option.image}
 							width={180}
@@ -31,9 +31,9 @@ const ButtonGraphicsCard: FC<Props> = ({ mainOptions }) => {
 							className="object-cover mx-auto cursor-pointer"
 						/>
 					</CardHeader>
-					<CardContent className="p-0 my-3 space-y-2">
-						<CardTitle className="text-2xl font-semibold">{option.title}</CardTitle>
-						<CardDescription className="w-3/4 mx-auto text-zinc-900 text-sm">
+					<CardContent className="p-0 my-1.5 space-y-2">
+						<CardTitle className="text-xl font-semibold">{option.title}</CardTitle>
+						<CardDescription className="w-3/4 mx-auto text-zinc-600 text-sm">
 							{option.description}
 						</CardDescription>
 					</CardContent>

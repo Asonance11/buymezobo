@@ -13,11 +13,12 @@ export type InterfaceType =
 	| 'withdrawPayoutModal'
 	| 'makeImagePostModal'
 	| 'imageSelectModal'
+	| 'popupWidgetModal'
 
 	//Buttons and widget modal
 	| 'QRCodeModal';
 
-interface InterfaceDataType {
+export interface InterfaceDataType {
 	creator?: User | null;
 	post?: Post;
 }
