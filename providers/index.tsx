@@ -11,6 +11,7 @@ interface ProviderProps {
 export default function Provider({ children }: ProviderProps) {
 	return (
 		<>
+			{/* Dont remove */}
 			<SessionProvider>{children}</SessionProvider>
 			<InterfaceProvider />
 		</>
