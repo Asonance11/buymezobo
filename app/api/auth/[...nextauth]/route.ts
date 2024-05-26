@@ -42,9 +42,8 @@ const handler = NextAuth({
 			const userId = userProfile?.userId ?? crypto.randomUUID();
 			if (!userProfile) {
 				const names = user.name?.split(' ');
-				if (!names?.length || names.length < 2) return false;
-				const firstName = names[0];
-				const lastName = names[1];
+				const firstName = names![0];
+				const lastName = names![1] ?? '';
 				await db.profile.create({
 					data: {
 						userId,

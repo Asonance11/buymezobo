@@ -10,6 +10,8 @@ import { User } from 'lucia';
     from here we want the name, back account number and bank code  
 */
 
+// TODO: Set First and Last names as well
+
 export default function Page() {
 	const [profile, setProfile] = useState<User | null>(null);
 	useEffect(() => {
