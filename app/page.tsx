@@ -2,14 +2,12 @@
 'use client';
 import MainHeader from '@/components/common/MainHeader';
 import { Button } from '@/components/ui/button';
-import { InterTight, helvetica } from '@/utility/fonts';
+import { helvetica } from '@/utility/fonts';
 import Link from 'next/link';
 import { useAuth as Auth } from '@/actions/use-auth';
 import { useEffect, useState } from 'react';
-import { User } from 'lucia';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useUser } from '@/store/UserDataStore';
-import Script from 'next/script';
 import { HomePageWords } from '@/lib/magicui';
 import { HomepageAlertButton } from '@/components/MarketingComponents/homepage-alert';
 import WordRotate from '@/components/magicui/word-rotate';
@@ -68,7 +66,8 @@ export default function Home() {
 						<Link href={loggedInUser ? '/dashboard' : '/signin'}>
 							<Button className="p-3 lg:p-6 text-base lg:text-xl font-semibold">
 								{loggedInUser ? 'Go to dashboard' : 'Start my page'}
-
+							</Button>
+						</Link>
 					)}
 					<p className="text-xs lg:text-base font-light text-gray-500">
 						It's free and takes less than a minute!

@@ -5,8 +5,10 @@ import { cache } from 'react';
 
 import { type Session, type User } from 'lucia';
 import { lucia } from '../lib/auth';
+import { useUser } from '@/store/UserDataStore';
 
 export const useAuth = cache(async (): Promise<{ user: User; session: Session } | { user: null; session: null }> => {
+	const { updateUser } = useUser();
 	const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
 	if (!sessionId) {
 		return {
@@ -27,5 +29,6 @@ export const useAuth = cache(async (): Promise<{ user: User; session: Session } 
 			cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
 		}
 	} catch {}
+	updateUser(result.user);
 	return result;
 });
