@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { CheckCircleIcon, Loader2 as Loader } from 'lucide-react';
 import axios from 'axios';
 import { debounce } from 'lodash';
+import { toast } from 'sonner';
 
 export default function UserNameStep() {
 	const { nextStep } = useWizard();
@@ -57,6 +58,7 @@ export default function UserNameStep() {
 	const next = () => {
 		if (!loading) {
 			nextStep();
+			toast.success('Username saved, Proceed!');
 		}
 	};
 

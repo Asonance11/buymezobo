@@ -15,6 +15,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { signIn } from 'next-auth/react';
 import { useUser } from '@/store/UserDataStore';
 import { useAuth as getAuth } from '@/actions/use-auth';
+import { toast } from 'sonner';
 import { redirect } from 'next/navigation';
 
 const SignUpSchema = z.object({
@@ -27,6 +28,7 @@ const SignUpSchema = z.object({
 	firstName: z.string().max(50),
 	lastName: z.string().max(50),
 });
+
 export default function Page() {
 	const [loading, setLoading] = useState(false);
 	const { updateUser } = useUser();
@@ -52,19 +54,23 @@ export default function Page() {
 		if (isValid) {
 			setLoading(true);
 			try {
-				signup(values).then(async () => {
+				const result = await signup(values);
+				if (result.success) {
 					const { user } = await getAuth();
 					if (user) {
-						updateUser(user);
+						await updateUser(user);
+						toast.success('Account created successfully!');
 					}
-				});
+					form.reset();
+				} else {
+					toast.error(result.error);
+				}
 			} catch (error) {
-				throw error;
+				toast.error('An unexpected error occurred.');
 			} finally {
 				setLoading(false);
 			}
 		}
-		form.reset();
 	}
 
 	return (
@@ -75,7 +81,7 @@ export default function Page() {
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className=" flex flex-col gap-8 w-[50%] min-w-[22rem] px-2.5 md:px-4 lg:px-8 py-10 h-fit border-solid border-slate-300  
+					className=" flex flex-col gap-8 w-[50%] min-w-[22rem] px-2.5 md:px-4 lg:px-8 h-fit border-solid border-slate-300  
                     "
 				>
 					<div className="space-y-3">
