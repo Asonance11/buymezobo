@@ -14,10 +14,10 @@ const Toaster = ({ ...props }: ToasterProps) => {
 			className="toaster group"
 			toastOptions={{
 				classNames: {
-					error: 'bg-red-400',
-					success: 'text-purple-600',
-					warning: 'text-yellow-400',
-					info: 'bg-blue-400',
+					error: 'bg-red-500 border-none',
+					success: 'bg-black text-white border-none',
+					warning: 'text-yellow-400 border-none',
+					info: 'bg-blue-400 border-none',
 				},
 			}}
 			{...props}

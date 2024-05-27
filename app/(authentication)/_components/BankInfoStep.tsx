@@ -109,10 +109,12 @@ export default function BankInfoStep() {
 				const postResponse = await axios.post('/api/auth/aftersignup', personData);
 				console.log('POST request sent to /api/auth/aftersignup:', postResponse.data);
 				if (postResponse.status === 200) {
+					toast.success('Account Informatioin Saved, Welcome to BMZ!');
 					route.push('/');
 				}
 			}
 		} catch (error) {
+			toast.error('Account details in use by another user, Try another!');
 			console.error('Error sending POST request to /api/auth/aftersignup:', error);
 		} finally {
 			setLoading(false);
