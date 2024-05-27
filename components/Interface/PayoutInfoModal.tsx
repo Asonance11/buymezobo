@@ -72,6 +72,7 @@ export default function PayoutInfoModal() {
 	};
 	async function onSubmit() {
 		try {
+			setLoading(true);
 			const postResponse = await axios.post('/api/profile/payoutInfo', personData);
 			console.log('POST request sent to /api/auth/aftersignup:', postResponse.data);
 			if (postResponse.status === 200) {
@@ -84,8 +85,11 @@ export default function PayoutInfoModal() {
 		} catch (error) {
 			toast.error('An error occurred');
 			console.error('Error sending POST request to /api/auth/aftersignup:', error);
+		} finally {
+			setLoading(false);
 		}
 	}
+
 	async function verifyAccount(values: z.infer<typeof formSchema>) {
 		setPersonData(null);
 		const data = {
@@ -175,7 +179,7 @@ export default function PayoutInfoModal() {
 										</SelectContent>
 									</Select>
 									{!personData && <FormDescription>choose your bank for the payout</FormDescription>}
-									{loading ? (
+									{loading && !personData?.bankAccountName ? (
 										<Loader className="mx-auto" />
 									) : (
 										<p className="text-green-700 font-bold bg-green-100 p-1">
@@ -190,7 +194,7 @@ export default function PayoutInfoModal() {
 							<Button disabled={loading} className="bg-green-800 text-white" type="submit">
 								Verify Details
 							</Button>
-							<Button disabled={personData ? false : true} type="button" onClick={onSubmit}>
+							<Button disabled={personData ? false : true || loading} type="button" onClick={onSubmit}>
 								{data.creator?.transferRecipientCode ? 'Update Bank Info' : 'Save Bank Info'}
 							</Button>
 						</div>
