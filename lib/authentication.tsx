@@ -2,7 +2,7 @@
 'use server';
 import { Profile } from '@prisma/client';
 import { db } from './database';
-import { useAuth } from '../actions/use-auth';
+import { useAuth as Auth } from '../actions/use-auth';
 import { User } from 'lucia';
 
 //------------------------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ export async function createInitialProfile(): Promise<Profile | null> {
 
 //INFO: tell us if the user has a set username or not
 export async function hasUserName(): Promise<boolean> {
-	const { user: profile } = await useAuth();
+	const { user: profile } = await Auth();
 
 	if (!profile) {
 		return false;
@@ -56,7 +56,7 @@ export async function hasUserName(): Promise<boolean> {
 
 //INFO: get the user currently signed in from database, if return null, no user is signed in
 export async function getCurrentUser(): Promise<User | null> {
-	const { user } = await useAuth();
+	const { user } = await Auth();
 
 	return user;
 }

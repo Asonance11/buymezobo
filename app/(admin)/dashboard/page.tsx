@@ -2,24 +2,11 @@
 import DashBoardEarningPage from '@/components/AdminComponents/DashBoardEarningPage';
 import PostPage from '@/components/AdminComponents/PostPage';
 import SupportHistoryPage from '@/components/AdminComponents/SupportHistoryPage';
-import MainHeader from '@/components/common/MainHeader';
-import { getCurrentUser } from '@/lib/authentication';
 import { useUser } from '@/store/UserDataStore';
-import { User } from 'lucia';
-import React, { Suspense, useEffect, useState } from 'react';
+import React from 'react';
 
 export default function Page() {
-	const [profile, setProfile] = useState<User | null>(null);
-	const { loggedInUser } = useUser();
-	useEffect(() => {
-		const getUser = async () => {
-			const profile = await getCurrentUser();
-			if (profile) {
-				setProfile(profile);
-			}
-		};
-		getUser();
-	}, []);
+	const { loggedInUser: profile } = useUser();
 
 	return (
 		<main className="w-[99%] md:w-full h-full transition-all duration-300">

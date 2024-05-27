@@ -7,7 +7,6 @@ import { User } from 'lucia';
 
 export default function AdminHeader() {
 	const { onOpen } = useInterface();
-	const [profile, setProfile] = useState<User | null>(null);
 	const isMobile = useIsMobile();
 	const openSide = () => {
 		onOpen('adminSideMenuNavigation');

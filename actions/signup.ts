@@ -7,7 +7,8 @@ import { lucia } from '../lib/auth';
 import { redirect } from 'next/navigation';
 import { ActionResult } from 'next/dist/server/app-render/types';
 import * as z from 'zod';
-import { useUser as updateUserState } from '@/store/UserDataStore';
+import { useUser as User } from '@/store/UserDataStore';
+import { useAuth as Auth } from './use-auth';
 
 interface SignUpData {
 	email: string;
@@ -28,7 +29,6 @@ const SignUpSchema = z.object({
 });
 
 async function signup(formData: SignUpData): Promise<ActionResult> {
-	const { updateUser } = updateUserState();
 	SignUpSchema.parse(formData);
 
 	const email = formData.email.toLowerCase();
@@ -58,6 +58,7 @@ async function signup(formData: SignUpData): Promise<ActionResult> {
 	const session = await lucia.createSession(userId, {});
 	const sessionCookie = lucia.createSessionCookie(session.id);
 	cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+	const user = await Auth();
 	return redirect('/aftersignup');
 }
 

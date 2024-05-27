@@ -4,19 +4,18 @@ import { Dialog, DialogContent, DialogFooter } from '@/components/ui/dialog';
 import { getCurrentUser } from '@/lib/authentication';
 import { QRMaker } from '../tools/QRMaker';
 import { Button } from '../ui/button';
+import { useUser } from '@/store/UserDataStore';
 
 export default function QRCodeModal() {
 	const { type, isOpen, onClose } = useInterface();
 	const open = isOpen && type == 'QRCodeModal';
-
+	const { loggedInUser } = useUser();
 	const downloadQr = () => {
-		getCurrentUser().then((user) => {
-			const canvas = document.querySelector('canvas') as HTMLCanvasElement;
-			const a = document.createElement('a');
-			a.href = canvas.toDataURL('image/png');
-			a.download = `${user?.userName}-qr.png`;
-			a.click();
-		});
+		const canvas = document.querySelector('canvas') as HTMLCanvasElement;
+		const a = document.createElement('a');
+		a.href = canvas.toDataURL('image/png');
+		a.download = `${loggedInUser?.userName}-qr.png`;
+		a.click();
 	};
 
 	return (

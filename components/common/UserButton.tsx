@@ -23,8 +23,8 @@ export default function UserButton() {
 	useEffect(() => {
 		const fetchProfile = async () => {
 			if (!loggedInUser) {
-				const profile = await Auth();
-				updateUser(profile);
+				const { user } = await Auth();
+				updateUser(user);
 			}
 			console.log('pic, ', loggedInUser);
 		};
