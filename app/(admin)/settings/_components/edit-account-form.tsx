@@ -2,18 +2,20 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import Loading from '../../loading';
-import { getCurrentUser } from '@/lib/authentication';
 import { useEffect, useState } from 'react';
-import { User } from 'lucia';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { changePassword, updateProfile } from '@/actions/profile';
 import { TextInput } from '@/components/ui/TextInput';
 import { toast } from '@/components/ui/use-toast';
 import { LoadingOutlined } from '@ant-design/icons';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormField } from '@/components/ui/form';
 import { useRouter } from 'next/navigation';
+import { useUser } from '@/store/UserDataStore';
+import { updateProfile, changePassword } from '@/actions/profile';
+import axios from 'axios';
+import { Bank } from '@/types/bank';
+import { CONFIG } from '@/utility/config';
 
 const accountInputSchema = z.object({
 	firstName: z.string().min(1).max(40).trim(),
@@ -31,10 +33,12 @@ type AccountInput = z.infer<typeof accountInputSchema>;
 type PasswordInput = z.infer<typeof passwordInputSchema>;
 
 export default function EditAccountForm() {
-	const [profile, setProfile] = useState<User | null>();
 	const [loading, setLoading] = useState(true);
 	const [accountLoading, setAccountLoading] = useState(false);
 	const [passwordLoading, setPasswordLoading] = useState(false);
+	const { loggedInUser } = useUser();
+	const [banks, setBanks] = useState<Bank[]>([]);
+	const [bankName, setBankName] = useState('');
 
 	const accountForm = useForm<AccountInput>({
 		resolver: zodResolver(accountInputSchema),
@@ -45,14 +49,37 @@ export default function EditAccountForm() {
 		resolver: zodResolver(passwordInputSchema),
 		defaultValues: { oldPassword: '', newPassword: '' },
 	});
-
+	async function getBankName() {
+		const foundBank = banks.filter((bank) => bank.code === loggedInUser?.bankCode)[0];
+		if (foundBank) {
+			setBankName(() => foundBank.name);
+		}
+	}
+	useEffect(() => {
+		const fetchBanks = async () => {
+			try {
+				setLoading(true);
+				const response = await axios.get('https://api.paystack.co/bank', {
+					headers: {
+						Authorization: `Bearer ${CONFIG.paystack_key}`,
+					},
+				});
+				setBanks(response.data.data);
+			} catch (error) {
+				console.error('Error fetching banks:', error);
+			} finally {
+				setLoading(false);
+			}
+		};
+		fetchBanks();
+	}, []);
+	useEffect(() => {
+		getBankName();
+	}, [banks]);
 	useEffect(() => {
 		async function fetchProfile() {
-			const user = await getCurrentUser();
-			//console.log(user);
-			setProfile(user);
-			if (user) {
-				const { firstName, lastName, email, userName } = user;
+			if (loggedInUser) {
+				const { firstName, lastName, email, userName } = loggedInUser;
 				accountForm.reset({ firstName, lastName, email, userName });
 			}
 			setLoading(false);
@@ -65,11 +92,11 @@ export default function EditAccountForm() {
 		try {
 			// throw new Error('');
 			const isValid = await accountForm.trigger();
-			if (isValid && profile) {
+			if (isValid && loggedInUser) {
 				await updateProfile(data);
 				toast({
 					title: 'Account Update ',
-					description: 'Sucessfully updated profile',
+					description: 'Sucessfully updated loggedInUser',
 					variant: 'success',
 				});
 			}
@@ -92,9 +119,9 @@ export default function EditAccountForm() {
 		try {
 			// throw new Error('');
 			const isValid = await accountForm.trigger();
-			if (isValid && profile) {
+			if (isValid && loggedInUser) {
 				const { oldPassword, newPassword } = data;
-				await changePassword(profile.id, oldPassword, newPassword);
+				await changePassword(loggedInUser.id, oldPassword, newPassword);
 				toast({
 					title: 'Password Update ',
 					description: 'Sucessfully updated password',
@@ -268,13 +295,18 @@ export default function EditAccountForm() {
 							<CardDescription>View your bank details here.</CardDescription>
 						</CardHeader>
 						<CardContent className="space-y-2">
-							<TextInput label="Bank Name" id="bank-name" disabled value={profile?.bankName} />
-							<TextInput label="Account Number" id="account-no" disabled value={profile?.accountNumber} />
+							<TextInput label="Bank Name" id="bank-name" disabled value={bankName} />
+							<TextInput
+								label="Account Number"
+								id="account-no"
+								disabled
+								value={loggedInUser?.accountNumber}
+							/>
 							<TextInput
 								label="Bank Account Name"
 								id="bank-name"
 								disabled
-								value={profile?.bankAccountName}
+								value={loggedInUser?.bankAccountName}
 							/>
 						</CardContent>
 						<CardFooter>

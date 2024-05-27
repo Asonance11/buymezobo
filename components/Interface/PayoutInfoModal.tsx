@@ -70,8 +70,23 @@ export default function PayoutInfoModal() {
 	const handleBankSelect = (bank: any) => {
 		form.setValue('banckCode', bank);
 	};
-
-	async function onSubmit(values: z.infer<typeof formSchema>) {
+	async function onSubmit() {
+		try {
+			const postResponse = await axios.post('/api/profile/payoutInfo', personData);
+			console.log('POST request sent to /api/auth/aftersignup:', postResponse.data);
+			if (postResponse.status === 200) {
+				const { user } = await getAuth();
+				if (user) {
+					updateUser(user);
+				}
+				onClose();
+			}
+		} catch (error) {
+			toast.error('An error occurred');
+			console.error('Error sending POST request to /api/auth/aftersignup:', error);
+		}
+	}
+	async function verifyAccount(values: z.infer<typeof formSchema>) {
 		setPersonData(null);
 		const data = {
 			accountNumber: values.accountNumber,
@@ -101,20 +116,6 @@ export default function PayoutInfoModal() {
 			console.table(data);
 
 			console.log('Bank account resolved successfully.');
-			try {
-				const postResponse = await axios.post('/api/profile/payoutInfo', personData);
-				console.log('POST request sent to /api/auth/aftersignup:', postResponse.data);
-				if (postResponse.status === 200) {
-					const { user } = await getAuth();
-					if (user) {
-						updateUser(user);
-					}
-					onClose();
-				}
-			} catch (error) {
-				toast.error('An error occurred');
-				console.error('Error sending POST request to /api/auth/aftersignup:', error);
-			}
 		} catch (err) {
 			toast.error('Error getting details');
 			console.error('Error resolving bank account:', err);
@@ -132,7 +133,7 @@ export default function PayoutInfoModal() {
 					</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
-					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+					<form onSubmit={form.handleSubmit(verifyAccount)} className="space-y-3">
 						<FormField
 							control={form.control}
 							name="accountNumber"
@@ -185,10 +186,14 @@ export default function PayoutInfoModal() {
 								</FormItem>
 							)}
 						/>
-
-						<Button disabled={loading} type="submit">
-							{data.creator?.transferRecipientCode ? 'Update Bank Info' : 'Save Bank Info'}
-						</Button>
+						<div className="flex gap-3 items-center">
+							<Button disabled={loading} className="bg-green-800 text-white" type="submit">
+								Verify Details
+							</Button>
+							<Button disabled={personData ? false : true} type="button" onClick={onSubmit}>
+								{data.creator?.transferRecipientCode ? 'Update Bank Info' : 'Save Bank Info'}
+							</Button>
+						</div>
 					</form>
 				</Form>
 			</DialogContent>
