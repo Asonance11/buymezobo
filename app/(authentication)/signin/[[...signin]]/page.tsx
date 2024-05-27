@@ -16,6 +16,7 @@ import { signIn } from 'next-auth/react';
 import { FcGoogle } from 'react-icons/fc';
 import { redirect } from 'next/navigation';
 import { useUser } from '@/store/UserDataStore';
+import { toast } from 'sonner';
 
 const SignInSchema = z.object({
 	email: z.string().email().min(1, { message: 'This field is required' }).trim(),
@@ -54,7 +55,10 @@ export default function Page() {
 				login(values).then(async () => {
 					const { user } = await getAuth();
 					if (user) {
-						updateUser(user);
+						await updateUser(user);
+						await toast.success('Welcome back!');
+					} else {
+						toast.error('Login failed. Please try again.');
 					}
 				});
 			} catch (error) {

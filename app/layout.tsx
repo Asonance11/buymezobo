@@ -22,13 +22,13 @@ export default function RootLayout({
 				<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 			</head>
 			<Provider>
-				<Toaster />
 				<body
 					suppressHydrationWarning
 					suppressContentEditableWarning
 					className={cn('min-h-dvh bg-background font-sans antialiased', fontSans.variable)}
 				>
 					{children}
+					<Toaster />{' '}
 				</body>
 			</Provider>
 		</html>

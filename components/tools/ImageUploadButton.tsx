@@ -2,6 +2,7 @@
 
 import { UploadButton } from '@/lib/uploadthing';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 interface FileUploadProps {
 	onChange: (url: string) => void;
@@ -59,7 +60,7 @@ export const ImageUpload = (props: FileUploadProps) => {
 				props.setLoading(false);
 			}}
 			onUploadError={(error: Error) => {
-				alert(`ERROR! ${error.message}`);
+				toast.error(`ERROR! ${error.message}`);
 				props.setLoading(false);
 			}}
 			onUploadBegin={(name) => {
