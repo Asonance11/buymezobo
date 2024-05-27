@@ -42,6 +42,7 @@ export const MakeImagePostModal = () => {
 			form.reset();
 			onClose();
 		} catch (error) {
+			toast.error('Failed to upload post');
 		} finally {
 			setLoading(false);
 		}
