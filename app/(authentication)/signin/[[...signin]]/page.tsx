@@ -23,7 +23,6 @@ const SignInSchema = z.object({
 	password: z
 		.string()
 		.min(6, { message: 'Password must be a minimum of 6 characters' })
-		.max(12, { message: 'Password must not exceed 12 characters' })
 		.trim(),
 });
 

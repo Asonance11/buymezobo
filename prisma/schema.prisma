@@ -108,3 +108,17 @@ model Comment {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
+
+enum NotificationType {
+    Welcome
+}
+
+model Notification {
+    id         String           @id @default(uuid())
+    userId     String
+    type       NotificationType
+    senderId   String?
+    resourceId String
+    isRead     Boolean          @default(false)
+    createdAt  DateTime         @default(now())
+}

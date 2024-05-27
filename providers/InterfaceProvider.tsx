@@ -10,30 +10,32 @@ import QRCodeModal from '@/components/Interface/QRCodeModal';
 import { SearchCreatorMenu } from '@/components/Interface/SearchCreators';
 import { SideMenuNavigationComponent } from '@/components/Interface/SideMenuNavigationHeader';
 import WithdrawPayoutModal from '@/components/Interface/WithdrawPayoutModal';
+import { NotificationsProvider } from '@/components/Interface/NotificationInterface';
 import { useEffect, useState } from 'react';
 export function InterfaceProvider() {
-	const [isMounted, setIsMounted] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
 
-	useEffect(() => {
-		setIsMounted(true);
-	}, []);
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
-	if (!isMounted) {
-		return null;
-	}
+    if (!isMounted) {
+        return null;
+    }
 
-	return (
-		<>
-			<PopUpWidgetModal />
-			<ImageSeclectModal />
-			<QRCodeModal />
-			<WithdrawPayoutModal />
-			<PayoutInfoModal />
-			<SearchCreatorMenu />
-			<SideMenuNavigationComponent />
-			<AdminSideMenuNavigationComponent />
-			<EditUsernamePageModal />
-			<MakeImagePostModal />
-		</>
-	);
+    return (
+        <>
+            <NotificationsProvider />
+            <PopUpWidgetModal />
+            <ImageSeclectModal />
+            <QRCodeModal />
+            <WithdrawPayoutModal />
+            <PayoutInfoModal />
+            <SearchCreatorMenu />
+            <SideMenuNavigationComponent />
+            <AdminSideMenuNavigationComponent />
+            <EditUsernamePageModal />
+            <MakeImagePostModal />
+        </>
+    );
 }
