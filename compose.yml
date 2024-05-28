@@ -35,6 +35,18 @@ services:
             KAFKA_CREATE_TOPICS: 'my-topic:1:1'
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
+    redis:
+        image: redis:latest
+        restart: always
+        ports:
+            - '6379:6379'
+        volumes:
+            - /path/to/local/dаta:/root/redis
+            - /path/to/local/redis.conf:/usr/local/etc/redis/redis.conf
+        environment:
+            - REDIS_PASSWORD=my-password
+            - REDIS_PORT=6379
+            - REDIS_DATABASES=16
 
 volumes:
     pgdata: {}

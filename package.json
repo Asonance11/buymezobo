@@ -44,6 +44,7 @@
 		"@types/lodash": "^4.17.4",
 		"@uploadthing/react": "^6.5.4",
 		"axios": "^1.7.2",
+		"bull": "^4.12.9",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
 		"cmdk": "^1.0.0",

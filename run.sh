@@ -70,7 +70,7 @@ case "$1" in
         remove_next
         start_docker
         start_dev
-        start_node_server
+        #start_node_server
         ;;
     prod)
         ensure_dependencies_installed
@@ -78,7 +78,7 @@ case "$1" in
         build_app
         start_docker
         start_prod
-        start_node_server
+        #start_node_server
         ;;
     clean)
         stop_docker
