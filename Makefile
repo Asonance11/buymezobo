@@ -2,7 +2,12 @@
 POSTGRES_PASSWORD=mysecretpassword
 
 # Targets
-run: run-postgres stage dev studio
+# run: run-postgres stage dev studio
+
+run: run-dev
+
+run-dev:
+	sudo ./run.sh dev
 
 run-postgres:
 	docker-compose -f ./compose.yml up -d
