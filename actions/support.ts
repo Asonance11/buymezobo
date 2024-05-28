@@ -14,7 +14,7 @@ export async function getSupportbyId(id: string): Promise<Support | null> {
         return null;
     }
 }
-export async function getCreatorSupports(creatorId: string, take?: number): Promise<[Support[], number, Error | null]> {
+export async function getCreatorSupports(creatorId: string, take?: number) {
     try {
         const supports = await db.support.findMany({
             where: {
@@ -23,6 +23,9 @@ export async function getCreatorSupports(creatorId: string, take?: number): Prom
             take: take ? take : 10,
             orderBy: {
                 createdAt: 'desc',
+            },
+            include: {
+                comments: true,
             },
         });
 
