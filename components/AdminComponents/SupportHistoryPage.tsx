@@ -81,7 +81,7 @@ export default function SupportHistoryPage({ creator, className }: Props) {
 						))}
 					</div>
 					<Button className="w-full" variant={'secondary'}>
-						See all aupporters
+						See all supporters
 					</Button>
 				</div>
 			)}
