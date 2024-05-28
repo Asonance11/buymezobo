@@ -11,66 +11,66 @@ import { useUser as User } from '@/store/UserDataStore';
 import { useAuth as Auth } from './use-auth';
 
 interface SignUpData {
-	email: string;
-	password: string;
-	firstName?: string;
-	lastName?: string;
+    email: string;
+    password: string;
+    firstName?: string;
+    lastName?: string;
 }
 
 const SignUpSchema = z.object({
-	email: z.string().email().min(1, { message: 'This field is required' }).trim(),
-	password: z
-		.string()
-		.min(6, { message: 'Password must be a minimum of 6 characters' })
-		.trim(),
-	firstName: z.string().max(50),
-	lastName: z.string().max(50),
+    email: z.string().email().min(1, { message: 'This field is required' }).trim(),
+    password: z
+        .string()
+        .min(6, { message: 'Password must be a minimum of 6 characters' })
+        .trim(),
+    firstName: z.string().max(50),
+    lastName: z.string().max(50),
 });
 
 async function signup(formData: SignUpData): Promise<ActionResult> {
-	try {
-		SignUpSchema.parse(formData);
+    try {
+        SignUpSchema.parse(formData);
 
-		const email = formData.email.toLowerCase();
-		const password = formData.password;
+        const email = formData.email.toLowerCase();
+        const password = formData.password;
 
-		console.log(email, password);
+        console.log(email, password);
 
-		const passwordHash = await hash(password, {
-			memoryCost: 19456,
-			timeCost: 2,
-			outputLen: 32,
-			parallelism: 1,
-		});
+        const passwordHash = await hash(password, {
+            memoryCost: 19456,
+            timeCost: 2,
+            outputLen: 32,
+            parallelism: 1,
+        });
 
-		const userId = crypto.randomUUID(); // 16 characters long
+        const userId = crypto.randomUUID(); // 16 characters long
 
-		// Check if email is already used
-		const thisProfile = await db.profile.findUnique({ where: { email: formData.email } });
+        // Check if email is already used
+        const thisProfile = await db.profile.findUnique({ where: { email: formData.email } });
 
-		if (thisProfile) {
-			return { success: false, error: 'This Email is already in use' };
-		}
+        if (thisProfile) {
+            return { success: false, error: 'This Email is already in use' };
+        }
 
-		await db.profile.create({
-			data: {
-				userId,
-				firstName: formData.firstName,
-				lastName: formData.lastName,
-				email,
-				passwordHash,
-				imageUrl: '',
-			},
-		});
+        await db.profile.create({
+            data: {
+                userId,
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                email,
+                passwordHash,
+                imageUrl: '',
+            },
+        });
 
-		const session = await lucia.createSession(userId, {});
-		const sessionCookie = lucia.createSessionCookie(session.id);
-		cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+        const session = await lucia.createSession(userId, {});
+        const sessionCookie = lucia.createSessionCookie(session.id);
+        cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
 
-		return { success: true };
-	} catch (error) {
-		return { success: false, error: (error as Error).message };
-	}
+        return { success: true };
+    } catch (error) {
+        return { success: false, error: (error as Error).message };
+    }
 }
 
 export { signup };

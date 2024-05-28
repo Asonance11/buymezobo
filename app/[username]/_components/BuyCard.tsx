@@ -99,7 +99,7 @@ export default function BuyCard({ creator, className, setReload, widgetprops }: 
 
 	const nairaSymbol = '₦';
 
-	console.log(widgetprops);
+	//console.log(widgetprops);
 
 	return (
 		<div

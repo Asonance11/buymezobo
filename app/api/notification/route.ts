@@ -6,11 +6,16 @@ export async function POST(request: NextRequest) {
 	try {
 		const user = await getCurrentUser();
 
+		if (!user) {
+			return;
+		}
+
 		triggerNotification({
 			type: 'Welcome',
 			userId: user?.id,
 			resourceId: '',
 			senderId: 'user.id',
+			content: 'Welcome to buymezobo',
 		});
 
 		console.log('[1] Notification created');

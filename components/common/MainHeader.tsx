@@ -23,7 +23,7 @@ export default function MainHeader() {
     const isMobile = useIsMobile();
     const [loading, setLoading] = useState(true);
     const { loggedInUser, updateUser } = useUser();
-    console.log('checking: ', loggedInUser);
+    //console.log('checking: ', loggedInUser);
     useEffect(() => {
         const fetchProfile = async () => {
             if (!loggedInUser) {

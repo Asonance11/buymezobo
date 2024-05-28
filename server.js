@@ -10,51 +10,58 @@ const cors = require('cors');
 app.use(cors());
 
 const io = new Server(server, {
-    cors: {
-        origin: 'http://localhost:3000',
-        methods: ['GET', 'POST'],
-    },
+	cors: {
+		origin: 'http://localhost:3000',
+		methods: ['GET', 'POST'],
+	},
 });
 
 const kafka = new Kafka({
-    brokers: ['localhost:9092'], // Make sure to match your Kafka broker address
+	brokers: ['localhost:9092'], // Make sure to match your Kafka broker address
 });
 
 const consumer = kafka.consumer({ groupId: 'notification-group' });
 
 const run = async () => {
-    await consumer.connect();
-    await consumer.subscribe({ topic: 'notifications', fromBeginning: true });
+	await consumer.connect();
+	await consumer.subscribe({ topic: 'notifications', fromBeginning: true });
 
-    await consumer.run({
-        eachMessage: async ({ topic, partition, message }) => {
-            const notification = JSON.parse(message.value.toString());
-            console.log(notification);
-            io.to(`user-${notification.userId}`).emit('notification', notification);
-            console.log(`Received message ${message.value.toString()} in topic ${topic} from partition #${partition}`);
-        },
-    });
+	await consumer.run({
+		eachMessage: async ({ topic, partition, message }) => {
+			const notification = JSON.parse(message.value.toString());
+			console.log(notification);
+			io.to(`user-${notification.userId}`).emit('notification', notification);
+			console.log(
+				`[4] Received message ${message.value.toString()} in topic ${topic} from partition #${partition}`,
+			);
+		},
+	});
 };
 
 run().catch(console.error);
 
 io.on('connection', (socket) => {
-    console.log('a user connected');
+	console.log('a user connected');
 
-    // Join a room based on user id
-    socket.on('join', (userId) => {
-        if (userId) {
-            console.log(`a user ${userId} joined`);
-            socket.join(`user-${userId}`);
-        }
-    });
+	let id;
 
-    socket.on('disconnect', () => {
-        console.log(`a user ${userId} disconnected`);
-        console.log('user disconnected');
-    });
+	// Join a room based on user id
+	socket.on('join', (userId) => {
+		if (userId) {
+			id = userId;
+			console.log(`a user ${userId} joined`);
+			socket.join(`user-${userId}`);
+		}
+	});
+
+	socket.on('disconnect', () => {
+		console.log('user disconnected');
+		if (id) {
+			console.log(`a user ${id} disconnected`);
+		}
+	});
 });
 
 server.listen(3001, () => {
-    console.log('listening on *:3001');
+	console.log('listening on *:3001');
 });

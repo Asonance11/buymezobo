@@ -28,8 +28,6 @@ export default function Home() {
             setLoading(false);
         };
         fetchProfile();
-        console.log('FROM APP/PAGE: ', loggedInUser);
-        // console.log('FROM normal: ', profile);
     }, []);
 
     return (

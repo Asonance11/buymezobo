@@ -26,7 +26,6 @@ export default function UserButton() {
 				const { user } = await Auth();
 				updateUser(user);
 			}
-			console.log('pic, ', loggedInUser);
 		};
 		fetchProfile();
 	}, []);

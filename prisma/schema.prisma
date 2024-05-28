@@ -111,6 +111,7 @@ model Comment {
 
 enum NotificationType {
     Welcome
+    BoughtZobo
 }
 
 model Notification {
@@ -119,6 +120,7 @@ model Notification {
     type       NotificationType
     senderId   String?
     resourceId String
+    content    String?
     isRead     Boolean          @default(false)
     createdAt  DateTime         @default(now())
 }

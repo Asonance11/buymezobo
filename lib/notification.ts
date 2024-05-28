@@ -34,6 +34,7 @@ interface CreateNotificationParams {
 	senderId: string | null;
 	userId: string;
 	resourceId: string;
+	content: string | null;
 }
 
 // INFO: Main function to trigger notificactions ------------------------------
@@ -65,6 +66,7 @@ export async function createNotification({
 	userId,
 	senderId,
 	resourceId,
+	content,
 }: CreateNotificationParams): Promise<Notification | null> {
 	// Create notification in the database
 	try {
@@ -74,6 +76,7 @@ export async function createNotification({
 				senderId: senderId,
 				userId: userId!,
 				resourceId: resourceId!,
+				content: content,
 			},
 		});
 
