@@ -72,27 +72,9 @@ export function SideMenuNavigationComponent() {
 								<span className="mx-2 text-sm font-medium">About</span>
 							</a>
 
-							{creator != null ? (
-								<>
-									<Link className="block" href={`/${creator.userName}`}>
-										<Button variant={'secondary'}>View page</Button>
-									</Link>
-
-									<Link className="block" href={`/dashboard`}>
-										<Button className="font-bold">Dashboard</Button>
-									</Link>
-
-									<UserButton />
-								</>
-							) : (
+							{creator != null ? null : (
 								<div className="flex items-center gap-2">
-									<Button
-										variant={'secondary'}
-										className="hidden text-sm lg:text-base font-semibold tracking-tight flex-1"
-									>
-										<a href="/signin">Login</a>
-									</Button>
-									<Button className="block rounded-lg text-sm lg:text-base font-semibold tracking-tight flex-1">
+									<Button className="block rounded-lg text-sm lg:text-base font-semibold tracking-tight flex-1 w-full">
 										<a href="/signup">Create my Page</a>
 									</Button>
 								</div>
