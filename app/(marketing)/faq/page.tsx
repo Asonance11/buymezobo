@@ -16,7 +16,7 @@ const FaqPage = () => {
                     </h1>
                     <p className=" mt-3 lg:mt-4 text-sm lg:text-base font-light text-center mx-auto w-full lg:w-2/3">
                         If you can&apos;t find an answer that you&apos;re looking for, feel free to drop us a line,
-                        we'll try to update this as much as we can
+                        we will try to update this as much as we can
                     </p>
                 </div>
                 <div className="mt-4 flex items-center justify-center gap-x-5">
