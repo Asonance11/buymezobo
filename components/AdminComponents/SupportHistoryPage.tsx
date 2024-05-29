@@ -13,8 +13,12 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 	creator: User | null;
 }
 
+type GetCreatorSupportsReturn = Awaited<ReturnType<typeof getCreatorSupports>>;
+type FirstElementOfGetCreatorSupports = GetCreatorSupportsReturn[0];
+type SupportAndComment = Exclude<FirstElementOfGetCreatorSupports, never[] | Error | null | number>;
+
 export default function SupportHistoryPage({ creator, className }: Props) {
-	const [supports, setSupports] = useState<Support[]>([]);
+	const [supports, setSupports] = useState<SupportAndComment>([]);
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
@@ -27,7 +31,7 @@ export default function SupportHistoryPage({ creator, className }: Props) {
 				setLoading(false);
 				return;
 			}
-			setSupports(supports);
+			setSupports(supports as SupportAndComment);
 			setLoading(false);
 		};
 		if (creator) {

@@ -69,7 +69,8 @@ case "$1" in
         ensure_dependencies_installed
         remove_next
         start_docker
-        start_dev
+        concurrently "node server.js" , "pnpm run dev" #simpler running of both processes
+        #start_dev
         #start_node_server
         ;;
     prod)
