@@ -66,6 +66,8 @@ model Support {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
+    deleted Boolean @default(false)
+
     comments Comment[] // Relation to comments
 }
 
