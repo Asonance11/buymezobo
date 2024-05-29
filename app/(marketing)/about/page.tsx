@@ -1,8 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import { AboutLocationButton } from '@/components/MarketingComponents/AboutButtonLocation';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { DancingScript, fontSans, helvetica, shadowLight } from '@/utility/fonts';
+import { fontSans, helvetica, shadowLight } from '@/utility/fonts';
 import { Metadata } from 'next';
 import { MdOutlineLocationOn } from 'react-icons/md';
 
@@ -15,9 +13,9 @@ const AboutPage = () => {
 	return (
 		<main className="mt-4 md:mt-16 lg:mt-20 px-4 gap-6 flex flex-col justify-center mx-auto md:max-w-3xl pb-12 items-center ">
 			<Button variant={'outline'} className="w-fit my-1  py-0.5 px-1.5">
-				<MdOutlineLocationOn className="xl" />
-				<hr className="mx-2 h-4 w-[1px] shrink-0 bg-gray-300" />
-				<p className="text-xs">Lagos, NG</p>
+				<MdOutlineLocationOn className="text-lg" />
+				<hr className="mx-1.5 h-3 w-[1px] shrink-0 bg-gray-300" />
+				<p className="text-xs font-semibold">Lagos, NG</p>
 			</Button>
 
 			<div className=" flex flex-col items-center gap-3">
