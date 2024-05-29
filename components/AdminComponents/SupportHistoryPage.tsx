@@ -7,6 +7,7 @@ import { User } from 'lucia';
 import React, { HTMLAttributes, useEffect, useState } from 'react';
 import { Skeleton } from '../ui/skeleton';
 import { Button } from '../ui/button';
+import { toast } from 'sonner';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	creator: User | null;
@@ -22,7 +23,7 @@ export default function SupportHistoryPage({ creator, className }: Props) {
 			const [supports, _count, error] = await getCreatorSupports(creator!.id, 5);
 			if (error != null) {
 				console.error(error);
-				//TODO: handle error
+				toast.error('An error occurred');
 				setLoading(false);
 				return;
 			}
@@ -81,7 +82,7 @@ export default function SupportHistoryPage({ creator, className }: Props) {
 						))}
 					</div>
 					<Button className="w-full" variant={'secondary'}>
-						See all aupporters
+						See all supporters
 					</Button>
 				</div>
 			)}

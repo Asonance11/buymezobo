@@ -1,9 +1,13 @@
+"use client"
+
 import React, { useState } from 'react';
 import UserButton from './UserButton';
 import useIsMobile from '@/hooks/useIsMobile';
 import { HiMenu } from 'react-icons/hi';
 import { useInterface } from '@/store/InterfaceStore';
 import { User } from 'lucia';
+import { Button } from '../ui/button';
+import axios from 'axios';
 
 export default function AdminHeader() {
 	const { onOpen } = useInterface();
@@ -11,6 +15,11 @@ export default function AdminHeader() {
 	const openSide = () => {
 		onOpen('adminSideMenuNavigation');
 	};
+  
+  const onClick = async () => {
+    await axios.post("/api/notification")
+  }
+
 	return (
 		<div className="w-full bg-red-50 h-[3rem] lg:h-[4rem] lg:px-12 shadow-sm flex items-center justify-end">
 			{isMobile ? (
@@ -24,6 +33,8 @@ export default function AdminHeader() {
 				</div>
 			) : (
 				<div className="navbar-end flex md:mr-2">
+            {/*INFO: This is a test*/}
+            <Button onClick={onClick}>Test Notification</Button>
 					<UserButton />
 				</div>
 			)}
