@@ -31,7 +31,7 @@ const AboutPage = () => {
 				</span>
 			</div>
 
-			<section className="rounded-xl bg-white w-full mx-auto lg:w-3/4 border border-zinc-300">
+			<section className="rounded-xl bg-white w-full mx-auto md:w-3/4 lg:w-3/4 border border-zinc-300">
 				<div className="text-left border-b border-zinc-300 py-2 lg:py-4 px-3 lg:px-8">
 					<h1 className={`${helvetica.className} text-base lg:text-xl font-semibold`}>Our Gist</h1>
 				</div>
