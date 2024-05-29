@@ -73,7 +73,7 @@ export default function BuyCard({ creator, className, setReload, widgetprops }: 
 			if (setReload) {
 				setReload();
 			}
-			//TODO: sonner over here
+			toast.success('Successful');
 			console.table(response.data);
 			form.reset({ content: '', name: '', privateMessage: false });
 		} catch (error) {
