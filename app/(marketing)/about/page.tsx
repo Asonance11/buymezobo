@@ -14,28 +14,32 @@ export const metadata: Metadata = {
 const AboutPage = () => {
 	return (
 		<main className="mt-4 md:mt-16 lg:mt-20 px-4 gap-6 flex flex-col justify-center mx-auto md:max-w-3xl pb-12 items-center ">
-			<Button variant={'outline'} className="w-fit my-1 ">
+			<Button variant={'outline'} className="w-fit my-1  py-0.5 px-1.5">
 				<MdOutlineLocationOn className="xl" />
 				<hr className="mx-2 h-4 w-[1px] shrink-0 bg-gray-300" />
-				<p className="text-sm">Lagos, NG</p>
+				<p className="text-xs">Lagos, NG</p>
 			</Button>
 
 			<div className=" flex flex-col items-center gap-3">
-				<h1 className={` ${helvetica.className} text-4xl text-center font-bold w-full lg:w-3/4 mx-auto `}>
-					Welcome to BuyMeZobo, the Naija Creators' Paradise!
+				<h1
+					className={` ${helvetica.className} text-2xl lg:text-4xl text-center font-bold w-full lg:w-5/6 mx-auto `}
+				>
+					Get Paid for Your Nigerian Creativity, No 'Uncles' Needed!
 				</h1>
 				<span className="flex items-center text-gray-500 font-light text-center">
-					<p className="text-sm">3 min</p>
+					<p className="text-sm">2 min</p>
 					<hr className="mx-2 h-4 w-[1px] shrink-0 bg-gray-300" />
 					<p className="text-sm">Read time</p>
 				</span>
 			</div>
 
-			<section className="rounded-xl bg-white w-full lg:w-3/4 border border-zinc-300">
-				<div className="text-left border-b border-zinc-300 p-3">
+			<section className="rounded-xl bg-white w-full mx-auto lg:w-3/4 border border-zinc-300">
+				<div className="text-left border-b border-zinc-300 py-2 lg:py-4 px-3 lg:px-8">
 					<h1 className={`${helvetica.className} text-base lg:text-xl font-semibold`}>Our Gist</h1>
 				</div>
-				<div className={`${fontSans.className} text-base font-light text-center p-3`}>
+				<div
+					className={`${fontSans.className} text-sm lg:text-base font-normal text-justify pv-1 lg:py-3 px-3 lg:px-8`}
+				>
 					<p className="mt-4 mb-3 xl:mb-5">
 						We're firm believers that every Nigerian has a creator within them. Our mission is to support as
 						many Nigerian creators in unlocking their full potential and effortlessly earning from their
