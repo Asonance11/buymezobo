@@ -68,7 +68,7 @@ export default function Home() {
 						<Skeleton className="p-3 lg:p-6 text-base lg:text-xl bg-purple-300 font-semibold w-[150px] h-[40px]" />
 					) : (
 						<Link href={loggedInUser ? '/dashboard' : '/signin'}>
-							<Button className="p-3 my-1 lg:p-6 text-base lg:text-xl font-semibold">
+							<Button className="p-1.5 md:p-3 my-1 lg:p-6 text-sm lg:text-base font-semibold">
 								{loggedInUser ? 'Go to dashboard' : 'Start my page'}
 							</Button>
 						</Link>
