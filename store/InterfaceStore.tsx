@@ -14,6 +14,7 @@ export type InterfaceType =
 	| 'makeImagePostModal'
 	| 'imageSelectModal'
 	| 'popupWidgetModal'
+	| 'notifications'
 
 	//Buttons and widget modal
 	| 'QRCodeModal';

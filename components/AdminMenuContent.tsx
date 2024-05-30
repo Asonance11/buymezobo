@@ -1,5 +1,6 @@
 'use client';
 
+import { Badge } from '@/components/ui/badge';
 import React, { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { getCurrentUser } from '@/lib/authentication';
@@ -9,14 +10,25 @@ import { MdOutlineExplore, MdOutlinePhotoSizeSelectActual } from 'react-icons/md
 import { PiLayout } from 'react-icons/pi';
 import { PiArrowSquareOutLight } from 'react-icons/pi';
 import { Logo } from './common/Logo';
-import { IoCodeOutline, IoSettingsOutline, IoLogOutOutline } from 'react-icons/io5';
+import { IoSettingsOutline, IoLogOutOutline } from 'react-icons/io5';
 import { BsCashStack } from 'react-icons/bs';
 import { User } from 'lucia';
 import { RiImageEditFill } from 'react-icons/ri';
+import { IoMdNotificationsOutline } from 'react-icons/io';
+import useNotificationStore from '@/store/NotificationStore';
+import { InterfaceType, useInterface } from '@/store/InterfaceStore';
+
 export default function AdminMenuContent() {
 	const pathname = usePathname();
 
 	const [profile, setProfile] = useState<User | null>(null);
+	const { theresNewNotification, notifications } = useNotificationStore();
+	const { onOpen } = useInterface();
+
+	useEffect(() => {
+		console.log(theresNewNotification);
+		console.table(notifications);
+	}, [notifications]);
 
 	useEffect(() => {
 		const fetchProfile = async () => {
@@ -41,6 +53,13 @@ export default function AdminMenuContent() {
 			route: `/${profile?.userName}`,
 			icon: PiLayout,
 			newTab: true,
+		},
+		{
+			name: 'Notifications',
+			route: '',
+			icon: IoMdNotificationsOutline,
+			badged: theresNewNotification,
+			modalType: 'notifications',
 		},
 		{ name: 'Gallery', route: '/gallery', icon: MdOutlinePhotoSizeSelectActual },
 	];
@@ -69,22 +88,34 @@ export default function AdminMenuContent() {
 			<section className="flex-1 p-3 ">
 				{mainOptions.map((option, index) => (
 					<Link
-						href={option.route}
+						href={option.route || ''}
 						key={index}
 						target={option.newTab ? '_blank' : '_self'}
 						rel={option.newTab ? 'noopener noreferrer' : ''}
 						className={``}
+						onClick={() => {
+							option.modalType ? onOpen(option.modalType as InterfaceType) : null;
+						}}
 					>
 						<div
 							className={`mb-2 flex gap-1.5 items-center justify-around transition-all duration-300 py-2.5 px-3.5 rounded-lg ${
 								pathname === option.route ? 'bg-zinc-100' : 'hover:bg-zinc-100'
 							}`}
 						>
-							<option.icon
-								className={` ${pathname === option.route ? ' text-purple-800' : null} text-base lg:text-2xl `}
-							/>
+							<div className={` ${option.badged ? 'relative' : null} `}>
+								<option.icon
+									className={` ${pathname === option.route ? 'text-purple-800' : ''} text-base lg:text-2xl`}
+								/>
+								{option.badged && (
+									<span className="absolute top-0 right-0 flex h-2.5 w-2.5">
+										<span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+										<span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-purple-500"></span>
+									</span>
+								)}
+							</div>{' '}
 							<p className="flex-1 text-zinc-800 text-xs md:text-sm font-normal">{option.name}</p>
 							{option.newTab ? <RedirectIcon className={`tex-sm lg:text-lg text-zinc-600`} /> : null}
+							{option.badged ? <Badge className="">new</Badge> : null}
 						</div>
 					</Link>
 				))}

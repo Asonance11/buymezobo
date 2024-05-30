@@ -8,49 +8,49 @@ import { renderNotificationComponent } from '../tools/NotificationTypes';
 import { toast } from 'sonner';
 
 export const NotificationsProvider = () => {
-    const [notifications, setNotifications] = useState<Notification[]>([]);
-    const [user, setUser] = useState<User | null>(null);
-    const { addNotification } = useNotificationStore();
+	const [notifications, setNotifications] = useState<Notification[]>([]);
+	const [user, setUser] = useState<User | null>(null);
+	const { addNotification, notifications: Notificactiona } = useNotificationStore();
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const user = await getCurrentUser();
-                if (!user) {
-                    return;
-                }
-                setUser(user);
-            } catch (error) { }
-        };
+	useEffect(() => {
+		const fetchUser = async () => {
+			try {
+				const user = await getCurrentUser();
+				if (!user) {
+					return;
+				}
+				setUser(user);
+			} catch (error) {}
+		};
 
-        fetchUser();
-    }, []);
+		fetchUser();
+	}, []);
 
-    useEffect(() => {
-        if (user?.id) {
-            const socket = io('http://localhost:3001');
-            console.log('ABOUT TO EMIT TO JOIN EVENT');
-            socket.emit('join', user?.id);
+	useEffect(() => {
+		if (user?.id) {
+			const socket = io('http://localhost:3001');
+			console.log('ABOUT TO EMIT TO JOIN EVENT');
+			socket.emit('join', user?.id);
 
-            // Listen for notifications
-            socket.on('notification', (notification) => {
-                if (notification.userId === user?.id) {
-                    setNotifications((prevNotifications) => [...(prevNotifications as Notification[]), notification]);
-                    addNotification(notification);
-                    sendNotificaction(notification);
-                }
-            });
+			// Listen for notifications
+			socket.on('notification', (notification) => {
+				if (notification.userId === user?.id) {
+					setNotifications((prevNotifications) => [...(prevNotifications as Notification[]), notification]);
+					addNotification({ ...notification });
+					sendNotificaction(notification);
+				}
+			});
 
-            return () => {
-                socket.disconnect();
-            };
-        }
-    }, [user?.id]);
+			return () => {
+				socket.disconnect();
+			};
+		}
+	}, [user?.id]);
 
-    function sendNotificaction(notification: Notification) {
-        const component = renderNotificationComponent(notification);
-        toast(component);
-    }
+	function sendNotificaction(notification: Notification) {
+		const component = renderNotificationComponent(notification);
+		toast(component);
+	}
 
-    return null;
+	return null;
 };

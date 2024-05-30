@@ -46,7 +46,7 @@ export default function Page() {
             <section className="w-full flex items-center justify-end mb-2 md:mb-3 lg:mb-5 px-2">
                 <Button
                     onClick={() => onOpen('makeImagePostModal')}
-                    className="-tracking-wide text-xs md:text-sm font-bold bg-purple-800 "
+                    className="-tracking-wide text-xs md:text-sm font-bold bg-purple-800 hidden"
                 >
                     Make New Post
                 </Button>

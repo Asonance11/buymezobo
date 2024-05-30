@@ -12,30 +12,32 @@ import { SideMenuNavigationComponent } from '@/components/Interface/SideMenuNavi
 import WithdrawPayoutModal from '@/components/Interface/WithdrawPayoutModal';
 import { NotificationsProvider } from '@/components/Interface/NotificationInterface';
 import { useEffect, useState } from 'react';
+import NotificationModal from '@/components/Interface/NotificationModal';
 export function InterfaceProvider() {
-    const [isMounted, setIsMounted] = useState(false);
+	const [isMounted, setIsMounted] = useState(false);
 
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
+	useEffect(() => {
+		setIsMounted(true);
+	}, []);
 
-    if (!isMounted) {
-        return null;
-    }
+	if (!isMounted) {
+		return null;
+	}
 
-    return (
-        <>
-            <NotificationsProvider />
-            <PopUpWidgetModal />
-            <ImageSeclectModal />
-            <QRCodeModal />
-            <WithdrawPayoutModal />
-            <PayoutInfoModal />
-            <SearchCreatorMenu />
-            <SideMenuNavigationComponent />
-            <AdminSideMenuNavigationComponent />
-            <EditUsernamePageModal />
-            <MakeImagePostModal />
-        </>
-    );
+	return (
+		<>
+			<NotificationsProvider />
+			<PopUpWidgetModal />
+			<ImageSeclectModal />
+			<QRCodeModal />
+			<WithdrawPayoutModal />
+			<PayoutInfoModal />
+			<SearchCreatorMenu />
+			<SideMenuNavigationComponent />
+			<AdminSideMenuNavigationComponent />
+			<EditUsernamePageModal />
+			<MakeImagePostModal />
+			<NotificationModal />
+		</>
+	);
 }

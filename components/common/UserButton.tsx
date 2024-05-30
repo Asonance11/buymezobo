@@ -35,13 +35,6 @@ export default function UserButton() {
 		signOut();
 	};
 
-	/*
-<div className="text-xl font-extrabold text-purple-900 bg-purple-100 cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat border-[0.5px] border-purple-300 flex justify-center items-center">
-                        <p className="text-center">{(profile?.firstName as string)[0]}</p>
-                    </div>
-
-        */
-
 	return (
 		<DropdownMenu>
 			{loggedInUser && (
@@ -73,6 +66,10 @@ export default function UserButton() {
 						<Link href={`/${loggedInUser!.userName}`}>
 							<DropdownMenuItem>View my page</DropdownMenuItem>
 						</Link>
+						<Link href={`/settings`}>
+							<DropdownMenuItem>Settings</DropdownMenuItem>
+						</Link>
+
 						<DropdownMenuItem>
 							<SharePage className="text-xs hidden" profile={loggedInUser!} />
 						</DropdownMenuItem>
