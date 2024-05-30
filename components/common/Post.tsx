@@ -1,5 +1,6 @@
 import { useInterface } from '@/store/InterfaceStore';
 import { cn } from '@/utility/style';
+import { truncateText } from '@/utility/text';
 import { Post } from '@prisma/client';
 import React, { HTMLAttributes } from 'react';
 
@@ -27,7 +28,7 @@ export default function PostImageComponent({ post, imageOnly = false, className,
 			{imageOnly ? null : (
 				<div className="p-3">
 					<p className="font-bold text-sm lg:text-base -tracking-wide ">{post.title}</p>
-					<p className="font-light text-xs lg:text-sm">{post.caption}</p>
+					<p className="font-light text-xs lg:text-sm">{truncateText(post.caption, 30)}</p>
 				</div>
 			)}
 		</div>
