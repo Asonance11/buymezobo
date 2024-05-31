@@ -7,7 +7,7 @@ import { useInterface } from '@/store/InterfaceStore';
 import { Post } from '@prisma/client';
 import { User } from 'lucia';
 import React, { useEffect, useState } from 'react';
-import GallerySection from '@/components/AdminComponents/GallerySection';
+import GallerySection from '@/components/Posts/GallerySection';
 
 export default function Page() {
     const { onOpen } = useInterface();

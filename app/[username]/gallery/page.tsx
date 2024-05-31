@@ -1,6 +1,6 @@
 'use client';
 import { getCreatorPosts } from '@/actions/posts';
-import GallerySection from '@/components/AdminComponents/GallerySection';
+import GallerySection from '@/components/Posts/GallerySection';
 import UserNameHeader from '@/components/Headers/UsernameHeader';
 import { getCreatorByName } from '@/lib/creator';
 import { Post } from '@prisma/client';
