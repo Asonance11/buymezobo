@@ -2,6 +2,7 @@ import { useInterface } from '@/store/InterfaceStore';
 import { cn } from '@/utility/style';
 import { truncateText } from '@/utility/text';
 import { Post } from '@prisma/client';
+import Image from 'next/image';
 import React, { HTMLAttributes } from 'react';
 
 interface PostProps extends HTMLAttributes<HTMLDivElement> {
@@ -18,7 +19,7 @@ export default function PostImageComponent({ post, imageOnly = false, className,
 			className={cn('cursor-pointer overflow-hidden border-[0.5px] rounded-lg', className)}
 		>
 			<div className={cn('relative overflow-hidden', imageOnly ? 'h-full' : null)}>
-				<img
+				<Image
 					className="w-full h-auto transition-transform duration-500 hover:scale-110"
 					src={post.imageUrl}
 					alt={post.title}

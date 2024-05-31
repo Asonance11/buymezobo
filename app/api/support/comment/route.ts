@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
 
 		await db.comment.create({
 			data: {
+				profileId: userId,
 				supportId: supportId,
 				content: commentText,
 			},

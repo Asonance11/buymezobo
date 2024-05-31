@@ -1,3 +1,4 @@
+
 import { useInterface } from '@/store/InterfaceStore';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useState } from 'react';
@@ -13,7 +14,7 @@ import { Input } from '../ui/input';
 import { Toaster, toast } from 'sonner';
 import axios from 'axios';
 
-export const MakeImagePostModal = () => {
+export default function MakeImagePostModal  () {
 	const { isOpen, data, onClose, type } = useInterface();
 	const open = isOpen && type == 'makeImagePostModal';
 	const [loading, setLoading] = useState(false);
@@ -101,3 +102,4 @@ export const MakeImagePostModal = () => {
 		</Dialog>
 	);
 };
+

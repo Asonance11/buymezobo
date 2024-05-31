@@ -1,18 +1,27 @@
 'use client';
 
-import { AdminSideMenuNavigationComponent } from '@/components/Navigation/AdminSidebarMenuNavigationSheet';
-import EditUsernamePageModal from '@/components/Profile/EditUsernamePageModal';
-import { MakeImagePostModal } from '@/components/Posts/MakeImagePostModal';
-import PayoutInfoModal from '@/components/Profile/PayoutInfoModal';
-import PopUpWidgetModal from '@/components/ButtonsAndGraphics/PopUpWidgetModal';
-import QRCodeModal from '@/components/ButtonsAndGraphics/QRCodeModal';
-import { SearchCreatorMenu } from '@/components/Headers/SearchCreators';
-import { SideMenuNavigationComponent } from '@/components/Navigation/SideMenuNavigationHeader';
-import WithdrawPayoutModal from '@/components/Profile/WithdrawPayoutModal';
-import { NotificationsProvider } from '@/components/Notifications/NotificationInterface';
+import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import NotificationModal from '@/components/Notifications/NotificationModal';
-import ImageSeclectModal from '@/components/Posts/ImageSelectModal';
+import { NotificationsProvider } from '@/components/Notifications/NotificationInterface';
+
+// Dynamically import components
+const AdminSideMenuNavigationComponent = dynamic(
+    () => import('@/components/Navigation/AdminSidebarMenuNavigationSheet'),
+    { ssr: false },
+);
+const EditUsernamePageModal = dynamic(() => import('@/components/Profile/EditUsernamePageModal'), { ssr: false });
+const MakeImagePostModal = dynamic(() => import('@/components/Posts/MakeImagePostModal'), { ssr: false });
+const PayoutInfoModal = dynamic(() => import('@/components/Profile/PayoutInfoModal'), { ssr: false });
+const PopUpWidgetModal = dynamic(() => import('@/components/ButtonsAndGraphics/PopUpWidgetModal'), { ssr: false });
+const QRCodeModal = dynamic(() => import('@/components/ButtonsAndGraphics/QRCodeModal'), { ssr: false });
+const SearchCreatorMenu = dynamic(() => import('@/components/Headers/SearchCreators'), { ssr: false });
+const SideMenuNavigationComponent = dynamic(() => import('@/components/Navigation/SideMenuNavigationHeader'), {
+    ssr: false,
+});
+const WithdrawPayoutModal = dynamic(() => import('@/components/Profile/WithdrawPayoutModal'), { ssr: false });
+const NotificationModal = dynamic(() => import('@/components/Notifications/NotificationModal'), { ssr: false });
+const ImageSelectModal = dynamic(() => import('@/components/Posts/ImageSelectModal'), { ssr: false });
+
 export function InterfaceProvider() {
     const [isMounted, setIsMounted] = useState(false);
 
@@ -28,7 +37,7 @@ export function InterfaceProvider() {
         <>
             <NotificationsProvider />
             <PopUpWidgetModal />
-            <ImageSeclectModal />
+            <ImageSelectModal />
             <QRCodeModal />
             <WithdrawPayoutModal />
             <PayoutInfoModal />

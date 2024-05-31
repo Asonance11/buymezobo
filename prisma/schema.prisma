@@ -39,7 +39,7 @@ model Profile {
     updatedAt     DateTime  @updatedAt
     support       Support[]
     payoutHistory Payout[]
-    comments Comment[] // Relation to comments
+    comments      Comment[] // Relation to comments
 }
 
 model Session {
@@ -104,7 +104,7 @@ model Post {
 
 model Comment {
     id        String   @id @default(uuid())
-    profile   Profile?  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+    profile   Profile? @relation(fields: [profileId], references: [id], onDelete: Cascade)
     profileId String?
     supportId String
     support   Support  @relation(fields: [supportId], references: [id], onDelete: Cascade)
