@@ -1,4 +1,3 @@
-import { Profile } from '@prisma/client';
 import React, { HTMLAttributes } from 'react';
 import { useRouter } from 'next/navigation';
 import { useInterface } from '@/store/InterfaceStore';

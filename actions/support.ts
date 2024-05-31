@@ -2,11 +2,14 @@
 import { db } from '@/lib/database';
 import { Support } from '@prisma/client';
 
-export async function getSupportbyId(id: string): Promise<Support | null> {
+export async function getSupportbyId(id: string, includeComments: boolean = false): Promise<Support | null> {
     try {
         const support = await db.support.findFirst({
             where: {
                 id,
+            },
+            include: {
+                comments: includeComments,
             },
         });
         return support;
@@ -15,7 +18,6 @@ export async function getSupportbyId(id: string): Promise<Support | null> {
     }
 }
 export async function getCreatorSupports(creatorId: string, take?: number, deleted: boolean = false) {
-
     try {
         const supports = await db.support.findMany({
             where: {

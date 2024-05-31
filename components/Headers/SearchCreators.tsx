@@ -1,18 +1,14 @@
 import {
 	CommandDialog,
 	CommandEmpty,
-	CommandGroup,
 	CommandInput,
-	CommandItem,
 	CommandList,
 } from '@/components/ui/command';
 import { useInterface } from '@/store/InterfaceStore';
-import { Profile } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { debounce } from 'lodash';
 import axios from 'axios';
-import CreatorSearchButton from '../common/CreatorSearchButton';
-import { ThreeCircles } from 'react-loader-spinner';
+import CreatorSearchButton from './CreatorSearchButton';
 import Loader from '../common/Loader';
 import { User } from 'lucia';
 

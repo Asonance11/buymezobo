@@ -2,7 +2,7 @@ import { useInterface } from '@/store/InterfaceStore';
 import React from 'react';
 import { Dialog, DialogContent, DialogFooter } from '@/components/ui/dialog';
 import { getCurrentUser } from '@/lib/authentication';
-import { QRMaker } from '../tools/QRMaker';
+import { QRMaker } from './QRMaker';
 import { Button } from '../ui/button';
 import { useUser } from '@/store/UserDataStore';
 

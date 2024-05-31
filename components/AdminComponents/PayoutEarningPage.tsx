@@ -1,6 +1,5 @@
 'use client';
 import { cn } from '@/utility/style';
-import { Profile } from '@prisma/client';
 import React, { HTMLAttributes } from 'react';
 import { Separator } from '../ui/separator';
 import { Button } from '../ui/button';

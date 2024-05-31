@@ -1,6 +1,5 @@
 import { useOrigin } from '@/hooks/useOrigin';
 import { getCurrentUser } from '@/lib/authentication';
-import { Profile } from '@prisma/client';
 import { User } from 'lucia';
 import { useEffect, useState } from 'react';
 import { QRCode } from 'react-qrcode-logo';

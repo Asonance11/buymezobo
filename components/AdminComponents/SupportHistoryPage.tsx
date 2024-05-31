@@ -2,7 +2,6 @@
 import { getCreatorSupports } from '@/actions/support';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/utility/style';
-import { Profile, Support } from '@prisma/client';
 import { User } from 'lucia';
 import React, { HTMLAttributes, useEffect, useState } from 'react';
 import { Skeleton } from '../ui/skeleton';

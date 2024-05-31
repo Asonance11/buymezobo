@@ -1,18 +1,18 @@
 'use client';
 
 import { AdminSideMenuNavigationComponent } from '@/components/Interface/AdminSidebarMenuNavigationSheet';
-import EditUsernamePageModal from '@/components/Interface/EditUsernamePageModal';
+import EditUsernamePageModal from '@/components/Profile/EditUsernamePageModal';
 import ImageSeclectModal from '@/components/Interface/ImageSelectModal';
-import { MakeImagePostModal } from '@/components/Interface/MakeImagePostModal';
-import PayoutInfoModal from '@/components/Interface/PayoutInfoModal';
-import PopUpWidgetModal from '@/components/Interface/PopUpWidgetModal';
-import QRCodeModal from '@/components/Interface/QRCodeModal';
+import { MakeImagePostModal } from '@/components/Posts/MakeImagePostModal';
+import PayoutInfoModal from '@/components/Profile/PayoutInfoModal';
+import PopUpWidgetModal from '@/components/ButtonsAndGraphics/PopUpWidgetModal';
+import QRCodeModal from '@/components/ButtonsAndGraphics/QRCodeModal';
 import { SearchCreatorMenu } from '@/components/Interface/SearchCreators';
 import { SideMenuNavigationComponent } from '@/components/Interface/SideMenuNavigationHeader';
-import WithdrawPayoutModal from '@/components/Interface/WithdrawPayoutModal';
-import { NotificationsProvider } from '@/components/Interface/NotificationInterface';
+import WithdrawPayoutModal from '@/components/Profile/WithdrawPayoutModal';
+import { NotificationsProvider } from '@/components/Notifications/NotificationInterface';
 import { useEffect, useState } from 'react';
-import NotificationModal from '@/components/Interface/NotificationModal';
+import NotificationModal from '@/components/Notifications/NotificationModal';
 export function InterfaceProvider() {
 	const [isMounted, setIsMounted] = useState(false);
 

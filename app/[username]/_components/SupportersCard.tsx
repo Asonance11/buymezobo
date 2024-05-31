@@ -1,10 +1,10 @@
 import { getCreatorSupports } from '@/actions/support';
-import PostImageComponent from '@/components/common/Post';
+import PostImageComponent from '@/components/Posts/Post';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useUser } from '@/store/UserDataStore';
 import { cn } from '@/utility/style';
-import { Post, Profile, Support } from '@prisma/client';
+import { Post } from '@prisma/client';
 import { User } from 'lucia';
 import Link from 'next/link';
 import React, { HTMLAttributes, useEffect, useState } from 'react';

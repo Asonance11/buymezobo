@@ -1,17 +1,14 @@
 import { useInterface } from '@/store/InterfaceStore';
 import React, { HTMLAttributes } from 'react';
-import { SlOptions } from 'react-icons/sl';
 import { Button } from '../ui/button';
 import { useEffect, useState } from 'react';
 import { getCurrentUser } from '@/lib/authentication';
-import { Profile } from '@prisma/client';
 import { cn } from '@/utility/style';
-import UserButton from './UserButton';
 import { truncateText } from '@/utility/text';
-import { Logo } from './Logo';
-import Link from 'next/link';
+import { Logo } from '@/components/common/Logo';
 import { User } from 'lucia';
 import { avatarImageUrl } from '@/utility/avatar';
+import UserButton from '../Profile/UserButton';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	user: User;

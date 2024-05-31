@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import UserButton from './UserButton';
 import useIsMobile from '@/hooks/useIsMobile';
 import { HiMenu } from 'react-icons/hi';
 import { useInterface } from '@/store/InterfaceStore';
 import { User } from 'lucia';
 import { Button } from '../ui/button';
 import axios from 'axios';
+import UserButton from '../Profile/UserButton';
 
 export default function AdminHeader() {
     const { onOpen } = useInterface();

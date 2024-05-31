@@ -1,10 +1,7 @@
 import { cn } from '@/utility/style';
-import { Profile } from '@prisma/client';
 import React, { HTMLAttributes } from 'react';
 import { Separator } from '../ui/separator';
-import { Button } from '../ui/button';
-import { MdIosShare } from 'react-icons/md';
-import SharePage from '../common/SharePage';
+import SharePage from '../Profile/SharePage';
 import { formatNumberWithCommas } from '@/utility/text';
 import { User } from 'lucia';
 import { Skeleton } from '../ui/skeleton';

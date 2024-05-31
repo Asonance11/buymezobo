@@ -6,13 +6,13 @@ import useIsMobile from '@/hooks/useIsMobile';
 import { HiMenu } from 'react-icons/hi';
 import { FaQuoteLeft } from 'react-icons/fa';
 import { IoInformationCircle } from 'react-icons/io5';
-import { Logo } from './Logo';
+import { Logo } from '../common/Logo';
 import Link from 'next/link';
-import UserButton from './UserButton';
 import { User } from 'lucia';
 import { Skeleton } from '../ui/skeleton';
 import { useUser } from '@/store/UserDataStore';
 import { useAuth as Auth } from '@/actions/use-auth';
+import UserButton from '../Profile/UserButton';
 
 const MenuLinks = () => (
     <>

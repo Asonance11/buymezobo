@@ -9,7 +9,7 @@ import { RiHomeSmileLine } from 'react-icons/ri';
 import { MdOutlineExplore, MdOutlinePhotoSizeSelectActual } from 'react-icons/md';
 import { PiLayout } from 'react-icons/pi';
 import { PiArrowSquareOutLight } from 'react-icons/pi';
-import { Logo } from './common/Logo';
+import { Logo } from '@/components/common/Logo';
 import { IoSettingsOutline, IoLogOutOutline } from 'react-icons/io5';
 import { BsCashStack } from 'react-icons/bs';
 import { User } from 'lucia';

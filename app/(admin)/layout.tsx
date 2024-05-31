@@ -1,5 +1,5 @@
 'use client';
-import Sidebar from '@/components/Sidebar/Sidebar';
+import Sidebar from '@/components/Navigation/Sidebar';
 import AdminHeader from '@/components/common/AdminHeader';
 import { Toaster } from '@/components/ui/toaster';
 import AdminProvider from '@/providers/AdminProvider';

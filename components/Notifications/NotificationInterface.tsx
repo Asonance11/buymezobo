@@ -4,7 +4,7 @@ import { Notification } from '@prisma/client';
 import { User } from 'lucia';
 import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
-import { renderNotificationComponent } from '../tools/NotificationTypes';
+import { renderNotificationComponent } from './NotificationTypes';
 import { toast } from 'sonner';
 
 export const NotificationsProvider = () => {

@@ -1,7 +1,7 @@
 import { useInterface } from '@/store/InterfaceStore';
 import React from 'react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import PostImageComponent from '../common/Post';
+import PostImageComponent from '../Posts/Post';
 import { cn } from '@/utility/style';
 import moment from 'moment';
 

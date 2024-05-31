@@ -1,7 +1,7 @@
 'use client';
 import { getCreatorPosts } from '@/actions/posts';
 import GallerySection from '@/components/GallerySection';
-import PostImageComponent from '@/components/common/Post';
+import PostImageComponent from '@/components/Posts/Post';
 import { Button } from '@/components/ui/button';
 import { getCurrentUser } from '@/lib/authentication';
 import { useInterface } from '@/store/InterfaceStore';

@@ -1,6 +1,6 @@
 import { useInterface } from '@/store/InterfaceStore';
 import { FaRegCopy } from 'react-icons/fa6';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import React, { useState } from 'react';
 import { Textarea } from '../ui/textarea';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
@@ -8,7 +8,6 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PopUpWidgetCodeProps, generatePopUpWidgetCode } from '@/lib/popup';
-import { getCurrentUser } from '@/lib/authentication';
 import { Button } from '../ui/button';
 import { useUser } from '@/store/UserDataStore';
 

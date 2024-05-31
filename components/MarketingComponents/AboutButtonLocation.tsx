@@ -1,5 +1,4 @@
 import AnimatedGradientText from '@/components/magicui/animated-gradient-text';
-import { ChevronRight } from 'lucide-react';
 import { cn } from '@/utility/style';
 import { MdOutlineLocationOn } from 'react-icons/md';
 

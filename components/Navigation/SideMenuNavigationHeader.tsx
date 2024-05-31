@@ -5,8 +5,7 @@ import { useInterface } from '@/store/InterfaceStore';
 import { IoMdSearch } from 'react-icons/io';
 import { Logo } from '../common/Logo';
 import { Button } from '../ui/button';
-import Link from 'next/link';
-import UserButton from '../common/UserButton';
+import UserButton from '../Profile/UserButton';
 import { useEffect, useRef } from 'react';
 
 export function SideMenuNavigationComponent() {
