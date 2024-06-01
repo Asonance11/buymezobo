@@ -62,7 +62,7 @@ export default function SupportHistory({ creator, className }: Props) {
 			>
 				<div className="space-y-4 w-full">
 					{supports.map((support) => (
-						<SupportCard support={support} />
+						<SupportCard key={support.id} support={support} />
 					))}
 				</div>
 				<Button className="w-full" variant={'secondary'}>
