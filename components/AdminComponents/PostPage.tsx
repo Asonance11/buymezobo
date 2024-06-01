@@ -28,6 +28,10 @@ export default function PostPage({ creator, className }: Props) {
 		}
 	}, [creator?.id, creator]);
 
+	if (posts.length <= 0) {
+		return null;
+	}
+
 	return (
 		<div>
 			{!creator && (
@@ -65,7 +69,7 @@ export default function PostPage({ creator, className }: Props) {
 					</div>{' '}
 					<Button className="w-full" variant={'secondary'}>
 						<Link href="/gallery" className=" w-full h-full">
-							See all supporters
+							See all posts
 						</Link>
 					</Button>
 				</div>
