@@ -1,11 +1,11 @@
 import { getCurrentUser } from '@/lib/authentication';
 import { db } from '@/lib/database';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { UTApi } from 'uploadthing/server';
 
-export const utapi = new UTApi();
+const utapi = new UTApi();
 
-export async function DELETE({ params }: { params: { postId: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: { postId: string } }) {
 	try {
 		const { postId } = params;
 		const loggedInUser = await getCurrentUser();

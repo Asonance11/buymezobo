@@ -68,7 +68,7 @@ export default function Page() {
 		<section className=" flex flex-col items-center relative w-full h-full py-[5%]">
 			<div className="space-y-4 w-2/3 bg-white min-w-[300px] rounded-sm p-4">
 				{supports.map((support) => (
-					<SupportCard support={support} className=" p-4 hover:bg-slate-100 box-border rounded-sm" />
+					<SupportCard key={support.id} support={support} className=" p-4 hover:bg-slate-100 box-border rounded-sm" />
 				))}
 			</div>
 			<PaginationRouter meta={creatorSupports?.meta!} />
