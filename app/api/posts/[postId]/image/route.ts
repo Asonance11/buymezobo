@@ -29,7 +29,9 @@ export async function DELETE(
 			return new NextResponse('Post not found', { status: 404 });
 		}
 
-		const deleteImage = await utapi.deleteFiles(postFind.imageUrl);
+		const newUrl = postFind.imageUrl.substring(postFind.imageUrl.lastIndexOf('/') + 1);
+		console.log(newUrl);
+		const deleteImage = await utapi.deleteFiles(newUrl);
 
 		console.log(deleteImage);
 
