@@ -1,16 +1,11 @@
 import { getCurrentUser } from '@/lib/authentication';
 import { db } from '@/lib/database';
-import { DeleteFileFromUploadthing } from '@/lib/uploadthing';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { UTApi } from 'uploadthing/server';
 
 export const utapi = new UTApi();
 
-export async function DELETE(
-	request: NextRequest,
-
-	{ params }: { params: { postId: string } },
-) {
+export async function DELETE({ params }: { params: { postId: string } }) {
 	try {
 		const { postId } = params;
 		const loggedInUser = await getCurrentUser();
@@ -30,10 +25,8 @@ export async function DELETE(
 		}
 
 		const newUrl = postFind.imageUrl.substring(postFind.imageUrl.lastIndexOf('/') + 1);
-		console.log(newUrl);
-		const deleteImage = await utapi.deleteFiles(newUrl);
 
-		console.log(deleteImage);
+		const deleteImage = await utapi.deleteFiles(newUrl);
 
 		if (!deleteImage.success) {
 			return new NextResponse('Internal Server Error', {
@@ -46,8 +39,6 @@ export async function DELETE(
 				id: postFind?.id,
 			},
 		});
-
-		console.log('DELETED FILE FROM IMAGE URL: ', deleteImage);
 
 		return new NextResponse(JSON.stringify(post), { status: 200 });
 	} catch (error) {
