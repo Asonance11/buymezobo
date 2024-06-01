@@ -155,14 +155,12 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
                             <>
                                 {/* Dropdown for comment options */}
                                 <DropdownMenu>
-                                    <DropdownMenuTrigger>
+                                    <DropdownMenuTrigger className="outline-none">
                                         <div className="rounded-full hover:bg-zinc-200 transition-colors duration-300 cursor-pointer p-1.5">
                                             <SlOptions />
                                         </div>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent>
-                                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                        <DropdownMenuSeparator />
                                         <DropdownMenuItem>Share</DropdownMenuItem>
                                         {isTheSameUser ? (
                                             <>
@@ -217,3 +215,4 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
         </div>
     );
 }
+
