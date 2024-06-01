@@ -18,7 +18,7 @@ export default function Page() {
 	const [latestPost, setLatestPost] = useState<Post[] | null>(null);
 
 	const { data: creator } = useQuery({
-		queryKey: queryKeys.user.current,
+		queryKey: queryKeys.user.current(),
 		queryFn: () => getCurrentUser(),
 	});
 

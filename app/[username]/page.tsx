@@ -1,50 +1,49 @@
 'use client';
 import UserNameHeader from '@/components/Headers/UsernameHeader';
 import { getCreatorByName } from '@/lib/creator';
-import { Post, Profile } from '@prisma/client';
+import { Post } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import BuyCard from './_components/BuyCard';
 import SupportersCard from './_components/SupportersCard';
 import Loading from './loading';
-import { User } from 'lucia';
 import { getCreatorPosts } from '@/actions/posts';
+import { useQuery } from '@tanstack/react-query';
+import queryKeys from '@/query-key-factory';
+import { toast } from 'sonner';
 
 export default function Username(props: any) {
 	const creatorname = props.params.username;
-	const [creator, setCreator] = useState<User | null>(null);
-	const [loading, setLoading] = useState(true);
 	const [latestPost, setLatestPost] = useState<Post | null>(null);
 	const [reloadSupporters, setReloadSupporters] = useState(false);
 
-	useEffect(() => {
-		const getPost = async () => {
-			const post = await getCreatorPosts(creator?.id!, 1);
-			setLatestPost(post[0]);
-			setLoading(false);
-		};
-		if (creator) {
-			getPost();
-		}
-	}, [creator?.id, creator]);
+	const { data: creator } = useQuery({
+		queryKey: queryKeys.user.getByName(creatorname),
+		queryFn: () => getCreatorByName(creatorname),
+		enabled: !!creatorname,
+	});
+
+	const {
+		data: posts,
+		status,
+		fetchStatus,
+	} = useQuery({
+		queryKey: [...queryKeys.post.many()],
+		queryFn: () => getCreatorPosts(creator?.id!, 1),
+		enabled: !!creator,
+	});
 
 	useEffect(() => {
-		const getUser = async () => {
-			const creator = await getCreatorByName(creatorname);
-			setCreator(creator);
-			setLoading(false);
-		};
-		if (creatorname) {
-			getUser();
-		}
-	}, [creatorname]);
+		if (fetchStatus === 'idle' && status === 'success') setLatestPost(posts[0]);
+		if (fetchStatus === 'idle' && status === 'error') toast.error('An error occurred');
+	}, [fetchStatus, status]);
 
 	if (!creator) {
 		return null;
 	}
 
 	return (
-		<main className="min-h-screen bg-red-700 flex flex-col ">
-			{loading ? (
+		<main className="min-h-screen bg-white flex flex-col ">
+			{fetchStatus === 'fetching' ? (
 				<Loading />
 			) : (
 				<>
