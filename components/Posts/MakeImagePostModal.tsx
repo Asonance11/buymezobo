@@ -1,4 +1,3 @@
-
 import { useInterface } from '@/store/InterfaceStore';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useState } from 'react';
@@ -6,20 +5,21 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Dialog, DialogContent, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '../ui/button';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '../ui/textarea';
 import { HeaderImageUpload } from '../tools/HeaderUploadButton';
-import { TextInput } from '../ui/TextInput';
 import { Input } from '../ui/input';
-import { Toaster, toast } from 'sonner';
-import axios from 'axios';
+import { toast } from 'sonner';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import queryKeys from '@/query-key-factory';
 
-export default function MakeImagePostModal  () {
+export default function MakeImagePostModal() {
 	const { isOpen, data, onClose, type } = useInterface();
 	const open = isOpen && type == 'makeImagePostModal';
 	const [loading, setLoading] = useState(false);
 	const { creator } = data;
 	const [imageUrl, setImageUrl] = useState<string | null>(null);
+	const queryClient = useQueryClient();
 
 	const formSchema = z.object({
 		title: z.string(),
@@ -30,23 +30,30 @@ export default function MakeImagePostModal  () {
 		resolver: zodResolver(formSchema),
 	});
 
+	const postImageMutation = useMutation({
+		mutationFn: async (data: { title: string; caption: string; imageUrl: string | null }) => {
+			const response = await fetch('/api/posts', { body: JSON.stringify(data), method: 'POST' });
+			if (response.status > 299) throw new Error(response.statusText);
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: queryKeys.post.all });
+			form.reset();
+			onClose();
+			toast.success('Post was successfully uploaded');
+		},
+		onError: (error) => {
+			toast.error('Failed to upload post');
+			throw error;
+		},
+	});
+
 	const updateImage = (image: string) => {
 		setImageUrl(image);
 	};
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		const data = { imageUrl, ...values };
-		try {
-			setLoading(true);
-			await axios.post('/api/posts', data);
-			toast.success('Post was successfully uploaded');
-			form.reset();
-			onClose();
-		} catch (error) {
-			toast.error('Failed to upload post');
-		} finally {
-			setLoading(false);
-		}
+		postImageMutation.mutate(data);
 	}
 
 	return (
@@ -93,7 +100,7 @@ export default function MakeImagePostModal  () {
 							)}
 						/>
 
-						<Button disabled={loading} type="submit">
+						<Button disabled={loading || postImageMutation.isPending} type="submit">
 							Upload Post
 						</Button>
 					</form>
@@ -101,5 +108,4 @@ export default function MakeImagePostModal  () {
 			</DialogContent>
 		</Dialog>
 	);
-};
-
+}
