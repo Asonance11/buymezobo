@@ -1,43 +1,53 @@
 'use server';
 import { db } from '@/lib/database';
+import { PaginatedResponse } from '@/types/paginated-response.interface';
 import { Support } from '@prisma/client';
 
-export async function getSupportbyId(id: string, includeComments: boolean = false): Promise<Support | null> {
-    try {
-        const support = await db.support.findFirst({
-            where: {
-                id,
-            },
-            include: {
-                comments: includeComments,
-            },
-        });
-        return support;
-    } catch (error) {
-        return null;
-    }
+const LIMIT = 10;
+
+export async function getSupportbyId(id: string): Promise<Support | null> {
+	try {
+		const support = await db.support.findFirst({
+			where: {
+				id,
+			},
+		});
+		return support;
+	} catch (error) {
+		return null;
+	}
 }
-export async function getCreatorSupports(creatorId: string, take?: number, deleted: boolean = false) {
-    try {
-        const supports = await db.support.findMany({
-            where: {
-                profileId: creatorId,
-                deleted: deleted,
-            },
-            take: take ? take : 10,
-            orderBy: {
-                createdAt: 'desc',
-            },
-            include: {
-                comments: true,
-            },
-        });
 
-        const count = await db.support.count();
+/**
+ *
+ * @param creatorId Id of the user whose info you need to get
+ * @param page `default = 1`. Page number you want to get.
+ * @param deleted `default = false`. Specify if you want to include deleted information in the returned data
+ * @returns
+ */
 
-        return [supports, count, null];
-    } catch (error) {
-        console.log(error);
-        return [[], 0, error as Error];
-    }
+export async function getCreatorSupports(
+	creatorId: string,
+	page: number = 1,
+	deleted: boolean = false,
+): Promise<PaginatedResponse<Support>> {
+	const offset = (page - 1) * LIMIT;
+	const supports = await db.support.findMany({
+		where: {
+			profileId: creatorId,
+			deleted: deleted,
+		},
+		take: LIMIT,
+		skip: offset,
+		orderBy: {
+			createdAt: 'desc',
+		},
+		include: {
+			comments: true,
+		},
+	});
+
+	const count = await db.support.count();
+
+	return { data: supports, meta: { page, pageSize: LIMIT, totalCount: count, dataCount: supports.length } };
 }

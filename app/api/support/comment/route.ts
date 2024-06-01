@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
 			},
 		});
 
-		const support = await getCreatorSupports(user.id, 5);
+		const support = await getCreatorSupports(user.id);
 
 		return new NextResponse(JSON.stringify(support), { status: 200 });
 	} catch (error) {

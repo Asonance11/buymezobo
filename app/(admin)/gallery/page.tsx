@@ -8,50 +8,59 @@ import { Post } from '@prisma/client';
 import { User } from 'lucia';
 import React, { useEffect, useState } from 'react';
 import GallerySection from '@/components/Posts/GallerySection';
+import { useQuery } from '@tanstack/react-query';
+import queryKeys from '@/query-key-factory';
+import { toast } from 'sonner';
+import { LoadingOutlined } from '@ant-design/icons';
 
 export default function Page() {
-    const { onOpen } = useInterface();
-    const [creator, setCreator] = useState<User | null>(null);
-    const [loading, setLoading] = useState(false);
-    const [latestPost, setLatestPost] = useState<Post[] | null>(null);
+	const { onOpen } = useInterface();
+	const [latestPost, setLatestPost] = useState<Post[] | null>(null);
 
-    useEffect(() => {
-        const getPost = async () => {
-            setLoading(true);
-            const post = await getCreatorPosts(creator?.id!, 0);
-            setLatestPost(post);
-            setLoading(false);
-        };
-        if (creator) {
-            getPost();
-        }
-    }, [creator?.id, creator]);
+	const { data: creator } = useQuery({
+		queryKey: queryKeys.user.current(),
+		queryFn: () => getCurrentUser(),
+	});
 
-    useEffect(() => {
-        const getUser = async () => {
-            setLoading(true);
-            const creator = await getCurrentUser();
-            setCreator(creator);
-            setLoading(false);
-        };
-        getUser();
-    }, []);
+	const {
+		data: posts,
+		fetchStatus,
+		status,
+	} = useQuery({
+		queryKey: queryKeys.post.many(),
+		queryFn: () => getCreatorPosts(creator?.id!, 0),
+		enabled: !!creator,
+	});
 
-    if (!creator) {
-        return null;
-    }
+	useEffect(() => {
+		if (fetchStatus === 'idle' && status === 'success') {
+			setLatestPost(posts);
+		}
+		if (fetchStatus === 'idle' && status === 'error') toast.error('An error occurred while fetching posts');
+	}, [fetchStatus, status]);
 
-    return (
-        <div className="w-11/12 lg:3/4 xl:w-2/3 mx-auto m-3 lg:my-8">
-            <section className="w-full flex items-center justify-end mb-2 md:mb-3 lg:mb-5 px-2">
-                <Button
-                    onClick={() => onOpen('makeImagePostModal')}
-                    className="-tracking-wide text-xs md:text-sm font-bold bg-purple-800"
-                >
-                    Make New Post
-                </Button>
-            </section>
-            <GallerySection posts={latestPost} isImageOnly={false} />
-        </div>
-    );
+	if (fetchStatus === 'fetching')
+		return (
+			<div className=" flex items-center justify-center w-full h-full">
+				<LoadingOutlined />
+			</div>
+		);
+
+	if (!creator) {
+		return null;
+	}
+
+	return (
+		<div className="w-11/12 lg:3/4 xl:w-2/3 mx-auto m-3 lg:my-8">
+			<section className="w-full flex items-center justify-end mb-2 md:mb-3 lg:mb-5 px-2">
+				<Button
+					onClick={() => onOpen('makeImagePostModal')}
+					className="-tracking-wide text-xs md:text-sm font-bold bg-purple-800"
+				>
+					Make New Post
+				</Button>
+			</section>
+			<GallerySection posts={latestPost} isImageOnly={false} />
+		</div>
+	);
 }
