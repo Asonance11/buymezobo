@@ -1,7 +1,7 @@
 'use client';
 
 import { getCreatorSupports } from '@/actions/support';
-import { useAuth } from '@/actions/use-auth';
+import { useAuth as Auth } from '@/actions/use-auth';
 import PaginationRouter from '@/components/AdminComponents/PaginationRouter';
 import SupportCard from '@/components/AdminComponents/SupportCard';
 import queryKeys from '@/query-key-factory';
@@ -35,7 +35,7 @@ export default function Page() {
 		setPage(pageNumber);
 
 		const fetchUser = async () => {
-			const { user } = await useAuth();
+			const { user } = await Auth();
 			setProfile(user);
 		};
 
