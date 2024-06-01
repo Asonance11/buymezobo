@@ -33,7 +33,7 @@ export async function DELETE(
 
 		console.log(deleteImage);
 
-		if (!deleteImage) {
+		if (!deleteImage.success) {
 			return new NextResponse('Internal Server Error', {
 				status: 500,
 			});
