@@ -6,6 +6,7 @@ import { Skeleton } from '../ui/skeleton';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/utility/style';
 import { Button } from '../ui/button';
+import Link from 'next/link';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	creator: User | null;
@@ -63,7 +64,9 @@ export default function PostPage({ creator, className }: Props) {
 						))}
 					</div>{' '}
 					<Button className="w-full" variant={'secondary'}>
-						See all posts
+						<Link href="/gallery" className=" w-full h-full">
+							See all supporters
+						</Link>
 					</Button>
 				</div>
 			)}
