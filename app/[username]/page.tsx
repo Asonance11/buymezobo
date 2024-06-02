@@ -12,6 +12,7 @@ import queryKeys from '@/query-key-factory';
 import { toast } from 'sonner';
 import { User } from 'lucia';
 import { AboutCard } from './_components/AboutCard';
+import { ImagePostCard } from './_components/ImagePostCard';
 
 export default function Username(props: any) {
 	const creatorname = props.params.username;
@@ -55,7 +56,7 @@ export default function Username(props: any) {
 							className="w-full h-72 bg-gray-300 bg-center bg-cover bg-no-repeat"
 							style={{ backgroundImage: `url(${creator?.headerImageUrl})` }}
 						></div>
-						<div className="flex-1 flex flex-col-reverse lg:flex-row justify-center md:gap-3 relative items-center py-5 lg:py-3 lg:items-start bg-gray-300">
+						<div className="flex-1 flex flex-col-reverse lg:flex-row justify-center md:gap-3 relative items-center py-5 lg:py-3 lg:items-start bg-purple-100">
 							<section className="flex-col flex gap-3 lg:-mt-32">
 								<AboutCard creatorname={creatorname} />
 								<SupportersCard
@@ -64,11 +65,13 @@ export default function Username(props: any) {
 									reload={reloadSupporters}
 								/>
 							</section>
-							<BuyCard
-								className="-mt-28 lg:-mt-32"
-								creator={creator as User}
-								setReload={() => setReloadSupporters(!reloadSupporters)}
-							/>
+							<section className="-mt-28 lg:-mt-32 flex-col flex gap-3 ">
+								<BuyCard
+									creator={creator as User}
+									setReload={() => setReloadSupporters(!reloadSupporters)}
+								/>
+								<ImagePostCard creatorname={creatorname} />
+							</section>
 						</div>
 					</section>
 				</>

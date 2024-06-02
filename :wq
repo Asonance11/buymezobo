@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
             },
         });
 
-        //console.log(newstuff);
+        console.log(newstuff);
 
         const support = await getCreatorSupports(user.id);
 
