@@ -28,7 +28,7 @@ export default function Page(props: any) {
 	useEffect(() => {
 		const getUser = async () => {
 			const creator = await getCreatorByName(creatorname);
-			setCreator(creator);
+			setCreator(creator as User | null);
 			setLoading(false);
 		};
 		getUser();

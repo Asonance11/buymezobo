@@ -23,7 +23,7 @@ export default function Page({ params }: Props) {
         const fetchProfile = async () => {
             try {
                 const user = await getCreatorByName(params.username);
-                setProfile(user);
+                setProfile(user as User | null);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching profile:', error);
