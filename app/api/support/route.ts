@@ -39,6 +39,7 @@ export async function POST(request: NextRequest) {
                 numberOfZobo: support.numberOfZobo!,
                 paymentStatus: PaymentStatus.COMPLETED,
                 paymentRef: support.paymentRef,
+                supporterId: support.supporterId
             },
         });
 

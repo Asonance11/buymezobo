@@ -21,6 +21,10 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import queryKeys from '@/query-key-factory';
 import { FaHeart } from 'react-icons/fa';
 
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import ProfileCardComponent from '@/components/Profile/ComponentCard';
+import Loader from '@/components/common/Loader';
+
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	post: Post | null;
 	creator: User;
@@ -33,6 +37,7 @@ interface Comment extends CommentType {
 
 interface Support extends SupportType {
 	comments?: Comment[];
+	supporter?: Profile;
 }
 
 // TODO: Migrate file to react query
@@ -52,6 +57,9 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 		data: creatorSupports,
 		fetchStatus,
 		status,
+		isLoading,
+		isFetching,
+		isPending,
 	} = useQuery({
 		queryKey: queryKeys.support.many(),
 		queryFn: () => getCreatorSupports(creator!.id),
@@ -99,7 +107,10 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 	}, [loggedInUser?.id]);
 
 	useEffect(() => {
-		if (fetchStatus === 'idle' && status === 'success') setSupports(creatorSupports.data);
+		if (fetchStatus === 'idle' && status === 'success') {
+			console.log(creatorSupports.data);
+			setSupports(creatorSupports.data);
+		}
 		if (fetchStatus === 'idle' && status === 'error') toast.error('An error occurred');
 	}, [fetchStatus, status]);
 
@@ -136,6 +147,14 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 		setSupports(deleteSupportMutation.data);
 	};
 
+	if (isLoading || isFetching || isPending) {
+		return (
+			<div className="w-full h-full rounded-lg bg-purple-200 flex items-center justify-center py-20 lg:py-28">
+				<Loader />
+			</div>
+		);
+	}
+
 	return (
 		<div
 			className={cn(
@@ -154,85 +173,107 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 						</div>
 					</div>
 				) : (
-					supports?.map((support) => (
-						<div key={support.id} className=" w-full ">
-							<div className="flex items-center gap-2 ">
-								<div className="hidden md:flex cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat bg-black "></div>
-								<div className="flex-col space-y-0.5 md:space-y-1.5 items-center justify-start flex-1">
-									<div>
-										<p className="text-xs lg:text-sm ">
-											<span className="font-semibold">{support.name}</span> bought{' '}
-											{support.numberOfZobo} {support.numberOfZobo > 1 ? 'zobos' : 'zobo'}
-										</p>
-									</div>
-									{support.content ? (
-										<div className="p-2 w-fit bg-purple-200 rounded-sm flex items-center justify-start">
-											<p className="text-xs md:text-sm">{support.content}</p>
+					supports?.map((support) => {
+						console.log(support.supporter);
+						return (
+							<div key={support.id} className=" w-full ">
+								<div className="flex items-center gap-2 ">
+									{support.supporter ? (
+										<HoverCard>
+											<HoverCardTrigger>
+												<div
+													className="cursor-pointer rounded-lg w-10 lg:w-12 h-10 lg:h-12 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
+													style={{ backgroundImage: `url(${support.supporter!.imageUrl})` }}
+												></div>
+											</HoverCardTrigger>
+											<HoverCardContent className="p-0">
+												<ProfileCardComponent profile={support.supporter} />
+											</HoverCardContent>
+										</HoverCard>
+									) : (
+										<div className="hidden md:flex cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat bg-black "></div>
+									)}
+									<div className="flex-col space-y-0.5 md:space-y-1.5 items-center justify-start flex-1">
+										<div>
+											<p className="text-xs lg:text-sm ">
+												<span className="font-semibold">
+													{support.supporter?.userName || support.name}
+												</span>{' '}
+												bought {support.numberOfZobo}{' '}
+												{support.numberOfZobo > 1 ? 'zobos' : 'zobo'}
+											</p>
 										</div>
-									) : null}
-								</div>
-
-								<>
-									{/* Dropdown for comment options */}
-									<DropdownMenu>
-										<DropdownMenuTrigger className="outline-none">
-											<div className="rounded-full hover:bg-zinc-200 transition-colors duration-300 cursor-pointer p-1.5">
-												<SlOptions />
+										{support.content ? (
+											<div className="p-2 w-fit bg-purple-200 rounded-sm flex items-center justify-start">
+												<p className="text-xs md:text-sm">{support.content}</p>
 											</div>
-										</DropdownMenuTrigger>
-										<DropdownMenuContent>
-											<DropdownMenuItem>Share</DropdownMenuItem>
-											{isTheSameUser ? (
-												<>
-													<DropdownMenuItem onClick={() => handleCommentClick(support.id)}>
-														Comment
-													</DropdownMenuItem>
-													<DropdownMenuItem onClick={() => deleteSupport(support.id)}>
-														Delete
-													</DropdownMenuItem>
-												</>
-											) : null}
-										</DropdownMenuContent>
-									</DropdownMenu>
-								</>
-							</div>
-							<div className="w-full flex flex-col pl-6 lgpl-16">
-								{support.comments?.map((comment) => {
-									return (
-										<div
-											key={comment.id}
-											className=" p-0.5 px-1 md:p-2 w-fit bg-gray-100 rounded-sm flex items-center justify-start my-0.5 md:my-1 gap-1 md:gap-2"
-										>
-											<img
-												className="cursor-pointer rounded-lg w-6 h-8 lg:w-8 lg:h-8 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
-												src={
-													comment.profile?.imageUrl ||
-													avatarImageUrl(comment.profile?.userName!)
-												}
-												alt="avatar"
-											/>
+										) : null}
+									</div>
 
-											<p className="text-xs md:text-sm">{comment.content}</p>
-										</div>
-									);
-								})}
-							</div>
-							{activeComment === support.id && (
-								<div className="mt-2 flex items-center gap-2">
-									<Input
-										type="text"
-										className="flex-1 border rounded p-2 text-sm"
-										placeholder="Add a comment..."
-										value={commentText}
-										onChange={(e) => setCommentText(e.target.value)}
-									/>
-									<Button className="rounded-sm" onClick={() => handleCommentSubmit(support.id)}>
-										Submit
-									</Button>
+									<>
+										{/* Dropdown for comment options */}
+										<DropdownMenu>
+											<DropdownMenuTrigger className="outline-none">
+												<div className="rounded-full hover:bg-zinc-200 transition-colors duration-300 cursor-pointer p-1.5">
+													<SlOptions />
+												</div>
+											</DropdownMenuTrigger>
+											<DropdownMenuContent>
+												<DropdownMenuItem>Share</DropdownMenuItem>
+												{isTheSameUser ? (
+													<>
+														<DropdownMenuItem
+															onClick={() => handleCommentClick(support.id)}
+														>
+															Comment
+														</DropdownMenuItem>
+														<DropdownMenuItem onClick={() => deleteSupport(support.id)}>
+															Delete
+														</DropdownMenuItem>
+													</>
+												) : null}
+											</DropdownMenuContent>
+										</DropdownMenu>
+									</>
 								</div>
-							)}
-						</div>
-					))
+								<div className="w-full flex flex-col pl-6 lgpl-16">
+									{support.comments?.map((comment) => {
+										return (
+											<div
+												key={comment.id}
+												className=" p-0.5 px-1 md:p-2 w-fit bg-gray-100 rounded-sm flex items-center justify-start my-0.5 md:my-1 gap-1 md:gap-2"
+											>
+												<img
+													className="cursor-pointer rounded-lg w-6 h-8 lg:w-8 lg:h-8 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
+													src={
+														comment.profile?.imageUrl ||
+														avatarImageUrl(comment.profile?.userName!)
+													}
+													alt="avatar"
+												/>
+
+												<p className="text-xs md:text-sm">{comment.content}</p>
+											</div>
+										);
+									})}
+								</div>
+								{activeComment === support.id && (
+									<div className="mt-2 flex items-center gap-2">
+										<Input
+											type="text"
+											className="flex-1 border rounded p-2 text-sm"
+											placeholder="Add a comment..."
+											value={commentText}
+											onChange={(e) => setCommentText(e.target.value)}
+										/>
+										<Button className="rounded-sm" onClick={() => handleCommentSubmit(support.id)}>
+											Submit
+										</Button>
+									</div>
+								)}
+							</div>
+						);
+					})
 				)}
 			</div>
 
