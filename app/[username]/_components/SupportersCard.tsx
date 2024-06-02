@@ -108,7 +108,7 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 
 	useEffect(() => {
 		if (fetchStatus === 'idle' && status === 'success') {
-			console.log(creatorSupports.data);
+			//console.log(creatorSupports.data);
 			setSupports(creatorSupports.data);
 		}
 		if (fetchStatus === 'idle' && status === 'error') toast.error('An error occurred');
@@ -174,7 +174,7 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 					</div>
 				) : (
 					supports?.map((support) => {
-						console.log(support.supporter);
+						//console.log(support.supporter);
 						return (
 							<div key={support.id} className=" w-full ">
 								<div className="flex items-center gap-2 ">
@@ -277,7 +277,7 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 				)}
 			</div>
 
-			{supports.length > 0 ? (
+			{supports.length > 4 ? (
 				<Button className="w-full font-semibold" variant={'secondary'}>
 					<Link href="/dashboard/support-history?page=1" className=" w-full h-full">
 						See all supporters
