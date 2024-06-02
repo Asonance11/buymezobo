@@ -25,9 +25,6 @@ export default function EditUsernamePageModal() {
     const open = isOpen && type === 'editUsernamePage';
     const { creator } = data;
 
-    if (!creator) {
-        return null;
-    }
 
     const [profileImage, setProfileImage] = useState(creator?.imageUrl);
     const [headerImage, setHeaderImage] = useState(creator?.headerImageUrl);
@@ -42,6 +39,10 @@ export default function EditUsernamePageModal() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
     });
+
+    if (!creator) {
+        return null;
+    }
 
     useEffect(() => {
         const addBioFirst = async () => {
