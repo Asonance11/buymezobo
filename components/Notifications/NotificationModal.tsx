@@ -28,7 +28,6 @@ export default function NotificationModal() {
     const open = isOpen && type == 'notifications';
     const isDesktop = useMediaQuery('(min-width: 768px)');
 
-    console.log('is it a desktop:', isDesktop);
 
     return (
         <Dialog open={open} onOpenChange={onClose}>

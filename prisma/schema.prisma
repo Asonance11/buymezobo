@@ -40,6 +40,43 @@ model Profile {
     support       Support[]
     payoutHistory Payout[]
     comments      Comment[] // Relation to comments
+
+    followers Follows[] @relation("following")
+    following Follows[] @relation("follower")
+
+    socialMediaLink SocialMediaLink[]
+    tags            String[]
+}
+
+enum SocialMediaType {
+  FACEBOOK
+  TWITTER
+  INSTAGRAM
+  YOUTUBE
+  LINKEDIN
+  GITHUB
+  TIKTOK
+  TWITCH
+  MEDIUM
+  OTHER
+}
+
+model SocialMediaLink {
+    id     String  @id @default(uuid())
+    type   SocialMediaType
+    url    String
+    userId String
+    user   Profile @relation(fields: [userId], references: [id])
+    @@unique([userId, type]) // Optional: Ensures one type of each link per user
+}
+
+model Follows {
+    follower    Profile @relation("follower", fields: [followerId], references: [id])
+    followerId  String
+    following   Profile @relation("following", fields: [followingId], references: [id])
+    followingId String
+
+    @@id([followerId, followingId])
 }
 
 model Session {

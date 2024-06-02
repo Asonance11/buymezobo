@@ -1,14 +1,20 @@
 'use server';
 
-import { Profile } from '@prisma/client';
+import { Profile, SocialMediaLink } from '@prisma/client';
 import { db } from './database';
-import { User } from 'lucia';
+
+interface User extends Profile {
+	socialMediaLink: SocialMediaLink[];
+}
 
 export async function getCreatorByName(name: string): Promise<User | null> {
 	try {
 		const creator = await db.profile.findFirst({
 			where: {
 				userName: name,
+			},
+			include: {
+				socialMediaLink: true,
 			},
 		});
 

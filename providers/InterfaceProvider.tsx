@@ -21,6 +21,7 @@ const SideMenuNavigationComponent = dynamic(() => import('@/components/Navigatio
 const WithdrawPayoutModal = dynamic(() => import('@/components/Profile/WithdrawPayoutModal'), { ssr: false });
 const NotificationModal = dynamic(() => import('@/components/Notifications/NotificationModal'), { ssr: false });
 const ImageSelectModal = dynamic(() => import('@/components/Posts/ImageSelectModal'), { ssr: false });
+const SocialMediaLinkModal = dynamic(() => import('@/components/Profile/SocialMediaLinkModal'), { ssr: false });
 
 export function InterfaceProvider() {
     const [isMounted, setIsMounted] = useState(false);
@@ -47,6 +48,7 @@ export function InterfaceProvider() {
             <EditUsernamePageModal />
             <MakeImagePostModal />
             <NotificationModal />
+            <SocialMediaLinkModal />
         </>
     );
 }

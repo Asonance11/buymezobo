@@ -11,16 +11,30 @@ import { signOut } from './signout';
 const newPasswordSchema = z.string().min(6, { message: 'Password must be a minimum of 6 characters' }).trim();
 
 export async function updateProfile(data: Partial<User>): Promise<[Profile | null, Error | null]> {
-    const user = await getCurrentUser();
-    if (!user) throw new Error('Unauthorized');
+    try {
+        const user = await getCurrentUser();
+        if (!user) {
+            throw new Error('Unauthorized');
+        }
 
-    if (data.userName) {
-        data.userName = data.userName.toLowerCase();
-        const existingUser = await db.profile.findUnique({ where: { userName: data.userName } });
-        if (existingUser) throw new Error(`The username '${data.userName}' is already taken`);
+        if (data.userName) {
+            data.userName = data.userName.toLowerCase();
+            const existingUser = await db.profile.findUnique({ where: { userName: data.userName } });
+            if (existingUser) {
+                throw new Error(`The username '${data.userName}' is already taken`);
+            }
+        }
+
+        const profile = await db.profile.update({
+            where: { id: user.id },
+            data,
+        });
+
+        return [profile, null];
+    } catch (error) {
+        console.error('Error updating profile:', error);
+        return [null, error as Error];
     }
-    const profile = await db.profile.update({ where: { id: user.id }, data });
-    return [profile, null];
 }
 
 export async function changePassword(id: string, oldPassword: string, newPassword: string): Promise<void> {
