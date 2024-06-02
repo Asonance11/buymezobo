@@ -43,6 +43,7 @@ export async function getCreatorSupports(
 			createdAt: 'desc',
 		},
 		include: {
+			supporter: true,
 			comments: {
 				include: {
 					profile: true,

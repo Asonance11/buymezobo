@@ -20,6 +20,8 @@ import SuccessFeedback from './SuccessFeedback';
 import { toast } from 'sonner';
 import { User } from 'lucia';
 import { WidgetProps } from '@/types/widget';
+import { useAuth } from '@/actions/use-auth';
+import { useUser } from '@/store/UserDataStore';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	themeColor?: string;
@@ -33,22 +35,28 @@ export default function BuyCard({ creator, className, setReload, widgetprops }: 
 	const [success, setSuccess] = useState(false);
 	const [finalAmount, setFinalAmount] = useState(amountToPay * ZoboPrice);
 
+	const { loggedInUser } = useUser();
+
 	const setFinalAmountFunction = (amount: number) => {
 		setFinalAmount(amount * ZoboPrice);
 		setAmountToPay(amount);
 	};
-
-	// const loggedInUser = useAuth()
 
 	const formSchema = z.object({
 		name: z.string(),
 		content: z.string(),
 		privateMessage: z.boolean().default(false),
 	});
+
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: { content: '', name: '', privateMessage: false },
 	});
+
+	if (loggedInUser) {
+		form.setValue('name', loggedInUser.userName!);
+	}
+
 	const preHandleSuccessAction = (reference: any) => {
 		handleSuccessAction(reference);
 	};
@@ -67,6 +75,13 @@ export default function BuyCard({ creator, className, setReload, widgetprops }: 
 			paymentRef: reference.reference,
 		};
 
+		if (loggedInUser) {
+			data = {
+				...data,
+				supporterId: loggedInUser?.id ?? loggedInUser.id,
+			};
+		}
+
 		try {
 			const response = await axios.post('/api/support', data);
 			//TODO: add after support action like thank the user, show some more content, etc
@@ -78,7 +93,7 @@ export default function BuyCard({ creator, className, setReload, widgetprops }: 
 			console.table(response.data);
 			form.reset({ content: '', name: '', privateMessage: false });
 		} catch (error) {
-			toast.error('An error occured');
+			toast.error('An error occured in buy card');
 		}
 	};
 
@@ -99,8 +114,6 @@ export default function BuyCard({ creator, className, setReload, widgetprops }: 
 	}
 
 	const nairaSymbol = '₦';
-
-	//console.log(widgetprops);
 
 	return (
 		<div
@@ -129,7 +142,12 @@ export default function BuyCard({ creator, className, setReload, widgetprops }: 
 						render={({ field }) => (
 							<FormItem>
 								<FormControl>
-									<Input className="w-full resize-none" {...field} placeholder="Name or alias" />
+									<Input
+										disabled={loggedInUser !== null}
+										className="w-full resize-none"
+										{...field}
+										placeholder="Name or alias"
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -190,6 +208,3 @@ export default function BuyCard({ creator, className, setReload, widgetprops }: 
 		</div>
 	);
 }
-
-//bg-yellow-400
-//bg-[#34f]

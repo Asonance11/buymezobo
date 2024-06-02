@@ -35,9 +35,12 @@ model Profile {
 
     isVerified Boolean @default(false)
 
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @updatedAt
-    support       Support[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    support          Support[] @relation("SupportsMade")
+    supportsReceived Support[] @relation("SupportsReceived")
+
     payoutHistory Payout[]
     comments      Comment[] // Relation to comments
 
@@ -48,25 +51,51 @@ model Profile {
     tags            String[]
 }
 
+model Support {
+    id String @id @default(uuid())
+
+    profileId   String
+    profile     Profile  @relation("SupportsReceived", fields: [profileId], references: [id], onDelete: Cascade)
+    supporterId String?
+    supporter   Profile? @relation("SupportsMade", fields: [supporterId], references: [id])
+
+    name      String
+    anonymous Boolean @default(false)
+    content   String  @db.Text
+
+    amount        Int
+    numberOfZobo  Int
+    paymentRef    String? // Field for the reference of the payment
+    paymentStatus PaymentStatus? // Field for the status of the payment
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    deleted Boolean @default(false)
+
+    comments Comment[] // Relation to comments
+}
+
 enum SocialMediaType {
-  FACEBOOK
-  TWITTER
-  INSTAGRAM
-  YOUTUBE
-  LINKEDIN
-  GITHUB
-  TIKTOK
-  TWITCH
-  MEDIUM
-  OTHER
+    FACEBOOK
+    TWITTER
+    INSTAGRAM
+    YOUTUBE
+    LINKEDIN
+    GITHUB
+    TIKTOK
+    TWITCH
+    MEDIUM
+    OTHER
 }
 
 model SocialMediaLink {
-    id     String  @id @default(uuid())
+    id     String          @id @default(uuid())
     type   SocialMediaType
     url    String
     userId String
-    user   Profile @relation(fields: [userId], references: [id])
+    user   Profile         @relation(fields: [userId], references: [id])
+
     @@unique([userId, type]) // Optional: Ensures one type of each link per user
 }
 
@@ -84,28 +113,6 @@ model Session {
     expiresAt DateTime
     userId    String
     profile   Profile  @relation(references: [userId], fields: [userId], onDelete: Cascade)
-}
-
-model Support {
-    id        String  @id @default(uuid())
-    profileId String
-    profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
-
-    name      String
-    anonymous Boolean @default(false)
-    content   String  @db.Text
-
-    amount        Int
-    numberOfZobo  Int
-    paymentRef    String? // Field for the reference of the payment
-    paymentStatus PaymentStatus? // Field for the status of the payment
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    deleted Boolean @default(false)
-
-    comments Comment[] // Relation to comments
 }
 
 model Payout {

@@ -72,11 +72,16 @@ const config = {
 						backgroundPosition: 'var(--bg-size) 0',
 					},
 				},
+				heartbeat: {
+					'0%, 40%, 80%, 100%': { transform: 'scale(1)' },
+					'20%, 60%': { transform: 'scale(1.3)' },
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				gradient: 'gradient 8s linear infinite',
+				heartbeat: 'heartbeat 1.5s infinite',
 			},
 		},
 	},
