@@ -21,165 +21,164 @@ import { Toaster, toast } from 'sonner';
 import { getCreatorTags } from '@/actions/tags';
 
 export default function EditUsernamePageModal() {
-    const { isOpen, type, data, onClose } = useInterface();
-    const open = isOpen && type === 'editUsernamePage';
-    const { creator } = data;
+	const { isOpen, type, data, onClose } = useInterface();
+	const open = isOpen && type === 'editUsernamePage';
+	const { creator } = data;
 
+	const [profileImage, setProfileImage] = useState(creator?.imageUrl);
+	const [headerImage, setHeaderImage] = useState(creator?.headerImageUrl);
+	const [loading, setLoading] = useState(false);
+	const [tags, setTags] = useState<MultiValue<{ label: string; value: string }>>([]);
 
-    const [profileImage, setProfileImage] = useState(creator?.imageUrl);
-    const [headerImage, setHeaderImage] = useState(creator?.headerImageUrl);
-    const [loading, setLoading] = useState(false);
-    const [tags, setTags] = useState<MultiValue<{ label: string; value: string }>>([]);
+	const formSchema = z.object({
+		bio: z.string().optional(),
+		tags: z.array(z.string()).optional(),
+	});
 
-    const formSchema = z.object({
-        bio: z.string().optional(),
-        tags: z.array(z.string()).optional(),
-    });
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+	});
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-    });
+	useEffect(() => {
+		const addBioFirst = async () => {
+			setLoading(true);
+			form.setValue('bio', creator?.bio ?? creator?.bio!);
 
-    if (!creator) {
-        return null;
-    }
+			if (!creator) {
+				return null;
+			}
 
-    useEffect(() => {
-        const addBioFirst = async () => {
-            setLoading(true);
-            form.setValue('bio', creator?.bio ?? creator?.bio!);
+			const fetchedTags = await getCreatorTags(creator?.id);
+			const formattedTags = fetchedTags.map((tag: string) => {
+				const foundTag = ProfileTagsOptions.find((option) => option.value === tag);
+				return foundTag ? { label: foundTag.label, value: foundTag.value } : { label: tag, value: tag };
+			});
 
-            const fetchedTags = await getCreatorTags(creator?.id);
-            const formattedTags = fetchedTags.map((tag: string) => {
-                const foundTag = ProfileTagsOptions.find((option) => option.value === tag);
-                return foundTag ? { label: foundTag.label, value: foundTag.value } : { label: tag, value: tag };
-            });
+			setTags(formattedTags);
+			setLoading(false);
+			// try {
+			// } catch (error) {
+			// } finally {
+			// }
+		};
+		if (open) {
+			addBioFirst();
+		}
+	}, [open]);
 
-            setTags(formattedTags);
-            setLoading(false);
-            // try {
-            // } catch (error) {
-            // } finally {
-            // }
-        };
-        if (open) {
-            addBioFirst();
-        }
-    }, [open]);
+	const updateProfileImage = (image: string) => {
+		setProfileImage(image);
+	};
 
-    const updateProfileImage = (image: string) => {
-        setProfileImage(image);
-    };
+	const updateHeaderImage = (image: string) => {
+		setHeaderImage(image);
+	};
 
-    const updateHeaderImage = (image: string) => {
-        setHeaderImage(image);
-    };
+	const handleChange = (e: MultiValue<{ label: string; value: string }>) => {
+		setTags(e);
+	};
 
-    const handleChange = (e: MultiValue<{ label: string; value: string }>) => {
-        setTags(e);
-    };
+	function onSubmit(values: z.infer<typeof formSchema>) {
+		const data: Optional<User> = {
+			id: creator?.id,
+			imageUrl: profileImage,
+			headerImageUrl: headerImage,
+			tags: tags.map((tag) => tag.value),
+			...values,
+		};
+		onSubmitFinally(data);
+	}
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        const data: Optional<User> = {
-            id: creator?.id,
-            imageUrl: profileImage,
-            headerImageUrl: headerImage,
-            tags: tags.map((tag) => tag.value),
-            ...values,
-        };
-        onSubmitFinally(data);
-    }
+	const onSubmitFinally = async (data: Partial<User>) => {
+		setLoading(true);
 
-    const onSubmitFinally = async (data: Partial<User>) => {
-        setLoading(true);
+		const updateProfilePromise = new Promise(async (resolve, reject) => {
+			try {
+				const [profile, error] = await updateProfile(data);
+				if (error) {
+					reject(error);
+				} else {
+					resolve(profile);
+				}
+			} catch (err) {
+				reject(err);
+			}
+		});
 
-        const updateProfilePromise = new Promise(async (resolve, reject) => {
-            try {
-                const [profile, error] = await updateProfile(data);
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(profile);
-                }
-            } catch (err) {
-                reject(err);
-            }
-        });
+		toast.promise(updateProfilePromise, {
+			loading: 'Updating profile...',
+			success: 'Profile updated successfully!',
+			error: 'An error occurred while updating the profile.',
+		});
 
-        toast.promise(updateProfilePromise, {
-            loading: 'Updating profile...',
-            success: 'Profile updated successfully!',
-            error: 'An error occurred while updating the profile.',
-        });
+		try {
+			await updateProfilePromise;
+			onClose();
+		} catch (error) {
+			console.error('Error updating profile:', error);
+		} finally {
+			setLoading(false);
+		}
+	};
 
-        try {
-            await updateProfilePromise;
-            onClose();
-        } catch (error) {
-            console.error('Error updating profile:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    return (
-        <Dialog open={open} onOpenChange={onClose}>
-            <DialogContent>
-                <DialogDescription>
-                    <p>Edit {creator?.userName} page</p>
-                </DialogDescription>
-                <div className="flex ">
-                    <ImageUpload
-                        setLoading={setLoading}
-                        value={creator?.imageUrl}
-                        onChange={updateProfileImage}
-                        endpoint="Image"
-                    />
-                    <HeaderImageUpload
-                        setLoading={setLoading}
-                        value={creator?.headerImageUrl!}
-                        onChange={updateHeaderImage}
-                        endpoint="Image"
-                    />
-                </div>
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-                        <FormField
-                            control={form.control}
-                            name="bio"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Bio</FormLabel>
-                                    <FormControl>
-                                        <Textarea className="resize-none" {...field} />
-                                    </FormControl>
-                                    <FormDescription>
-                                        What do you want your supporters to know about you
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <div className="space-y-1.5">
-                            <FormLabel>Tags</FormLabel>
-                            <CreatableSelect
-                                isDisabled={loading}
-                                isMulti
-                                options={ProfileTagsOptions as any}
-                                value={tags}
-                                onChange={(e) => handleChange(e)}
-                            />
-                            <FormDescription>
-                                if a tag your resonate with is missing, create it or contact support to add it to the
-                                options for you and others
-                            </FormDescription>
-                        </div>
-                        <Button disabled={loading} type="submit">
-                            Save
-                        </Button>
-                    </form>
-                </Form>
-            </DialogContent>
-        </Dialog>
-    );
+	return (
+		<Dialog open={open} onOpenChange={onClose}>
+			<DialogContent>
+				<DialogDescription>
+					<p>Edit {creator?.userName} page</p>
+				</DialogDescription>
+				<div className="flex ">
+					<ImageUpload
+						setLoading={setLoading}
+						value={creator?.imageUrl}
+						onChange={updateProfileImage}
+						endpoint="Image"
+					/>
+					<HeaderImageUpload
+						setLoading={setLoading}
+						value={creator?.headerImageUrl!}
+						onChange={updateHeaderImage}
+						endpoint="Image"
+					/>
+				</div>
+				<Form {...form}>
+					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+						<FormField
+							control={form.control}
+							name="bio"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Bio</FormLabel>
+									<FormControl>
+										<Textarea className="resize-none" {...field} />
+									</FormControl>
+									<FormDescription>
+										What do you want your supporters to know about you
+									</FormDescription>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<div className="space-y-1.5">
+							<FormLabel>Tags</FormLabel>
+							<CreatableSelect
+								isDisabled={loading}
+								isMulti
+								options={ProfileTagsOptions as any}
+								value={tags}
+								onChange={(e) => handleChange(e)}
+							/>
+							<FormDescription>
+								if a tag your resonate with is missing, create it or contact support to add it to the
+								options for you and others
+							</FormDescription>
+						</div>
+						<Button disabled={loading} type="submit">
+							Save
+						</Button>
+					</form>
+				</Form>
+			</DialogContent>
+		</Dialog>
+	);
 }
