@@ -15,6 +15,7 @@ import { truncateText } from '@/utility/text';
 import { toast } from 'sonner';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import queryKeys from '@/query-key-factory';
+import Loader from '../common/Loader';
 
 interface Props {
 	open: boolean;
@@ -23,7 +24,7 @@ interface Props {
 export const NotificactionCore = ({ open }: Props) => {
 	const [loading, setLoading] = useState(false);
 
-    const [unread, setUnread] = useState(false);
+	const [unread, setUnread] = useState(false);
 
 	const { loggedInUser } = useUser();
 
@@ -31,7 +32,7 @@ export const NotificactionCore = ({ open }: Props) => {
 
 	const fetchNotifications = async ({ pageParam = 1 }: { pageParam?: number }) => {
 		const response = await axios.get(
-			`/api/notification/${loggedInUser?.id}?page=${pageParam}&limit=${MAX_NOTIFICATION_PAGE}${unread ? "&unread=true":"" }`,
+			`/api/notification/${loggedInUser?.id}?page=${pageParam}&limit=${MAX_NOTIFICATION_PAGE}${unread ? '&unread=true' : ''}`,
 		);
 		return response.data as Notification[];
 	};
@@ -41,7 +42,7 @@ export const NotificactionCore = ({ open }: Props) => {
 	const queryClient = useQueryClient();
 
 	const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading } = useInfiniteQuery({
-		queryKey: queryKeys.notification.many() ,
+		queryKey: queryKeys.notification.many(),
 		initialPageParam: 1,
 		queryFn: ({ pageParam }) => fetchNotifications({ pageParam }),
 		getNextPageParam: (lastPage, allPages) => {
@@ -114,10 +115,10 @@ export const NotificactionCore = ({ open }: Props) => {
 		</DropdownMenu>
 	);
 
-    const toggleOnRead = () => {
-        setUnread(!unread);
-        queryClient.invalidateQueries({ queryKey: [...queryKeys.notification.many()] });
-    }
+	const toggleOnRead = () => {
+		setUnread(!unread);
+		queryClient.invalidateQueries({ queryKey: [...queryKeys.notification.many()] });
+	};
 
 	return (
 		<section className="w-full h-full p-1 space-y-2">
@@ -130,7 +131,7 @@ export const NotificactionCore = ({ open }: Props) => {
 					<Button variant="secondary" className="py-0.5">
 						View all
 					</Button>
-					<Button variant={unread ? "default" : "secondary"} className="py-0.5" onClick={toggleOnRead}>
+					<Button variant={unread ? 'default' : 'secondary'} className="py-0.5" onClick={toggleOnRead}>
 						Unread
 					</Button>
 				</div>
@@ -158,7 +159,6 @@ export const NotificactionCore = ({ open }: Props) => {
 								>
 									<div className="p-1">
 										<IsReadIcon className="text-lg" />
-                                        {index}
 									</div>
 									<div className="flex-1">
 										<p className="text-sm font-semibold">Someone bought you zobo</p>
@@ -170,7 +170,11 @@ export const NotificactionCore = ({ open }: Props) => {
 								</div>
 							);
 						})}
-						{isFetching && <div>Loading more data...</div>}
+						{isFetching && (
+							<div className='w-full flex items-center justify-center p-3'>
+								<Loader />
+							</div>
+						)}
 					</>
 				)}
 			</div>
