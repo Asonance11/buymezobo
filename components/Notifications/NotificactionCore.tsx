@@ -117,7 +117,7 @@ export const NotificactionCore = ({ open }: Props) => {
 
 	const toggleOnRead = () => {
 		setUnread(!unread);
-		queryClient.invalidateQueries({ queryKey: [...queryKeys.notification.many()] });
+		queryClient.invalidateQueries({ queryKey: [...queryKeys.notification.all] });
 	};
 
 	return (

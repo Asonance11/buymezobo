@@ -31,6 +31,7 @@ export const ImagePostCard = ({ creatorname }: Props) => {
         queryKey: queryKeys.user.getByName(creatorname),
         queryFn: () => getCreatorByName(creatorname),
         enabled: !!creatorname,
+        refetchOnWindowFocus:false
     });
 
     if (isLoading || !creator || creator.posts.length == 0) {

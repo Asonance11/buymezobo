@@ -67,6 +67,7 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 		queryKey: queryKeys.support.many(),
 		queryFn: () => getCreatorSupports(creator!.id),
 		enabled: !!creator,
+        refetchOnWindowFocus:false
 	});
 
 	const postCommentMutation = useMutation({
@@ -256,7 +257,7 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 										return (
 											<div
 												key={comment.id}
-												className=" p-0.5 px-1 md:p-2 w-fit bg-gray-100 rounded-sm flex items-center justify-start my-0.5 md:my-1 gap-1 md:gap-2"
+												className=" p-0.5 px-1 md:p-2 w-fit bg-gray-100 rounded-sm flex items-center justify-start my-0.5 md:my-1 gap-1 md:gap-2 overflow-hidden"
 											>
 												<img
 													className="cursor-pointer rounded-lg w-6 h-8 lg:w-8 lg:h-8 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
