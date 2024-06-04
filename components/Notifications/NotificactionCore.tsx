@@ -13,7 +13,8 @@ import { useUser } from '@/store/UserDataStore';
 import axios from 'axios';
 import { truncateText } from '@/utility/text';
 import { toast } from 'sonner';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import queryKeys from '@/query-key-factory';
 
 interface Props {
 	open: boolean;
@@ -22,21 +23,25 @@ interface Props {
 export const NotificactionCore = ({ open }: Props) => {
 	const [loading, setLoading] = useState(false);
 
+    const [unread, setUnread] = useState(false);
+
 	const { loggedInUser } = useUser();
 
 	const MAX_NOTIFICATION_PAGE = 10;
 
 	const fetchNotifications = async ({ pageParam = 1 }: { pageParam?: number }) => {
 		const response = await axios.get(
-			`/api/notification/${loggedInUser?.id}?page=${pageParam}&limit=${MAX_NOTIFICATION_PAGE}`,
+			`/api/notification/${loggedInUser?.id}?page=${pageParam}&limit=${MAX_NOTIFICATION_PAGE}${unread ? "&unread=true":"" }`,
 		);
 		return response.data as Notification[];
 	};
 
 	const observer = useRef<IntersectionObserver>();
 
+	const queryClient = useQueryClient();
+
 	const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading } = useInfiniteQuery({
-		queryKey: ['notifications'],
+		queryKey: queryKeys.notification.many() ,
 		initialPageParam: 1,
 		queryFn: ({ pageParam }) => fetchNotifications({ pageParam }),
 		getNextPageParam: (lastPage, allPages) => {
@@ -73,6 +78,7 @@ export const NotificactionCore = ({ open }: Props) => {
 		try {
 			setLoading(true);
 			await axios.put(`/api/notification/${loggedInUser?.id}/markallasread`);
+			queryClient.invalidateQueries({ queryKey: [...queryKeys.notification.many()] });
 			toast.success('All notifications marked as read');
 		} catch (error) {
 			console.error(error);
@@ -85,6 +91,7 @@ export const NotificactionCore = ({ open }: Props) => {
 		try {
 			setLoading(true);
 			await axios.delete(`/api/notification/${loggedInUser?.id}/deleteall`);
+			queryClient.invalidateQueries({ queryKey: [...queryKeys.notification.many()] });
 			toast.success('All notifications deleted');
 		} catch (error) {
 			console.error(error);
@@ -107,6 +114,11 @@ export const NotificactionCore = ({ open }: Props) => {
 		</DropdownMenu>
 	);
 
+    const toggleOnRead = () => {
+        setUnread(!unread);
+        queryClient.invalidateQueries({ queryKey: [...queryKeys.notification.many()] });
+    }
+
 	return (
 		<section className="w-full h-full p-1 space-y-2">
 			<div className="flex items-center justify-between">
@@ -118,7 +130,7 @@ export const NotificactionCore = ({ open }: Props) => {
 					<Button variant="secondary" className="py-0.5">
 						View all
 					</Button>
-					<Button variant="secondary" className="py-0.5">
+					<Button variant={unread ? "default" : "secondary"} className="py-0.5" onClick={toggleOnRead}>
 						Unread
 					</Button>
 				</div>
@@ -146,6 +158,7 @@ export const NotificactionCore = ({ open }: Props) => {
 								>
 									<div className="p-1">
 										<IsReadIcon className="text-lg" />
+                                        {index}
 									</div>
 									<div className="flex-1">
 										<p className="text-sm font-semibold">Someone bought you zobo</p>

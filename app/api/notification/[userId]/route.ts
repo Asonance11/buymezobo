@@ -13,8 +13,11 @@ export async function GET(request: NextRequest, { params }: { params: { userId: 
 
 		const urlParams = new URL(request.url).searchParams;
 		const isReadParam = urlParams.get('isRead');
+		const unread = urlParams.get('unread') === 'true' ? true : false;
+
 		const page = parseInt(urlParams.get('page') || '1', 10);
 		const limit = parseInt(urlParams.get('limit') || '10', 10);
+
 		const skip = (page - 1) * limit;
 
 		let notifications;
@@ -23,8 +26,12 @@ export async function GET(request: NextRequest, { params }: { params: { userId: 
 			userId: loggedInUser.id,
 		};
 
-		if (isReadParam !== null) {
-			whereClause.isRead = isReadParam === 'true';
+		// if (isReadParam !== null) {
+		// 	whereClause.isRead = isReadParam === 'true';
+		// }
+
+		if (unread) { //if we only want to see the unread messages, isRead = false
+			whereClause.isRead = false; // Filter based on unread status
 		}
 
 		notifications = await db.notification.findMany({
@@ -35,7 +42,7 @@ export async function GET(request: NextRequest, { params }: { params: { userId: 
 			take: limit,
 			skip: skip,
 		});
-        console.log(notifications)
+		console.log(notifications);
 		return new NextResponse(JSON.stringify(notifications), { status: 200 });
 	} catch (error) {
 		console.error('[SERVER GET NOTIFICATIONS ERROR]', error);

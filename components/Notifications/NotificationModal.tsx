@@ -31,7 +31,7 @@ export default function NotificationModal() {
 
     return (
         <Dialog open={open} onOpenChange={onClose}>
-            <DialogContent>
+            <DialogContent className='p-2 md:p-4 lg:p-6'>
                 <NotificactionCore open={open} />
             </DialogContent>
         </Dialog>
