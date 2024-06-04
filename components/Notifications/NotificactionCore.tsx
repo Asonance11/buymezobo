@@ -1,89 +1,165 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Notification } from '@prisma/client';
-import Loader from '../common/Loader';
 import { SlOptions } from 'react-icons/sl';
+import { IoMailOutline, IoMailOpenOutline } from 'react-icons/io5';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useUser } from '@/store/UserDataStore';
+import axios from 'axios';
+import { truncateText } from '@/utility/text';
+import { toast } from 'sonner';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 interface Props {
 	open: boolean;
 }
 
 export const NotificactionCore = ({ open }: Props) => {
-	const [notifications, setNotificactions] = useState<Notification[] | null>(null);
 	const [loading, setLoading] = useState(false);
 
-	useEffect(() => {
-		const fetchNotifications = async () => {
-			try {
-				setLoading(true);
-			} catch (error) {
-			} finally {
-				//setLoading(false);
-			}
-		};
-		if (open) {
-			console.log('open notification');
-			fetchNotifications();
-		}
-	}, [open]);
+	const { loggedInUser } = useUser();
 
-	const MarkAllasRead = async () => {};
-	const deleteAllNotifications = async () => {};
+	const MAX_NOTIFICATION_PAGE = 10;
 
-	const NotificationOptions = () => {
-		return (
-			<DropdownMenu>
-				<DropdownMenuTrigger>
-					<div className="rounded-full hover:bg-zinc-200 transition-colors duration-300 cursor-pointer p-1.5">
-						<SlOptions />
-					</div>
-				</DropdownMenuTrigger>
-				<DropdownMenuContent>
-					<DropdownMenuItem onClick={() => MarkAllasRead()}>Mark all as read</DropdownMenuItem>
-					<DropdownMenuItem onClick={() => deleteAllNotifications()}>
-						Delete all notifiactions
-					</DropdownMenuItem>
-				</DropdownMenuContent>
-			</DropdownMenu>
+	const fetchNotifications = async ({ pageParam = 1 }: { pageParam?: number }) => {
+		const response = await axios.get(
+			`/api/notification/${loggedInUser?.id}?page=${pageParam}&limit=${MAX_NOTIFICATION_PAGE}`,
 		);
+		return response.data as Notification[];
 	};
 
-	const MarkasRead = async (notificationId: string) => {};
-	const deleteNotification = async (notificationId: string) => {};
+	const observer = useRef<IntersectionObserver>();
+
+	const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading } = useInfiniteQuery({
+		queryKey: ['notifications'],
+		initialPageParam: 1,
+		queryFn: ({ pageParam }) => fetchNotifications({ pageParam }),
+		getNextPageParam: (lastPage, allPages) => {
+			return lastPage.length === MAX_NOTIFICATION_PAGE ? allPages.length + 1 : undefined;
+		},
+		refetchOnWindowFocus: false,
+		refetchOnReconnect: true,
+	});
+
+	const lastElementRef = useCallback(
+		(node: HTMLDivElement) => {
+			if (isLoading) return;
+			if (observer.current) observer.current.disconnect();
+
+			observer.current = new IntersectionObserver((entries) => {
+				if (entries[0].isIntersecting && hasNextPage && !isFetching) {
+					fetchNextPage();
+				}
+			});
+
+			if (node) observer.current.observe(node);
+		},
+		[fetchNextPage, hasNextPage, isFetching, isLoading],
+	);
+
+	const notifications = useMemo(() => {
+		return data?.pages.flat();
+	}, [data]);
+
+	if (isLoading) return <h1>Loading...</h1>;
+	if (error) return <h1>Error fetching data...</h1>;
+
+	const MarkAllasRead = async () => {
+		try {
+			setLoading(true);
+			await axios.put(`/api/notification/${loggedInUser?.id}/markallasread`);
+			toast.success('All notifications marked as read');
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	const deleteAllNotifications = async () => {
+		try {
+			setLoading(true);
+			await axios.delete(`/api/notification/${loggedInUser?.id}/deleteall`);
+			toast.success('All notifications deleted');
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	const NotificationOptions = () => (
+		<DropdownMenu>
+			<DropdownMenuTrigger>
+				<div className="rounded-full hover:bg-zinc-200 transition-colors duration-300 cursor-pointer p-1.5">
+					<SlOptions />
+				</div>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent>
+				<DropdownMenuItem onClick={MarkAllasRead}>Mark all as read</DropdownMenuItem>
+				<DropdownMenuItem onClick={deleteAllNotifications}>Delete all notifications</DropdownMenuItem>
+			</DropdownMenuContent>
+		</DropdownMenu>
+	);
 
 	return (
 		<section className="w-full h-full p-1 space-y-2">
 			<div className="flex items-center justify-between">
 				<p className="font-semibold lg:text-xl tracking-tight">Notifications</p>
-				<div>
-					<NotificationOptions />
-				</div>
+				<NotificationOptions />
 			</div>
 			<div className="flex items-center justify-between">
 				<div className="space-x-2">
-					<Button variant={'secondary'} className="py-0.5">
+					<Button variant="secondary" className="py-0.5">
 						View all
 					</Button>
-					<Button variant={'secondary'} className="py-0.5">
+					<Button variant="secondary" className="py-0.5">
 						Unread
 					</Button>
 				</div>
-				<Button variant={'ghost'}>Mark all as read</Button>
+				<Button disabled={loading} onClick={MarkAllasRead} variant="ghost">
+					Mark all as read
+				</Button>
 			</div>
-			<div>
-				{notifications == null || notifications?.length < 1 ? (
-					<div className="flex w-full h-hull items-center justify-center py-16 lg:py-20 bg-zinc-300 rounded-lg">
+			<div className="overflow-y-auto max-h-72">
+				{notifications == null || notifications.length < 1 ? (
+					<div className="flex w-full h-full items-center justify-center py-16 lg:py-20 bg-zinc-300 rounded-lg">
 						<p>You have no notifications</p>
 					</div>
-				) : null}
+				) : (
+					<>
+						{notifications.map((notification, index) => {
+							const IsReadIcon = notification.isRead ? IoMailOpenOutline : IoMailOutline;
+							const refProp = index === notifications.length - 1 ? { ref: lastElementRef } : {};
+							return (
+								<div
+									{...refProp}
+									key={notification.id}
+									className={`flex my-1 border border-gray-200 rounded-xl p-2 items-center w-full gap-2 ${
+										notification.isRead ? 'bg-gray-100' : ''
+									}`}
+								>
+									<div className="p-1">
+										<IsReadIcon className="text-lg" />
+									</div>
+									<div className="flex-1">
+										<p className="text-sm font-semibold">Someone bought you zobo</p>
+										<p className="text-xs">{truncateText(notification.content!, 40)}</p>
+									</div>
+									<div>
+										<SlOptions />
+									</div>
+								</div>
+							);
+						})}
+						{isFetching && <div>Loading more data...</div>}
+					</>
+				)}
 			</div>
 		</section>
 	);
