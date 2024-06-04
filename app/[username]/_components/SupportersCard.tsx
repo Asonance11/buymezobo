@@ -24,6 +24,9 @@ import { FaHeart } from 'react-icons/fa';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import ProfileCardComponent from '@/components/Profile/ComponentCard';
 import Loader from '@/components/common/Loader';
+import { EmojiClickData } from 'emoji-picker-react';
+import { HiOutlineEmojiHappy } from 'react-icons/hi';
+import Emoji from '@/components/tools/EmojiPicker';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	post: Post | null;
@@ -155,6 +158,18 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 		);
 	}
 
+	//emoji stuff
+	const onEmojiClick = (emojiObject: EmojiClickData) => {
+		console.log(emojiObject.emoji);
+		let content = commentText;
+		content = content + emojiObject.emoji;
+		setCommentText(content);
+	};
+
+    if (!supports){
+        return null
+    }
+
 	return (
 		<div
 			className={cn(
@@ -259,13 +274,24 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 								</div>
 								{activeComment === support.id && (
 									<div className="mt-2 flex items-center gap-2">
-										<Input
-											type="text"
-											className="flex-1 border rounded p-2 text-sm"
-											placeholder="Add a comment..."
-											value={commentText}
-											onChange={(e) => setCommentText(e.target.value)}
-										/>
+										<div className='flex items-center flex-1 border rounded-xl p-2 '>
+											<Input
+												type="text"
+												className="flex-1 text-sm border-none focus-visible:ring-offset-0 focus-visible:ring-0"
+												placeholder="Add a comment..."
+												value={commentText}
+												onChange={(e) => setCommentText(e.target.value)}
+											/>
+											<DropdownMenu>
+												<DropdownMenuTrigger className="outline-none">
+													<HiOutlineEmojiHappy className="text-xl md:text-2xl text-gray-500 focus:text-purple-700 " />{' '}
+												</DropdownMenuTrigger>
+												<DropdownMenuContent>
+													<Emoji open={true} onEmojiClick={onEmojiClick} />
+												</DropdownMenuContent>
+											</DropdownMenu>
+	
+										</div>
 										<Button className="rounded-sm" onClick={() => handleCommentSubmit(support.id)}>
 											Submit
 										</Button>

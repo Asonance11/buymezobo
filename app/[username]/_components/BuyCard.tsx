@@ -1,3 +1,9 @@
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { HiOutlineEmojiHappy } from 'react-icons/hi';
 import { usePaystackPayment } from 'react-paystack';
 import { PaymentStatus, Profile, Support } from '@prisma/client';
 import React, { HTMLAttributes, useState } from 'react';
@@ -22,6 +28,8 @@ import { User } from 'lucia';
 import { WidgetProps } from '@/types/widget';
 import { useAuth } from '@/actions/use-auth';
 import { useUser } from '@/store/UserDataStore';
+import Emoji from '@/components/tools/EmojiPicker';
+import { EmojiClickData } from 'emoji-picker-react';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	themeColor?: string;
@@ -115,6 +123,15 @@ export default function BuyCard({ creator, className, setReload, widgetprops }: 
 
 	const nairaSymbol = '₦';
 
+	//emoji stuff
+	const [isEmojiOpen, setIsEmojiOpen] = useState(true);
+	const onEmojiClick = (emojiObject: EmojiClickData) => {
+		console.log(emojiObject.emoji);
+		let content = form.getValues().content;
+		content = content + emojiObject.emoji;
+		form.setValue('content', content);
+	};
+
 	return (
 		<div
 			className={cn(
@@ -144,7 +161,7 @@ export default function BuyCard({ creator, className, setReload, widgetprops }: 
 								<FormControl>
 									<Input
 										disabled={loggedInUser !== null}
-										className="w-full resize-none"
+										className="w-full resize-none focus-visible:ring-offset-0 focus-visible:ring-0"
 										{...field}
 										placeholder="Name or alias"
 									/>
@@ -160,11 +177,23 @@ export default function BuyCard({ creator, className, setReload, widgetprops }: 
 						render={({ field }) => (
 							<FormItem>
 								<FormControl>
-									<Textarea
-										className="w-full resize-none"
-										{...field}
-										placeholder="Say something nice"
-									/>
+									<div className="border-gray-200 border rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+										<Textarea
+											className="resize-none border-none focus:border-none focus-visible:ring-offset-0 focus-visible:ring-0"
+											{...field}
+											placeholder="Say something nice"
+										/>
+										<div className="w-full p-2.5 flex items-center justify-end">
+											<DropdownMenu>
+												<DropdownMenuTrigger className="outline-none">
+													<HiOutlineEmojiHappy className="text-xl md:text-2xl text-gray-500 focus:text-purple-700 " />{' '}
+												</DropdownMenuTrigger>
+												<DropdownMenuContent>
+													<Emoji open={isEmojiOpen} onEmojiClick={onEmojiClick} />
+												</DropdownMenuContent>
+											</DropdownMenu>
+										</div>
+									</div>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
