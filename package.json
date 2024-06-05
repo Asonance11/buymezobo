@@ -19,6 +19,7 @@
 			"pre-commit": "npm run build"
 		}
 	},
+    "packageManager": "pnpm@9.1.4",
 	"dependencies": {
 		"@ant-design/icons": "^5.3.7",
 		"@createform/react": "^4.0.4",
