@@ -16,7 +16,7 @@ export interface CommentPrimitive extends CommentType {
 }
 
 export interface SupportPrimitive extends SupportType {
-	comments?: Comment[];
+	comments?: CommentPrimitive[];
 	supporter?: Profile;
 	profile?: Profile;
 }
