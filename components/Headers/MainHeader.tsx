@@ -4,30 +4,29 @@ import { IoMdSearch } from 'react-icons/io';
 import { Button } from '../ui/button';
 import useIsMobile from '@/hooks/useIsMobile';
 import { HiMenu } from 'react-icons/hi';
-import { FaQuoteLeft } from 'react-icons/fa';
-import { IoInformationCircle } from 'react-icons/io5';
 import { Logo } from '../common/Logo';
 import Link from 'next/link';
-import { User } from 'lucia';
-import { Skeleton } from '../ui/skeleton';
 import { useUser } from '@/store/UserDataStore';
 import { useAuth as Auth } from '@/actions/use-auth';
 import UserButton from '../Profile/UserButton';
+import { helvetica } from '@/utility/fonts';
 
 const MenuLinks = () => (
 	<>
-		<div className="flex items-center justify-center w-fit gap-1">
-			<FaQuoteLeft className="text-sm" />
-			<Link prefetch={false} href="/faq" className="text-base font-light tracking-tight">
-				faq
-			</Link>
-		</div>
-		<div className="flex items-center justify-center w-fit gap-1">
-			<IoInformationCircle className="text-base" />
-			<Link href="/about" prefetch={false} className="text-base font-light tracking-tight">
-				about
-			</Link>
-		</div>
+		<Link
+			prefetch={false}
+			href="/faq"
+			className={`text-lg ${helvetica.className} font-light tracking-tight hover:underline`}
+		>
+			FAQs
+		</Link>
+		<Link
+			prefetch={false}
+			href="/about"
+			className={`text-lg ${helvetica.className} font-light tracking-tight hover:underline`}
+		>
+			About Us
+		</Link>
 	</>
 );
 
@@ -38,18 +37,13 @@ export default function MainHeader() {
 	const [loading, setLoading] = useState(!loggedInUser);
 
 	useEffect(() => {
-		const fetchProfile = async () => {
-			if (!loggedInUser) {
-				const { user } = await Auth();
-				updateUser(user);
-				setLoading(false);
-			}
-		};
-		fetchProfile();
-	}, [loggedInUser, updateUser]);
+		if (loggedInUser) {
+			setLoading(false);
+		}
+	}, [loggedInUser]);
 
 	const openMenu = () => onOpen('searchCreators');
-	const openSide = () => onOpen('sideMenuNavigation', { creator: loggedInUser as User });
+	const openSide = () => onOpen('sideMenuNavigation', { creator: loggedInUser });
 
 	return (
 		<div className="navbar bg-white lg:max-w-[95%] mx-auto">
@@ -57,50 +51,58 @@ export default function MainHeader() {
 				{isMobile ? (
 					<HiMenu className="text-2xl" onClick={openSide} />
 				) : (
-					<div className="items-center gap-5 hidden md:flex">
+					<div className="hidden md:flex items-center gap-5">
 						<MenuLinks />
 					</div>
 				)}
 			</div>
-			<div className="navbar-center flex">
+			<div className="navbar-center">
 				<Logo textClassName="text-lg" />
 			</div>
-			<div className="navbar-end flex gap-3">
-				<div
-					onClick={openMenu}
-					className="hidden xl:flex gap-1 items-center justify-start p-2 rounded-lg bg-zinc-100"
-				>
-					<IoMdSearch className="text-2xl" />
-					<input
+			<div className="navbar-end flex items-center gap-3">
+				{!isMobile && (
+					<div
 						onClick={openMenu}
-						type="text"
-						placeholder="Search Creators"
-						className="focus:outline-none flex-1 bg-transparent text-sm font-semibold placeholder-zinc-700"
-					/>
-				</div>
+						className="hidden xl:flex gap-1 items-center justify-start p-2 rounded-lg bg-zinc-100"
+					>
+						<IoMdSearch className="text-xl" />
+						<input
+							onClick={openMenu}
+							type="text"
+							placeholder="Search Creators"
+							className="focus:outline-none flex-1 bg-transparent text-sm font-semibold placeholder-zinc-700"
+						/>
+					</div>
+				)}
 				{loading && !isMobile ? (
-					<div className="flex gap-3">
-						<Skeleton className="lg:block bg-purple-300 h-[40px] w-[100px] p-2" />
-						<Skeleton className="rounded-full w-[40px] h-[40px] p-2 bg-sky-200" />
+					<div className="hidden lg:flex gap-3">
+						<div className="bg-purple-300 h-[40px] w-[100px] p-2 rounded-lg animate-pulse" />
+						<div className="rounded-full w-[40px] h-[40px] p-2 bg-sky-200 animate-pulse" />
 					</div>
 				) : loggedInUser ? (
 					<>
-						<Link className="hidden lg:block" href={`/dashboard`}>
-							<Button className="font-bold">Dashboard</Button>
-						</Link>
+						{!isMobile && (
+							<Link href="/dashboard">
+								<Button className="font-bold">Dashboard</Button>
+							</Link>
+						)}
 						<UserButton />
 					</>
 				) : (
 					<>
-						<Button
-							variant={'secondary'}
-							className="hidden lg:block text-sm lg:text-base font-semibold tracking-tight"
-						>
-							<a href="/signin">Login</a>
-						</Button>
-						<Button className="hidden lg:block rounded-lg text-sm lg:text-base font-semibold tracking-tight">
-							<a href="/signup">Sign up</a>
-						</Button>
+						{!isMobile && (
+							<>
+								<Button
+									variant="secondary"
+									className="text-sm lg:text-base font-semibold tracking-tight"
+								>
+									<a href="/signin">Login</a>
+								</Button>
+								<Button className="rounded-lg text-sm lg:text-base font-semibold tracking-tight">
+									<a href="/signup">Sign up</a>
+								</Button>
+							</>
+						)}
 					</>
 				)}
 			</div>
