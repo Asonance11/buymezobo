@@ -54,7 +54,7 @@ export default function Home() {
 					<h1
 						className={`text-4xl/none md:text-6xl lg:text-7xl  dark:text-neutral-400  text-neutral-800 text-center -tracking-wider font-bold leading-none ${helvetica.className} `}
 					>
-						Support {' '}
+						Support our {' '}
 						{loading ? (
 							<p className="block"> {HomePageWords[0]}</p>
 						) : (

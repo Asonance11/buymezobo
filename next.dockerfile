@@ -4,42 +4,20 @@ FROM node:lts-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
+RUN apk add --no-cache libc6-compat
 
 #--------------------------------------------------------------------------------------------------------------------------------
 FROM base AS deps
-
-
-RUN apk add --no-cache libc6-compat
 WORKDIR /app
-
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-
-#RUN corepack install
-
-# RUN pnpm --version; \
-#      pnpm setup; \
-#      pnpm bin -g &&\
-#      # Install dependencies
-#      pnpm add -g pm2 &&\
-#      pnpm install
-
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-
-# RUN \
-#   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-#   elif [ -f package-lock.json ]; then npm ci; \
-#   elif [ -f pnpm-lock.yaml ]; then pnpm install --frozen-lockfile; \
-#   else echo "Lockfile not found." && exit 1; \
-#   fi
 
 
 #--------------------------------------------------------------------------------------------------------------------------------
 FROM base AS dev
 WORKDIR /app
-#We copy over the deps from our install stage & copy the rest of the source code into the image. 
 COPY --from=deps /app/node_modules ./node_modules 
 COPY . .
-
 RUN pnpm exec prisma generate
 
 
