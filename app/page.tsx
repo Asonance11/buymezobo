@@ -51,7 +51,7 @@ export default function Home() {
                 <div className="lg:w-3/4 xl:w-[60%] mx-auto p-2 lg:p-6 flex items-center justify-center flex-col gap-2 lg:gap-2 text-center rounded-lg lg:shadow-sm space-y-2">
                     <HomepageAlertButton />
                     <h1
-                        className={`text-4xl/none md:text-6xl lg:text-8xl  dark:text-neutral-400  text-neutral-800 text-center -tracking-wider font-bold leading-none ${helvetica.className} `}
+                        className={`text-4xl/none md:text-6xl lg:text-7xl  dark:text-neutral-400  text-neutral-800 text-center -tracking-wider font-bold leading-none ${helvetica.className} `}
                     >
                         Fund your{' '}
                         {loading ? (
@@ -60,9 +60,9 @@ export default function Home() {
                             <WordRotate className="block" words={HomePageWords} />
                         )}
                     </h1>
-                    <p className="text-sm lg:text-xl font-normal text-gray-700 w-full md:w-3/4">
+                    <p className="text-sm lg:text-lg font-normal text-gray-700 w-full md:w-3/4">
                         Seamlessly Receive Support, Build a Fan Base, and Retail Your Products, it's easier than you
-                        think.
+                        think, it's free and takes less than a minute!
                     </p>
                     {loading ? (
                         <Skeleton className="p-3 lg:p-6 text-base lg:text-xl bg-purple-300 font-semibold w-[150px] h-[40px]" />
@@ -73,9 +73,6 @@ export default function Home() {
                             </Button>
                         </Link>
                     )}
-                    <p className="text-xs lg:text-base font-light text-gray-600">
-                        It's free and takes less than a minute!
-                    </p>
                 </div>
             </section>
             <section className="bg-green-800 flex flex-col items-center justify-center "></section>
