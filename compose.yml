@@ -2,14 +2,15 @@ version: '3.9'
 
 services:
     buymezobo:
-        container_name: buymezobo
         build:
            context: .
            dockerfile: next.dockerfile
-           target: dev
+           target: dev 
 
+        command: ["pnpm", "dev"]
+
+        container_name: buymezobo
         restart: always
-        command: pnpm dev
         env_file:
             - .env
         volumes:
@@ -18,7 +19,6 @@ services:
             - /app/.next
         ports:
             - 3000:3000
-
     db:
         container_name: buy-me-zobo-db
         image: postgres

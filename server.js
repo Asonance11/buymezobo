@@ -17,7 +17,7 @@ const io = new Server(server, {
 });
 
 const kafka = new Kafka({
-	brokers: ['localhost:9092'], // Make sure to match your Kafka broker address
+	brokers: ['localhost:9093'], // Make sure to match your Kafka broker address
 });
 
 const consumer = kafka.consumer({ groupId: 'notification-group' });

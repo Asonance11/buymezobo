@@ -11,6 +11,7 @@ FROM base AS deps
 WORKDIR /app
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm add concurrently
 
 
 #--------------------------------------------------------------------------------------------------------------------------------
@@ -48,9 +49,10 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 # socket server
-COPY --chown=nextjs:nodejs server.js ./
+#COPY --chown=nextjs:nodejs server.js ./
 
 USER nextjs
 
-#CMD ["node", "server.js"] # original startup command
-CMD ["node", "server.js", "&", "node", "./.next/standalone/server.js"]
+CMD ["node", "server.js"] # original startup command
+#CMD ["node", "server.js", "&", "node", "./.next/standalone/server.js"]
+#CMD ["node", "./.next/standalone/server.js"]
