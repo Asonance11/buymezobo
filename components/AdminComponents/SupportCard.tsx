@@ -1,9 +1,10 @@
+import { SupportPrimitive } from '@/types/primitives';
 import { cn } from '@/utility/style';
 import { Support } from '@prisma/client';
 import React, { HTMLAttributes } from 'react';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-	support: Support;
+	support: SupportPrimitive;
 }
 
 export default function SupportCard({ support, className }: Props) {

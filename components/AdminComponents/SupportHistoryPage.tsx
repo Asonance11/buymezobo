@@ -43,10 +43,9 @@ export default function SupportHistory({ creator, className }: Props) {
 					className,
 				)}
 			>
-				<Separator className="my-2" />
 				<div className="spce-y-4 w-full">
-					{[1, 2, 3, 4, 5].map((index) => (
-						<Skeleton key={index} className="py-3 w-full "></Skeleton>
+					{[1, 2, 3].map((index) => (
+						<Skeleton key={index} className="py-3 my-1 w-full "></Skeleton>
 					))}
 				</div>
 			</div>
