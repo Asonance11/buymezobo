@@ -9,7 +9,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { SlOptions } from 'react-icons/sl';
+import { SlOptionsVertical } from 'react-icons/sl';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { avatarImageUrl } from '@/utility/avatar';
@@ -133,7 +133,7 @@ export default function SupportCard({ support, className }: Props) {
 				<DropdownMenu>
 					<DropdownMenuTrigger className="outline-none">
 						<div className="rounded-full hover:bg-zinc-200 transition-colors duration-300 cursor-pointer p-1.5">
-							<SlOptions />
+							<SlOptionsVertical />
 						</div>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent>
