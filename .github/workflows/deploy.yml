@@ -30,4 +30,5 @@ jobs:
                   file: ./next.dockerfile
                   push: true
                   tags: ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
-              env: UPLOADTHING_SECRET:${{secrets.UPLOADTHING_SECRET}}
+              env: 
+                  UPLOADTHING_SECRET: ${{secrets.UPLOADTHING_SECRET}}
