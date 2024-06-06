@@ -3,19 +3,13 @@
 # Function to start the Next.js development server
 start_dev() {
     echo "Starting Next.js development server and Node.js server..."
-    concurrently "pnpm run dev" "pm2 start server.js --name socket-server --watch"
+    npm run dock:dev
 }
 
 # Function to start the Next.js production server
 start_prod() {
     echo "Starting Next.js production server and Node.js server..."
-    concurrently "pnpm run start" "pm2 start server.js --name socket-server --watch"
-}
-
-# Function to start the Docker containers in detached mode
-start_docker() {
-    echo "Starting Docker containers..."
-    docker compose up -d
+    npm run dock:prod
 }
 
 # Function to stop the Docker containers
@@ -29,30 +23,16 @@ clean() {
 # Check the argument passed to the script
 case "$1" in
     dev)
-        ensure_dependencies_installed
-        remove_next
-        start_docker
-        concurrently "node server.js" , "pnpm run dev" #simpler running of both processes
+        start_dev
         ;;
     prod)
-        ensure_dependencies_installed
-        remove_next
-        build_app
-        start_docker
         start_prod
         ;;
     clean)
-        stop_docker
-        remove_next
-        stop_node_server
+        clean
         ;;
-    build)
-        remove_next
-        build_app
-        stop_node_server
-        ;;
-    *)
-        echo "Usage: $0 {dev|prod|clean|build}"
+   *)
+        echo "Usage: $0 {dev|prod|clean}"
         exit 1
 esac
 
