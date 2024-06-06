@@ -39,7 +39,7 @@ export default function MakeImagePostModal() {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: queryKeys.post.all });
 			form.reset();
-            close()
+			close();
 			toast.success('Post was successfully uploaded');
 		},
 		onError: (error) => {
@@ -57,10 +57,10 @@ export default function MakeImagePostModal() {
 		postImageMutation.mutate(data);
 	}
 
-    const close = () => {
-        setImageUrl(null)
-        onClose();
-    }
+	const close = () => {
+		setImageUrl(null);
+		onClose();
+	};
 
 	return (
 		<Dialog open={open} onOpenChange={close}>

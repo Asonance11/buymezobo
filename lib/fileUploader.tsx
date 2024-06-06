@@ -36,8 +36,7 @@ const FileUploader: React.FC<FileUploaderProps> = function ({
 		}
 		setUploading(true);
 
-        const storageRef = ref(firebaseStorage, `${storageRefDir}/${file.name}`)
-
+		const storageRef = ref(firebaseStorage, `${storageRefDir}/${file.name}`);
 
 		const uploadTask = uploadBytesResumable(storageRef, file);
 
