@@ -107,7 +107,9 @@ export default function SocialMediaLinksModal() {
 										</SelectTrigger>
 										<SelectContent>
 											{Object.values(SocialMediaType).map((type, index) => (
-												<SelectItem key={index} value={type}>{type.toLowerCase()}</SelectItem>
+												<SelectItem key={index} value={type}>
+													{type.toLowerCase()}
+												</SelectItem>
 											))}
 										</SelectContent>
 									</Select>

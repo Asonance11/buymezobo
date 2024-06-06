@@ -1,5 +1,5 @@
+1. test if the remote image works
 
-1. test if the remote image works 
     - so build locally - done
     - push to remote repo - done
     - run with prod.yml - i'm not sure about this one
@@ -7,6 +7,7 @@
 2. if it works, build one singular deploy script -- push this down to last
 
 3. setup github actions
+
     - it should build everything and see if it works - done
     - add space for tests (soon) - soon
     - build the buymezobo and push to docker hub

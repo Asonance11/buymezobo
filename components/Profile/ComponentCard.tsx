@@ -33,7 +33,7 @@ export default function ProfileCardComponent({ profile }: Props) {
 				<p className="font-light text-xs">{truncateText(profile.bio ? profile.bio : '', 70)}</p>
 			</div>
 			<div className="p-1">
-				{profile.tags.slice(0,2).map((tag) => {
+				{profile.tags.slice(0, 2).map((tag) => {
 					const encodedTag = encodeURIComponent(tag);
 					const tagLabel = getTagLabel(tag);
 

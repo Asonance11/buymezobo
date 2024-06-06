@@ -7,7 +7,6 @@ import { useUser } from '@/store/UserDataStore';
 import { QRCode } from 'react-qrcode-logo';
 
 export function QRMaker() {
-
 	// const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
 	// const origin = useOrigin();
 	// useEffect(() => {

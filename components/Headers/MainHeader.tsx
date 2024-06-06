@@ -39,7 +39,7 @@ export default function MainHeader() {
 		if (loggedInUser) {
 			setLoading(false);
 		}
-			setLoading(false);
+		setLoading(false);
 	}, [loggedInUser]);
 
 	const openMenu = () => onOpen('searchCreators');
