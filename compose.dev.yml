@@ -1,15 +1,15 @@
 version: '3.9'
 
 include:
-   - infra.yml
+    - infra.yml
 services:
     buymezobo:
         build:
-           context: .
-           dockerfile: next.dockerfile
-           target: dev 
+            context: .
+            dockerfile: next.dockerfile
+            target: dev
 
-        command: ["pnpm", "dev"]
+        command: ['pnpm', 'dev']
 
         container_name: buymezobo
         restart: always
@@ -20,7 +20,7 @@ services:
             - /app/node_modules
             - /app/.next
         # ports:
-        #     - 3000:3000    
+        #     - 3000:3000
         depends_on:
             - db
             - kafka
