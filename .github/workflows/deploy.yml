@@ -8,8 +8,6 @@ on:
             - dockerizer
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
     docker:
         runs-on: ubuntu-latest
         steps:
