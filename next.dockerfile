@@ -30,6 +30,10 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
 RUN pnpm exec prisma generate
 
+# Set environment variable for build
+ARG UPLOADTHING_SECRET
+ENV UPLOADTHING_SECRET=${UPLOADTHING_SECRET}
+
 #RUN pnpm run build
 RUN pnpm next build
 RUN chmod +x /app/entrypoint.sh
