@@ -7,8 +7,8 @@
 2. if it works, build one singular deploy script -- push this down to last
 
 3. setup github actions
-    - it should build everything and see if it works
-    - add space for tests (soon)
+    - it should build everything and see if it works - done
+    - add space for tests (soon) - soon
     - build the buymezobo and push to docker hub
     - do the same for socketserver
 
