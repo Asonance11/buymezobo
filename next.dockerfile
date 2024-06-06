@@ -11,7 +11,6 @@ FROM base AS deps
 WORKDIR /app
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm add concurrently
 
 
 #--------------------------------------------------------------------------------------------------------------------------------
@@ -29,10 +28,6 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
 RUN pnpm exec prisma generate
-
-# Set environment variable for build, uploadthing asks for key at buildtime, which breaks github action that has no access to .env file
-ARG UPLOADTHING_SECRET
-ENV UPLOADTHING_SECRET=${UPLOADTHING_SECRET}
 
 RUN pnpm next build
 RUN chmod +x /app/entrypoint.sh

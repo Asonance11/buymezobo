@@ -30,5 +30,3 @@ jobs:
                   file: ./next.dockerfile
                   push: true
                   tags: ${{ secrets.DOCKERHUB_USERNAME }}/buymezobo:latest
-                  build-args: |
-                      UPLOADTHING_SECRET=${{ secrets.UPLOADTHING_SECRET }}

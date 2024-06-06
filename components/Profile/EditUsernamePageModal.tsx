@@ -3,22 +3,20 @@ import React, { useEffect, useState } from 'react';
 import CreatableSelect from 'react-select/creatable';
 import { MultiValue } from 'react-select';
 import { Dialog, DialogContent, DialogDescription } from '@/components/ui/dialog';
-import { ImageUpload } from '../tools/ImageUploadButton';
-import { Profile } from '@prisma/client';
 import { Optional } from '@prisma/client/runtime/library';
 import { updateProfile } from '@/actions/profile';
 import { z } from 'zod';
-import { HeaderImageUpload } from '../tools/HeaderUploadButton';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '../ui/textarea';
 import { User } from 'lucia';
 import { ProfileTagsOptions } from '@/lib/tagsOptions';
-import { handleWebpackExternalForEdgeRuntime } from 'next/dist/build/webpack/plugins/middleware-plugin';
-import { Toaster, toast } from 'sonner';
+import { toast } from 'sonner';
 import { getCreatorTags } from '@/actions/tags';
+import FileUploader from '@/lib/fileUploader';
+import { Label } from '../ui/label';
 
 export default function EditUsernamePageModal() {
 	const { isOpen, type, data, onClose } = useInterface();
@@ -127,19 +125,23 @@ export default function EditUsernamePageModal() {
 				<DialogDescription>
 					<p>Edit {creator?.userName} page</p>
 				</DialogDescription>
-				<div className="flex ">
-					<ImageUpload
-						setLoading={setLoading}
-						value={creator?.imageUrl}
-						onChange={updateProfileImage}
-						endpoint="Image"
-					/>
-					<HeaderImageUpload
-						setLoading={setLoading}
-						value={creator?.headerImageUrl!}
-						onChange={updateHeaderImage}
-						endpoint="Image"
-					/>
+				<div className="flex items-center justify-around">
+					{profileImage ? (
+						<img src={profileImage} className="w-9 h-9 rounded-lg object-cover" />
+					) : (
+						<Label className={buttonVariants()}>
+							{'Upload Profile Picture'}
+							<FileUploader hidden storageRefDir="images" onUploadSuccess={updateProfileImage} />
+						</Label>
+					)}
+					{headerImage ? (
+						<img src={headerImage} className="w-16 h-16 rounded-lg object-cover" />
+					) : (
+						<Label className={buttonVariants()}>
+							{'Upload Header Picture'}
+							<FileUploader hidden storageRefDir="images" onUploadSuccess={updateHeaderImage} />
+						</Label>
+					)}
 				</div>
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
