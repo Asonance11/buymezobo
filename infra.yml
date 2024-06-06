@@ -9,13 +9,6 @@ services:
             - .env
         expose:
             - '3001'
-        # develop:
-        # watch:
-        #     - action: sync
-        #       path: ./socket
-        #       target: /app
-        #       ignore:
-        #           - node_modules/
         depends_on:
             - kafka
     nginx:

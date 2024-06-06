@@ -1,2 +1,0 @@
-- use pm2 to start nextjs and node
-- socketserver doesn't connet to nextjs
