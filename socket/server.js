@@ -9,15 +9,17 @@ const cors = require('cors');
 
 app.use(cors());
 
+//origin: 'http://localhost:3000',
+
 const io = new Server(server, {
-	cors: {
-		origin: 'http://localhost:3000',
-		methods: ['GET', 'POST'],
-	},
+	// cors: {
+	// 	origin: 'http://buymezobo:3000', // Internal hostname of the Next.js app
+	// 	methods: ['GET', 'POST'],
+	// },
 });
 
 const kafka = new Kafka({
-	brokers: ['localhost:9093'], // Make sure to match your Kafka broker address
+	brokers: ['kafka:9093'], // Make sure to match your Kafka broker address
 });
 
 const consumer = kafka.consumer({ groupId: 'notification-group' });

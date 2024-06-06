@@ -54,7 +54,7 @@ notificationQueue.process(async (job) => {
 // INFO: kafka configuration ------------------------------
 
 const kafka = new Kafka({
-    brokers: ['localhost:9092'], //NOTE: ikafka instantiation
+    brokers: ['kafka:9093'], //NOTE: ikafka instantiation
 });
 
 const producer = kafka.producer(); //NOTE: get our producer

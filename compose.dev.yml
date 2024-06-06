@@ -1,24 +1,29 @@
 version: '3.9'
 
-
 include:
    - infra.yml
 services:
     buymezobo:
         build:
-            context: .
-            dockerfile: next.dockerfile
-            # Remove the 'target' field for production build
+           context: .
+           dockerfile: next.dockerfile
+           target: dev 
+
+        command: ["pnpm", "dev"]
+
         container_name: buymezobo
         restart: always
         env_file:
             - .env
-        ports:
-            - 3000:3000
+        volumes:
+            - .:/app
+            - /app/node_modules
+            - /app/.next
+        # ports:
+        #     - 3000:3000    
         depends_on:
             - db
             - kafka
             - socketserver
         expose:
             - '3000'
-

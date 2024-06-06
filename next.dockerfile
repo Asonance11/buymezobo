@@ -29,7 +29,10 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
 RUN pnpm exec prisma generate
-RUN pnpm run build
+
+#RUN pnpm run build
+RUN pnpm next build
+RUN chmod +x /app/entrypoint.sh
 
 # Production image, copy all the files and run next
 #--------------------------------------------------------------------------------------------------------------------------------
@@ -48,11 +51,17 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# socket server
-#COPY --chown=nextjs:nodejs server.js ./
+COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/entrypoint.sh .
+
+
+# COPY entrypoint.sh /app/entrypoint.sh
+# RUN chmod +x /app/entrypoint.sh
+# ENTRYPOINT ["/entrypoint.sh"]
+
 
 USER nextjs
 
-CMD ["node", "server.js"] # original startup command
-#CMD ["node", "server.js", "&", "node", "./.next/standalone/server.js"]
-#CMD ["node", "./.next/standalone/server.js"]
+#CMD [ "pnpm run prisma:update" , "node server.js"] # original startup command
+
+CMD ["./entrypoint.sh"]
