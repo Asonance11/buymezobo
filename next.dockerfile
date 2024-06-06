@@ -34,7 +34,6 @@ RUN pnpm exec prisma generate
 ARG UPLOADTHING_SECRET
 ENV UPLOADTHING_SECRET=${UPLOADTHING_SECRET}
 
-#RUN pnpm run build
 RUN pnpm next build
 RUN chmod +x /app/entrypoint.sh
 
@@ -59,13 +58,6 @@ COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/entrypoint.sh .
 
 
-# COPY entrypoint.sh /app/entrypoint.sh
-# RUN chmod +x /app/entrypoint.sh
-# ENTRYPOINT ["/entrypoint.sh"]
-
-
 USER nextjs
-
-#CMD [ "pnpm run prisma:update" , "node server.js"] # original startup command
 
 CMD ["./entrypoint.sh"]
