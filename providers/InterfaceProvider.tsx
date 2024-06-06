@@ -6,8 +6,8 @@ import { NotificationsProvider } from '@/components/Notifications/NotificationIn
 
 // Dynamically import components
 const AdminSideMenuNavigationComponent = dynamic(
-    () => import('@/components/Navigation/AdminSidebarMenuNavigationSheet'),
-    { ssr: false },
+	() => import('@/components/Navigation/AdminSidebarMenuNavigationSheet'),
+	{ ssr: false },
 );
 const EditUsernamePageModal = dynamic(() => import('@/components/Profile/EditUsernamePageModal'), { ssr: false });
 const MakeImagePostModal = dynamic(() => import('@/components/Posts/MakeImagePostModal'), { ssr: false });
@@ -16,7 +16,7 @@ const PopUpWidgetModal = dynamic(() => import('@/components/ButtonsAndGraphics/P
 const QRCodeModal = dynamic(() => import('@/components/ButtonsAndGraphics/QRCodeModal'), { ssr: false });
 const SearchCreatorMenu = dynamic(() => import('@/components/Headers/SearchCreators'), { ssr: false });
 const SideMenuNavigationComponent = dynamic(() => import('@/components/Navigation/SideMenuNavigationHeader'), {
-    ssr: false,
+	ssr: false,
 });
 const WithdrawPayoutModal = dynamic(() => import('@/components/Profile/WithdrawPayoutModal'), { ssr: false });
 const NotificationModal = dynamic(() => import('@/components/Notifications/NotificationModal'), { ssr: false });
@@ -24,31 +24,31 @@ const ImageSelectModal = dynamic(() => import('@/components/Posts/ImageSelectMod
 const SocialMediaLinkModal = dynamic(() => import('@/components/Profile/SocialMediaLinkModal'), { ssr: false });
 
 export function InterfaceProvider() {
-    const [isMounted, setIsMounted] = useState(false);
+	const [isMounted, setIsMounted] = useState(false);
 
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
+	useEffect(() => {
+		setIsMounted(true);
+	}, []);
 
-    if (!isMounted) {
-        return null;
-    }
+	if (!isMounted) {
+		return null;
+	}
 
-    return (
-        <>
-            <NotificationsProvider />
-            <PopUpWidgetModal />
-            <ImageSelectModal />
-            <QRCodeModal />
-            <WithdrawPayoutModal />
-            <PayoutInfoModal />
-            <SearchCreatorMenu />
-            <SideMenuNavigationComponent />
-            <AdminSideMenuNavigationComponent />
-            <EditUsernamePageModal />
-            <MakeImagePostModal />
-            <NotificationModal />
-            <SocialMediaLinkModal />
-        </>
-    );
+	return (
+		<>
+			<NotificationsProvider />
+			<PopUpWidgetModal />
+			<ImageSelectModal />
+			<QRCodeModal />
+			<WithdrawPayoutModal />
+			<PayoutInfoModal />
+			<SearchCreatorMenu />
+			<SideMenuNavigationComponent />
+			<AdminSideMenuNavigationComponent />
+			<EditUsernamePageModal />
+			<MakeImagePostModal />
+			<NotificationModal />
+			<SocialMediaLinkModal />
+		</>
+	);
 }

@@ -13,23 +13,23 @@ import Loading from '../loading';
 // TODO: Set First and Last names as well
 
 export default function Page() {
-    const { signedIn, loggedInUser } = useUser();
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        function confirmation() {
-            if (!signedIn) {
-                redirect('/signin');
-            }
-            if (loggedInUser?.bankAccountName) {
-                redirect('/dashboard');
-            }
-            setLoading(false);
-        }
-        confirmation();
-    }, [loggedInUser, signedIn]);
-    return (
-        <section className="w-full md:w-5/6 mx-auto  lg:w-1/2 min-h-dvh flex flex-col justify-center items-center">
-            {loading ? <Loading /> : <UserAfterform />}
-        </section>
-    );
+	const { signedIn, loggedInUser } = useUser();
+	const [loading, setLoading] = useState(true);
+	useEffect(() => {
+		function confirmation() {
+			if (!signedIn) {
+				redirect('/signin');
+			}
+			if (loggedInUser?.bankAccountName) {
+				redirect('/dashboard');
+			}
+			setLoading(false);
+		}
+		confirmation();
+	}, [loggedInUser, signedIn]);
+	return (
+		<section className="w-full md:w-5/6 mx-auto  lg:w-1/2 min-h-dvh flex flex-col justify-center items-center">
+			{loading ? <Loading /> : <UserAfterform />}
+		</section>
+	);
 }

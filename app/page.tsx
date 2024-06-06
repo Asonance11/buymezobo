@@ -54,7 +54,7 @@ export default function Home() {
 					<h1
 						className={`text-4xl/none md:text-6xl lg:text-7xl  dark:text-neutral-400  text-neutral-800 text-center -tracking-wider font-bold leading-none ${helvetica.className} `}
 					>
-						Support your {' '}
+						Support your{' '}
 						{loading ? (
 							<p className="block"> {HomePageWords[0]}</p>
 						) : (
@@ -70,7 +70,7 @@ export default function Home() {
 					) : (
 						<Link href={loggedInUser ? '/dashboard' : '/signin'}>
 							<Button className="p-1.5 md:p-3 my-1 lg:p-6 text-sm lg:text-base font-semibold group inline-flex items-center rounded-md">
-								{loggedInUser ? 'Go to dashboard' : 'Start my page'}{" "}
+								{loggedInUser ? 'Go to dashboard' : 'Start my page'}{' '}
 								<ChevronRightIcon className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
 							</Button>
 						</Link>

@@ -23,7 +23,7 @@ export default function Username(props: any) {
 		queryKey: queryKeys.user.getByName(creatorname),
 		queryFn: () => getCreatorByName(creatorname),
 		enabled: !!creatorname,
-        refetchOnWindowFocus: false,
+		refetchOnWindowFocus: false,
 	});
 
 	const {
@@ -34,7 +34,7 @@ export default function Username(props: any) {
 		queryKey: [...queryKeys.post.many()],
 		queryFn: () => getCreatorPosts(creator?.id!, 1),
 		enabled: !!creator,
-        refetchOnWindowFocus: false,
+		refetchOnWindowFocus: false,
 	});
 
 	useEffect(() => {

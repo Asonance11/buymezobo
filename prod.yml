@@ -1,10 +1,10 @@
 version: '3.9'
 
 include:
-   - infra.yml
+    - infra.yml
 services:
     buymezobo:
-        image: sijirama/buymezobo:latest  #it's gonna keep taking the latest image
+        image: sijirama/buymezobo:latest #it's gonna keep taking the latest image
         container_name: buymezobo
         restart: always
         env_file:
@@ -14,5 +14,4 @@ services:
             - kafka
             - socketserver
         expose:
-            - "3000"
-
+            - '3000'

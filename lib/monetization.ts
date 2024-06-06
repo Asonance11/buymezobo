@@ -4,7 +4,7 @@ import { CONFIG } from '@/utility/config';
 import { Profile } from '@prisma/client';
 import axios from 'axios';
 
-export const BUYMEZOBO_PLATFORM_PERCENTAGE = 8.5 // Constant for platform percentage
+export const BUYMEZOBO_PLATFORM_PERCENTAGE = 8.5; // Constant for platform percentage
 
 export async function transferMoneyPayoutFunction(
 	amount: number,

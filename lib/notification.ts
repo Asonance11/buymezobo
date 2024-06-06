@@ -30,31 +30,31 @@ this is for the real time notifications, when users want to see all their notifi
 
 // INFO: this interface will continue to grow as the function to createe a function get's even larger
 interface CreateNotificationParams {
-    type: NotificationType;
-    senderId: string | null;
-    userId: string;
-    resourceId: string;
-    content: string | null;
+	type: NotificationType;
+	senderId: string | null;
+	userId: string;
+	resourceId: string;
+	content: string | null;
 }
 
 // INFO: Main function to trigger notificactions ------------------------------
 
 //NOTE: not an async function so we don't need to await it
 export function triggerNotification(data: CreateNotificationParams) {
-    notificationQueue.add(data); // NOTE: add to the notification queue
-    console.log(' [2] Notification job added to queue:', data);
+	notificationQueue.add(data); // NOTE: add to the notification queue
+	console.log(' [2] Notification job added to queue:', data);
 }
 
 // INFO: Bull for background tasks ------------------------------
 notificationQueue.process(async (job) => {
-    const { data } = job;
-    await createNotification(data); //NOTE: call the createNotification method
+	const { data } = job;
+	await createNotification(data); //NOTE: call the createNotification method
 });
 
 // INFO: kafka configuration ------------------------------
 
 const kafka = new Kafka({
-    brokers: ['kafka:9093'], //NOTE: ikafka instantiation
+	brokers: ['kafka:9093'], //NOTE: ikafka instantiation
 });
 
 const producer = kafka.producer(); //NOTE: get our producer
@@ -62,37 +62,37 @@ const producer = kafka.producer(); //NOTE: get our producer
 // INFO: create notification function and send to kafka broker ------------------------------
 
 export async function createNotification({
-    type,
-    userId,
-    senderId,
-    resourceId,
-    content,
+	type,
+	userId,
+	senderId,
+	resourceId,
+	content,
 }: CreateNotificationParams): Promise<Notification | null> {
-    // Create notification in the database
-    try {
-        const notification = await db.notification.create({
-            data: {
-                type: type!,
-                senderId: senderId,
-                userId: userId!,
-                resourceId: resourceId!,
-                content: content,
-            },
-        });
+	// Create notification in the database
+	try {
+		const notification = await db.notification.create({
+			data: {
+				type: type!,
+				senderId: senderId,
+				userId: userId!,
+				resourceId: resourceId!,
+				content: content,
+			},
+		});
 
-        // Send notification to Kafka
-        await producer.connect();
-        await producer.send({
-            topic: 'notifications',
-            messages: [{ key: String(notification.userId), value: JSON.stringify(notification) }],
-        });
+		// Send notification to Kafka
+		await producer.connect();
+		await producer.send({
+			topic: 'notifications',
+			messages: [{ key: String(notification.userId), value: JSON.stringify(notification) }],
+		});
 
-        console.log('[3] Event sent to Kafka successfully');
-        await producer.disconnect();
+		console.log('[3] Event sent to Kafka successfully');
+		await producer.disconnect();
 
-        return notification;
-    } catch (error) {
-        console.log(error);
-        return null;
-    }
+		return notification;
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
 }

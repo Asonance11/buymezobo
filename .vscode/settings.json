@@ -1,7 +1,5 @@
 {
 	"vscode.tsc.compiler.alertTSConfigChanges": "never",
 	"vscode.tsc.compiler.alertOnError": "never",
-	"githubPullRequests.ignoredPullRequestBranches": [
-		"main"
-	]
+	"githubPullRequests.ignoredPullRequestBranches": ["main"]
 }
