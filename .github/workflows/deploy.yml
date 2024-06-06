@@ -31,4 +31,4 @@ jobs:
                   push: true
                   tags: ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
               env: 
-                  UPLOADTHING_SECRET: ${{secrets.UPLOADTHING_SECRET}}
+                  UPLOADTHING_SECRET: ${{ secrets.UPLOADTHING_SECRET }}
