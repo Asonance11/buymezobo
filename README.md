@@ -4,4 +4,4 @@ chmod +x ./run.sj
 ./run.sh prod
 ```
 
-use your head
+use your head please
