@@ -18,7 +18,7 @@ export default function DashBoardEarningPage({ profile, className }: Props) {
 	return (
 		<div
 			className={cn(
-				`py-4 px-3 lg:py-6 lg:px-5 transition-all flex flex-col justify-between duration-300 rounded-lg bg-white h-full`,
+				`py-4 px-3 lg:py-6 lg:px-5 transition-all flex flex-col justify-between duration-300 rounded-lg bg-white h-full overflow-hidden relative`,
 				className,
 			)}
 		>

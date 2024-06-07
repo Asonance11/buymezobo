@@ -75,12 +75,22 @@ const config = {
 					'0%, 40%, 80%, 100%': { transform: 'scale(1)' },
 					'20%, 60%': { transform: 'scale(1.3)' },
 				},
+				marquee: {
+					from: { transform: 'translateX(0)' },
+					to: { transform: 'translateX(calc(-100% - var(--gap)))' },
+				},
+				'marquee-vertical': {
+					from: { transform: 'translateY(0)' },
+					to: { transform: 'translateY(calc(-100% - var(--gap)))' },
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				gradient: 'gradient 8s linear infinite',
 				heartbeat: 'heartbeat 1.5s infinite',
+				marquee: 'marquee var(--duration) linear infinite',
+				'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
 			},
 		},
 	},

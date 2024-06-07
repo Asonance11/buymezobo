@@ -1,5 +1,6 @@
 import { ProfileTagsOptions } from '@/lib/tagsOptions';
 import { useInterface } from '@/store/InterfaceStore';
+import { useUser } from '@/store/UserDataStore';
 import { cn } from '@/utility/style';
 import { truncateText } from '@/utility/text';
 import { Profile } from '@prisma/client';
@@ -19,6 +20,8 @@ export default function ProfileCardComponent({ profile, className }: Props) {
 		return tagOption ? tagOption.label : tagValue; // Return the tag value if no match is found
 	};
 
+	const { loggedInUser } = useUser();
+
 	const { onOpen } = useInterface();
 
 	return (
@@ -28,12 +31,14 @@ export default function ProfileCardComponent({ profile, className }: Props) {
 					className="w-full h-24 bg-gray-300 bg-center bg-cover bg-no-repeat relative rounded-sm"
 					style={{ backgroundImage: `url(${profile?.headerImageUrl})` }}
 				>
-					<div
-						className="absolute top-1 right-2 bg-purple-400 p-0.5 rounded-sm cursor-pointer"
-						onClick={() => onOpen('editUsernamePage', { creator: profile as User })}
-					>
-						<CiEdit className=" font-bold w-6 h-6" />
-					</div>
+					{loggedInUser?.id === profile.id ? (
+						<div
+							className="absolute top-1 right-2 bg-purple-400 p-0.5 rounded-sm cursor-pointer"
+							onClick={() => onOpen('editUsernamePage', { creator: profile as User })}
+						>
+							<CiEdit className=" font-bold w-6 h-6" />
+						</div>
+					) : null}
 					<div
 						className="cursor-pointer rounded-lg w-5 lg:w-16 h-5 lg:h-16 bg-center bg-cover bg-no-repeat border-1 border-purple-300 absolute left-2 -bottom-6"
 						style={{ backgroundImage: `url(${profile!.imageUrl})` }}

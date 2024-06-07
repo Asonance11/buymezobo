@@ -39,7 +39,7 @@ export default function Page() {
 				<DashBoardEarningPage profile={profile} className="col-span-1 md:col-span-3 xl:col-span-2 max-w-full" />
 				<SupportHistory
 					creator={profile}
-					className="order-2 lg:order-3 row-span-2 lg:row-span-1 md:col-span-3 xl:col-span-2 max-h-full max-w-full h-full"
+					className="order-2 lg:order-3 row-span-1 lg:row-span-1 md:col-span-3 xl:col-span-2 max-h-full max-w-full h-full"
 				/>
 				<ProfileCardComponent
 					profile={user as Profile}
