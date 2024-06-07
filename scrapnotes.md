@@ -18,4 +18,4 @@
 
 4. create a prod env and test it properly that it works
     - test prod.yml works -- it works perfectly on pathfinder
-    - use script to clone repo fetch new repo and run it 
+    - use script to clone repo fetch new repo and run it

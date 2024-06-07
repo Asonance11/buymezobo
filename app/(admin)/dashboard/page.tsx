@@ -41,7 +41,10 @@ export default function Page() {
 					creator={profile}
 					className="order-2 lg:order-3 row-span-2 lg:row-span-1 md:col-span-3 xl:col-span-2 max-h-full max-w-full h-full"
 				/>
-				<ProfileCardComponent profile={user as Profile} className='hidden md:block col-span-2 lg:col-span-2 xl:col-span-1 '  />
+				<ProfileCardComponent
+					profile={user as Profile}
+					className="hidden md:block col-span-2 lg:col-span-2 xl:col-span-1 "
+				/>
 				<PostPage
 					creator={profile}
 					className="row-span-1 md:col-span-2  lg:col-span-1 md:row-span-1 order-3 lg:order-2 "

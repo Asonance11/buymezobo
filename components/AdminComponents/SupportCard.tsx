@@ -147,19 +147,20 @@ export default function SupportCard({ support, comments = false, className }: Pr
 				</DropdownMenu>
 			</div>
 			<div className="w-full flex flex-col pl-6 lgpl-16">
-				{ comments && support.comments?.map((comment) => (
-					<div
-						key={comment.id}
-						className="p-0.5 px-1 md:p-2 w-fit bg-gray-100 rounded-sm flex items-center justify-start my-0.5 md:my-1 gap-1 md:gap-2 overflow-hidden"
-					>
-						<img
-							className="cursor-pointer rounded-lg w-6 h-8 lg:w-8 lg:h-8 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
-							src={comment.profile?.imageUrl || avatarImageUrl(comment.profile?.userName!)}
-							alt="avatar"
-						/>
-						<p className="text-xs md:text-sm">{comment.content}</p>
-					</div>
-				))}
+				{comments &&
+					support.comments?.map((comment) => (
+						<div
+							key={comment.id}
+							className="p-0.5 px-1 md:p-2 w-fit bg-gray-100 rounded-sm flex items-center justify-start my-0.5 md:my-1 gap-1 md:gap-2 overflow-hidden"
+						>
+							<img
+								className="cursor-pointer rounded-lg w-6 h-8 lg:w-8 lg:h-8 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
+								src={comment.profile?.imageUrl || avatarImageUrl(comment.profile?.userName!)}
+								alt="avatar"
+							/>
+							<p className="text-xs md:text-sm">{comment.content}</p>
+						</div>
+					))}
 			</div>
 			{isCommentVisible && (
 				<div className="mt-2 flex flex-col gap-2">
