@@ -51,8 +51,12 @@ export default function SupportHistory({ creator, className }: Props) {
 			</div>
 		);
 
+    if (supports?.length < 1){
+        return null
+    }
+
 	return (
-		<div>
+		<div className={className}>
 			<div
 				className={cn(
 					`transition-all max-h-[40rem] overflow-y-auto duration-300 p-2 md:px-5 md:py-4 w-full rounded-2xl bg-white flex flex-col gap-3 items-start h-fit`,

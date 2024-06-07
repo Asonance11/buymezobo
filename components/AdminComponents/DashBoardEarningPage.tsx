@@ -13,7 +13,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 export default function DashBoardEarningPage({ profile, className }: Props) {
 	const nairaSymbol = '₦';
 	return (
-		<div>
+		<div className={className}>
 			{!profile && (
 				<div className={cn(`py-6 px-5 rounded-lg bg-white`, className)}>
 					<div className="flex items-center gap-2">
@@ -22,7 +22,7 @@ export default function DashBoardEarningPage({ profile, className }: Props) {
 							<Skeleton className="font-light text-sm text-zinc-700" />
 						</div>
 					</div>
-					<Separator className="my-6" />
+					<Separator className="my-6 hidden" />
 					<div className="flex flex-col justify-center items-start gap-2">
 						<div className="flex items-center justify-start gap-3">
 							<Skeleton />
@@ -35,7 +35,7 @@ export default function DashBoardEarningPage({ profile, className }: Props) {
 			{profile && (
 				<div
 					className={cn(
-						`py-4 px-3 lg:py-6 lg:px-5 transition-all duration-300 rounded-lg bg-white`,
+						`py-4 px-3 lg:py-6 lg:px-5 transition-all space-y-12 duration-300 rounded-lg bg-white`,
 						className,
 					)}
 				>
@@ -54,7 +54,7 @@ export default function DashBoardEarningPage({ profile, className }: Props) {
 						</div>
 						<SharePage className="hidden md:flex text-xs lg:text-sm" profile={profile} />
 					</div>
-					<Separator className="my-6" />
+					<Separator className="my-6 hidden" />
 					<div className="flex flex-col justify-center items-start gap-2">
 						<div className="flex items-center justify-start gap-3">
 							<p className="text-sm lg:text-base">Earning</p>

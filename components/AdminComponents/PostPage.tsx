@@ -1,79 +1,65 @@
 import { getCreatorPosts } from '@/actions/posts';
 import { Post } from '@prisma/client';
 import { User } from 'lucia';
-import React, { HTMLAttributes, useEffect, useState } from 'react';
-import { Skeleton } from '../ui/skeleton';
-import { Separator } from '@/components/ui/separator';
+import React, { HTMLAttributes, useEffect, useState, useRef } from 'react';
 import { cn } from '@/utility/style';
 import { Button } from '../ui/button';
 import Link from 'next/link';
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	creator: User | null;
+	link?: string;
 }
 
-export default function PostPage({ creator, className }: Props) {
-	const [posts, setposts] = useState<Post[]>([]);
+export default function PostPage({ link, creator, className }: Props) {
+	const [posts, setPosts] = useState<Post[]>([]);
 	const [loading, setLoading] = useState(false);
+	const [embla] = useEmblaCarousel({ loop: true }); // Initialize Embla Carousel
+	const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay()]);
+	const sliderContainerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		const getposts = async () => {
+		const fetchPosts = async () => {
 			setLoading(true);
-			const posts = await getCreatorPosts(creator!.id, 4);
-			setposts(posts);
+			const posts = await getCreatorPosts(creator!.id);
+			setPosts(posts);
 			setLoading(false);
 		};
 		if (creator) {
-			getposts();
+			fetchPosts();
 		}
 	}, [creator?.id, creator]);
 
-	if (posts.length <= 0) {
-		return null;
-	}
+	const reroute = () => {};
 
 	return (
-		<div>
-			{!creator && (
-				<div
-					className={cn(
-						`transition-all max-h-[30rem] overflow-y-auto duration-300 p-7 md:p-10 w-[27rem] md:w-full rounded-2xl bg-white flex flex-col gap-3 items-start h-fit`,
-						className,
-					)}
-				>
-					<Separator className="my-2" />
-					<div className="spce-y-4 w-full">
-						{[1, 2, 3, 4, 5].map((index) => (
-							<Skeleton key={index} className="py-3 w-full "></Skeleton>
-						))}
-					</div>
-				</div>
+		<div
+			onClick={reroute}
+			className={cn(
+				`transition-all h-fit bg-white p-2 md:p-1 w-full rounded-md flex flex-col gap-3 items-start lg:max-h-72`,
+				className,
 			)}
-			{creator && (
-				<div
-					className={cn(
-						`transition-all h-fit bg-white overflow-y-auto duration-300 p-2 md:px-3 md:py-2 w-full rounded-2xl flex flex-col gap-3 items-start `,
-						className,
-					)}
-				>
-					<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-4 p-2 lg:p-4">
-						{posts.map((post) => (
-							<div key={post.id} className="w-full overflow-hidden rounded-lg">
-								<img
-									src={post.imageUrl}
-									alt={post.title}
-									className="w-full h-full xl:max-h-[30rem] object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
-								/>
-							</div>
-						))}
-					</div>{' '}
-					<Button className="w-full" variant={'secondary'}>
-						<Link href="/gallery" className=" w-full h-full">
-							See all posts
-						</Link>
-					</Button>
+		>
+			<div ref={emblaRef} className="embla rounded-md">
+				<div className="embla__container" ref={sliderContainerRef}>
+					{posts.map((post) => (
+						<div key={post.id} className="embla__slide">
+							<img
+								src={post.imageUrl}
+								alt={post.title}
+								className="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
+							/>
+						</div>
+					))}
 				</div>
-			)}
+			</div>
+			<Button className="w-full hidden" variant={'secondary'}>
+				<Link href="/gallery" className="w-full h-full">
+					See all posts
+				</Link>
+			</Button>
 		</div>
 	);
 }
