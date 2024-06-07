@@ -7,6 +7,7 @@ import { Button } from '../ui/button';
 import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
+import { DirectionAwareHover } from '../ui/direction-aware-hover';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	creator: User | null;
@@ -38,22 +39,21 @@ export default function PostPage({ link, creator, className }: Props) {
 		<div
 			onClick={reroute}
 			className={cn(
-				`transition-all h-fit bg-white p-2 md:p-1 w-full rounded-md flex flex-col gap-3 items-start lg:max-h-72`,
+				`transition-all bg-white w-full rounded-md flex flex-col items-start embla`,
 				className,
 			)}
+			ref={emblaRef}
 		>
-			<div ref={emblaRef} className="embla rounded-md">
-				<div className="embla__container" ref={sliderContainerRef}>
-					{posts.map((post) => (
-						<div key={post.id} className="embla__slide">
-							<img
-								src={post.imageUrl}
-								alt={post.title}
-								className="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
-							/>
-						</div>
-					))}
-				</div>
+			<div className="w-full h-full embla__container" ref={sliderContainerRef}>
+				{posts.map((post) => (
+					<div key={post.id} className="embla__slide">
+						<img
+							src={post.imageUrl}
+							alt={post.title}
+							className="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
+						/>
+					</div>
+				))}
 			</div>
 			<Button className="w-full hidden" variant={'secondary'}>
 				<Link href="/gallery" className="w-full h-full">

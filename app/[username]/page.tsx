@@ -58,7 +58,7 @@ export default function Username(props: any) {
 							className="w-full h-72 bg-gray-300 bg-center bg-cover bg-no-repeat"
 							style={{ backgroundImage: `url(${creator?.headerImageUrl})` }}
 						></div>
-						<div className="flex-1 flex flex-col-reverse lg:flex-row justify-center md:gap-3 relative items-center py-5 lg:py-3 lg:items-start bg-purple-100">
+						<div className="flex-1 flex flex-col-reverse lg:flex-row justify-center md:gap-3 items-center py-5 lg:py-3 lg:items-start bg-purple-100 ">
 							<section className="flex-col flex gap-3 lg:-mt-32">
 								<AboutCard creatorname={creatorname} />
 								<SupportersCard
@@ -67,8 +67,9 @@ export default function Username(props: any) {
 									reload={reloadSupporters}
 								/>
 							</section>
-							<section className="-mt-28 lg:-mt-32 flex-col flex gap-3 ">
+							<section className="-mt-28 lg:-mt-32 flex-col flex gap-3 lg:sticky top-2">
 								<BuyCard
+									className=""
 									creator={creator as User}
 									setReload={() => setReloadSupporters(!reloadSupporters)}
 								/>
