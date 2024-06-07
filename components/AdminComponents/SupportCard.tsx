@@ -22,9 +22,10 @@ import queryKeys from '@/query-key-factory';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	support: SupportPrimitive;
+	comments?: boolean;
 }
 
-export default function SupportCard({ support, className }: Props) {
+export default function SupportCard({ support, comments = false, className }: Props) {
 	const [commentText, setCommentText] = useState<string>('');
 	const [isCommentVisible, setIsCommentVisible] = useState<boolean>(false);
 	const queryClient = useQueryClient();
@@ -146,7 +147,7 @@ export default function SupportCard({ support, className }: Props) {
 				</DropdownMenu>
 			</div>
 			<div className="w-full flex flex-col pl-6 lgpl-16">
-				{support.comments?.map((comment) => (
+				{ comments && support.comments?.map((comment) => (
 					<div
 						key={comment.id}
 						className="p-0.5 px-1 md:p-2 w-fit bg-gray-100 rounded-sm flex items-center justify-start my-0.5 md:my-1 gap-1 md:gap-2 overflow-hidden"

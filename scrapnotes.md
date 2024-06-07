@@ -12,10 +12,10 @@
     - add space for tests (soon) - soon
     - build the buymezobo and push to docker hub
     - write a script that will pull sijirama/buymezobo and re run the repo
-    - test the script on my system
-    - test it works
-    - do the same for socketserver
+    - test the script on my system -- it works too, dev actually works too, it's funny
+    - test it works -- it does
+    - do the same for socketserver ---- we are gonna fashi this and build it on the server
 
 4. create a prod env and test it properly that it works
-    - test prod.yml works
-    - use script to clone repo fetch new repo and run it
+    - test prod.yml works -- it works perfectly on pathfinder
+    - use script to clone repo fetch new repo and run it 
