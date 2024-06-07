@@ -51,9 +51,9 @@ export default function SupportHistory({ creator, className }: Props) {
 			</div>
 		);
 
-    if (supports?.length < 1){
-        return null
-    }
+	if (supports?.length < 1) {
+		return null;
+	}
 
 	return (
 		<div className={className}>

@@ -1,4 +1,4 @@
-import { cn } from "@/utility/style";
+import { cn } from '@/utility/style';
 
 export const BentoGrid = ({ className, children }: { className?: string; children?: React.ReactNode }) => {
 	return (

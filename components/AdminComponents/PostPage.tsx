@@ -38,10 +38,7 @@ export default function PostPage({ link, creator, className }: Props) {
 	return (
 		<div
 			onClick={reroute}
-			className={cn(
-				`transition-all bg-white w-full rounded-md flex flex-col items-start embla`,
-				className,
-			)}
+			className={cn(`transition-all bg-white w-full rounded-md flex flex-col items-start embla`, className)}
 			ref={emblaRef}
 		>
 			<div className="w-full h-full embla__container" ref={sliderContainerRef}>
