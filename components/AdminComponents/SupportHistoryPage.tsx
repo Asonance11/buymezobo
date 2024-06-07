@@ -30,6 +30,7 @@ export default function SupportHistory({ creator, className }: Props) {
 		queryKey: queryKeys.support.many(),
 		queryFn: () => getCreatorSupports(creator!.id),
 		enabled: !!creator,
+		refetchOnWindowFocus: false,
 	});
 
 	useEffect(() => {
