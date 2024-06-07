@@ -1,0 +1,17 @@
+version: '3.9'
+
+include:
+    - infra.yml
+services:
+    buymezobo:
+        image: sijirama/buymezobo:latest #it's gonna keep taking the latest image
+        container_name: buymezobo
+        restart: always
+        env_file:
+            - .env
+        depends_on:
+            - db
+            - kafka
+            - socketserver
+        expose:
+            - '3000'

@@ -1,6 +1,5 @@
 import type { Config } from 'tailwindcss';
 const { fontFamily } = require('tailwindcss/defaultTheme');
-import { withUt } from 'uploadthing/tw';
 
 const config = {
 	darkMode: ['class'],
@@ -88,4 +87,4 @@ const config = {
 	plugins: [require('daisyui'), require('tailwindcss-animate'), require('tailwind-scrollbar-hide')],
 } satisfies Config;
 
-export default withUt(config);
+export default config;

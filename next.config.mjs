@@ -7,6 +7,7 @@ const nextConfig = {
 		config.externals.push('@node-rs/argon2', '@node-rs/bcrypt');
 		return config;
 	},
+	output: 'standalone',
 	env: {
 		NEXT_PUBLIC_ENV: 'PRODUCTION', //your next configs goes here
 	},

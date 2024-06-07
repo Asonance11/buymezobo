@@ -12,50 +12,50 @@ import PostImageComponent from '@/components/Posts/Post';
 import Link from 'next/link';
 
 interface Props {
-    creatorname: string;
+	creatorname: string;
 }
 
 export const ImagePostCard = ({ creatorname }: Props) => {
-    const { onOpen } = useInterface();
-    const [isTheSameUser, setIsTheSameUser] = useState(false);
+	const { onOpen } = useInterface();
+	const [isTheSameUser, setIsTheSameUser] = useState(false);
 
-    const { loggedInUser } = useUser();
+	const { loggedInUser } = useUser();
 
-    useEffect(() => {
-        if (creator?.id == loggedInUser?.id) {
-            setIsTheSameUser(true);
-        }
-    }, [loggedInUser?.id]);
+	useEffect(() => {
+		if (creator?.id == loggedInUser?.id) {
+			setIsTheSameUser(true);
+		}
+	}, [loggedInUser?.id]);
 
-    const { data: creator, isLoading } = useQuery({
-        queryKey: queryKeys.user.getByName(creatorname),
-        queryFn: () => getCreatorByName(creatorname),
-        enabled: !!creatorname,
-        refetchOnWindowFocus:false
-    });
+	const { data: creator, isLoading } = useQuery({
+		queryKey: queryKeys.user.getByName(creatorname),
+		queryFn: () => getCreatorByName(creatorname),
+		enabled: !!creatorname,
+		refetchOnWindowFocus: false,
+	});
 
-    if (isLoading || !creator || creator.posts.length == 0) {
-        return null;
-    }
+	if (isLoading || !creator || creator.posts.length == 0) {
+		return null;
+	}
 
-    return (
-        <div className="transition-all duration-300 p-5 md:p-7 lg:p-8 w-screen md:w-[32rem] lg:w-[33rem] rounded-none md:rounded-2xl bg-white flex flex-col gap-3 items-start h-fit ">
-            {creator.posts.length > 0 ? (
-                <>
-                    {' '}
-                    <p className="tracking-tight font-semibold text-gray-900">Gallery</p>
-                    <PostImageComponent post={creator.posts[0]} />{' '}
-                </>
-            ) : null}
-            {creator.posts.length > 1 ? (
-                <Link className="w-full" href={`/${creator.userName}/gallery`}>
-                    <Button className="w-full" variant={'ghost'}>
-                        See more photos
-                    </Button>
-                </Link>
-            ) : (
-                <div></div>
-            )}
-        </div>
-    );
+	return (
+		<div className="transition-all duration-300 p-5 md:p-7 lg:p-8 w-screen md:w-[32rem] lg:w-[33rem] rounded-none md:rounded-2xl bg-white flex flex-col gap-3 items-start h-fit ">
+			{creator.posts.length > 0 ? (
+				<>
+					{' '}
+					<p className="tracking-tight font-semibold text-gray-900">Gallery</p>
+					<PostImageComponent post={creator.posts[0]} />{' '}
+				</>
+			) : null}
+			{creator.posts.length > 1 ? (
+				<Link className="w-full" href={`/${creator.userName}/gallery`}>
+					<Button className="w-full" variant={'ghost'}>
+						See more photos
+					</Button>
+				</Link>
+			) : (
+				<div></div>
+			)}
+		</div>
+	);
 };

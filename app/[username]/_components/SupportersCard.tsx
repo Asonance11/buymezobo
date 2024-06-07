@@ -67,7 +67,7 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 		queryKey: queryKeys.support.many(),
 		queryFn: () => getCreatorSupports(creator!.id),
 		enabled: !!creator,
-        refetchOnWindowFocus:false
+		refetchOnWindowFocus: false,
 	});
 
 	const postCommentMutation = useMutation({
@@ -167,9 +167,9 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 		setCommentText(content);
 	};
 
-    if (!supports){
-        return null
-    }
+	if (!supports) {
+		return null;
+	}
 
 	return (
 		<div
@@ -275,7 +275,7 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 								</div>
 								{activeComment === support.id && (
 									<div className="mt-2 flex items-center gap-2">
-										<div className='flex items-center flex-1 border rounded-xl p-2 '>
+										<div className="flex items-center flex-1 border rounded-xl p-2 ">
 											<Input
 												type="text"
 												className="flex-1 text-sm border-none focus-visible:ring-offset-0 focus-visible:ring-0"
@@ -291,7 +291,6 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 													<Emoji open={true} onEmojiClick={onEmojiClick} />
 												</DropdownMenuContent>
 											</DropdownMenu>
-	
 										</div>
 										<Button className="rounded-sm" onClick={() => handleCommentSubmit(support.id)}>
 											Submit

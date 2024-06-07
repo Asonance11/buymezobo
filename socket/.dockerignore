@@ -1,0 +1,14 @@
+**/node_modules
+.husky
+.vscode
+.next
+node_modules
+next-env.d.ts
+./node_modules
+nginx/   
+.git/
+.gitignore
+.next/
+.dockerignore
+Dockerfile
+node_modules/

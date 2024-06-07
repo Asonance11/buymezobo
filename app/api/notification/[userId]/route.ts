@@ -30,7 +30,8 @@ export async function GET(request: NextRequest, { params }: { params: { userId: 
 		// 	whereClause.isRead = isReadParam === 'true';
 		// }
 
-		if (unread) { //if we only want to see the unread messages, isRead = false
+		if (unread) {
+			//if we only want to see the unread messages, isRead = false
 			whereClause.isRead = false; // Filter based on unread status
 		}
 

@@ -27,9 +27,11 @@ export const NotificationsProvider = () => {
 	}, []);
 
 	useEffect(() => {
+		console.log('WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF');
 		if (user?.id) {
-			const socket = io('http://localhost:3001');
+			const socket = io('http://socketserver:3001');
 			console.log('ABOUT TO EMIT TO JOIN EVENT');
+			console.log(socket);
 			socket.emit('join', user?.id);
 
 			// Listen for notifications

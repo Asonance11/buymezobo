@@ -16,9 +16,9 @@ export async function PUT(request: NextRequest, { params }: { params: { userId: 
 			where: {
 				userId: loggedInUser.id,
 			},
-            data:{
-                isRead: true,
-            }
+			data: {
+				isRead: true,
+			},
 		});
 
 		return new NextResponse(JSON.stringify('Notifications updated'), { status: 200 });

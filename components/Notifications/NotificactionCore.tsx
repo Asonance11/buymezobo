@@ -171,7 +171,7 @@ export const NotificactionCore = ({ open }: Props) => {
 							);
 						})}
 						{isFetching && (
-							<div className='w-full flex items-center justify-center p-3'>
+							<div className="w-full flex items-center justify-center p-3">
 								<Loader />
 							</div>
 						)}

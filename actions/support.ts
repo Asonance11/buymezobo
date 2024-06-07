@@ -6,16 +6,16 @@ import { Support } from '@prisma/client';
 const LIMIT = 10;
 
 export async function getSupportbyId(id: string): Promise<Support | null> {
-    try {
-        const support = await db.support.findFirst({
-            where: {
-                id,
-            },
-        });
-        return support;
-    } catch (error) {
-        return null;
-    }
+	try {
+		const support = await db.support.findFirst({
+			where: {
+				id,
+			},
+		});
+		return support;
+	} catch (error) {
+		return null;
+	}
 }
 
 /**
@@ -27,32 +27,32 @@ export async function getSupportbyId(id: string): Promise<Support | null> {
  */
 
 export async function getCreatorSupports(
-    creatorId: string,
-    page: number = 1,
-    deleted: boolean = false,
+	creatorId: string,
+	page: number = 1,
+	deleted: boolean = false,
 ): Promise<PaginatedResponse<Support>> {
-    const offset = (page - 1) * LIMIT;
-    const supports = await db.support.findMany({
-        where: {
-            profileId: creatorId,
-            deleted: deleted,
-        },
-        take: LIMIT,
-        skip: offset,
-        orderBy: {
-            createdAt: 'desc',
-        },
-        include: {
-            supporter: true,
-            comments: {
-                include: {
-                    profile: true,
-                },
-            },
-        },
-    });
+	const offset = (page - 1) * LIMIT;
+	const supports = await db.support.findMany({
+		where: {
+			profileId: creatorId,
+			deleted: deleted,
+		},
+		take: LIMIT,
+		skip: offset,
+		orderBy: {
+			createdAt: 'desc',
+		},
+		include: {
+			supporter: true,
+			comments: {
+				include: {
+					profile: true,
+				},
+			},
+		},
+	});
 
-    const count = await db.support.count();
+	const count = await db.support.count();
 
-    return { data: supports, meta: { page, pageSize: LIMIT, totalCount: count, dataCount: supports.length } };
+	return { data: supports, meta: { page, pageSize: LIMIT, totalCount: count, dataCount: supports.length } };
 }

@@ -1,1 +1,7 @@
-this is a readme guys, now leave
+```bash
+chmod +x ./run.sj
+
+./run.sh prod
+```
+
+use your head please

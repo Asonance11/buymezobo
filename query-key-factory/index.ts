@@ -9,7 +9,7 @@ const queryKeys = {
 	support: supportsKeys,
 	post: postsKeys,
 	user: userkeys,
-    notification: notificationKeys
+	notification: notificationKeys,
 };
 
 export default queryKeys;

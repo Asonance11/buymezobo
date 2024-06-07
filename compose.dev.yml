@@ -1,0 +1,27 @@
+version: '3.9'
+
+include:
+    - infra.yml
+services:
+    buymezobo:
+        build:
+            context: .
+            dockerfile: next.dockerfile
+            target: dev
+
+        command: ['sh', '-c', 'pnpm run stage && pnpm dev']
+
+        container_name: buymezobo
+        restart: always
+        env_file:
+            - .env
+        volumes:
+            - .:/app
+            - /app/node_modules
+            - /app/.next
+        depends_on:
+            - db
+            - kafka
+            - socketserver
+        expose:
+            - '3000'

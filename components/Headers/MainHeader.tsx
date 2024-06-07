@@ -7,7 +7,6 @@ import { HiMenu } from 'react-icons/hi';
 import { Logo } from '../common/Logo';
 import Link from 'next/link';
 import { useUser } from '@/store/UserDataStore';
-import { useAuth as Auth } from '@/actions/use-auth';
 import UserButton from '../Profile/UserButton';
 import { helvetica } from '@/utility/fonts';
 
@@ -40,6 +39,7 @@ export default function MainHeader() {
 		if (loggedInUser) {
 			setLoading(false);
 		}
+		setLoading(false);
 	}, [loggedInUser]);
 
 	const openMenu = () => onOpen('searchCreators');

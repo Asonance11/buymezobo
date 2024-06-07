@@ -1,8 +1,4 @@
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { HiOutlineEmojiHappy } from 'react-icons/hi';
 import { usePaystackPayment } from 'react-paystack';
 import { PaymentStatus, Profile, Support } from '@prisma/client';

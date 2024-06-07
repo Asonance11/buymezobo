@@ -4,14 +4,15 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Dialog, DialogContent, DialogDescription } from '@/components/ui/dialog';
-import { Button } from '../ui/button';
+import { Button, buttonVariants } from '../ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '../ui/textarea';
-import { HeaderImageUpload } from '../tools/HeaderUploadButton';
 import { Input } from '../ui/input';
 import { toast } from 'sonner';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import queryKeys from '@/query-key-factory';
+import FileUploader from '@/lib/fileUploader';
+import { Label } from '../ui/label';
 
 export default function MakeImagePostModal() {
 	const { isOpen, data, onClose, type } = useInterface();
@@ -38,7 +39,7 @@ export default function MakeImagePostModal() {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: queryKeys.post.all });
 			form.reset();
-			onClose();
+			close();
 			toast.success('Post was successfully uploaded');
 		},
 		onError: (error) => {
@@ -56,19 +57,26 @@ export default function MakeImagePostModal() {
 		postImageMutation.mutate(data);
 	}
 
+	const close = () => {
+		setImageUrl(null);
+		onClose();
+	};
+
 	return (
-		<Dialog open={open} onOpenChange={onClose}>
+		<Dialog open={open} onOpenChange={close}>
 			<DialogContent>
 				<DialogDescription>
 					<p>Edit {creator?.userName} page</p>
 				</DialogDescription>
 				<div className="flex ">
-					<HeaderImageUpload
-						setLoading={setLoading}
-						value={creator?.headerImageUrl!}
-						onChange={updateImage}
-						endpoint="Image"
-					/>
+					{imageUrl ? (
+						<img src={imageUrl} className="w-9 h-9 rounded-lg object-cover" />
+					) : (
+						<Label className={buttonVariants()}>
+							{'Upload Profile Picture'}
+							<FileUploader hidden storageRefDir="images" onUploadSuccess={updateImage} />
+						</Label>
+					)}
 				</div>
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
