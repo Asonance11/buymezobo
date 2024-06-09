@@ -4,6 +4,7 @@ import { HTMLAttributes } from 'react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import ProfileCardComponent from '../Profile/ComponentCard';
 import { truncateText } from '@/utility/text';
+import { avatarImageUrl } from '@/utility/avatar';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	support: SupportPrimitive;
@@ -26,7 +27,7 @@ export const SupportCardAlt = ({ support }: Props) => {
 						<HoverCardTrigger>
 							<div
 								className="cursor-pointer rounded-lg w-10 lg:w-9 h-10 lg:h-9 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
-								style={{ backgroundImage: `url(${support.supporter.imageUrl})` }}
+								style={{ backgroundImage: `url(${avatarImageUrl(support.supporter)})` }}
 							></div>
 						</HoverCardTrigger>
 						<HoverCardContent className="p-0">
