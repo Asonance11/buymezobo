@@ -265,7 +265,7 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 													className="cursor-pointer rounded-lg w-6 h-8 lg:w-8 lg:h-8 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
 													src={
 														comment.profile?.imageUrl ||
-														avatarImageUrl(comment.profile?.userName!)
+														avatarImageUrl(comment.profile!)
 													}
 													alt="avatar"
 												/>
