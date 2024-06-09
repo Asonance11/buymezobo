@@ -24,7 +24,7 @@ export default function ImageSeclectModal() {
 			<DialogContent className="flex flex-col items-center justify-center rounded-lg p-0 w-screen lg:w-fit ">
 				<div className={cn('cursor-pointer overflow-hidden boorder-[0.5px] rounded-lg')}>
 					<div className={cn('relative overflow-hidden', imageOnly ? 'h-full' : null)}>
-						<img className="w-full h-auto" src={post.imageUrl} alt={post.title} />
+						<img className="w-full h-full max-h-[45rem]" src={post.imageUrl} alt={post.title} />
 					</div>
 
 					{imageOnly ? null : (

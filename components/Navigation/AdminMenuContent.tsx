@@ -47,7 +47,7 @@ export default function AdminMenuContent() {
 
 	const mainOptions = [
 		{ name: 'Home', route: '/dashboard', icon: RiHomeSmileLine },
-		{ name: 'Explore Creators', route: '/explore', icon: MdOutlineExplore },
+		//{ name: 'Explore Creators', route: '/explore', icon: MdOutlineExplore },
 		{
 			name: 'View page',
 			route: `/${profile?.userName}`,

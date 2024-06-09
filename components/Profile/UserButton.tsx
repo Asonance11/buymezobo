@@ -16,6 +16,7 @@ import { signOut } from '@/actions/signout';
 import SharePage from './SharePage';
 import { avatarImageUrl } from '@/utility/avatar';
 import { useUser } from '@/store/UserDataStore';
+import { Profile } from '@prisma/client';
 
 export default function UserButton() {
 	const { loggedInUser, updateUser, logOut } = useUser();
@@ -48,7 +49,7 @@ export default function UserButton() {
 						) : (
 							<img
 								className="cursor-pointer rounded-lg w-10 lg:w-12 h-10 lg:h-12 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
-								src={avatarImageUrl(loggedInUser!.firstName!)}
+								src={avatarImageUrl(loggedInUser as Profile)}
 								alt="avatar"
 							/>
 						)}

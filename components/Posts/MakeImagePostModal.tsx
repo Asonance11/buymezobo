@@ -50,6 +50,11 @@ export default function MakeImagePostModal() {
 
 	const updateImage = (image: string) => {
 		setImageUrl(image);
+		setLoading(false);
+	};
+
+	const onProgess = () => {
+		setLoading(true);
 	};
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -66,17 +71,10 @@ export default function MakeImagePostModal() {
 		<Dialog open={open} onOpenChange={close}>
 			<DialogContent>
 				<DialogDescription>
-					<p>Edit {creator?.userName} page</p>
+					<p>Add image</p>
 				</DialogDescription>
-				<div className="flex ">
-					{imageUrl ? (
-						<img src={imageUrl} className="w-9 h-9 rounded-lg object-cover" />
-					) : (
-						<Label className={buttonVariants()}>
-							{'Upload Profile Picture'}
-							<FileUploader hidden storageRefDir="images" onUploadSuccess={updateImage} />
-						</Label>
-					)}
+				<div className="flex items-center justify-center ">
+					<FileUploader storageRefDir="images" onUploadSuccess={updateImage} onProgress={onProgess} />
 				</div>
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
@@ -85,9 +83,9 @@ export default function MakeImagePostModal() {
 							name="title"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Title</FormLabel>
+									<FormLabel className="hidden">Title</FormLabel>
 									<FormControl>
-										<Input {...field} />
+										<Input {...field} placeholder="Title" />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -99,17 +97,17 @@ export default function MakeImagePostModal() {
 							name="caption"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Caption</FormLabel>
+									<FormLabel className="hidden">Caption</FormLabel>
 									<FormControl>
-										<Textarea className="resize-none" {...field} />
+										<Textarea className="resize-none" {...field} placeholder="Description" />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
 							)}
 						/>
 
-						<Button disabled={loading || postImageMutation.isPending} type="submit">
-							Upload Post
+						<Button disabled={loading || postImageMutation.isPending} type="submit" className="w-full">
+							Publish
 						</Button>
 					</form>
 				</Form>

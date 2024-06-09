@@ -15,6 +15,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import queryKeys from '@/query-key-factory';
+import { useEffect } from 'react';
 
 interface PostProps extends HTMLAttributes<HTMLDivElement> {
 	post: Post;
@@ -26,7 +27,13 @@ export default function PostImageComponent({ post, imageOnly = false, className,
 
 	const { onOpen } = useInterface();
 
-	const [isTheSameUser, setIsTheSameUser] = useState(true);
+	const [isTheSameUser, setIsTheSameUser] = useState(false);
+
+	useEffect(() => {
+		if (loggedInUser && post && loggedInUser.id == post.profileId) {
+			setIsTheSameUser(true);
+		}
+	}, [loggedInUser, post]);
 
 	const queryClient = useQueryClient();
 
@@ -71,7 +78,7 @@ export default function PostImageComponent({ post, imageOnly = false, className,
 		<div {...props} className={cn('cursor-pointer overflow-hidden border-[0.5px] rounded-lg', className)}>
 			<div className={cn('relative overflow-hidden', imageOnly ? 'h-full' : null)}>
 				<img
-					className="w-full h-auto transition-transform duration-500 hover:scale-110"
+					className="w-full h-auto transition-transform duration-500 hover:scale-110 "
 					src={post.imageUrl}
 					alt={post.title}
 					onClick={() => onOpen('imageSelectModal', { post })}

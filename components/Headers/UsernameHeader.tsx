@@ -9,6 +9,7 @@ import { Logo } from '@/components/common/Logo';
 import { User } from 'lucia';
 import { avatarImageUrl } from '@/utility/avatar';
 import UserButton from '../Profile/UserButton';
+import { Profile } from '@prisma/client';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	user: User;
@@ -40,7 +41,7 @@ export default function UserNameHeader({ user: visitedUser, className, ...props 
 					<div
 						className="cursor-pointer hidden lg:block rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat border-[0.5px] border-purple-300"
 						style={{
-							backgroundImage: `url(${visitedUser?.imageUrl ? visitedUser.imageUrl : avatarImageUrl(loggedInUser?.userName!)})`,
+							backgroundImage: `url(${avatarImageUrl(visitedUser as Profile)})`,
 						}}
 					></div>
 					<div className="flex-col gap-1  hidden lg:block items-center justify-start">
