@@ -7,8 +7,6 @@ import { NextResponse } from 'next/server';
 export async function PUT(req: Request) {
 	try {
 		const updatedProfile: Optional<User> = await req.json();
-		console.table(updatedProfile);
-
 		const profile = await getCurrentUser();
 
 		if (!profile) {

@@ -4,14 +4,11 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
 	const data = await req.json();
-	console.table(data);
 	try {
 		const profile = await getCurrentUser();
-
 		if (!profile) {
 			return new NextResponse('User is not authenticated', { status: 401 });
 		}
-
 		// Check if the follow relationship already exists
 		const existingFollow = await db.follows.findUnique({
 			where: {

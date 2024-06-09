@@ -6,9 +6,6 @@ export async function DELETE(request: NextRequest, { params }: { params: { userI
 	try {
 		const { userId, notificationId } = params;
 		const loggedInUser = await getCurrentUser();
-		if (!loggedInUser) {
-			return new NextResponse('Profile not found', { status: 404 });
-		}
 		if (!loggedInUser || loggedInUser.id != userId) {
 			return new NextResponse('Profile not found', { status: 404 });
 		}

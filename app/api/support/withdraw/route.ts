@@ -13,15 +13,10 @@ export async function POST(request: NextRequest) {
 		if (!profileData.amount || !profileData.id) {
 			return new NextResponse('Bad request', { status: 401 });
 		}
-
 		const loggedInUser = await getCurrentUser();
-
 		if (!loggedInUser || loggedInUser.id != profileData.id) {
 			return new NextResponse('Unauthorized', { status: 401 }); //PERF: idk about this tbh
 		}
-
-		console.table(profileData);
-
 		const profile = await db.profile.findFirst({
 			where: {
 				id: profileData.id,
@@ -46,9 +41,6 @@ export async function POST(request: NextRequest) {
 		if (!transferResponse) {
 			return new NextResponse('Server Error with transferring money', { status: 401 });
 		}
-
-		console.table(transferResponse);
-
 		const payout = await db.payout.create({
 			data: {
 				amount: profileData.amount,

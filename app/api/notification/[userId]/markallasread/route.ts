@@ -6,9 +6,6 @@ export async function PUT(request: NextRequest, { params }: { params: { userId: 
 	try {
 		const { userId } = params;
 		const loggedInUser = await getCurrentUser();
-		if (!loggedInUser) {
-			return new NextResponse('Profile not found', { status: 404 });
-		}
 		if (!loggedInUser || loggedInUser.id != userId) {
 			return new NextResponse('Profile not found', { status: 404 });
 		}

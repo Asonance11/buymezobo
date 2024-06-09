@@ -20,9 +20,6 @@ export async function DELETE(request: NextRequest, { params }: { params: { postI
 		if (!postFind) {
 			return new NextResponse('Post not found', { status: 404 });
 		}
-
-		const newUrl = postFind.imageUrl.substring(postFind.imageUrl.lastIndexOf('/') + 1);
-
 		const deleteImage = { success: true }; //TODO: delete the image
 
 		if (!deleteImage.success) {

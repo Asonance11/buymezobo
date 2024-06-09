@@ -10,26 +10,15 @@ export async function GET(request: NextRequest, { params }: { params: { userId: 
 		if (!loggedInUser || loggedInUser.id !== userId) {
 			return new NextResponse('Profile not found', { status: 404 });
 		}
-
 		const urlParams = new URL(request.url).searchParams;
-		const isReadParam = urlParams.get('isRead');
 		const unread = urlParams.get('unread') === 'true' ? true : false;
-
 		const page = parseInt(urlParams.get('page') || '1', 10);
 		const limit = parseInt(urlParams.get('limit') || '10', 10);
-
 		const skip = (page - 1) * limit;
-
 		let notifications;
-
 		const whereClause: any = {
 			userId: loggedInUser.id,
 		};
-
-		// if (isReadParam !== null) {
-		// 	whereClause.isRead = isReadParam === 'true';
-		// }
-
 		if (unread) {
 			//if we only want to see the unread messages, isRead = false
 			whereClause.isRead = false; // Filter based on unread status
