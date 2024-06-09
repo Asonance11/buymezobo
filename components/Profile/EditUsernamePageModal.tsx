@@ -1,7 +1,7 @@
 import { useInterface } from '@/store/InterfaceStore';
 import React, { useEffect, useState } from 'react';
 import CreatableSelect from 'react-select/creatable';
-import { MultiValue } from 'react-select';
+import { MultiValue, StylesConfig } from 'react-select';
 import { Dialog, DialogContent, DialogDescription } from '@/components/ui/dialog';
 import { Optional } from '@prisma/client/runtime/library';
 import { updateProfile } from '@/actions/profile';
@@ -12,6 +12,7 @@ import { Button, buttonVariants } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '../ui/textarea';
 import { User } from 'lucia';
+import chroma from 'chroma-js';
 import { ProfileTagsOptions } from '@/lib/tagsOptions';
 import { toast } from 'sonner';
 import { getCreatorTags } from '@/actions/tags';
@@ -165,6 +166,7 @@ export default function EditUsernamePageModal() {
 							<FormLabel>Tags</FormLabel>
 							<CreatableSelect
 								isDisabled={loading}
+								className="bg-purple-500"
 								isMulti
 								options={ProfileTagsOptions as any}
 								value={tags}
@@ -172,7 +174,7 @@ export default function EditUsernamePageModal() {
 							/>
 							<FormDescription>
 								if a tag your resonate with is missing, create it or contact support to add it to the
-								options for you and others
+								options for you and others.
 							</FormDescription>
 						</div>
 						<Button disabled={loading} type="submit">
