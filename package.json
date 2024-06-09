@@ -52,6 +52,7 @@
 		"@tanstack/react-query": "^5.40.0",
 		"@tanstack/react-query-devtools": "^5.40.0",
 		"@types/lodash": "^4.17.4",
+		"antd": "^5.18.0",
 		"axios": "^1.7.2",
 		"bull": "^4.12.9",
 		"class-variance-authority": "^0.7.0",

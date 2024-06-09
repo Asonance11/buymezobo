@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import useIsMobile from '@/hooks/useIsMobile';
 import { HiMenu } from 'react-icons/hi';
 import { useInterface } from '@/store/InterfaceStore';
@@ -33,8 +33,9 @@ export default function AdminHeader() {
 				</div>
 			) : (
 				<div className="navbar-end flex md:mr-2 gap-2">
-					{/*INFO: This is a test*/}
+					{/*INFO: This is a test
 					<Button onClick={onClick}>Test Notification</Button>
+                    */}
 					<UserButton />
 				</div>
 			)}

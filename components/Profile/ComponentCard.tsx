@@ -1,6 +1,7 @@
 import { ProfileTagsOptions } from '@/lib/tagsOptions';
 import { useInterface } from '@/store/InterfaceStore';
 import { useUser } from '@/store/UserDataStore';
+import { avatarImageUrl } from '@/utility/avatar';
 import { cn } from '@/utility/style';
 import { truncateText } from '@/utility/text';
 import { Profile } from '@prisma/client';
@@ -41,7 +42,7 @@ export default function ProfileCardComponent({ profile, className }: Props) {
 					) : null}
 					<div
 						className="cursor-pointer rounded-lg w-5 lg:w-16 h-5 lg:h-16 bg-center bg-cover bg-no-repeat border-1 border-purple-300 absolute left-2 -bottom-6"
-						style={{ backgroundImage: `url(${profile!.imageUrl})` }}
+						style={{ backgroundImage: `url(${avatarImageUrl(profile)})` }}
 					></div>
 				</div>
 

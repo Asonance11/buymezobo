@@ -1,3 +1,9 @@
-export function avatarImageUrl(seed: string): string {
-	return `https://api.dicebear.com/8.x/lorelei/svg?seed=${seed}`;
+import { Post, Profile } from '@prisma/client';
+
+export function avatarImageUrl(profile: Profile): string {
+	if (profile.imageUrl) {
+		return profile.imageUrl;
+	}
+
+	return `https://api.dicebear.com/8.x/lorelei/svg?seed=${profile.userName}`;
 }

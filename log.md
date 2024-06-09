@@ -19,3 +19,11 @@
 4. create a prod env and test it properly that it works
     - test prod.yml works -- it works perfectly on pathfinder
     - use script to clone repo fetch new repo and run it
+
+-------------------------------- june 9 - siji
+
+1. fix bugs, other users can delete posts -- done
+2. add comments to imges
+3. add more fields to images 
+4. image picture not rndereing in some places -- done
+5. fix the image uploader -- doing

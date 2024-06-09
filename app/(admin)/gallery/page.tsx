@@ -30,6 +30,7 @@ export default function Page() {
 		queryKey: queryKeys.post.many(),
 		queryFn: () => getCreatorPosts(creator?.id!, 0),
 		enabled: !!creator,
+		refetchOnWindowFocus: false,
 	});
 
 	useEffect(() => {

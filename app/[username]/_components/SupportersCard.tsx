@@ -199,7 +199,9 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 											<HoverCardTrigger>
 												<div
 													className="cursor-pointer rounded-lg w-10 lg:w-12 h-10 lg:h-12 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
-													style={{ backgroundImage: `url(${support.supporter!.imageUrl})` }}
+													style={{
+														backgroundImage: `url(${avatarImageUrl(support.supporter)})`,
+													}}
 												></div>
 											</HoverCardTrigger>
 											<HoverCardContent className="p-0">
