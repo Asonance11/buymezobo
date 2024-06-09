@@ -155,7 +155,7 @@ export default function SupportCard({ support, comments = false, className }: Pr
 						>
 							<img
 								className="cursor-pointer rounded-lg w-6 h-8 lg:w-8 lg:h-8 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
-								src={comment.profile?.imageUrl || avatarImageUrl(comment.profile?.userName!)}
+								src={avatarImageUrl(comment.profile)}
 								alt="avatar"
 							/>
 							<p className="text-xs md:text-sm">{comment.content}</p>

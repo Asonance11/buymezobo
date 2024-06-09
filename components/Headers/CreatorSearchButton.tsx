@@ -4,6 +4,7 @@ import { useInterface } from '@/store/InterfaceStore';
 import { truncateText } from '@/utility/text';
 import { User } from 'lucia';
 import { avatarImageUrl } from '@/utility/avatar';
+import { Profile } from '@prisma/client';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	profile: User;
@@ -32,7 +33,7 @@ export default function CreatorSearchButton({ profile, ...props }: Props) {
 				></div>
 			) : (
 				<div className="cursor-pointer rounded-full w-10 h-10 bg-center bg-cover bg-no-repeat overflow-hidden">
-					<img src={avatarImageUrl(profile?.userName!)} className="h-full w-full" alt="avatar" />
+					<img src={avatarImageUrl(profile as Profile)} className="h-full w-full" alt="avatar" />
 				</div>
 			)}
 			<div className="flex-col gap-1 items-center justify-start">
