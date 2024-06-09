@@ -15,7 +15,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import queryKeys from '@/query-key-factory';
-import { useEffect } from "react"
+import { useEffect } from 'react';
 
 interface PostProps extends HTMLAttributes<HTMLDivElement> {
 	post: Post;
@@ -31,7 +31,7 @@ export default function PostImageComponent({ post, imageOnly = false, className,
 
 	useEffect(() => {
 		if (loggedInUser && post && loggedInUser.id == post.profileId) {
-			setIsTheSameUser(true)
+			setIsTheSameUser(true);
 		}
 	}, [loggedInUser, post]);
 

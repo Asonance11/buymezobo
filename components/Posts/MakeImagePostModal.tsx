@@ -83,9 +83,9 @@ export default function MakeImagePostModal() {
 							name="title"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className='hidden'>Title</FormLabel>
+									<FormLabel className="hidden">Title</FormLabel>
 									<FormControl>
-										<Input {...field} placeholder='Title' />
+										<Input {...field} placeholder="Title" />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -97,17 +97,17 @@ export default function MakeImagePostModal() {
 							name="caption"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className='hidden'>Caption</FormLabel>
+									<FormLabel className="hidden">Caption</FormLabel>
 									<FormControl>
-										<Textarea className="resize-none" {...field} placeholder='Description' />
+										<Textarea className="resize-none" {...field} placeholder="Description" />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
 							)}
 						/>
 
-						<Button disabled={loading || postImageMutation.isPending} type="submit" className='w-full'>
-                        Publish 
+						<Button disabled={loading || postImageMutation.isPending} type="submit" className="w-full">
+							Publish
 						</Button>
 					</form>
 				</Form>

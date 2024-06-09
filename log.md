@@ -24,6 +24,6 @@
 
 1. fix bugs, other users can delete posts -- done
 2. add comments to imges
-3. add more fields to images 
+3. add more fields to images
 4. image picture not rndereing in some places -- done
 5. fix the image uploader -- doing

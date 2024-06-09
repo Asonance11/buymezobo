@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import useIsMobile from '@/hooks/useIsMobile';
 import { HiMenu } from 'react-icons/hi';
 import { useInterface } from '@/store/InterfaceStore';

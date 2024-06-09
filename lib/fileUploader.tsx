@@ -98,9 +98,13 @@ const FileUploader: React.FC<FileUploaderProps> = function ({
 	);
 
 	return (
-		<div className='bg-blue-600'>
+		<div className="bg-blue-600">
 			<div className="bg-red-900 w-20 h-20">
-				{imageUrl ? <img src={imageUrl} alt="avatar" className="w-full h-full max-h-20 rounded-lg" /> : uploadButton}
+				{imageUrl ? (
+					<img src={imageUrl} alt="avatar" className="w-full h-full max-h-20 rounded-lg" />
+				) : (
+					uploadButton
+				)}
 			</div>
 			{uploading && <Progress percent={Math.round(progress)} />}
 		</div>
