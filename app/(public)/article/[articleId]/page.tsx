@@ -48,27 +48,31 @@ export default function Page(props: any) {
 	const date = moment(article.createdAt).format('MMMM Do YYYY, h:mm:ss a'); // June 10th 2024, 6:43:57 pm
 
 	return (
-		<main className='bg-gray-100'>
-        <UserNameHeader user={article.profile as User} />
+		<main className="bg-gray-100">
+			<UserNameHeader user={article.profile as User} />
 			<main className=" w-full lg:w-3/4 mx-auto grid grid-cols-1 lg:grid-cols-[65%_35%] p-2 md:py-6 md:px-16 h-full gap-4 ">
 				<section className="space-y-2">
-                    <div className=' mx-auto p-6 '>
-                        <Breadcrumb>
-                            <BreadcrumbList>
-                                <BreadcrumbItem>
-                                    <BreadcrumbLink href={`/${article.profile.userName}`}>{article.profile.userName}</BreadcrumbLink>
-                                </BreadcrumbItem>
-                                <BreadcrumbSeparator />
-                                <BreadcrumbItem>
-                                    <BreadcrumbLink href={`/${article.profile.userName}/articles`}>Articles</BreadcrumbLink>
-                                </BreadcrumbItem>
-                                <BreadcrumbSeparator />
-                                <BreadcrumbItem>
-                                    <BreadcrumbPage>{ truncateText( article.title, 30) }</BreadcrumbPage>
-                                </BreadcrumbItem>
-                            </BreadcrumbList>
-                        </Breadcrumb>
-                    </div>
+					<div className=" mx-auto p-6 ">
+						<Breadcrumb>
+							<BreadcrumbList>
+								<BreadcrumbItem>
+									<BreadcrumbLink href={`/${article.profile.userName}`}>
+										{article.profile.userName}
+									</BreadcrumbLink>
+								</BreadcrumbItem>
+								<BreadcrumbSeparator />
+								<BreadcrumbItem>
+									<BreadcrumbLink href={`/${article.profile.userName}/articles`}>
+										Articles
+									</BreadcrumbLink>
+								</BreadcrumbItem>
+								<BreadcrumbSeparator />
+								<BreadcrumbItem>
+									<BreadcrumbPage>{truncateText(article.title, 30)}</BreadcrumbPage>
+								</BreadcrumbItem>
+							</BreadcrumbList>
+						</Breadcrumb>
+					</div>
 					{article.image ? (
 						<div
 							className="flex gap-3  bg-red-400 h-40 lg:h-56 bg-center bg-cover bg-no-repeat rounded-lg"

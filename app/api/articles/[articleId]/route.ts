@@ -11,7 +11,7 @@ export async function GET(request: NextRequest, { params }: { params: { articleI
 				comments: {
 					include: { profile: true },
 				},
-                profile: true,
+				profile: true,
 			},
 		});
 		// You might want to return a response here

@@ -1,7 +1,7 @@
 import { Post, Support as SupportType, Comment as CommentType, Profile, Article } from '@prisma/client';
 
 export interface ArticlePrimitive extends Article {
-    profile:Profile,
+	profile: Profile;
 	comments?: CommentPrimitive[];
 }
 

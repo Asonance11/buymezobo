@@ -41,4 +41,4 @@
 
 /article/edit/[id]
 /article/[id] --- done
-/articles 
+/articles

@@ -6,11 +6,11 @@ export async function POST(request: NextRequest) {
 	try {
 		const option = await request.json();
 
-        const user = await getCurrentUser();
+		const user = await getCurrentUser();
 
 		const article = await db.article.create({
 			data: {
-                profileId: user?.id,
+				profileId: user?.id,
 				type: option.type,
 				title: option.title,
 				content: option.content,

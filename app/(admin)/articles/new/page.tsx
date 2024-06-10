@@ -15,7 +15,7 @@ export default function page() {
 	const [headerImage, setHeaderImage] = useState<string | null>(null);
 	const [loading, setLoading] = useState(false);
 
-    const route = useRouter()
+	const route = useRouter();
 
 	const onChangeBlocks = (value: any) => {
 		setBlocks(value);
@@ -39,12 +39,12 @@ export default function page() {
 	const onSaveDraft = async () => {
 		await saveArticle('DRAFT');
 		toast.success('Article added to draft');
-        route.push('/articles')
+		route.push('/articles');
 	};
 	const onPublishArticle = async () => {
 		await saveArticle('PUBLISHED');
 		toast.success('Article Published successfully');
-        route.push('/articles')
+		route.push('/articles');
 	};
 
 	const updateImage = (image: string) => {
