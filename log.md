@@ -36,3 +36,9 @@
 -   [ ] work on payout model and payout history
 -   [ ] change the cashout methid to full cashout, this is not a banking app
 -   [ ] your firebase keys bro
+
+# concerning articles
+
+/article/edit/[id]
+/article/[id] --- done
+/articles 

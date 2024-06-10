@@ -29,7 +29,7 @@ export default function Page() {
 				<Button>Create new Post</Button>
 				{articles.length > 0 &&
 					articles.map((article) => (
-						<Link href={`/articles/${article.id}`} target='_blank'>
+						<Link href={`/articles/edit/${article.id}`} target='_blank'>
 							<div key={article.id}>{article.title}</div>
 						</Link>
 					))}

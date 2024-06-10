@@ -1,3 +1,13 @@
+import {
+	Breadcrumb,
+	BreadcrumbEllipsis,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
+
 import { getCreatorByName } from '@/lib/creator';
 import { db } from '@/lib/database';
 import type { Metadata } from 'next';
@@ -34,9 +44,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ArticleLayout({ children, params }: { children: React.ReactNode; params: any }) {
-	return (
-		<main>
-			<section className="w-full lg:w-3/4 mx-auto">{children}</section>
-		</main>
-	);
+	return <main>{children}</main>;
 }
