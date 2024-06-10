@@ -53,7 +53,7 @@ export default function Page(props: any) {
 
 	const saveArticle = async (type: any) => {
 		try {
-			const respose = await axios.post(`/api/articles/edit/${article?.id}`, {
+			const respose = await axios.put(`/api/articles/edit/${article?.id}`, {
 				title: title,
 				content: blocks,
 				headerImage: headerImage,
@@ -63,6 +63,7 @@ export default function Page(props: any) {
 	};
 
 	const onSaveDraft = async () => {
+        console.log(title, blocks)
 		await saveArticle('DRAFT');
 		toast.success('Article added to draft');
 		route.push('/articles');

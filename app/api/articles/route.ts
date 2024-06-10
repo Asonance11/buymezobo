@@ -9,6 +9,9 @@ export async function GET() {
 			where: {
 				profileId: user?.id,
 			},
+            orderBy:{
+                createdAt: "desc"
+            }
 		});
 		return NextResponse.json({ articles, message: 'ok' });
 	} catch (error) {}
