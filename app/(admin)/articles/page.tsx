@@ -46,7 +46,7 @@ export default function Page() {
 	return (
 		<main>
 			<section className="w-3/5 mx-auto">
-				<div className="flex items-center justify-between">
+				<div className="flex items-center justify-between mt-6">
 					<Input
 						className="w-fit"
 						placeholder="Search Posts"
@@ -91,4 +91,3 @@ export default function Page() {
 		</main>
 	);
 }
-
