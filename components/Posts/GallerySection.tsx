@@ -4,6 +4,7 @@ import { Box } from '@mui/material';
 import Masonry from '@mui/lab/Masonry';
 import { cn } from '@/utility/style';
 import PostImageComponent from '../Posts/Post';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	posts: Post[] | null;
@@ -18,8 +19,14 @@ export default function GallerySection({ posts, className, isImageOnly = true }:
 	return (
 		<section className={cn('w-full', className)}>
 			<Box>
-				<Masonry columns={{ xs: 2, md: 3, lg: 4 }} spacing={{ xs: 1, md: 2, lg: 2 }} sequential>
-					{posts?.map((post) => <PostImageComponent imageOnly={isImageOnly} post={post} key={post.id} />)}
+				<Masonry columns={{ xs: 2, md: 3, lg: 4 }} spacing={{ xs: 1, md: 2, lg: 2 }}>
+					<PhotoProvider>
+						{posts?.map((post) => (
+							<PhotoView key={post.id} src={post.imageUrl}>
+								<PostImageComponent imageOnly={isImageOnly} post={post} key={post.id} />
+							</PhotoView>
+						))}
+					</PhotoProvider>
 				</Masonry>
 			</Box>
 		</section>

@@ -81,7 +81,7 @@ export default function PostImageComponent({ post, imageOnly = false, className,
 					className="w-full h-auto transition-transform duration-500 hover:scale-110 "
 					src={post.imageUrl}
 					alt={post.title}
-					onClick={() => onOpen('imageSelectModal', { post })}
+					//onClick={() => onOpen('imageSelectModal', { post })}
 				/>
 			</div>
 

@@ -20,12 +20,19 @@
     - test prod.yml works -- it works perfectly on pathfinder
     - use script to clone repo fetch new repo and run it
 
--------------------------------- june 9 - siji
+---------------------------------------------------------------------------------------- 
+
+# june 9 - siji
 
 1. fix bugs, other users can delete posts -- done
-2. add comments to imges
-3. add more fields to images
+2. add comments to imges - v2
+3. add more fields to images - v2
 4. image picture not rndereing in some places -- done
-5. fix the image uploader -- doing
+5. fix the image uploader -- doing (alomst done i guess)
 
 6. invalidate supports after new support has been made
+
+- [ ] compliance form, make it work i guess, get good keys
+- [ ] work on payout model and payout history
+- [ ] change the cashout methid to full cashout, this is not a banking app
+- [ ] your firebase keys bro

@@ -4,6 +4,7 @@ import Provider from '@/providers';
 import { cn } from '@/utility/style';
 import { fontSans } from '@/utility/fonts';
 import { Toaster } from '@/components/ui/sonner';
+import 'react-photo-view/dist/react-photo-view.css';
 
 export const metadata: Metadata = {
 	title: 'Buy me Zobo',
