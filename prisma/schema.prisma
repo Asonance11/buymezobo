@@ -2,7 +2,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-    provider = "prisma-client-js"
+    provider      = "prisma-client-js"
     binaryTargets = ["native", "linux-musl"]
 }
 
@@ -19,9 +19,11 @@ model Profile {
     firstName    String?
     lastName     String?
     sessions     Session[]
-    posts        Post[]
 
-    imageUrl       String  @default("https://www.kindpng.com/picc/m/171-1712282_profile-icon-png-profile-icon-vector-png-transparent.png") @db.Text
+    posts    Post[]
+    articles Article[]
+
+    imageUrl       String
     headerImageUrl String? @db.Text
     bio            String?
 
@@ -151,11 +153,14 @@ model Comment {
     id        String   @id @default(uuid())
     profile   Profile? @relation(fields: [profileId], references: [id], onDelete: Cascade)
     profileId String?
-    supportId String
-    support   Support  @relation(fields: [supportId], references: [id], onDelete: Cascade)
+    supportId String?
+    support   Support? @relation(fields: [supportId], references: [id], onDelete: Cascade)
     content   String   @db.Text
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+
+    Article   Article? @relation(fields: [articleId], references: [id])
+    articleId String?
 }
 
 enum NotificationType {
@@ -172,4 +177,24 @@ model Notification {
     content    String?
     isRead     Boolean          @default(false)
     createdAt  DateTime         @default(now())
+}
+
+enum PostType {
+    DRAFT
+    PUBLISHED
+}
+
+model Article {
+    id        String    @id @default(uuid())
+    title     String
+    path      String?
+    image     String?
+    content   Json?
+    profile   Profile?  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+    profileId String?
+    comments  Comment[]
+    views     Int       @default(0)
+    type      PostType
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
 }
