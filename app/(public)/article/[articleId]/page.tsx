@@ -40,7 +40,7 @@ export default function Page(props: any) {
 	if (!article) {
 		return (
 			<div className="w-full min-h-screen flex items-center justify-center">
-				<Loader />;
+				<Loader />
 			</div>
 		);
 	}

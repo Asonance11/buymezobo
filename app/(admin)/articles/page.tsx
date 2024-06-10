@@ -1,6 +1,11 @@
-
 'use client';
 import { Button } from '@/components/ui/button';
+import {
+	DropdownMenu,
+	DropdownMenuTrigger,
+	DropdownMenuItem,
+	DropdownMenuContent,
+} from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { useUser } from '@/store/UserDataStore';
@@ -8,10 +13,12 @@ import { Article } from '@prisma/client';
 import axios from 'axios';
 import moment from 'moment';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { SlOptions } from 'react-icons/sl';
 
 export default function Page() {
+	const router = useRouter();
 	const [articles, setArticles] = useState<Article[]>([]);
 	const [searchTerm, setSearchTerm] = useState('');
 	const { loggedInUser } = useUser();
@@ -32,21 +39,16 @@ export default function Page() {
 		setSearchTerm(event.target.value);
 	};
 
-	const filteredArticles = articles.filter(article =>
-		article.title.toLowerCase().includes(searchTerm.toLowerCase())
+	const filteredArticles = articles.filter((article) =>
+		article.title.toLowerCase().includes(searchTerm.toLowerCase()),
 	);
 
 	return (
 		<main>
 			<Button>Create new Post</Button>
 			<section className="w-3/5 mx-auto">
-				<Input 
-					className='w-fit' 
-					placeholder='Search Posts' 
-					value={searchTerm}
-					onChange={handleSearchChange}
-				/>
-				<Separator className='my-3' />
+				<Input className="w-fit" placeholder="Search Posts" value={searchTerm} onChange={handleSearchChange} />
+				<Separator className="my-3" />
 				{filteredArticles.length > 0 &&
 					filteredArticles.map((article) => (
 						<div key={article.id} className="p-4 rounded-lg m-3 bg-white space-y-3">
@@ -55,7 +57,19 @@ export default function Page() {
 									Posted at {moment(article.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
 								</p>
 								<div>
-									<SlOptions className="text-gray-600 font-light text-sm" />
+									<DropdownMenu>
+										<DropdownMenuTrigger className="outline-none">
+											<div className="rounded-full hover:bg-zinc-200 transition-colors duration-300 cursor-pointer p-1.5">
+												<SlOptions />
+											</div>
+										</DropdownMenuTrigger>
+										<DropdownMenuContent>
+											<DropdownMenuItem>Share</DropdownMenuItem>
+											<DropdownMenuItem onClick={() => router.push(`/article/${article.id}`)}>
+												View Article
+											</DropdownMenuItem>
+										</DropdownMenuContent>
+									</DropdownMenu>
 								</div>
 							</div>
 							<div>
@@ -70,4 +84,3 @@ export default function Page() {
 		</main>
 	);
 }
-
