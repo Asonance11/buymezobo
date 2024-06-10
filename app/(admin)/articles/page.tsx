@@ -45,9 +45,16 @@ export default function Page() {
 
 	return (
 		<main>
-			<Button>Create new Post</Button>
 			<section className="w-3/5 mx-auto">
-				<Input className="w-fit" placeholder="Search Posts" value={searchTerm} onChange={handleSearchChange} />
+				<div className="flex items-center justify-between">
+					<Input
+						className="w-fit"
+						placeholder="Search Posts"
+						value={searchTerm}
+						onChange={handleSearchChange}
+					/>
+					<Button onClick={() => router.push('/articles/new')}>Create new Post</Button>
+				</div>
 				<Separator className="my-3" />
 				{filteredArticles.length > 0 &&
 					filteredArticles.map((article) => (
@@ -84,3 +91,4 @@ export default function Page() {
 		</main>
 	);
 }
+
