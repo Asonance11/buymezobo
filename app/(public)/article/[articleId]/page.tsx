@@ -49,8 +49,10 @@ export default function Page(props: any) {
 						></div>
 
 						<div>
-							<p className='hover:underline font-semibold text-gray-800 cursor-pointer'>@{article.profile.userName}</p>
-							<p className='font-extralight text-sm text-gray-600'>created at {date}</p>
+							<p className="hover:underline font-semibold text-gray-800 cursor-pointer">
+								@{article.profile.userName}
+							</p>
+							<p className="font-extralight text-sm text-gray-600">created at {date}</p>
 						</div>
 					</div>
 				</div>

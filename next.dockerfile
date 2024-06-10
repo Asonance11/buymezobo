@@ -18,6 +18,7 @@ FROM base AS dev
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules 
 COPY . .
+#RUN pnpm exec prisma db push
 RUN pnpm exec prisma generate
 
 
@@ -27,6 +28,8 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
+
+#RUN pnpm exec prisma db push
 RUN pnpm exec prisma generate
 
 RUN pnpm next build

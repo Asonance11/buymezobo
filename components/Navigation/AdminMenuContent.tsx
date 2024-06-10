@@ -16,6 +16,7 @@ import { User } from 'lucia';
 import { RiImageEditFill } from 'react-icons/ri';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import useNotificationStore from '@/store/NotificationStore';
+import { PiBookLight } from "react-icons/pi";
 import { InterfaceType, useInterface } from '@/store/InterfaceStore';
 
 export default function AdminMenuContent() {
@@ -47,7 +48,6 @@ export default function AdminMenuContent() {
 
 	const mainOptions = [
 		{ name: 'Home', route: '/dashboard', icon: RiHomeSmileLine },
-		//{ name: 'Explore Creators', route: '/explore', icon: MdOutlineExplore },
 		{
 			name: 'View page',
 			route: `/${profile?.userName}`,
@@ -61,6 +61,7 @@ export default function AdminMenuContent() {
 			badged: theresNewNotification,
 			modalType: 'notifications',
 		},
+        { name: 'Articles', route: '/articles', icon: PiBookLight},
 		{ name: 'Gallery', route: '/gallery', icon: MdOutlinePhotoSizeSelectActual },
 	];
 
