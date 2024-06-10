@@ -1,5 +1,3 @@
-import { generateMetadata } from '@/app/[username]/layout';
-
 import React from 'react';
 
 export default async function Explore() {
