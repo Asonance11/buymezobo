@@ -5,7 +5,6 @@ export async function PUT(request: NextRequest, { params }: { params: { articleI
 	try {
 		const data = await request.json();
 
-
 		const article = await db.article.findFirst({
 			where: {
 				id: params.articleId,
@@ -16,19 +15,18 @@ export async function PUT(request: NextRequest, { params }: { params: { articleI
 			throw new Error('Article not found');
 		}
 
-        console.log(article)
-
+		console.log(article);
 
 		const updatedArticle = await db.article.update({
 			where: {
 				id: params.articleId,
 			},
 			data: {
-                title:data.title,
-                content:data.content,
-                image:data.headerImage,
-                type:data.type
-            },
+				title: data.title,
+				content: data.content,
+				image: data.headerImage,
+				type: data.type,
+			},
 		});
 
 		return NextResponse.json({ article: updatedArticle, message: 'ok' });

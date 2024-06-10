@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { notFound, useSearchParams } from 'next/navigation';
 import { User } from 'lucia';
 import { getCreatorByName } from '@/lib/creator';
-import BuyCard from '@/app/[username]/_components/BuyCard';
+import BuyCard from '../../[username]/_components/BuyCard';
 import { useOrigin } from '@/hooks/useOrigin';
 import Link from 'next/link';
 import { truncateText } from '@/utility/text';
