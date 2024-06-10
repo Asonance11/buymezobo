@@ -14,5 +14,8 @@ export async function GET() {
 			},
 		});
 		return NextResponse.json({ articles, message: 'ok' });
-	} catch (error) {}
+	} catch (error) {
+
+		return NextResponse.json({ error, message: 'ok', });
+    }
 }
