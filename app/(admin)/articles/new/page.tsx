@@ -9,7 +9,7 @@ import FileUploader from '@/lib/fileUploader';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 
-export default function page() {
+export default function Page() {
 	const [title, setTitle] = useState('Untitled');
 	const [blocks, setBlocks] = useState<Block[]>([]);
 	const [headerImage, setHeaderImage] = useState<string | null>(null);
