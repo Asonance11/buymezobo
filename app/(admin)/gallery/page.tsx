@@ -62,7 +62,7 @@ export default function Page() {
 					Make New Post
 				</Button>
 			</section>
-            <Separator className='my-2 md:my-3 lg:my-5 ' />
+			<Separator className="my-2 md:my-3 lg:my-5 " />
 			<GallerySection posts={latestPost} isImageOnly={false} />
 		</div>
 	);

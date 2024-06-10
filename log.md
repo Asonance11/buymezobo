@@ -20,7 +20,7 @@
     - test prod.yml works -- it works perfectly on pathfinder
     - use script to clone repo fetch new repo and run it
 
----------------------------------------------------------------------------------------- 
+---
 
 # june 9 - siji
 
@@ -32,7 +32,7 @@
 
 6. invalidate supports after new support has been made
 
-- [ ] compliance form, make it work i guess, get good keys
-- [ ] work on payout model and payout history
-- [ ] change the cashout methid to full cashout, this is not a banking app
-- [ ] your firebase keys bro
+-   [ ] compliance form, make it work i guess, get good keys
+-   [ ] work on payout model and payout history
+-   [ ] change the cashout methid to full cashout, this is not a banking app
+-   [ ] your firebase keys bro
