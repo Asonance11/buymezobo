@@ -23,7 +23,7 @@ model Profile {
     posts    Post[]
     articles Article[]
 
-    imageUrl       String
+    imageUrl       String?
     headerImageUrl String? @db.Text
     bio            String?
 
