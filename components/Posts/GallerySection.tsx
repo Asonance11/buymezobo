@@ -20,7 +20,7 @@ export default function GallerySection({ posts, className, isImageOnly = true }:
 		<section className={cn('w-full', className)}>
 			<Box>
 				<Masonry columns={{ xs: 2, md: 3, lg: 4 }} spacing={{ xs: 1, md: 2, lg: 2 }}>
-					<PhotoProvider>
+					<PhotoProvider maskOpacity={0.9}>
 						{posts?.map((post) => (
 							<PhotoView key={post.id} src={post.imageUrl}>
 								<PostImageComponent imageOnly={isImageOnly} post={post} key={post.id} />

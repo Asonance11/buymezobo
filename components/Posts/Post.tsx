@@ -25,8 +25,6 @@ interface PostProps extends HTMLAttributes<HTMLDivElement> {
 export default function PostImageComponent({ post, imageOnly = false, className, ...props }: PostProps) {
 	const { loggedInUser } = useUser();
 
-	const { onOpen } = useInterface();
-
 	const [isTheSameUser, setIsTheSameUser] = useState(false);
 
 	useEffect(() => {
@@ -81,19 +79,13 @@ export default function PostImageComponent({ post, imageOnly = false, className,
 					className="w-full h-auto transition-transform duration-500 hover:scale-110 "
 					src={post.imageUrl}
 					alt={post.title}
-					//onClick={() => onOpen('imageSelectModal', { post })}
 				/>
 			</div>
 
 			{imageOnly ? null : (
 				<div className="p-3">
 					<div className="flex justify-between items-center">
-						<p
-							onClick={() => onOpen('imageSelectModal', { post })}
-							className="font-bold text-sm lg:text-base -tracking-wide "
-						>
-							{post.title}
-						</p>
+						<p className="font-bold text-sm lg:text-base -tracking-wide ">{post.title}</p>
 
 						{isTheSameUser ? (
 							<DropdownMenu>
