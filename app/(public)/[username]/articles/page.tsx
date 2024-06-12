@@ -95,7 +95,9 @@ export default function Page(props: any) {
 									)}
 								</div>
 								{articles.length > 0 &&
-									filteredArticles.map((article) => <ArticleCard key={article.id} article={article} />)}
+									filteredArticles.map((article) => (
+										<ArticleCard key={article.id} article={article} />
+									))}
 								{articles.length <= 0 && (
 									<div className="w-full h-80 flex items-center justify-center">
 										<div>

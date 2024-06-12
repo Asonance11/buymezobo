@@ -1,6 +1,6 @@
 'use client';
 import '@blocknote/core/fonts/inter.css';
-import { useCreateBlockNote } from '@blocknote/react';
+import { useCreateBlockNote as CreateBlockNote } from '@blocknote/react';
 import { BlockNoteView } from '@blocknote/mantine';
 import '@blocknote/mantine/style.css';
 import { Block, filterSuggestionItems, insertOrUpdateBlock } from '@blocknote/core';
@@ -25,16 +25,16 @@ export default function Editor({ initialValues, onEditorChange, previewMode = fa
 	let editor: any;
 
 	if (initialValues && initialValues.length > 0) {
-		editor = useCreateBlockNote({
+		editor = CreateBlockNote({
 			initialContent: initialValues,
 		});
 	} else {
-		editor = useCreateBlockNote({});
+		editor = CreateBlockNote({});
 	}
 
 	if (previewMode && !initialValues) {
 		return null;
 	}
 
-	return <BlockNoteView editable={!readOnly} editor={editor} onChange={onChange} theme="light" className="p-0" />;
+	return <BlockNoteView sideMenu={!readOnly} editable={!readOnly} editor={editor} onChange={onChange} theme="light" className="p-0" />;
 }
