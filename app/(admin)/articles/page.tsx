@@ -49,7 +49,7 @@ export default function Page() {
 					<Button onClick={() => router.push('/articles/new')}>Create new Post</Button>
 				</div>
 				<Separator className="my-3" />
-				{filteredArticles.length > 0 && filteredArticles.map((article) => <ArticleCard article={article} />)}
+				{filteredArticles.length > 0 && filteredArticles.map((article) => <ArticleCard key={article.id} article={article} />)}
 			</section>
 		</main>
 	);
