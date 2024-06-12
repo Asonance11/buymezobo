@@ -14,7 +14,6 @@ interface EditorProps {
 }
 
 export default function Editor({ initialValues, onEditorChange, previewMode = false, readOnly = false }: EditorProps) {
-	console.log(initialValues);
 	const onChange = async () => {
 		const html = await editor.blocksToHTMLLossy(editor.document);
 		//@ts-ignore
@@ -23,9 +22,15 @@ export default function Editor({ initialValues, onEditorChange, previewMode = fa
 		}
 	};
 
-	const editor = useCreateBlockNote({
-		initialContent: initialValues,
-	});
+	let editor: any;
+
+	if (initialValues && initialValues.length > 0) {
+		editor = useCreateBlockNote({
+			initialContent: initialValues,
+		});
+	} else {
+		editor = useCreateBlockNote({});
+	}
 
 	if (previewMode && !initialValues) {
 		return null;

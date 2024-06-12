@@ -1,25 +1,18 @@
 'use client';
+import { ArticleCard } from '@/components/Articles/ArticleCard';
 import { Button } from '@/components/ui/button';
-import {
-	DropdownMenu,
-	DropdownMenuTrigger,
-	DropdownMenuItem,
-	DropdownMenuContent,
-} from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { useUser } from '@/store/UserDataStore';
+import { ArticlePrimitive } from '@/types/primitives';
 import { Article } from '@prisma/client';
 import axios from 'axios';
-import moment from 'moment';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { SlOptions } from 'react-icons/sl';
 
 export default function Page() {
 	const router = useRouter();
-	const [articles, setArticles] = useState<Article[]>([]);
+	const [articles, setArticles] = useState<ArticlePrimitive[]>([]);
 	const [searchTerm, setSearchTerm] = useState('');
 	const { loggedInUser } = useUser();
 
@@ -56,37 +49,7 @@ export default function Page() {
 					<Button onClick={() => router.push('/articles/new')}>Create new Post</Button>
 				</div>
 				<Separator className="my-3" />
-				{filteredArticles.length > 0 &&
-					filteredArticles.map((article) => (
-						<div key={article.id} className="p-4 rounded-lg m-3 bg-white space-y-3">
-							<div className="flex items-center justify-between">
-								<p className="text-gray-600 font-light text-sm">
-									Posted at {moment(article.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
-								</p>
-								<div>
-									<DropdownMenu>
-										<DropdownMenuTrigger className="outline-none">
-											<div className="rounded-full hover:bg-zinc-200 transition-colors duration-300 cursor-pointer p-1.5">
-												<SlOptions />
-											</div>
-										</DropdownMenuTrigger>
-										<DropdownMenuContent>
-											<DropdownMenuItem>Share</DropdownMenuItem>
-											<DropdownMenuItem onClick={() => router.push(`/article/${article.id}`)}>
-												View Article
-											</DropdownMenuItem>
-										</DropdownMenuContent>
-									</DropdownMenu>
-								</div>
-							</div>
-							<div>
-								<Link href={`/articles/edit/${article.id}`} target="_blank">
-									<p className="font-semibold">{article.title}</p>
-								</Link>
-							</div>
-							<div></div>
-						</div>
-					))}
+				{filteredArticles.length > 0 && filteredArticles.map((article) => <ArticleCard article={article} />)}
 			</section>
 		</main>
 	);

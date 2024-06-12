@@ -76,7 +76,7 @@ export default function Page() {
 						<Input className="ring-none focus:ring-none w-fit" value={title} onChange={onChangeTitle} />
 					</div>
 				</section>
-				<div className="py-2 rounded-lg bg-white">
+				<div className="py-2 rounded-lg bg-white min-h-96">
 					<Editor readOnly={false} onEditorChange={onChangeBlocks} />
 				</div>
 			</section>

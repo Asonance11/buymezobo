@@ -20,6 +20,9 @@ import { useEffect, useState } from 'react';
 import { truncateText } from '@/utility/text';
 import UserNameHeader from '@/components/Headers/UsernameHeader';
 import { User } from 'lucia';
+import Link from 'next/link';
+import { calculateReadingTime } from '@/utility/articles';
+import { Block } from '@/types/blocknote';
 
 export default function Page(props: any) {
 	const articleId = props.params.articleId;
@@ -52,7 +55,7 @@ export default function Page(props: any) {
 			<UserNameHeader user={article.profile as User} />
 			<main className=" w-full lg:w-3/4 mx-auto grid grid-cols-1 lg:grid-cols-[65%_35%] p-2 md:py-6 md:px-16 h-full gap-4 ">
 				<section className="space-y-2">
-					<div className=" mx-auto p-6 ">
+					<div className=" mx-auto p-4 ">
 						<Breadcrumb>
 							<BreadcrumbList>
 								<BreadcrumbItem>
@@ -73,14 +76,8 @@ export default function Page(props: any) {
 							</BreadcrumbList>
 						</Breadcrumb>
 					</div>
-					{article.image ? (
-						<div
-							className="flex gap-3  bg-red-400 h-40 lg:h-56 bg-center bg-cover bg-no-repeat rounded-lg"
-							style={{ backgroundImage: `url(${article.image})` }}
-						></div>
-					) : null}
-					<div className="p-4 pl-14">
-						<p className="text-lg font-bold -tracking-wide">{article.title}</p>
+					<div className="p-4 space-y-3 ">
+						<p className="text-3xl font-bold -tracking-wide">{article.title}</p>
 						<div className="flex items-center justify-start gap-1.5">
 							<div
 								className="cursor-pointer rounded-lg w-10 lg:w-12 h-10 lg:h-12 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
@@ -88,13 +85,21 @@ export default function Page(props: any) {
 							></div>
 
 							<div>
-								<p className="hover:underline font-semibold text-gray-800 cursor-pointer">
-									@{article.profile.userName}
-								</p>
+								<Link href={`/${article.profile.userName}`}>
+									<p className="hover:underline font-semibold text-gray-800 cursor-pointer">
+										@{article.profile.userName}
+									</p>
+								</Link>
 								<p className="font-extralight text-sm text-gray-600">created at {date}</p>
 							</div>
 						</div>
 					</div>
+					{article.image ? (
+						<div
+							className="flex gap-3  bg-red-400 h-40 lg:h-56 bg-center bg-cover bg-no-repeat rounded-lg"
+							style={{ backgroundImage: `url(${article.image})` }}
+						></div>
+					) : null}
 
 					<div className="py-6 bg-white rounded-lg">
 						<Editor readOnly initialValues={article.content} previewMode />

@@ -9,6 +9,14 @@ export async function GET() {
 			where: {
 				profileId: user?.id,
 			},
+			include: {
+				profile: true,
+				comments: {
+					include: {
+						profile: true,
+					},
+				},
+			},
 			orderBy: {
 				createdAt: 'desc',
 			},
