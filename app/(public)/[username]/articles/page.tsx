@@ -81,7 +81,7 @@ export default function Page(props: any) {
 						></div>
 						<div className="flex-1 flex flex-col-reverse lg:flex-row justify-center gap-3 relative items-center py-5 lg:py-3 lg:items-start bg-white lg:bg-gray-100 ">
 							<div className=" w-10/11 md:w-3/4 lg:w-3/5 p-3 space-y-3 -mt-36  lg:-mt-32 mx-auto bg-white lg:rounded-lg ">
-								<div className='px-1 md:px-2 lg:px-6 py-2'>
+								<div className="px-1 md:px-2 lg:px-6 py-2">
 									<p className="text-md md:text-lg font-semibold -tracking-wide">Articles</p>
 									{articles.length > 0 && (
 										<div className="flex justify-between mt-2 ">

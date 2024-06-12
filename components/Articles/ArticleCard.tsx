@@ -49,7 +49,7 @@ export function ArticleCard({ article }: Props) {
 								<SlOptions />
 							</div>
 						</DropdownMenuTrigger>
-						<DropdownMenuContent className='text-xs'>
+						<DropdownMenuContent className="text-xs">
 							<DropdownMenuItem>Share</DropdownMenuItem>
 							<DropdownMenuItem onClick={() => router.push(`/article/${article.id}`)}>
 								View Article
