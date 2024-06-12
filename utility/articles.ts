@@ -32,7 +32,6 @@ function extractTextFromBlocks(blocks: Block[]): string {
 	let text = '';
 
 	blocks.forEach((block) => {
-		console.log('Processing block:', block);
 		if (block.content) {
 			if (Array.isArray(block.content)) {
 				block.content.forEach((inlineContent) => {
@@ -42,38 +41,20 @@ function extractTextFromBlocks(blocks: Block[]): string {
 				text += ` ${extractTextFromTableContent(block.content)}`;
 			}
 		} else {
-			console.log('Block has no content:', block);
 		}
 
 		if (block.children && block.children.length > 0) {
 			text += ` ${extractTextFromBlocks(block.children)}`;
 		}
 	});
-
 	return text.trim(); // Ensure no leading/trailing whitespace
 }
 
 export function calculateReadingTime(blocks: Block[]): number {
-
-    console.log("WORDS PASSED IN     " + blocks)
-	// Define the average reading speed (words per minute)
 	const wordsPerMinute = 200;
-
-	// Extract text from blocks
 	const text = extractTextFromBlocks(blocks);
-
-	// Debug: log the extracted text
-	console.log('Extracted text:', text);
-
-	// Strip any remaining HTML tags and count the words
 	const plainText = text.replace(/<\/?[^>]+(>|$)/g, '');
 	const wordCount = plainText.split(/\s+/).filter((word: string) => word.length > 0).length;
-
-	// Debug: log the word count
-	console.log('Word count:', wordCount);
-
-	// Calculate reading time
 	const readingTime = Math.ceil(wordCount / wordsPerMinute);
-
 	return readingTime;
 }

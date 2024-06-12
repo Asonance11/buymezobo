@@ -33,7 +33,7 @@ export default function AdminHeader() {
 				</div>
 			) : (
 				<div className="navbar-end flex md:mr-2 gap-2">
-                    {/*INFO: This is a test
+					{/*INFO: This is a test
 					<Button onClick={onClick}>Test shit</Button>
                     */}
 					<UserButton />

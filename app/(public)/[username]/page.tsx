@@ -5,7 +5,7 @@ import { Post } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import BuyCard from './_components/BuyCard';
 import SupportersCard from './_components/SupportersCard';
-import Loading from './loading';
+import Loading from '../loading';
 import { getCreatorPosts } from '@/actions/posts';
 import { useQuery } from '@tanstack/react-query';
 import queryKeys from '@/query-key-factory';

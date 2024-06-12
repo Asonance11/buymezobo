@@ -42,3 +42,10 @@
 /article/edit/[id]
 /article/[id] --- done
 /articles
+
+# 13 and 14 june
+
+paginate articles in both places
+article page revision
+views
+comments

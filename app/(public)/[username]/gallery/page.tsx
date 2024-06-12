@@ -6,7 +6,7 @@ import { getCreatorByName } from '@/lib/creator';
 import { Post } from '@prisma/client';
 import { User } from 'lucia';
 import React, { useEffect, useState } from 'react';
-import Loading from '../loading';
+import Loading from '../../loading';
 
 export default function Page(props: any) {
 	const creatorname = props.params.username;
