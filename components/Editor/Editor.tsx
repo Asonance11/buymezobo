@@ -36,5 +36,14 @@ export default function Editor({ initialValues, onEditorChange, previewMode = fa
 		return null;
 	}
 
-	return <BlockNoteView sideMenu={!readOnly} editable={!readOnly} editor={editor} onChange={onChange} theme="light" className="p-0" />;
+	return (
+		<BlockNoteView
+			sideMenu={!readOnly}
+			editable={!readOnly}
+			editor={editor}
+			onChange={onChange}
+			theme="light"
+			className="p-0"
+		/>
+	);
 }
