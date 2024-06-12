@@ -37,9 +37,9 @@ export function ArticleCard({ article }: Props) {
 	};
 
 	return (
-		<div key={article.id} className="p-4 rounded-lg m-3 bg-white space-y-3">
+		<div key={article.id} className="p-1 md:p-2 lg:p-4 rounded-lg m-3 bg-white space-y-2 md:space-y-3">
 			<div className="flex items-center justify-between">
-				<p className="text-gray-600 font-light text-sm">
+				<p className="text-gray-600 font-light text-xs md:text-sm">
 					Posted at {moment(article.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
 				</p>
 				<div>
@@ -49,7 +49,7 @@ export function ArticleCard({ article }: Props) {
 								<SlOptions />
 							</div>
 						</DropdownMenuTrigger>
-						<DropdownMenuContent>
+						<DropdownMenuContent className='text-xs'>
 							<DropdownMenuItem>Share</DropdownMenuItem>
 							<DropdownMenuItem onClick={() => router.push(`/article/${article.id}`)}>
 								View Article
@@ -72,11 +72,11 @@ export function ArticleCard({ article }: Props) {
 					}
 					target="_blank"
 				>
-					<p className="font-semibold text-lg tracking-tight">{truncateText(article.title, 70)}</p>
+					<p className="font-semibold text-md md:text-lg tracking-tight">{truncateText(article.title, 70)}</p>
 				</Link>
 			</div>
 			<div className="flex items-center justify-between">
-				<div className="flex font-light text-gray-500 text-sm tracking-tight items-center gap-3 lg:gap-6">
+				<div className="flex font-light text-gray-500 text-xs md:text-sm tracking-tight items-center gap-3 lg:gap-6">
 					<p>
 						{' '}
 						{article.comments
@@ -90,7 +90,7 @@ export function ArticleCard({ article }: Props) {
 				</div>
 				<div className="flex gap-2 items-center ">
 					<div
-						className={`p-2 text-xs rounded-sm font-semibold border-2 ${typeOptions[article.type].text + ' ' + typeOptions[article.type].border + ' ' + typeOptions[article.type].bg} `}
+						className={`p-1 md:p-2 text-xs  rounded-sm font-semibold border md:border-2 ${typeOptions[article.type].text + ' ' + typeOptions[article.type].border + ' ' + typeOptions[article.type].bg} `}
 					>
 						{article.type}
 					</div>
