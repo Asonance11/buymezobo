@@ -78,7 +78,7 @@ export default function Page() {
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className=" flex flex-col gap-8 w-[50%] min-w-[22rem] px-2.5 md:px-4 lg:px-8 py-10 h-fit border-solid border-slate-300  
+					className=" flex flex-col gap-8 w-[60%] lg:w-[60%] xl:w-[40%] min-w-[22rem] px-2.5 md:px-4 lg:px-8 py-10 h-fit border-solid border-slate-300  
                     "
 				>
 					<div className="space-y-3">

@@ -81,7 +81,7 @@ export default function Page() {
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className=" flex flex-col gap-8 w-[50%] min-w-[22rem] px-2.5 md:px-4 lg:px-8 h-fit border-solid border-slate-300  
+					className=" flex flex-col gap-8 w-[60%] lg:w-[60%] xl:w-[40%] min-w-[22rem] px-2.5 md:px-4 lg:px-8 py-10 h-fit border-solid border-slate-300  
                     "
 				>
 					<div className="space-y-3">
@@ -89,15 +89,15 @@ export default function Page() {
 						<p className="text-sm text-gray-500 tracking-wide">to continue to buymezobo</p>
 					</div>
 
-					<div className="flex items-center gap-1.5 lg:gap-3">
+					<div className="lg:flex gap-3">
 						<FormField
 							control={form.control}
 							name="firstName"
 							render={({ field }) => (
-								<FormItem>
+								<FormItem className=''>
 									<FormLabel>Firstname</FormLabel>
 									<FormControl>
-										<Input className="w-full resize-none" {...field} placeholder="" />
+										<Input className="resize-none" {...field} placeholder=""  />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -108,10 +108,10 @@ export default function Page() {
 							control={form.control}
 							name="lastName"
 							render={({ field }) => (
-								<FormItem>
+								<FormItem className=''>
 									<FormLabel>Lastname</FormLabel>
 									<FormControl>
-										<Input className="w-full resize-none" {...field} placeholder="" />
+										<Input className="resize-none" {...field} placeholder="" />
 									</FormControl>
 									<FormMessage />
 								</FormItem>

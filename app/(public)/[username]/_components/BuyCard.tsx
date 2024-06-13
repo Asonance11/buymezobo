@@ -26,6 +26,8 @@ import { useAuth } from '@/actions/use-auth';
 import { useUser } from '@/store/UserDataStore';
 import Emoji from '@/components/tools/EmojiPicker';
 import { EmojiClickData } from 'emoji-picker-react';
+import { useQueryClient } from '@tanstack/react-query';
+import queryKeys from '@/query-key-factory';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	themeColor?: string;
@@ -39,6 +41,7 @@ export default function BuyCard({ creator, className, setReload, widgetprops }: 
 	const [success, setSuccess] = useState(false);
 	const [finalAmount, setFinalAmount] = useState(amountToPay * ZoboPrice);
 
+	const queryClient = useQueryClient();
 	const { loggedInUser } = useUser();
 
 	const setFinalAmountFunction = (amount: number) => {
@@ -96,6 +99,7 @@ export default function BuyCard({ creator, className, setReload, widgetprops }: 
 			toast.success('Successful');
 			console.table(response.data);
 			form.reset({ content: '', name: '', privateMessage: false });
+			queryClient.invalidateQueries({ queryKey: [...queryKeys.support.all] });
 		} catch (error) {
 			toast.error('An error occured in buy card');
 		}
