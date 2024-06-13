@@ -94,10 +94,10 @@ export default function Page() {
 							control={form.control}
 							name="firstName"
 							render={({ field }) => (
-								<FormItem className=''>
+								<FormItem className="">
 									<FormLabel>Firstname</FormLabel>
 									<FormControl>
-										<Input className="resize-none" {...field} placeholder=""  />
+										<Input className="resize-none" {...field} placeholder="" />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -108,7 +108,7 @@ export default function Page() {
 							control={form.control}
 							name="lastName"
 							render={({ field }) => (
-								<FormItem className=''>
+								<FormItem className="">
 									<FormLabel>Lastname</FormLabel>
 									<FormControl>
 										<Input className="resize-none" {...field} placeholder="" />

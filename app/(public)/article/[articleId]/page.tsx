@@ -78,7 +78,6 @@ export default function Page(props: any) {
 			});
 
 			toast.success('Comment submitted');
-            
 		} catch (error) {
 			toast.error('Failed to submit your comment');
 		} finally {
