@@ -73,7 +73,7 @@ export default function PostImageComponent({ post, imageOnly = false, className,
 	const shareImage = async () => {};
 
 	return (
-		<div {...props} className={cn('cursor-pointer overflow-hidden border-[0.5px] rounded-lg', className)}>
+		<div {...props} className={cn('cursor-pointer overflow-hidden rounded-lg', className)}>
 			<div className={cn('relative overflow-hidden', imageOnly ? 'h-full' : null)}>
 				<img
 					className="w-full h-auto transition-transform duration-500 hover:scale-110 "

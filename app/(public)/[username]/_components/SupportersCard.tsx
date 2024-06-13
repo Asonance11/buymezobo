@@ -6,7 +6,7 @@ import { Post, Support as SupportType, Comment as CommentType, Profile } from '@
 import { User } from 'lucia';
 import Link from 'next/link';
 import React, { HTMLAttributes, useEffect, useState } from 'react';
-import { SlOptions } from 'react-icons/sl';
+import { SlOptions, SlOptionsVertical } from 'react-icons/sl';
 import { useEventListener } from 'usehooks-ts';
 import {
 	DropdownMenu,
@@ -233,7 +233,7 @@ export default function SupportersCard({ post, creator, reload, className }: Pro
 										<DropdownMenu>
 											<DropdownMenuTrigger className="outline-none">
 												<div className="rounded-full hover:bg-zinc-200 transition-colors duration-300 cursor-pointer p-1.5">
-													<SlOptions />
+													<SlOptionsVertical />
 												</div>
 											</DropdownMenuTrigger>
 											<DropdownMenuContent>
