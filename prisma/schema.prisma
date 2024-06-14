@@ -153,14 +153,17 @@ model Comment {
     id        String   @id @default(uuid())
     profile   Profile? @relation(fields: [profileId], references: [id], onDelete: Cascade)
     profileId String?
+    content   String   @db.Text
+
     supportId String?
     support   Support? @relation(fields: [supportId], references: [id], onDelete: Cascade)
-    content   String   @db.Text
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
 
     Article   Article? @relation(fields: [articleId], references: [id])
     articleId String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
 }
 
 enum NotificationType {

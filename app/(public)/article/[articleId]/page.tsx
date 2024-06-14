@@ -1,6 +1,5 @@
 'use client';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -11,7 +10,6 @@ import {
 } from '@/components/ui/breadcrumb';
 import Editor from '@/components/Editor/Editor';
 import ProfileCardComponent from '@/components/Profile/ComponentCard';
-import UserButton from '@/components/Profile/UserButton';
 import Loader from '@/components/common/Loader';
 import { ArticlePrimitive, CommentPrimitive } from '@/types/primitives';
 import axios from 'axios';
@@ -38,7 +36,7 @@ export default function Page(props: any) {
 	const articleId = props.params.articleId;
 
 	const [article, setArticle] = useState<ArticlePrimitive | null>(null);
-	const [comments, setComments] = useState<CommentPrimitive | null>(null);
+	const [comments, setComments] = useState<CommentPrimitive[]>([]);
 	const [loading, setLoading] = useState<boolean>(false);
 
 	const [isEmojiOpen, setIsEmojiOpen] = useState(true);
@@ -51,6 +49,7 @@ export default function Page(props: any) {
 			const response = await axios.get(`/api/articles/${id}`);
 			console.log(response.data.article);
 			setArticle(response.data.article);
+			setComments(response.data.article.comments);
 		};
 		if (articleId) {
 			fetchArticle(articleId);
@@ -71,11 +70,15 @@ export default function Page(props: any) {
 		}
 		try {
 			setLoading(true);
-			await axios.post(`/api/comments/`, {
+			const response = await axios.post(`/api/comments/`, {
 				content: commentInput,
 				author: loggedInUser,
 				parentId: article.id,
 			});
+
+			const newComment: CommentPrimitive = response.data.comment;
+			setComments([newComment, ...comments]);
+			setCommentInput('');
 
 			toast.success('Comment submitted');
 		} catch (error) {
