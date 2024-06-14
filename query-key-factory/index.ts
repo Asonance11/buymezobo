@@ -12,8 +12,8 @@ const queryKeys = {
 	post: postsKeys,
 	user: userkeys,
 	notification: notificationKeys,
-    comments: commentsKeys,
-    article: articlesKeys
+	comments: commentsKeys,
+	article: articlesKeys,
 };
 
 export default queryKeys;

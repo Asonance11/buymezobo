@@ -17,7 +17,7 @@ export async function GET(request: NextRequest, { params }: { params: { articleI
 			},
 		});
 
-		return NextResponse.json({comments, status: 200 });
+		return NextResponse.json({ comments, status: 200 });
 	} catch (error) {
 		console.error('[SERVER GET NOTIFICATIONS ERROR]', error);
 		return new NextResponse('Internal Server Error', {
