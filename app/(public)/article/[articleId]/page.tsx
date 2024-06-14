@@ -57,6 +57,8 @@ export default function Page(props: any) {
 		}
 	}, [articleId]);
 
+    // the api route is /api/comments/${articleId}
+
 	if (!article) {
 		return (
 			<div className="w-full min-h-screen flex items-center justify-center">
