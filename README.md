@@ -1,7 +1,4 @@
 ```bash
-chmod +x ./run.sj
+chmod +x ./run.sh
 
 ./run.sh prod
-```
-
-use your head please
