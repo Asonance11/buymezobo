@@ -8,19 +8,19 @@ export async function POST(request: NextRequest) {
 
 		const user = await getCurrentUser();
 
-        if(user?.id !== data.author.id){
-            return new NextResponse('Bad request', { status: 401 });
-        }
+		if (user?.id !== data.author.id) {
+			return new NextResponse('Bad request', { status: 401 });
+		}
 
-        const comment = await db.comment.create({
-            data: {
-                profileId: user?.id,
-                articleId: data.parentId,
-                content: data.content,
-            },
-        })
+		const comment = await db.comment.create({
+			data: {
+				profileId: user?.id,
+				articleId: data.parentId,
+				content: data.content,
+			},
+		});
 
-		return NextResponse.json({ comment , success: true });
+		return NextResponse.json({ comment, success: true });
 	} catch (error) {
 		return NextResponse.json({ error });
 	}

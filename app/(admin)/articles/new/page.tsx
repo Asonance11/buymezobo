@@ -8,6 +8,7 @@ import axios from 'axios';
 import FileUploader from '@/lib/fileUploader';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { HiX } from 'react-icons/hi';
 
 export default function Page() {
 	const [title, setTitle] = useState('Untitled');
@@ -52,6 +53,10 @@ export default function Page() {
 		setLoading(false);
 	};
 
+	const removeImage = () => {
+		setHeaderImage(null);
+	};
+
 	return (
 		<main className="p-5">
 			<section className="w-5/6 lg:w-2/3 mx-auto space-y-5">
@@ -65,16 +70,22 @@ export default function Page() {
 							Publish Article
 						</Button>
 					</div>
-					{headerImage ? (
-						<div
-							className="flex gap-3  bg-red-400 h-40 lg:h-56 bg-center bg-cover bg-no-repeat "
-							style={{ backgroundImage: `url(${headerImage})` }}
-						></div>
-					) : null}
-
 					<div className="flex items-center justify-center">
 						<Input className="ring-none focus:ring-none w-fit" value={title} onChange={onChangeTitle} />
 					</div>
+					{headerImage ? (
+						<div
+							className="relative flex gap-3 h-40 lg:h-56 bg-center bg-cover bg-no-repeat"
+							style={{ backgroundImage: `url(${headerImage})` }}
+						>
+							<button
+								className="absolute w-10 h-10 top-2 right-2 bg-white rounded-full p-1 flex items-center justify-center"
+								onClick={removeImage}
+							>
+								<HiX className="w-6 h-6 text-black" />
+							</button>
+						</div>
+					) : null}
 				</section>
 				<div className="py-2 rounded-lg bg-white min-h-96">
 					<Editor readOnly={false} onEditorChange={onChangeBlocks} />

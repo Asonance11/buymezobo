@@ -13,6 +13,7 @@ import axios from 'axios';
 import moment from 'moment';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { HiX } from 'react-icons/hi';
 import { toast } from 'sonner';
 
 export default function Page(props: any) {
@@ -79,7 +80,11 @@ export default function Page(props: any) {
 		setLoading(false);
 	};
 
-	const date = moment(article.createdAt).format('MMMM Do YYYY, h:mm:ss a'); // June 10th 2024, 6:43:57 pm
+	//const date = moment(article.createdAt).format('MMMM Do YYYY, h:mm:ss a'); // June 10th 2024, 6:43:57 pm
+
+	const removeImage = () => {
+		setHeaderImage(null);
+	};
 
 	return (
 		<main className="p-5">
@@ -96,9 +101,16 @@ export default function Page(props: any) {
 					</div>
 					{headerImage ? (
 						<div
-							className="flex gap-3  bg-red-400 h-40 lg:h-56 bg-center bg-cover bg-no-repeat "
+							className="flex gap-3  bg-red-400 h-40 lg:h-56 bg-center bg-cover bg-no-repeat relative"
 							style={{ backgroundImage: `url(${headerImage})` }}
-						></div>
+						>
+							<button
+								className="absolute w-10 h-10 top-2 right-2 bg-white rounded-full p-1 flex items-center justify-center"
+								onClick={removeImage}
+							>
+								<HiX className="w-6 h-6 text-black" />
+							</button>
+						</div>
 					) : null}
 
 					<div className="flex items-center justify-center">
