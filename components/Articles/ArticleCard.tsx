@@ -81,7 +81,7 @@ export function ArticleCard({ article }: Props) {
 						{' '}
 						{article.comments
 							? article.comments?.length > 0
-								? `${article.views} comments`
+								? `${article.comments.length} comments`
 								: 'No comments'
 							: '0 comments'}
 					</p>
