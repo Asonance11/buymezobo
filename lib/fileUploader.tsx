@@ -15,6 +15,7 @@ type FileUploaderProps = {
 	onUploadError?: (error: Error) => void;
 	onUploadSuccess?: (downloadURL: string) => void;
 	onProgress?: (progress: number) => void;
+	prompt?: string;
 };
 
 const FileUploader: React.FC<FileUploaderProps> = function ({
@@ -27,6 +28,7 @@ const FileUploader: React.FC<FileUploaderProps> = function ({
 	onProgress,
 	value,
 	simple = false,
+	prompt,
 }) {
 	const [uploading, setUploading] = useState<boolean>(false);
 	const [progress, setProgress] = useState<number>(0);
@@ -95,7 +97,7 @@ const FileUploader: React.FC<FileUploaderProps> = function ({
 		<label className="">
 			<div className="flex flex-col items-center bg-gray-500 rounded-lg p-7 border border-gray-200">
 				{uploading ? <LoadingOutlined /> : <PlusOutlined />}
-				<div className="mt-2 text-gray-800">Upload image</div>
+				<div className="mt-2 text-gray-700 font-light text-sm">{ prompt ? prompt : "Upload image"}</div>
 				<input hidden type="file" accept={accept} onChange={handleFileChange} />
 			</div>
 		</label>

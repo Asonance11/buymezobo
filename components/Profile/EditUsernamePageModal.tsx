@@ -130,18 +130,22 @@ export default function EditUsernamePageModal() {
 					{profileImage ? (
 						<img src={profileImage} className="w-9 h-9 rounded-lg object-cover" />
 					) : (
-						<Label className={buttonVariants()}>
-							{'Upload Profile Picture'}
-							<FileUploader hidden storageRefDir="images" onUploadSuccess={updateProfileImage} />
-						</Label>
+						<FileUploader
+							hidden
+							storageRefDir="images"
+							onUploadSuccess={updateProfileImage}
+							prompt="upload profile image"
+						/>
 					)}
 					{headerImage ? (
 						<img src={headerImage} className="w-16 h-16 rounded-lg object-cover" />
 					) : (
-						<Label className={buttonVariants()}>
-							{'Upload Header Picture'}
-							<FileUploader hidden storageRefDir="images" onUploadSuccess={updateHeaderImage} />
-						</Label>
+						<FileUploader
+							hidden
+							storageRefDir="images"
+							onUploadSuccess={updateHeaderImage}
+							prompt="Uploader header image"
+						/>
 					)}
 				</div>
 				<Form {...form}>
@@ -173,13 +177,19 @@ export default function EditUsernamePageModal() {
 								onChange={(e) => handleChange(e)}
 							/>
 							<FormDescription>
-								if a tag your resonate with is missing, create it or contact support to add it to the
+								if a tag you resonate with is missing, create it or contact support to add it to the
 								options for you and others.
 							</FormDescription>
 						</div>
-						<Button disabled={loading} type="submit">
-							Save
-						</Button>
+						<div className='w-full flex items-center justify-end gap-2'>
+                            <Button variant={"secondary"} onClick={onClose} type='button'>
+                                Cancel
+                            </Button>
+
+							<Button disabled={loading} type="submit">
+                            Update Profile Info
+							</Button>
+						</div>
 					</form>
 				</Form>
 			</DialogContent>
