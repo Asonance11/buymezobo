@@ -181,13 +181,13 @@ export default function EditUsernamePageModal() {
 								options for you and others.
 							</FormDescription>
 						</div>
-						<div className='w-full flex items-center justify-end gap-2'>
-                            <Button variant={"secondary"} onClick={onClose} type='button'>
-                                Cancel
-                            </Button>
+						<div className="w-full flex items-center justify-end gap-2">
+							<Button variant={'secondary'} onClick={onClose} type="button">
+								Cancel
+							</Button>
 
 							<Button disabled={loading} type="submit">
-                            Update Profile Info
+								Update Profile Info
 							</Button>
 						</div>
 					</form>
