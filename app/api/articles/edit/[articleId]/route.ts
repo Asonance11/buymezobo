@@ -16,11 +16,11 @@ export async function PUT(request: NextRequest, { params }: { params: { articleI
 			throw new Error('Article not found');
 		}
 
-        const user = await getCurrentUser()
+		const user = await getCurrentUser();
 
-        if(user?.id !== article.profileId){
-            return new NextResponse('Unauthorized', { status: 404 });
-        }
+		if (user?.id !== article.profileId) {
+			return new NextResponse('Unauthorized', { status: 404 });
+		}
 
 		console.log(article);
 
