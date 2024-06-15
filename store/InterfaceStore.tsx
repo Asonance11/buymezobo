@@ -16,6 +16,7 @@ export type InterfaceType =
 	| 'popupWidgetModal'
 	| 'notifications'
 	| 'socialMediaLinksModal'
+	| 'supportwindow'
 
 	//Buttons and widget modal
 	| 'QRCodeModal';

@@ -32,6 +32,7 @@ import { avatarImageUrl } from '@/utility/avatar';
 import { Profile } from '@prisma/client';
 import { SendIcon } from 'lucide-react';
 import queryKeys from '@/query-key-factory';
+import { useInterface } from '@/store/InterfaceStore';
 
 export default function Page(props: any) {
 	const articleId = props.params.articleId;
@@ -42,6 +43,7 @@ export default function Page(props: any) {
 	const [commentInput, setCommentInput] = useState<string>('');
 	const [loading, setLoading] = useState<boolean>(false);
 	const [isEmojiOpen, setIsEmojiOpen] = useState(true);
+	const { onOpen } = useInterface();
 
 	const fetchArticle = async (id: string): Promise<ArticlePrimitive> => {
 		const response = await axios.get(`/api/articles/${id}`);
@@ -177,8 +179,15 @@ export default function Page(props: any) {
 						<Editor readOnly initialValues={article.content} previewMode />
 					</div>
 				</section>
-				<div className="max-w-[30rem]">
-					<ProfileCardComponent profile={article.profile} className="sticky top-2 hidden" />
+				<div className="w-full flex-col flex items-center gap-5 p-5 py-10 border border-gray-300 rounded-lg">
+					<p>Enjoy this article, support {article.profile.userName} on buymezobo</p>
+					<Button
+						onClick={() => {
+							onOpen('supportwindow', { creator: article.profile as User });
+						}}
+					>
+						Support {article.profile.userName}
+					</Button>
 				</div>
 				{!loggedInUser ? (
 					<div className="w-full h-40">
@@ -258,3 +267,4 @@ export default function Page(props: any) {
 		</main>
 	);
 }
+

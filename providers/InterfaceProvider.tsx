@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { NotificationsProvider } from '@/components/Notifications/NotificationInterface';
+import SupportWindow from '@/components/Profile/SupportWindow';
 
 // Dynamically import components
 const AdminSideMenuNavigationComponent = dynamic(
@@ -22,6 +23,7 @@ const WithdrawPayoutModal = dynamic(() => import('@/components/Profile/WithdrawP
 const NotificationModal = dynamic(() => import('@/components/Notifications/NotificationModal'), { ssr: false });
 const ImageSelectModal = dynamic(() => import('@/components/Posts/ImageSelectModal'), { ssr: false });
 const SocialMediaLinkModal = dynamic(() => import('@/components/Profile/SocialMediaLinkModal'), { ssr: false });
+const SupportWIndow = dynamic(() => import('@/components/Profile/SupportWindow'), { ssr: false });
 
 export function InterfaceProvider() {
 	const [isMounted, setIsMounted] = useState(false);
@@ -49,6 +51,7 @@ export function InterfaceProvider() {
 			<MakeImagePostModal />
 			<NotificationModal />
 			<SocialMediaLinkModal />
+            <SupportWindow />
 		</>
 	);
 }
