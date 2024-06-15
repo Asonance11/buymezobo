@@ -17,6 +17,8 @@ export async function getCreatorByName(name: string): Promise<User | null> {
 			include: {
 				socialMediaLink: true,
 				posts: true,
+                followers:true,
+                following:true,
 			},
 		});
 

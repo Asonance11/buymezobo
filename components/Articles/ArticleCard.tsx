@@ -67,7 +67,7 @@ export function ArticleCard({ article }: Props) {
 				<Link
 					href={
 						loggedInUser?.id === article.profile.id
-							? `/articles/edit/${article.id}`
+							? `/article/${article.id}`
 							: `/article/${article.id}`
 					}
 					target="_blank"
@@ -85,7 +85,6 @@ export function ArticleCard({ article }: Props) {
 								: 'No comments'
 							: '0 comments'}
 					</p>
-					<p>{article.views > 0 ? `${article.views} views` : 'No views yet'}</p>
 					<p className="font-light text-xs">{calculateReadingTime(article.content as Block[])} min read</p>
 				</div>
 				<div className="flex gap-2 items-center ">

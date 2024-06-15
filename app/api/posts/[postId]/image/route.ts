@@ -1,5 +1,7 @@
 import { getCurrentUser } from '@/lib/authentication';
 import { db } from '@/lib/database';
+import { firebaseStorage } from '@/lib/firebaseConfig';
+import { deleteObject, ref } from '@firebase/storage';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function DELETE(request: NextRequest, { params }: { params: { postId: string } }) {
@@ -20,13 +22,14 @@ export async function DELETE(request: NextRequest, { params }: { params: { postI
 		if (!postFind) {
 			return new NextResponse('Post not found', { status: 404 });
 		}
-		const deleteImage = { success: true }; //TODO: delete the image
 
-		if (!deleteImage.success) {
+		const fileRef = ref(firebaseStorage, `images/${postFind.imageUrl}`);
+
+		await deleteObject(fileRef).catch((error) => {
 			return new NextResponse('Internal Server Error', {
 				status: 500,
 			});
-		}
+		});
 
 		const post = await db.post.delete({
 			where: {

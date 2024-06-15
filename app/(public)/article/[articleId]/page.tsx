@@ -10,7 +10,7 @@ import {
 	BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import Editor from '@/components/Editor/Editor';
-import ProfileCardComponent from '@/components/Profile/ComponentCard';
+import ProfileCardComponent, { HoverProfileCardOnHover } from '@/components/Profile/ComponentCard';
 import Loader from '@/components/common/Loader';
 import { ArticlePrimitive, CommentPrimitive } from '@/types/primitives';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -151,10 +151,12 @@ export default function Page(props: any) {
 					<div className="p-4 space-y-3">
 						<p className="text-3xl font-bold -tracking-wide">{article.title}</p>
 						<div className="flex items-center justify-start gap-1.5">
-							<div
-								className="cursor-pointer rounded-lg w-10 lg:w-12 h-10 lg:h-12 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
-								style={{ backgroundImage: `url(${article.profile.imageUrl})` }}
-							></div>
+							<HoverProfileCardOnHover profile={article.profile}>
+								<div
+									className="cursor-pointer rounded-lg w-10 lg:w-12 h-10 lg:h-12 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
+									style={{ backgroundImage: `url(${article.profile.imageUrl})` }}
+								></div>
+							</HoverProfileCardOnHover>
 							<div>
 								<Link href={`/${article.profile.userName}`}>
 									<p className="hover:underline font-semibold text-gray-800 cursor-pointer">
@@ -228,17 +230,12 @@ export default function Page(props: any) {
 					<section className="w-full bg-white p-4 rounded-t-lg">
 						{comments.map((comment) => (
 							<div key={comment.id} className="p-2 flex items-start gap-2 ">
-								<HoverCard>
-									<HoverCardTrigger>
-										<div
-											className="cursor-pointer rounded-full min-w-10 lg:min-w-10 min-h-10 lg:min-h-10 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
-											style={{ backgroundImage: `url(${comment.profile.imageUrl})` }}
-										></div>
-									</HoverCardTrigger>
-									<HoverCardContent className="p-0">
-										<ProfileCardComponent profile={comment.profile} />
-									</HoverCardContent>
-								</HoverCard>
+								<HoverProfileCardOnHover profile={comment.profile}>
+									<div
+										className="cursor-pointer rounded-full min-w-10 lg:min-w-10 min-h-10 lg:min-h-10 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
+										style={{ backgroundImage: `url(${comment.profile.imageUrl})` }}
+									></div>
+								</HoverProfileCardOnHover>
 
 								<div className="space-y-1 w-full max-w-full">
 									<div className="flex items-center justify-start gap-2">
@@ -261,3 +258,4 @@ export default function Page(props: any) {
 		</main>
 	);
 }
+

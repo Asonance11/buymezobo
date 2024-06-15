@@ -7,7 +7,7 @@ import { Button } from '../ui/button';
 import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
-import { DirectionAwareHover } from '../ui/direction-aware-hover';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	creator: User | null;
@@ -35,6 +35,10 @@ export default function PostPage({ link, creator, className }: Props) {
 
 	const reroute = () => {};
 
+	if (posts.length <= 0) {
+		return null;
+	}
+
 	return (
 		<div
 			onClick={reroute}
@@ -42,15 +46,19 @@ export default function PostPage({ link, creator, className }: Props) {
 			ref={emblaRef}
 		>
 			<div className="w-full h-full embla__container" ref={sliderContainerRef}>
-				{posts.map((post) => (
-					<div key={post.id} className="embla__slide">
-						<img
-							src={post.imageUrl}
-							alt={post.title}
-							className="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
-						/>
-					</div>
-				))}
+				<PhotoProvider maskOpacity={0.9}>
+					{posts.map((post) => (
+						<PhotoView key={post.id} src={post.imageUrl}>
+							<div key={post.id} className="embla__slide">
+								<img
+									src={post.imageUrl}
+									alt={post.title}
+									className="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
+								/>
+							</div>
+						</PhotoView>
+					))}
+				</PhotoProvider>
 			</div>
 			<Button className="w-full hidden" variant={'secondary'}>
 				<Link href="/gallery" className="w-full h-full">

@@ -30,22 +30,22 @@
 4. image picture not rndereing in some places -- done
 5. fix the image uploader -- doing (alomst done i guess)
 
-6. invalidate supports after new support has been made
+6. invalidate supports after new support has been made -- done
 
 -   [ ] compliance form, make it work i guess, get good keys
 -   [ ] work on payout model and payout history
--   [ ] change the cashout methid to full cashout, this is not a banking app
+-   [ ] change the cashout method to full cashout, this is not a banking app
 -   [ ] your firebase keys bro
 
 # concerning articles
 
-/article/edit/[id]
+/article/edit/[id] --done
 /article/[id] --- done
-/articles
+/articles --done
 
 # 13 and 14 june
 
 paginate articles in both places
-article page revision
-views
-comments
+article page revision -- done this
+views ---- no more doing views, it's irrelevant
+comments -- done this

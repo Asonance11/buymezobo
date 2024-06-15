@@ -1,3 +1,4 @@
+import { getCurrentUser } from '@/lib/authentication';
 import { db } from '@/lib/database';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -14,6 +15,12 @@ export async function PUT(request: NextRequest, { params }: { params: { articleI
 		if (!article) {
 			throw new Error('Article not found');
 		}
+
+        const user = await getCurrentUser()
+
+        if(user?.id !== article.profileId){
+            return new NextResponse('Unauthorized', { status: 404 });
+        }
 
 		console.log(article);
 
