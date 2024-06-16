@@ -14,5 +14,13 @@ interface Props {
 }
 
 export default function Emoji({ open, onEmojiClick }: Props) {
-	return <EmojiPicker onEmojiClick={onEmojiClick} emojiStyle={EmojiStyle.APPLE} theme={Theme.LIGHT} open={open} />;
+	return (
+		<EmojiPicker
+			onEmojiClick={onEmojiClick}
+			emojiStyle={EmojiStyle.APPLE}
+			theme={Theme.LIGHT}
+			open={open}
+			className="z-100"
+		/>
+	);
 }

@@ -1,72 +1,70 @@
-import React, { useEffect, useState } from 'react';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import React, { useEffect, useRef, useState } from 'react';
 import Draggable from 'react-draggable';
 import { useInterface } from '@/store/InterfaceStore';
 import BuyCard from '@/app/(public)/[username]/_components/BuyCard';
-import { MdCancel, MdFullscreenExit, MdImportExport } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { MdMinimize } from 'react-icons/md';
 import TooltipPrimitive from '../ui/tooltipPrimitive';
+import { InterTight } from '@/utility/fonts';
+import { GrMoney } from 'react-icons/gr';
 
 export default function SupportWindow() {
-	const { type, data, isOpen, onClose } = useInterface();
-	const open = isOpen && type == 'supportwindow';
-	const { creator } = data;
-	const router = useRouter();
-	const [defaultPosition, setDefaultPosition] = useState({ x: 0, y: 0 });
-	const [minimized, setMinimized] = useState(false);
+    const { type, data, isOpen, onClose } = useInterface();
+    const open = isOpen && type === 'supportwindow';
+    const { creator } = data;
+    const router = useRouter();
+    const draggableRef = useRef<HTMLDivElement>(null);
+    const [position, setPosition] = useState({ x: 0, y: 0 });
 
-	const handleMinimize = () => {
-		setMinimized(!minimized);
-	};
+    useEffect(() => {
+        if (open && draggableRef.current) {
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            const { width, height } = draggableRef.current.getBoundingClientRect();
+            setPosition({
+                x: (windowWidth - width) / 2,
+                y: (windowHeight - height) / 2,
+            });
+        }
+    }, [open]);
 
-	useEffect(() => {
-		const handleResize = () => {
-			const centerX = window.innerWidth / 2 - 200; // Assuming modal width is 400px / 2
-			const centerY = window.innerHeight / 2 - 200; // Assuming modal height is 400px / 2
-			setDefaultPosition({ x: centerX, y: centerY });
-		};
+    if (!creator || !open) {
+        return null;
+    }
 
-		handleResize(); // Initial center position
-		window.addEventListener('resize', handleResize); // Re-center on window resize
+    const handleExpand = () => router.push(`/${creator.userName}`);
 
-		return () => window.removeEventListener('resize', handleResize);
-	}, []);
-
-	if (!creator) {
-		return null;
-	}
-
-	return (
-		<Dialog open={open} onOpenChange={onClose}>
-			<Draggable handle=".handle" axis="both" defaultPosition={{ x: 0, y: 0 }}>
-				<DialogContent className="w-fit max-w-[4000rem] p-0 ">
-					<DialogHeader className="handle bg-purple-300 text-black p-2 cursor-grab rounded-t-lg min-w-72">
-						<div></div>
-						<div className="flex items-center justify-end gap-1 text-2xl ">
-							<TooltipPrimitive prompt="minimize window">
-								<MdMinimize className="cursor-pointer" onClick={handleMinimize} />
-							</TooltipPrimitive>
-
-							<TooltipPrimitive prompt="go to full screen">
-								<MdFullscreenExit
-									className="cursor-pointer"
-									onClick={() => router.push(`/${creator.userName}`)}
-								/>
-							</TooltipPrimitive>
-							<TooltipPrimitive prompt="close window">
-								<MdCancel className="cursor-pointer" onClick={onClose} />
-							</TooltipPrimitive>
-						</div>
-					</DialogHeader>
-					{minimized ? null : (
-						<section className={` transition-transform duration-150 ${minimized ?? 'hidden'} `}>
-							<BuyCard creator={creator} />
-						</section>
-					)}
-				</DialogContent>
-			</Draggable>
-		</Dialog>
-	);
+    return (
+        <div className="fixed inset-0 z-50">
+            <Draggable handle=".handle" position={position} onStop={(e, data) => setPosition({ x: data.x, y: data.y })}>
+                <div
+                    ref={draggableRef}
+                    className={`bg-white rounded-lg shadow-lg w-full sm:w-[480px] md:w-[600px] lg:w-[520px] ${InterTight.className}`}
+                >
+                    <div className="bg-gray-200 p-2 rounded-t-lg flex items-center justify-between">
+                        <div className="text-sm font-semibold text-gray-700 flex items-center gap-1 flex-1 handle h-full cursor-grab">
+                            <GrMoney />
+                            Support {creator.userName}
+                        </div>
+                        <div className="flex space-x-2">
+                            <TooltipPrimitive prompt="Full Screen">
+                                <button
+                                    onClick={handleExpand}
+                                    className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-600"
+                                ></button>
+                            </TooltipPrimitive>
+                            <TooltipPrimitive prompt="Close">
+                                <button
+                                    onClick={onClose}
+                                    className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600"
+                                ></button>
+                            </TooltipPrimitive>
+                        </div>
+                    </div>
+                    <div className="flex items-center justify-center p-4">
+                        <BuyCard creator={creator} className='' />
+                    </div>
+                </div>
+            </Draggable>
+        </div>
+    );
 }
