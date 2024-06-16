@@ -122,77 +122,77 @@ export default function EditUsernamePageModal() {
 
 	return (
 		<Dialog open={open} onOpenChange={onClose}>
-				<DialogContent>
-					<DialogDescription className='handle'>
-						<p>Edit {creator?.userName} page</p>
-					</DialogDescription>
-					<div className="flex items-center justify-around">
-						{profileImage ? (
-							<img src={profileImage} className="w-9 h-9 rounded-lg object-cover" />
-						) : (
-							<FileUploader
-								hidden
-								storageRefDir="images"
-								onUploadSuccess={updateProfileImage}
-								prompt="upload profile image"
+			<DialogContent>
+				<DialogDescription className="handle">
+					<p>Edit {creator?.userName} page</p>
+				</DialogDescription>
+				<div className="flex items-center justify-around">
+					{profileImage ? (
+						<img src={profileImage} className="w-9 h-9 rounded-lg object-cover" />
+					) : (
+						<FileUploader
+							hidden
+							storageRefDir="images"
+							onUploadSuccess={updateProfileImage}
+							prompt="upload profile image"
+						/>
+					)}
+					{headerImage ? (
+						<img src={headerImage} className="w-16 h-16 rounded-lg object-cover" />
+					) : (
+						<FileUploader
+							hidden
+							storageRefDir="images"
+							onUploadSuccess={updateHeaderImage}
+							prompt="Uploader header image"
+						/>
+					)}
+				</div>
+				<Form {...form}>
+					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+						<FormField
+							control={form.control}
+							name="bio"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Bio</FormLabel>
+									<FormControl>
+										<Textarea className="resize-none" {...field} />
+									</FormControl>
+									<FormDescription>
+										What do you want your supporters to know about you
+									</FormDescription>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<div className="space-y-1.5">
+							<FormLabel>Tags</FormLabel>
+							<CreatableSelect
+								isDisabled={loading}
+								className="bg-purple-500"
+								isMulti
+								options={ProfileTagsOptions as any}
+								value={tags}
+								onChange={(e) => handleChange(e)}
 							/>
-						)}
-						{headerImage ? (
-							<img src={headerImage} className="w-16 h-16 rounded-lg object-cover" />
-						) : (
-							<FileUploader
-								hidden
-								storageRefDir="images"
-								onUploadSuccess={updateHeaderImage}
-								prompt="Uploader header image"
-							/>
-						)}
-					</div>
-					<Form {...form}>
-						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-							<FormField
-								control={form.control}
-								name="bio"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Bio</FormLabel>
-										<FormControl>
-											<Textarea className="resize-none" {...field} />
-										</FormControl>
-										<FormDescription>
-											What do you want your supporters to know about you
-										</FormDescription>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<div className="space-y-1.5">
-								<FormLabel>Tags</FormLabel>
-								<CreatableSelect
-									isDisabled={loading}
-									className="bg-purple-500"
-									isMulti
-									options={ProfileTagsOptions as any}
-									value={tags}
-									onChange={(e) => handleChange(e)}
-								/>
-								<FormDescription>
-									if a tag you resonate with is missing, create it or contact support to add it to the
-									options for you and others.
-								</FormDescription>
-							</div>
-							<div className="w-full flex items-center justify-end gap-2">
-								<Button variant={'secondary'} onClick={onClose} type="button">
-									Cancel
-								</Button>
+							<FormDescription>
+								if a tag you resonate with is missing, create it or contact support to add it to the
+								options for you and others.
+							</FormDescription>
+						</div>
+						<div className="w-full flex items-center justify-end gap-2">
+							<Button variant={'secondary'} onClick={onClose} type="button">
+								Cancel
+							</Button>
 
-								<Button disabled={loading} type="submit">
-									Update Profile Info
-								</Button>
-							</div>
-						</form>
-					</Form>
-				</DialogContent>
+							<Button disabled={loading} type="submit">
+								Update Profile Info
+							</Button>
+						</div>
+					</form>
+				</Form>
+			</DialogContent>
 		</Dialog>
 	);
 }

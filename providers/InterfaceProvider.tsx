@@ -51,7 +51,7 @@ export function InterfaceProvider() {
 			<MakeImagePostModal />
 			<NotificationModal />
 			<SocialMediaLinkModal />
-            <SupportWindow />
+			<SupportWindow />
 		</>
 	);
 }

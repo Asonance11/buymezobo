@@ -188,7 +188,7 @@ export default function BuyCard({ creator, className, setReload, widgetprops }: 
 												<DropdownMenuTrigger className="outline-none">
 													<HiOutlineEmojiHappy className="text-xl md:text-2xl text-gray-500 focus:text-purple-700 z-100" />{' '}
 												</DropdownMenuTrigger>
-												<DropdownMenuContent className='z-100'>
+												<DropdownMenuContent className="z-100">
 													<Emoji open={isEmojiOpen} onEmojiClick={onEmojiClick} />
 												</DropdownMenuContent>
 											</DropdownMenu>
