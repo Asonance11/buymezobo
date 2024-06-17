@@ -2,7 +2,7 @@ import { SupportPrimitive } from '@/types/primitives';
 import { cn } from '@/utility/style';
 import React, { HTMLAttributes, useEffect, useState } from 'react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
-import ProfileCardComponent from '@/components/Profile/ComponentCard';
+import ProfileCardComponent, { HoverProfileCardOnHover } from '@/components/Profile/ComponentCard';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -19,6 +19,7 @@ import { EmojiClickData } from 'emoji-picker-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import queryKeys from '@/query-key-factory';
+import { Profile } from '@prisma/client';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	support: SupportPrimitive;
@@ -104,17 +105,12 @@ export default function SupportCard({ support, comments = false, className }: Pr
 		<div key={support.id} className="w-full">
 			<div className="flex items-center gap-2">
 				{support.supporter ? (
-					<HoverCard>
-						<HoverCardTrigger>
-							<div
-								className="cursor-pointer rounded-lg w-10 lg:w-12 h-10 lg:h-12 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
-								style={{ backgroundImage: `url(${support.supporter.imageUrl})` }}
-							></div>
-						</HoverCardTrigger>
-						<HoverCardContent className="p-0">
-							<ProfileCardComponent profile={support.supporter} />
-						</HoverCardContent>
-					</HoverCard>
+					<HoverProfileCardOnHover profile={support.profile as Profile}>
+						<div
+							className="cursor-pointer rounded-lg w-10 lg:w-12 h-10 lg:h-12 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
+							style={{ backgroundImage: `url(${support.supporter.imageUrl})` }}
+						></div>
+					</HoverProfileCardOnHover>
 				) : (
 					<div className="hidden md:flex cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat bg-black"></div>
 				)}

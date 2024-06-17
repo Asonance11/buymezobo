@@ -1,4 +1,4 @@
-import { Post, Profile } from '@prisma/client';
+import { Profile } from '@prisma/client';
 
 export function avatarImageUrl(profile: Profile): string {
 	if (profile.imageUrl) {
