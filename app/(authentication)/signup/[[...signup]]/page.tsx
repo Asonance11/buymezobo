@@ -52,7 +52,7 @@ export default function Page() {
 	async function onSubmit(values: z.infer<typeof SignUpSchema>) {
 		const isValid = await form.trigger();
 		if (isValid) {
-			setLoading(true);
+			setLoading(false);
 			try {
 				const result = await signup(values);
 				if (result.success) {
@@ -68,7 +68,7 @@ export default function Page() {
 			} catch (error) {
 				toast.error('An unexpected error occurred.');
 			} finally {
-				setLoading(false);
+				setLoading(true);
 			}
 		}
 	}

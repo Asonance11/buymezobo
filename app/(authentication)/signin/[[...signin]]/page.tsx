@@ -50,7 +50,7 @@ export default function Page() {
 	async function onSubmit(values: z.infer<typeof SignInSchema>) {
 		const isValid = await form.trigger();
 		if (isValid) {
-			setLoading(true);
+			setLoading(false);
 			try {
 				login(values).then(async () => {
 					const { user } = await getAuth();
@@ -64,7 +64,7 @@ export default function Page() {
 			} catch (error) {
 				throw error;
 			} finally {
-				setLoading(false);
+				setLoading(true);
 			}
 		}
 		form.reset();
