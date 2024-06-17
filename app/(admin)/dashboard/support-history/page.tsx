@@ -82,7 +82,7 @@ export default function Page() {
 	return (
 		<section className="flex flex-col items-center relative w-full h-full py-[3%] gap-2">
 			<div className="flex items-center justify-end w-5/6 lg:w-2/3 ">
-				<Button onClick={toggleShowDeleted} className='text-xs lg:text-sm' variant={'outline'}>
+				<Button onClick={toggleShowDeleted} className="text-xs lg:text-sm" variant={'outline'}>
 					{showDeleted ? <AiOutlineEyeInvisible className="mr-2" /> : <AiOutlineEye className="mr-2" />}
 					{showDeleted ? 'Hide Deleted Supports' : 'Show Deleted Supports'}
 				</Button>{' '}
