@@ -5,7 +5,14 @@ import ProfileCardComponent from '@/components/Profile/ComponentCard';
 import UserButton from '@/components/Profile/UserButton';
 import Loader from '@/components/common/Loader';
 import { Button } from '@/components/ui/button';
+import {
+	DropdownMenu,
+	DropdownMenuTrigger,
+	DropdownMenuItem,
+	DropdownMenuContent,
+} from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
+import useIsMobile from '@/hooks/useIsMobile';
 import FileUploader from '@/lib/fileUploader';
 import { ArticlePrimitive } from '@/types/primitives';
 import { Block } from '@blocknote/core';
@@ -14,9 +21,12 @@ import moment from 'moment';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { HiX } from 'react-icons/hi';
+import { SlOptionsVertical } from 'react-icons/sl';
 import { toast } from 'sonner';
 
 export default function Page(props: any) {
+	const isMobile = useIsMobile();
+
 	const articleId = props.params.articleId;
 
 	const [article, setArticle] = useState<ArticlePrimitive | null>(null);
@@ -90,14 +100,19 @@ export default function Page(props: any) {
 		<main className="p-5">
 			<section className="w-5/6 lg:w-2/3 mx-auto space-y-5">
 				<section className="space-y-3 w-full">
-					<div className="grid grid-cols-1 lg:flex justify-end items-center gap-2">
-						<FileUploader simple={true} storageRefDir="images" onUploadSuccess={updateImage} />
-						<Button disabled={loading} onClick={onSaveDraft} variant={'outline'}>
-							Save draft
-						</Button>
-						<Button disabled={loading} onClick={onPublishArticle} variant={'default'}>
-							Publish Article
-						</Button>
+					<div className="flex items-center justify-between">
+						<FileUploader simple={!isMobile} storageRefDir="images" onUploadSuccess={updateImage} />
+						<DropdownMenu>
+							<DropdownMenuTrigger asChild>
+								<div className="rounded-full hover:bg-zinc-200 transition-colors duration-300 cursor-pointer p-1.5">
+									<SlOptionsVertical />
+								</div>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent>
+								<DropdownMenuItem onClick={onSaveDraft}>Save draft</DropdownMenuItem>
+								<DropdownMenuItem onClick={onPublishArticle}>Publish Article</DropdownMenuItem>
+							</DropdownMenuContent>
+						</DropdownMenu>
 					</div>
 					{headerImage ? (
 						<div
@@ -113,7 +128,7 @@ export default function Page(props: any) {
 						</div>
 					) : null}
 
-					<div className="flex items-center justify-center w-full">
+					<div className="flex items-center justify-start w-full">
 						<Input
 							className="ring-none focus:ring-none w-full lg:w-fit"
 							value={title}

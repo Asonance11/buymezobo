@@ -9,6 +9,14 @@ import FileUploader from '@/lib/fileUploader';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { HiX } from 'react-icons/hi';
+import useIsMobile from '@/hooks/useIsMobile';
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { SlOptionsVertical } from 'react-icons/sl';
 
 export default function Page() {
 	const [title, setTitle] = useState('Untitled');
@@ -57,20 +65,27 @@ export default function Page() {
 		setHeaderImage(null);
 	};
 
+	const isMobile = useIsMobile();
+
 	return (
 		<main className="p-5">
 			<section className="w-5/6 lg:w-2/3 mx-auto space-y-5">
 				<section className="space-y-3 w-full">
-					<div className="grid grid-cols-1 lg:flex justify-center items-center gap-2">
-						<FileUploader simple={true} storageRefDir="images" onUploadSuccess={updateImage} />
-						<Button disabled={loading} onClick={onSaveDraft} variant={'outline'}>
-							Save draft
-						</Button>
-						<Button disabled={loading} onClick={onPublishArticle} variant={'default'}>
-							Publish Article
-						</Button>
+					<div className="flex items-center justify-between">
+						<FileUploader simple={!isMobile} storageRefDir="images" onUploadSuccess={updateImage} />
+						<DropdownMenu>
+							<DropdownMenuTrigger asChild>
+								<div className="rounded-full hover:bg-zinc-200 transition-colors duration-300 cursor-pointer p-1.5">
+									<SlOptionsVertical />
+								</div>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent>
+								<DropdownMenuItem onClick={onSaveDraft}>Save draft</DropdownMenuItem>
+								<DropdownMenuItem onClick={onPublishArticle}>Publish Article</DropdownMenuItem>
+							</DropdownMenuContent>
+						</DropdownMenu>
 					</div>
-					<div className="flex items-center justify-center w-full">
+					<div className="flex items-center justify-start w-full">
 						<Input
 							className="ring-none focus:ring-none w-full lg:w-fit"
 							value={title}
