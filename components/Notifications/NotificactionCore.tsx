@@ -124,7 +124,7 @@ export const NotificactionCore = ({ open }: Props) => {
 		<section className="w-full h-full p-1 space-y-2">
 			<div className="flex items-center justify-between">
 				<p className="font-semibold lg:text-xl tracking-tight">Notifications</p>
-				<NotificationOptions />
+				{/* <NotificationOptions /> */}
 			</div>
 			<div className="flex items-center justify-between">
 				<div className="space-x-2">
