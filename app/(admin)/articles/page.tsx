@@ -38,8 +38,8 @@ export default function Page() {
 
 	return (
 		<main>
-			<section className="w-3/5 mx-auto">
-				<div className="flex items-center justify-between mt-6">
+			<section className="max-w-3/5 px-2 md:px-0 md:w-3/5 mx-auto">
+				<div className="flex items-center justify-between mt-6 space-x-1">
 					<Input
 						className="w-fit"
 						placeholder="Search Posts"

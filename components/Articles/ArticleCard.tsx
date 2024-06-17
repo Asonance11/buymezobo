@@ -37,7 +37,7 @@ export function ArticleCard({ article }: Props) {
 	};
 
 	return (
-		<div key={article.id} className="p-1 md:p-2 lg:p-4 rounded-lg m-3 bg-white space-y-2 md:space-y-3">
+		<div key={article.id} className="p-4 md:p-2 lg:p-4 rounded-lg m-3 bg-white space-y-2 md:space-y-3">
 			<div className="flex items-center justify-between">
 				<p className="text-gray-600 font-light text-xs md:text-sm">
 					Posted at {moment(article.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
