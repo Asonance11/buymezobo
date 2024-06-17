@@ -60,8 +60,8 @@ export default function Page() {
 	return (
 		<main className="p-5">
 			<section className="w-5/6 lg:w-2/3 mx-auto space-y-5">
-				<section className="space-y-3">
-					<div className="flex justify-end items-center gap-2">
+				<section className="space-y-3 w-full">
+					<div className="grid grid-cols-1 lg:flex justify-center items-center gap-2">
 						<FileUploader simple={true} storageRefDir="images" onUploadSuccess={updateImage} />
 						<Button disabled={loading} onClick={onSaveDraft} variant={'outline'}>
 							Save draft
@@ -70,8 +70,12 @@ export default function Page() {
 							Publish Article
 						</Button>
 					</div>
-					<div className="flex items-center justify-center">
-						<Input className="ring-none focus:ring-none w-fit" value={title} onChange={onChangeTitle} />
+					<div className="flex items-center justify-center w-full">
+						<Input
+							className="ring-none focus:ring-none w-full lg:w-fit"
+							value={title}
+							onChange={onChangeTitle}
+						/>
 					</div>
 					{headerImage ? (
 						<div
