@@ -27,11 +27,11 @@ export async function GET(request: NextRequest, { params }: { params: { userId: 
 
 		const supporters = await db.support.findMany({
 			where: whereClause,
-            include:{
-                profile:true,
-                comments:true,
-                supporter:true
-            },
+			include: {
+				profile: true,
+				comments: true,
+				supporter: true,
+			},
 			orderBy: {
 				createdAt: 'desc',
 			},

@@ -58,18 +58,9 @@ export default function SupportHistory({ creator, className }: Props) {
 		return null;
 	}
 
-	/*
-<Button className="w-full hidden" variant={'secondary'}>
-                        <Link href="/dashboard/support-history?page=1" className=" w-full h-full">
-                            See all supporters
-                        </Link>
-                    </Button>
-
-        */
-
 	return (
 		<div className={className}>
-			<a href="/dashboard/support-history?page=1">
+			<a href="/dashboard/support-history">
 				<div
 					className={cn(
 						`transition-all max-h-[40rem] overflow-y-auto duration-300 p-2 md:px-5 md:py-4 w-full rounded-2xl bg-purple-200 flex flex-col gap-3 items-center h-fit justify-center `,
