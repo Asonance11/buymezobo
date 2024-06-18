@@ -18,7 +18,6 @@ export default function Page() {
 
 	useEffect(() => {
 		const fetchArticles = async () => {
-			// TODO: Fetch articles from server
 			const response = await axios.get('/api/articles');
 			setArticles(response.data.articles);
 		};
@@ -39,9 +38,9 @@ export default function Page() {
 	return (
 		<main>
 			<section className="max-w-3/5 px-2 md:px-0 md:w-3/5 mx-auto">
-				<div className="flex items-center justify-between mt-6 space-x-1">
+				<div className="flex items-center justify-end mt-6 space-x-1">
 					<Input
-						className="w-fit"
+						className="w-fit hidden"
 						placeholder="Search Posts"
 						value={searchTerm}
 						onChange={handleSearchChange}

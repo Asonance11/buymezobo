@@ -3,8 +3,9 @@ import '@blocknote/core/fonts/inter.css';
 import { useCreateBlockNote as CreateBlockNote } from '@blocknote/react';
 import { BlockNoteView } from '@blocknote/mantine';
 import '@blocknote/mantine/style.css';
-import { Block, filterSuggestionItems, insertOrUpdateBlock } from '@blocknote/core';
-import { SetStateAction, useState } from 'react';
+import { Block, BlockNoteSchema, filterSuggestionItems, insertOrUpdateBlock } from '@blocknote/core';
+import { SetStateAction, useEffect, useRef, useState } from 'react';
+import { DragHandleButton, SideMenu, SideMenuController, useCreateBlockNote } from '@blocknote/react';
 
 interface EditorProps {
 	readOnly?: boolean;
@@ -22,7 +23,7 @@ export default function Editor({ initialValues, onEditorChange, previewMode = fa
 		}
 	};
 
-	let editor: any;
+    let editor: any;
 
 	if (initialValues && initialValues.length > 0) {
 		editor = CreateBlockNote({
@@ -36,14 +37,17 @@ export default function Editor({ initialValues, onEditorChange, previewMode = fa
 		return null;
 	}
 
+
 	return (
 		<BlockNoteView
-			sideMenu={!readOnly}
-			editable={!readOnly}
+			sideMenu={false}
+			//editable={!readOnly}
 			editor={editor}
 			onChange={onChange}
 			theme="light"
-			className="p-0"
-		/>
+			data-theming-css-demo
+		>
+			{readOnly ?? <SideMenuController sideMenu={(props) => null} />}
+		</BlockNoteView>
 	);
 }

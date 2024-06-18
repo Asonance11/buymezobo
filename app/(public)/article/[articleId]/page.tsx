@@ -33,6 +33,8 @@ import { Profile } from '@prisma/client';
 import { SendIcon } from 'lucide-react';
 import queryKeys from '@/query-key-factory';
 import { useInterface } from '@/store/InterfaceStore';
+import { calculateReadingTime } from '@/utility/articles';
+import { Block } from '@/types/blocknote';
 
 export default function Page(props: any) {
 	const articleId = props.params.articleId;
@@ -127,11 +129,11 @@ export default function Page(props: any) {
 	return (
 		<main className="bg-gray-100">
 			<UserNameHeader user={article.profile as User} />
-			<main className="w-full lg:w-2/4 mx-auto flex flex-col p-2 md:py-6 md:px-16 h-full gap-4 ">
+			<main className="w-full lg:w-3/4 xl:w-2/4 mx-auto flex flex-col p-2 md:py-6 md:px-16 h-full gap-4 ">
 				<section className="space-y-2">
 					<div className="mx-auto p-4">
 						<Breadcrumb>
-							<BreadcrumbList>
+							<BreadcrumbList className=" text-xs lg:text-sm">
 								<BreadcrumbItem>
 									<BreadcrumbLink href={`/${article.profile.userName}`}>
 										{article.profile.userName}
@@ -150,22 +152,30 @@ export default function Page(props: any) {
 							</BreadcrumbList>
 						</Breadcrumb>
 					</div>
-					<div className="p-4 space-y-3">
-						<p className="text-3xl font-bold -tracking-wide">{article.title}</p>
+					<div className="p-1 lg:p-4 space-y-3">
+						<p className="text-xl md:text-2xl xl:text-3xl font-bold -tracking-wide">{article.title}</p>
 						<div className="flex items-center justify-start gap-1.5">
 							<HoverProfileCardOnHover profile={article.profile}>
-								<div
-									className="cursor-pointer rounded-lg w-10 lg:w-12 h-10 lg:h-12 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
-									style={{ backgroundImage: `url(${article.profile.imageUrl})` }}
-								></div>
+								<Link href={`/${article.profile.userName}`}>
+									<div
+										className="cursor-pointer rounded-lg w-8 h-8 lg:w-12 lg:h-12 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
+										style={{ backgroundImage: `url(${article.profile.imageUrl})` }}
+									></div>
+								</Link>
 							</HoverProfileCardOnHover>
 							<div>
 								<Link href={`/${article.profile.userName}`}>
-									<p className="hover:underline font-semibold text-gray-800 cursor-pointer">
+									<p className="hover:underline font-semibold text-gray-800 cursor-pointer text-xs lg:text-sm">
 										@{article.profile.userName}
 									</p>
 								</Link>
-								<p className="font-extralight text-sm text-gray-600">created at {date}</p>
+								<div className="flex items-center gap-1 md:gap-2">
+									<p className="font-extralight text-xs lg:text-sm text-gray-600">
+										{calculateReadingTime(article.content as Block[])} min read
+									</p>
+									<p>{'·'}</p>
+									<p className="font-extralight text-xs lg:text-sm text-gray-600">created {date}</p>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -175,13 +185,16 @@ export default function Page(props: any) {
 							style={{ backgroundImage: `url(${article.image})` }}
 						></div>
 					)}
-					<div className="py-6 bg-white rounded-lg">
+					<div className="py-2 lg:py-6 bg-white rounded-lg">
 						<Editor readOnly initialValues={article.content} previewMode />
 					</div>
 				</section>
-				<div className="w-full flex-col flex items-center gap-5 p-5 py-10 border border-gray-300 rounded-lg">
-					<p>Enjoy this article, support {article.profile.userName} on buymezobo</p>
+				<div className="w-full flex-col flex justify-center items-center gap-5 p-5 py-10 border border-gray-300 rounded-lg">
+					<p className="text-sm text-center lg:text-sm">
+						Enjoy this article, support {article.profile.userName} on buymezobo
+					</p>
 					<Button
+						className="text-sm text-center lg:text-sm"
 						onClick={() => {
 							onOpen('supportwindow', { creator: article.profile as User });
 						}}
@@ -191,12 +204,12 @@ export default function Page(props: any) {
 				</div>
 				{!loggedInUser ? (
 					<div className="w-full h-40">
-						<Button>Sign in to comment</Button>
+						<Button className="text-sm text-center lg:text-sm">Sign in to comment</Button>
 					</div>
 				) : (
-					<section className="p-4 flex gap-2">
+					<section className="p-1 lg:p-4 flex gap-2">
 						<div
-							className="cursor-pointer rounded-lg w-10 lg:w-12 h-10 lg:h-12 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
+							className="cursor-pointer rounded-lg w-8 lg:w-12 h-8 lg:h-12 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
 							style={{ backgroundImage: `url(${avatarImageUrl(loggedInUser as Profile)})` }}
 						></div>
 						<div className="border-gray-200 border rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-white flex-1">
@@ -236,26 +249,28 @@ export default function Page(props: any) {
 					</div>
 				)}
 				{comments && comments.length > 0 && (
-					<section className="w-full bg-white p-4 rounded-t-lg">
+					<section className="w-full bg-white p-2 lg:p-4 rounded-t-lg space-y-5">
 						{comments.map((comment) => (
-							<div key={comment.id} className="p-2 flex items-start gap-2 ">
+							<div key={comment.id} className="p-0 flex items-start gap-2 ">
 								<HoverProfileCardOnHover profile={comment.profile}>
-									<div
-										className="cursor-pointer rounded-full min-w-10 lg:min-w-10 min-h-10 lg:min-h-10 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
-										style={{ backgroundImage: `url(${comment.profile.imageUrl})` }}
-									></div>
+									<Link href={`/${comment.profile.userName}`}>
+										<div
+											className="cursor-pointer rounded-full min-w-8 lg:min-w-10 min-h-8 lg:min-h-10 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
+											style={{ backgroundImage: `url(${comment.profile.imageUrl})` }}
+										></div>
+									</Link>
 								</HoverProfileCardOnHover>
 
 								<div className="space-y-1 w-full max-w-full">
 									<div className="flex items-center justify-start gap-2">
 										<Link href={`/${comment.profile.userName}`}>
-											<div className="font-semibold">@{comment.profile.userName}</div>
+											<div className="font-semibold text-sm">@{comment.profile.userName}</div>
 										</Link>
 										<div className="text-xs text-gray-600">
 											{moment(comment.createdAt).fromNow()}
 										</div>
 									</div>
-									<div className="text-gray-800 text-sm max-w-full w-full overflow-hidden break-words my-2">
+									<div className="text-gray-800 text-xs lg:text-sm max-w-full w-full overflow-hidden break-words my-2">
 										<p>{comment.content}</p>
 									</div>
 								</div>

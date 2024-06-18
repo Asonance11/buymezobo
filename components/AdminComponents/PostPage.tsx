@@ -48,15 +48,15 @@ export default function PostPage({ link, creator, className }: Props) {
 			<div className="w-full h-full embla__container" ref={sliderContainerRef}>
 				<PhotoProvider maskOpacity={0.9}>
 					{posts.map((post) => (
-						<PhotoView key={post.id} src={post.imageUrl}>
-							<div key={post.id} className="embla__slide">
+						<div key={post.id} className="embla__slide">
+							<PhotoView key={post.id} src={post.imageUrl}>
 								<img
 									src={post.imageUrl}
 									alt={post.title}
 									className="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
 								/>
-							</div>
-						</PhotoView>
+							</PhotoView>
+						</div>
 					))}
 				</PhotoProvider>
 			</div>

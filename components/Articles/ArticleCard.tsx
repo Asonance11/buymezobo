@@ -66,7 +66,6 @@ export function ArticleCard({ article }: Props) {
 			<div>
 				<Link
 					href={loggedInUser?.id === article.profile.id ? `/article/${article.id}` : `/article/${article.id}`}
-					target="_blank"
 				>
 					<p className="font-semibold text-md md:text-lg tracking-tight">{truncateText(article.title, 70)}</p>
 				</Link>

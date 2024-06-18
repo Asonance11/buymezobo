@@ -49,6 +49,15 @@
 	}
 }
 
+.bn-editor * {
+}
+
+@media only screen and (max-width: 600px) {
+	.bn-container[data-theming-css-demo] .bn-editor * {
+		font-size: 0.8rem;
+	}
+}
+
 @layer base {
 	* {
 		@apply border-border;
