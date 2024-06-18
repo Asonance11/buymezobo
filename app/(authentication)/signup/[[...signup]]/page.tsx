@@ -52,10 +52,10 @@ export default function Page() {
 	async function onSubmit(values: z.infer<typeof SignUpSchema>) {
 		const isValid = await form.trigger();
 		if (isValid) {
-			setLoading(true);
 			try {
 				const result = await signup(values);
 				if (result.success) {
+					setLoading(true);
 					const { user } = await getAuth();
 					if (user) {
 						await updateUser(user);
