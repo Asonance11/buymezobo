@@ -50,7 +50,6 @@ export default function Editor({ initialValues, onEditorChange, previewMode = fa
 			onChange={onChange}
 			theme="light"
 			data-theming-css-demo
-		>
-		</BlockNoteView>
+		></BlockNoteView>
 	);
 }
