@@ -23,7 +23,7 @@ export default function Editor({ initialValues, onEditorChange, previewMode = fa
 		}
 	};
 
-    let editor: any;
+	let editor: any;
 
 	if (initialValues && initialValues.length > 0) {
 		editor = CreateBlockNote({
@@ -36,7 +36,6 @@ export default function Editor({ initialValues, onEditorChange, previewMode = fa
 	if (previewMode && !initialValues) {
 		return null;
 	}
-
 
 	return (
 		<BlockNoteView
