@@ -28,6 +28,11 @@ export default function Editor({ initialValues, onEditorChange, previewMode = fa
 	if (initialValues && initialValues.length > 0) {
 		editor = CreateBlockNote({
 			initialContent: initialValues,
+			domAttributes: {
+				editor: {
+					style: 'padding-inline: 15px;',
+				},
+			},
 		});
 	} else {
 		editor = CreateBlockNote({});
@@ -46,7 +51,6 @@ export default function Editor({ initialValues, onEditorChange, previewMode = fa
 			theme="light"
 			data-theming-css-demo
 		>
-			{readOnly ?? <SideMenuController sideMenu={(props) => null} />}
 		</BlockNoteView>
 	);
 }

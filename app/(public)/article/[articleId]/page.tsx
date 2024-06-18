@@ -35,6 +35,7 @@ import queryKeys from '@/query-key-factory';
 import { useInterface } from '@/store/InterfaceStore';
 import { calculateReadingTime } from '@/utility/articles';
 import { Block } from '@/types/blocknote';
+import { Input } from '@/components/ui/input';
 
 export default function Page(props: any) {
 	const articleId = props.params.articleId;
@@ -127,7 +128,7 @@ export default function Page(props: any) {
 	}
 
 	return (
-		<main className="bg-gray-100">
+		<main className="bg-white">
 			<UserNameHeader user={article.profile as User} />
 			<main className="w-full lg:w-3/4 xl:w-2/4 mx-auto flex flex-col p-2 md:py-6 md:px-16 h-full gap-4 ">
 				<section className="space-y-2">
@@ -185,16 +186,16 @@ export default function Page(props: any) {
 							style={{ backgroundImage: `url(${article.image})` }}
 						></div>
 					)}
-					<div className="py-2 lg:py-6 bg-white rounded-lg">
+					<div className="py-1 lg:py-6 bg-white rounded-lg">
 						<Editor readOnly initialValues={article.content} previewMode />
 					</div>
 				</section>
-				<div className="w-full flex-col flex justify-center items-center gap-5 p-5 py-10 border border-gray-300 rounded-lg">
-					<p className="text-sm text-center lg:text-sm">
+				<div className="w-full flex-col flex justify-center items-center gap-2 p-5 py-7 lg:py-10 border border-gray-200 rounded-lg">
+					<p className="text-xs text-center lg:text-sm font-semibold">
 						Enjoy this article, support {article.profile.userName} on buymezobo
 					</p>
 					<Button
-						className="text-sm text-center lg:text-sm"
+						className="text-xs text-center lg:text-sm px-3 py-2"
 						onClick={() => {
 							onOpen('supportwindow', { creator: article.profile as User });
 						}}
@@ -207,22 +208,22 @@ export default function Page(props: any) {
 						<Button className="text-sm text-center lg:text-sm">Sign in to comment</Button>
 					</div>
 				) : (
-					<section className="p-1 lg:p-4 flex gap-2">
+					<section className="p-1 lg:p-4 flex items-center gap-2">
 						<div
-							className="cursor-pointer rounded-lg w-8 lg:w-12 h-8 lg:h-12 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
+							className="cursor-pointer rounded-lg w-10 lg:w-12 h-10 lg:h-12 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
 							style={{ backgroundImage: `url(${avatarImageUrl(loggedInUser as Profile)})` }}
 						></div>
-						<div className="border-gray-200 border rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-white flex-1">
-							<Textarea
-								className="resize-none border-none focus:border-none focus-visible:ring-offset-0 focus-visible:ring-0"
-								placeholder="Say something nice about this"
+						<div className="border-gray-200 hover:border-gray-400 transition-all duration-300 border rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-white flex-1 flex items-center justify-center">
+							<Input
+								className="resize-none border-none focus:border-none focus-visible:ring-offset-0 focus-visible:ring-0 text-xs lg:text-sm "
+								placeholder="Write a comment"
 								value={commentInput}
 								disabled={allLoad}
 								onChange={(e) => setCommentInput(e.target.value)}
 							/>
-							<div className="w-full p-2.5 flex items-center justify-end gap-2">
+							<div className=" p-2.5 flex items-center justify-end gap-2">
 								<DropdownMenu>
-									<DropdownMenuTrigger className="outline-none">
+									<DropdownMenuTrigger className="hidden lg:block outline-none">
 										<HiOutlineEmojiHappy className="text-xl md:text-2xl text-gray-500 focus:text-purple-700" />
 									</DropdownMenuTrigger>
 									<DropdownMenuContent>
@@ -232,11 +233,11 @@ export default function Page(props: any) {
 								<Button
 									variant={'ghost'}
 									disabled={allLoad}
-									className="p-1.5 hover:bg-gray-100 transition-all duration-300 rounded-lg"
+									className="p-1.5 hover:bg-gray-200 transition-all duration-300 rounded-lg"
 								>
 									<SendIcon
 										onClick={onCommentSubmit}
-										className="text-xl md:text-2xl text-gray-500 cursor-pointer"
+										className="text-lg md:text-2xl text-gray-500 cursor-pointer"
 									/>
 								</Button>
 							</div>
