@@ -225,7 +225,7 @@ export default function Page(props: any) {
 								disabled={allLoad}
 								onChange={(e) => setCommentInput(e.target.value)}
 							/>
-							<div className=" p-2.5 flex items-center justify-end gap-2">
+							<div className="p-1.5 lg:p-2.5 flex items-center justify-end gap-2">
 								<DropdownMenu>
 									<DropdownMenuTrigger className="hidden lg:block outline-none">
 										<HiOutlineEmojiHappy className="text-xl md:text-2xl text-gray-500 focus:text-purple-700" />
