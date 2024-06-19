@@ -44,8 +44,8 @@ export default function Editor({ initialValues, onEditorChange, previewMode = fa
 
 	return (
 		<BlockNoteView
-			sideMenu={false}
-			//editable={!readOnly}
+			sideMenu={!readOnly}
+			editable={!readOnly}
 			editor={editor}
 			onChange={onChange}
 			theme="light"
