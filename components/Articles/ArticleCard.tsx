@@ -16,6 +16,8 @@ import {
 	AiOutlineShareAlt,
 	AiOutlineEye,
 	AiOutlineEdit,
+	AiOutlineFileText,
+	AiOutlineCheckCircle,
 } from 'react-icons/ai';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/store/UserDataStore';
@@ -36,11 +38,13 @@ export function ArticleCard({ article }: Props) {
 			border: 'border-green-400',
 			text: 'text-green-400',
 			bg: 'bg-green-50',
+			icon: <AiOutlineCheckCircle className="text-green-400 mr-1" />,
 		},
 		DRAFT: {
 			border: 'border-blue-400',
 			text: 'text-blue-400',
 			bg: 'bg-blue-50',
+			icon: <AiOutlineFileText className="text-blue-400 mr-1" />,
 		},
 	};
 
@@ -106,12 +110,13 @@ export function ArticleCard({ article }: Props) {
 				</div>
 				<div className="flex gap-2 items-center">
 					<div
-						className={`p-1 md:p-2 text-xs rounded-sm font-semibold border md:border-2 ${typeOptions[article.type].text} ${typeOptions[article.type].border} ${typeOptions[article.type].bg}`}
+						className={`p-1 md:p-2 text-xs rounded-sm font-semibold border md:border-2 flex items-center ${typeOptions[article.type].text} ${typeOptions[article.type].border} ${typeOptions[article.type].bg}`}
 					>
-						{article.type}
+						{typeOptions[article.type].icon} {article.type}
 					</div>
 				</div>
 			</div>
 		</div>
 	);
 }
+
