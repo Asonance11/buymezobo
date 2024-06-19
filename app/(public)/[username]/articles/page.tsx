@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import { ArticleCard } from '@/components/Articles/ArticleCard';
 import queryKeys from '@/query-key-factory';
 import { LoadingOutlined } from '@ant-design/icons';
