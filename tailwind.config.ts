@@ -83,8 +83,17 @@ const config = {
 					from: { transform: 'translateY(0)' },
 					to: { transform: 'translateY(calc(-100% - var(--gap)))' },
 				},
+				ripple: {
+					'0%, 100%': {
+						transform: 'translate(-50%, -50%) scale(1)',
+					},
+					'50%': {
+						transform: 'translate(-50%, -50%) scale(0.9)',
+					},
+				},
 			},
 			animation: {
+				ripple: 'ripple 3400ms ease infinite',
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				gradient: 'gradient 8s linear infinite',

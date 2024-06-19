@@ -36,6 +36,7 @@ import { useInterface } from '@/store/InterfaceStore';
 import { calculateReadingTime } from '@/utility/articles';
 import { Block } from '@/types/blocknote';
 import { Input } from '@/components/ui/input';
+import Ripple from '@/components/magicui/ripple';
 
 export default function Page(props: any) {
 	const articleId = props.params.articleId;
@@ -190,7 +191,8 @@ export default function Page(props: any) {
 						<Editor readOnly initialValues={article.content} previewMode />
 					</div>
 				</section>
-				<div className="w-full flex-col flex justify-center items-center gap-2 p-5 py-7 lg:py-10 border border-gray-200 rounded-lg">
+				<div className="w-full flex-col flex justify-center items-center gap-2 p-5 py-7 lg:py-10 border border-gray-200 rounded-lg relative">
+					<Ripple />
 					<p className="text-xs text-center lg:text-sm font-semibold">
 						Enjoy this article, support {article.profile.userName} on buymezobo
 					</p>
