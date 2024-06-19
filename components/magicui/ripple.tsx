@@ -1,9 +1,9 @@
 import React, { CSSProperties } from 'react';
 
 // Modify these
-const MAIN_CIRCLE_SIZE = 210;
-const MAIN_CIRCLE_OPACITY = 0.24;
-const NUM_CIRCLES = 8;
+const MAIN_CIRCLE_SIZE = 150;
+const MAIN_CIRCLE_OPACITY = 0.34;
+const NUM_CIRCLES = 9;
 
 const Ripple = React.memo(() => {
 	return (
@@ -11,7 +11,7 @@ const Ripple = React.memo(() => {
 			{Array.from({ length: NUM_CIRCLES }, (_, i) => (
 				<div
 					key={i}
-					className={`absolute -translate-x-1/2 -translate-y-1/2 animate-ripple rounded-full bg-neutral-400`}
+					className={`absolute -translate-x-1/2 -translate-y-1/2 animate-ripple rounded-full bg-purple-400`}
 					style={
 						{
 							width: MAIN_CIRCLE_SIZE + i * 70,
