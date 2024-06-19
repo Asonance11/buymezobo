@@ -70,7 +70,10 @@ export default function UserNameHeader({ user: visitedUser, className, ...props 
 						<UserButton />
 					) : (
 						<>
-							<Button variant={"outline"} className="rounded-lg text-sm lg:text-base font-semibold tracking-tight">
+							<Button
+								variant={'outline'}
+								className="rounded-lg text-sm lg:text-base font-semibold tracking-tight"
+							>
 								<FaUserPlus className="mr-1" />
 								<a href="/signup">Get Started</a>
 							</Button>
