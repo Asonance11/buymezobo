@@ -1,16 +1,18 @@
-import { useInterface } from '@/store/InterfaceStore';
-import React, { HTMLAttributes } from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
+import { HTMLAttributes } from 'react';
 import { Button } from '../ui/button';
-import { useEffect, useState } from 'react';
 import { getCurrentUser } from '@/lib/authentication';
 import { cn } from '@/utility/style';
 import { truncateText } from '@/utility/text';
 import { Logo } from '@/components/common/Logo';
+import UserButton from '../Profile/UserButton';
+import { FaEdit } from 'react-icons/fa'; // Importing icons from react-icons
 import { User } from 'lucia';
 import { avatarImageUrl } from '@/utility/avatar';
-import UserButton from '../Profile/UserButton';
 import { Profile } from '@prisma/client';
-
+import { useInterface } from '@/store/InterfaceStore';
+import { FaUserPlus } from 'react-icons/fa6';
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	user: User;
 }
@@ -29,6 +31,10 @@ export default function UserNameHeader({ user: visitedUser, className, ...props 
 		};
 		fetchProfile();
 	}, []);
+
+	const openEditPage = () => {
+		onOpen('editUsernamePage', { creator: loggedInUser });
+	};
 
 	const openMenu = () => {
 		onOpen('searchCreators');
@@ -54,21 +60,19 @@ export default function UserNameHeader({ user: visitedUser, className, ...props 
 				</div>
 				<div className="navbar-end flex gap-2">
 					<div className="flex items-center gap-5">
-						{loggedInUser?.id == visitedUser.id ? (
-							<Button
-								className="hidden lg:block"
-								onClick={() => onOpen('editUsernamePage', { creator: loggedInUser })}
-							>
-								Edit page
+						{loggedInUser?.id === visitedUser.id && (
+							<Button className="hidden lg:flex" onClick={openEditPage}>
+								<FaEdit className="mr-1" /> Edit Page
 							</Button>
-						) : null}
+						)}{' '}
 					</div>
 					{loggedInUser ? (
 						<UserButton />
 					) : (
 						<>
-							<Button className="rounded-lg text-sm lg:text-base font-semibold tracking-tight">
-								<a href="/signup">Create your own page</a>
+							<Button variant={"outline"} className="rounded-lg text-sm lg:text-base font-semibold tracking-tight">
+								<FaUserPlus className="mr-1" />
+								<a href="/signup">Get Started</a>
 							</Button>
 						</>
 					)}

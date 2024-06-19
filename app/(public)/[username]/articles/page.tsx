@@ -104,8 +104,8 @@ export default function Page(props: any) {
 					style={{ backgroundImage: `url(${creator?.headerImageUrl})` }}
 				></div>
 				<div className="flex-1 flex flex-col-reverse lg:flex-row justify-center gap-3 relative items-center py-5 lg:py-3 lg:items-start bg-white lg:bg-gray-100">
-					<div className="w-full lg:w-3/5 p-3 space-y-3 -mt-36 lg:-mt-32 mx-auto bg-white lg:rounded-lg">
-						<div className="px-1 md:px-2 lg:px-6 py-2">
+					<div className="w-full md:w-4/5 xl:w-3/5 p-3 space-y-1 -mt-80 lg:-mt-40 mx-auto bg-white lg:rounded-lg">
+						<div className="px-1 md:px-1 lg:px-6 py-1">
 							<p className="text-md md:text-lg font-semibold tracking-wide">Articles</p>
 						</div>
 						<div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
