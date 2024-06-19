@@ -194,11 +194,11 @@ export default function Page(props: any) {
 				<div className="w-full mx-auto flex-col flex justify-center items-center gap-2 p-5 py-7 lg:py-10 border border-gray-300 rounded-lg relative overflow-hidden">
 					<p className="text-sm text-center lg:text-lg font-extrabold z-10 whitespace-pre-wrap tracking-tighter text-purple-950">
 						Enjoy this article, support{' '}
-						<span className="text-lg lg:text-xl underline"> {article.profile.userName} </span>
+						<span className="text-sm lg:text-xl underline"> {article.profile.userName} </span>
 						on buymezobo
 					</p>
 					<Button
-						className="text-xs text-center lg:text-sm px-3 py-2 bg-purple-200 hover:bg-purple-100 transition-all duration-300 font-semibold text-purple-950 z-10"
+						className="text-xs text-center lg:text-sm px-2 py-1 lg:px-3 lg:py-2 bg-purple-200 hover:bg-purple-100 transition-all duration-300 font-semibold text-purple-950 z-10"
 						onClick={() => {
 							onOpen('supportwindow', { creator: article.profile as User });
 						}}
