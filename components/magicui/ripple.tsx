@@ -26,4 +26,7 @@ const Ripple = React.memo(() => {
 	);
 });
 
+// Adding display name
+Ripple.displayName = 'Ripple';
+
 export default Ripple;
