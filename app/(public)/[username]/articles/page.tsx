@@ -134,4 +134,3 @@ export default function Page(props: any) {
 		</main>
 	);
 }
-
