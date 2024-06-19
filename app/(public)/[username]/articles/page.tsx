@@ -1,5 +1,4 @@
-'use client';
-
+"use client"
 import { ArticleCard } from '@/components/Articles/ArticleCard';
 import queryKeys from '@/query-key-factory';
 import { LoadingOutlined } from '@ant-design/icons';
@@ -97,25 +96,26 @@ export default function Page(props: any) {
 	);
 
 	return (
-		<main className="min-h-screen flex flex-col ">
-			<UserNameHeader className="" user={creator as User} />
-			<section className="flex-1 w-full flex flex-col ">
+		<main className="min-h-screen flex flex-col">
+			<UserNameHeader user={creator as User} />
+			<section className="flex-1 w-full flex flex-col">
 				<div
 					className="w-full h-72 bg-center bg-cover bg-no-repeat"
 					style={{ backgroundImage: `url(${creator?.headerImageUrl})` }}
 				></div>
-				<div className="flex-1 flex flex-col-reverse lg:flex-row justify-center gap-3 relative items-center py-5 lg:py-3 lg:items-start bg-white lg:bg-gray-100 ">
-					<div className=" w-10/11 md:w-3/4 lg:w-3/5 p-3 space-y-3 -mt-36  lg:-mt-32 mx-auto bg-white lg:rounded-lg ">
+				<div className="flex-1 flex flex-col-reverse lg:flex-row justify-center gap-3 relative items-center py-5 lg:py-3 lg:items-start bg-white lg:bg-gray-100">
+					<div className="w-full lg:w-3/5 p-3 space-y-3 -mt-36 lg:-mt-32 mx-auto bg-white lg:rounded-lg">
 						<div className="px-1 md:px-2 lg:px-6 py-2">
-							<p className="text-md md:text-lg font-semibold -tracking-wide">Articles</p>
+							<p className="text-md md:text-lg font-semibold tracking-wide">Articles</p>
 						</div>
-						{articles &&
-							articles.length > 0 &&
-							filteredArticles &&
-							filteredArticles.map((article, index) => {
-								const refProp = index === articles.length - 1 ? { ref: lastElementRef } : {};
-								return <ArticleCard key={article.id} article={article} {...refProp} />;
-							})}
+						<div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+							{filteredArticles &&
+								filteredArticles.map((article, index) => {
+									const refProp =
+										index === filteredArticles.length - 1 ? { ref: lastElementRef } : {};
+									return <ArticleCard key={article.id} article={article} {...refProp} />;
+								})}
+						</div>
 						{articles && articles.length <= 0 && (
 							<div className="w-full h-80 flex items-center justify-center">
 								<div>

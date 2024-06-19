@@ -119,4 +119,3 @@ export function ArticleCard({ article }: Props) {
 		</div>
 	);
 }
-
