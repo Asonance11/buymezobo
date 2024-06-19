@@ -89,7 +89,7 @@ const UserButton: React.FC = () => {
 								<FaCog className="mr-2" size={16} /> Settings
 							</DropdownMenuItem>
 						</Link>
-						<DropdownMenuItem className='hidden'>
+						<DropdownMenuItem className="hidden">
 							<FaShareAlt className="mr-2" size={16} />
 							<SharePage className="text-xs hidden" profile={loggedInUser!} />
 						</DropdownMenuItem>
