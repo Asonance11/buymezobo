@@ -5,6 +5,7 @@ import { InterfaceProvider } from './InterfaceProvider';
 import { SessionProvider } from 'next-auth/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ChakraProvider } from '@chakra-ui/react';
 
 interface ProviderProps {
 	children: ReactNode;
@@ -17,9 +18,11 @@ export default function Provider({ children }: ProviderProps) {
 		<>
 			{/* Dont remove */}
 			<QueryClientProvider client={queryClient}>
-				<SessionProvider>{children}</SessionProvider>
-				<InterfaceProvider />
-				{/* <ReactQueryDevtools initialIsOpen={false} /> */}
+				<ChakraProvider>
+					<SessionProvider>{children}</SessionProvider>
+					<InterfaceProvider />
+					{/* <ReactQueryDevtools initialIsOpen={false} /> */}
+				</ChakraProvider>
 			</QueryClientProvider>
 		</>
 	);
