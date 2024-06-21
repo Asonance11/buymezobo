@@ -1,5 +1,5 @@
 'use client';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 import { PostPrimitive } from '@/types/primitives';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -19,6 +19,8 @@ const MAX_ARTICLES_PAGE = 10;
 
 export function GalleryTab({ tabIndex, creatorname, tabValue }: GalleryTabProps) {
 	const observer = useRef<IntersectionObserver | null>(null);
+	const masonryRef = useRef<HTMLDivElement>(null);
+	const [isMasonryMounted, setIsMasonryMounted] = useState(false);
 	const [isReturningNull, setIsReturningNull] = useState(false);
 
 	const fetchPosts = async ({ pageParam = 1 }: { pageParam?: number }) => {
@@ -58,44 +60,44 @@ export function GalleryTab({ tabIndex, creatorname, tabValue }: GalleryTabProps)
 	);
 
 	const posts = useMemo(() => {
-		if (!data) return [];
-		return data.pages ? data.pages.flat() : [];
+		if (!data || !data.pages) return [];
+		return data.pages.flat();
 	}, [data]);
+
+	useEffect(() => {
+		if (masonryRef.current) {
+			setIsMasonryMounted(true);
+		}
+	}, []);
 
 	if (isReturningNull) {
 		return null;
 	}
 
 	return (
-		<main className="min-h-screen flex flex-col ">
+		<main className="flex flex-col min-h-96">
 			<div className="flex-1 flex flex-col-reverse lg:flex-row justify-center gap-3 relative items-center py-5 lg:py-3 lg:items-start bg-gray-100 ">
-				<div className="w-10/11 md:w-3/4 lg:w-3/5 p-3 space-y-3 mx-auto bg-white lg:rounded-lg ">
-					<p className="text-lg font-semibold -tracking-wide">Gallery</p>
-					<Box>
-						<Masonry columns={{ xs: 2, md: 3, lg: 4 }} spacing={{ xs: 1, md: 2, lg: 2 }}>
-							<PhotoProvider maskOpacity={0.9}>
-								{posts?.map((post, index) => {
-									const refProp = index === posts.length - 1 ? { ref: lastElementRef } : {};
-									return (
-										<PhotoView key={post.id} src={post.imageUrl}>
-											<PostImageComponent
-												{...refProp}
-												imageOnly={false}
-												post={post}
-												key={post.id}
-											/>
-										</PhotoView>
-									);
-								})}
-							</PhotoProvider>
-							{isFetching && (
-								<div className="w-full flex items-center justify-center p-3">
-									<LoadingOutlined />
-								</div>
-							)}
-						</Masonry>
-					</Box>
-				</div>
+				<Box>
+					{/*isMasonryMounted && posts && posts.length > 0 && (
+                                <PhotoProvider maskOpacity={0.9}>
+                                    {posts.map((post, index) => {
+                                        const refProp = index === posts.length - 1 ? { ref: lastElementRef } : {};
+                                        return (
+                                            <PhotoView key={post.id} src={post.imageUrl}>
+                                                <PostImageComponent {...refProp} imageOnly={false} post={post} />
+                                            </PhotoView>
+                                        );
+                                    })}
+                                </PhotoProvider>
+                            ) 
+                        {isFetching && (
+                            <div className="w-full flex items-center justify-center p-3">
+                                <LoadingOutlined />
+                            </div>
+                        )}
+
+                            */}
+				</Box>
 			</div>
 		</main>
 	);

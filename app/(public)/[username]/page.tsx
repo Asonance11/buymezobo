@@ -18,6 +18,7 @@ import { useInterface } from '@/store/InterfaceStore';
 import { GalleryTab } from './_tabs/gallery';
 import { Tabs, rem } from '@mantine/core';
 import { FaInfoCircle, FaImages, FaFileAlt } from 'react-icons/fa';
+import ArticlesTab from './_tabs/Articles';
 
 export type TabOptions = 'about' | 'gallery' | 'articles';
 
@@ -136,7 +137,7 @@ export default function Username(props: any) {
 							Articles
 						</Tabs.Tab>
 					</Tabs.List>
-					<div className="bg-purple-200 h-full pt-5">
+					<div className="bg-purple-100 h-full pt-5">
 						<CustomContainer className="p-0 w-[97%] md:w-[70%] xl:w-3/5 mx-auto">
 							{/*
 							 */}
@@ -147,7 +148,7 @@ export default function Username(props: any) {
 								<GalleryTab tabValue={activeTab || ''} creatorname={creatorname} tabIndex={tabIndex} />
 							</Tabs.Panel>
 							<Tabs.Panel value="articles">
-								<p>three!</p>
+								<ArticlesTab creatorname={creatorname} tabValue={activeTab || ''} />
 							</Tabs.Panel>
 						</CustomContainer>
 					</div>

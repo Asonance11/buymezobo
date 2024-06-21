@@ -21,10 +21,10 @@ export default function AboutTab({ creatorname, creator, tabIndex }: AboutTab) {
 	}, [creatorname]);
 
 	return (
-		<div className="w-full flex flex-col-reverse lg:flex-row justify-around md:gap-3 items-center lg:items-start ">
+		<div className="w-full flex flex-col-reverse lg:flex-row justify-start md:gap-3 items-center lg:items-start ">
 			<section className="flex-col flex gap-2 ">
 				<AboutCard creatorname={creatorname} />
-                <ImagePostCard creatorname={creatorname} />
+				<ImagePostCard creatorname={creatorname} />
 			</section>
 			<section className="flex-col flex gap-3 lg:sticky top-2">
 				<BuyCard
