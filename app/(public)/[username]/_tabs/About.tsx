@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import BuyCard from '../_components/BuyCard';
 import SupportersCard from '../_components/SupportersCard';
 import Loading from '../../loading';
-
 import { ImagePostCard } from '../_components/ImagePostCard';
 import { AboutCard } from '../_components/AboutCard';
 import { User } from 'lucia';
@@ -17,11 +15,16 @@ interface AboutTab {
 
 export default function AboutTab({ creatorname, creator, tabIndex }: AboutTab) {
 	const [reloadSupporters, setReloadSupporters] = useState(false);
+
+	useEffect(() => {
+		console.log(creatorname);
+	}, [creatorname]);
+
 	return (
 		<div className="w-full flex flex-col-reverse lg:flex-row justify-around md:gap-3 items-center lg:items-start ">
 			<section className="flex-col flex gap-2 ">
 				<AboutCard creatorname={creatorname} />
-				<ImagePostCard creatorname={creatorname} />
+                <ImagePostCard creatorname={creatorname} />
 			</section>
 			<section className="flex-col flex gap-3 lg:sticky top-2">
 				<BuyCard
@@ -35,6 +38,7 @@ export default function AboutTab({ creatorname, creator, tabIndex }: AboutTab) {
 }
 
 /*
+
  <SupportersCard
                                     post={latestPost ? latestPost : null}
                                     creator={creator as User}

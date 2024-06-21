@@ -21,7 +21,6 @@ export function GalleryTab({ tabIndex, creatorname, tabValue }: GalleryTabProps)
 	const observer = useRef<IntersectionObserver | null>(null);
 	const [isReturningNull, setIsReturningNull] = useState(false);
 
-	return null;
 	const fetchPosts = async ({ pageParam = 1 }: { pageParam?: number }) => {
 		console.log(`Fetching posts for page: ${pageParam}`);
 		const response = await axios.get(`/api/posts/user/${creatorname}?page=${pageParam}&limit=${MAX_ARTICLES_PAGE}`);
@@ -73,21 +72,28 @@ export function GalleryTab({ tabIndex, creatorname, tabValue }: GalleryTabProps)
 				<div className="w-10/11 md:w-3/4 lg:w-3/5 p-3 space-y-3 mx-auto bg-white lg:rounded-lg ">
 					<p className="text-lg font-semibold -tracking-wide">Gallery</p>
 					<Box>
-						<PhotoProvider maskOpacity={0.9}>
-							{posts?.map((post, index) => {
-								const refProp = index === posts.length - 1 ? { ref: lastElementRef } : {};
-								return (
-									<PhotoView key={post.id} src={post.imageUrl}>
-										<PostImageComponent {...refProp} imageOnly={false} post={post} key={post.id} />
-									</PhotoView>
-								);
-							})}
-						</PhotoProvider>
-						{isFetching && (
-							<div className="w-full flex items-center justify-center p-3">
-								<LoadingOutlined />
-							</div>
-						)}
+						<Masonry columns={{ xs: 2, md: 3, lg: 4 }} spacing={{ xs: 1, md: 2, lg: 2 }}>
+							<PhotoProvider maskOpacity={0.9}>
+								{posts?.map((post, index) => {
+									const refProp = index === posts.length - 1 ? { ref: lastElementRef } : {};
+									return (
+										<PhotoView key={post.id} src={post.imageUrl}>
+											<PostImageComponent
+												{...refProp}
+												imageOnly={false}
+												post={post}
+												key={post.id}
+											/>
+										</PhotoView>
+									);
+								})}
+							</PhotoProvider>
+							{isFetching && (
+								<div className="w-full flex items-center justify-center p-3">
+									<LoadingOutlined />
+								</div>
+							)}
+						</Masonry>
 					</Box>
 				</div>
 			</div>

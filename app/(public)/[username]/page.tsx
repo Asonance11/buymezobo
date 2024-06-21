@@ -137,7 +137,9 @@ export default function Username(props: any) {
 						</Tabs.Tab>
 					</Tabs.List>
 					<div className="bg-purple-200 h-full pt-5">
-						<Container className="p-0">
+						<CustomContainer className="p-0 w-[97%] md:w-[70%] xl:w-3/5 mx-auto">
+							{/*
+							 */}
 							<Tabs.Panel value="about">
 								<AboutTab creatorname={creatorname} creator={creator} tabIndex={tabIndex} />
 							</Tabs.Panel>
@@ -147,7 +149,7 @@ export default function Username(props: any) {
 							<Tabs.Panel value="articles">
 								<p>three!</p>
 							</Tabs.Panel>
-						</Container>
+						</CustomContainer>
 					</div>
 				</Tabs>
 			</section>
