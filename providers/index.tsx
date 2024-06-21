@@ -16,11 +16,13 @@ const queryClient = new QueryClient();
 export default function Provider({ children }: ProviderProps) {
 	return (
 		<>
-			{/* Dont remove */}
+			{/* Dont remove
+
+					<ChakraProvider>
+                    </ChakraProvider>
+                */}
 			<QueryClientProvider client={queryClient}>
-				<ChakraProvider>
-					<SessionProvider>{children}</SessionProvider>
-				</ChakraProvider>
+				<SessionProvider>{children}</SessionProvider>
 				<InterfaceProvider />
 				{/* <ReactQueryDevtools initialIsOpen={false} /> */}
 			</QueryClientProvider>

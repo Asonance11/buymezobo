@@ -12,6 +12,7 @@ export const NotificationsProvider = () => {
 	const [user, setUser] = useState<User | null>(null);
 	const { addNotification, notifications: Notificactiona } = useNotificationStore();
 
+    /*
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
@@ -55,4 +56,5 @@ export const NotificationsProvider = () => {
 	}
 
 	return null;
+        */
 };

@@ -61,7 +61,7 @@ export default function UserNameHeader({ user: visitedUser, className, ...props 
 				<div className="navbar-end flex gap-2">
 					<div className="flex items-center gap-5">
 						{loggedInUser?.id === visitedUser.id && (
-							<Button className="hidden lg:flex" onClick={openEditPage}>
+							<Button className="hidden" onClick={openEditPage}>
 								<FaEdit className="mr-1" /> Edit Page
 							</Button>
 						)}{' '}
