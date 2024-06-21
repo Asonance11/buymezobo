@@ -142,7 +142,7 @@ export default function Username(props: any) {
 								<AboutTab creatorname={creatorname} creator={creator} tabIndex={tabIndex} />
 							</Tabs.Panel>
 							<Tabs.Panel value="gallery">
-								<GalleryTab tabValue={activeTab || ""} creatorname={creatorname} tabIndex={tabIndex} />
+								<GalleryTab tabValue={activeTab || ''} creatorname={creatorname} tabIndex={tabIndex} />
 							</Tabs.Panel>
 							<Tabs.Panel value="articles">
 								<p>three!</p>
