@@ -55,6 +55,6 @@ export const NotificationsProvider = () => {
 		toast(component);
 	}
 
-	return null;
         */
+        return null;
 };
