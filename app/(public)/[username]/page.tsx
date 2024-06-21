@@ -19,6 +19,7 @@ import { GalleryTab } from './_tabs/gallery';
 import { Tabs, rem } from '@mantine/core';
 import { FaInfoCircle, FaImages, FaFileAlt } from 'react-icons/fa';
 import ArticlesTab from './_tabs/Articles';
+import { FollowButton } from './_components/FollowButton';
 
 export type TabOptions = 'about' | 'gallery' | 'articles';
 
@@ -98,13 +99,17 @@ export default function Username(props: any) {
 									<FaEdit className="mr-1" /> Edit Page
 								</Button>
 							) : (
-								<Button
-									className="text-xs lg:text-sm py-1 px-2.5 rounded-lg hidden"
-									variant={'outline'}
-								>
-									{' '}
-									Follow
-								</Button>
+								/*
+                                {
+                                    <Button
+                                        className="text-xs lg:text-sm py-1 px-2.5 rounded-lg hidden"
+                                        variant={'outline'}
+                                    >
+                                        Follow
+                                    </Button>
+                                }
+                                    */
+								<FollowButton />
 							)}
 						</div>
 					</CustomContainer>
