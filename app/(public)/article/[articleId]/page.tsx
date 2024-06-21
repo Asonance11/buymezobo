@@ -143,7 +143,7 @@ export default function Page(props: any) {
 								</BreadcrumbItem>
 								<BreadcrumbSeparator />
 								<BreadcrumbItem>
-									<BreadcrumbLink href={`/${article.profile.userName}/articles`}>
+									<BreadcrumbLink href={`/${article.profile.userName}?tab=articles`}>
 										Articles
 									</BreadcrumbLink>
 								</BreadcrumbItem>

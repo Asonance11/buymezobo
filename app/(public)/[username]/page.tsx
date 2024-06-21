@@ -1,5 +1,6 @@
 'use client';
 import UserNameHeader from '@/components/Headers/UsernameHeader';
+import { CiCamera } from 'react-icons/ci';
 import { getCreatorByName } from '@/lib/creator';
 import { Post } from '@prisma/client';
 import { ReactNode, useEffect, useState } from 'react';
@@ -20,6 +21,10 @@ import { Tabs, rem } from '@mantine/core';
 import { FaInfoCircle, FaImages, FaFileAlt } from 'react-icons/fa';
 import ArticlesTab from './_tabs/Articles';
 import { FollowButton } from './_components/FollowButton';
+import { avatarImageUrl } from '@/utility/avatar';
+import { FaCog, FaEllipsisH } from 'react-icons/fa';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useOrigin } from '@/hooks/useOrigin';
 
 export type TabOptions = 'about' | 'gallery' | 'articles';
 
@@ -27,8 +32,11 @@ export default function Username(props: any) {
 	const creatorname = props.params.username;
 	const [latestPost, setLatestPost] = useState<Post | null>(null);
 	const [tabIndex, setTabIndex] = useState(0);
-
-	const [activeTab, setActiveTab] = useState<string | null>('about');
+	const origin = useOrigin();
+	const router = useRouter();
+	const searchParams = useSearchParams();
+	const tab = searchParams.get('tab') || 'about';
+	const [activeTab, setActiveTab] = useState<string | null>(tab);
 
 	const { onOpen } = useInterface();
 	const { loggedInUser } = useUser();
@@ -60,6 +68,11 @@ export default function Username(props: any) {
 		return null;
 	}
 
+	const handleTabChange = (tab: string | null) => {
+		setActiveTab(tab);
+		router.push(`/${creatorname}?tab=${tab}`, {});
+	};
+
 	const openEditPage = () => {
 		onOpen('editUsernamePage', { creator: loggedInUser });
 	};
@@ -83,10 +96,21 @@ export default function Username(props: any) {
 					className="w-full h-32 lg:h-36 xl:h-48 bg-gray-300 bg-center bg-cover bg-no-repeat relative"
 					style={{ backgroundImage: `url(${creator?.headerImageUrl})` }}
 				>
+					<CustomContainer className="absolute top-2 right-1 flex flex-row gap-2 ">
+						<Button className="bg-white/60 hover:bg-white text-gray-700 p-2 rounded-full">
+							<CiCamera size={20} />
+						</Button>
+						<Button className="bg-white/60 hover:bg-white text-gray-700 p-2 rounded-full">
+							<FaCog size={20} />
+						</Button>
+						<Button className="bg-white/60 hover:bg-white text-gray-700 p-2 rounded-full">
+							<FaEllipsisH size={20} />
+						</Button>
+					</CustomContainer>{' '}
 					<CustomContainer className="w-[97%] md:w-[70%] xl:w-3/5 mx-auto absolute inset-x-0 bottom-0 transform translate-y-1/2 flex flex-col gap-1 md:gap-2 md:flex-row md:items-end md:justify-between lg:p-1 ">
 						<div
 							className="cursor-pointer rounded-full w-24 md:w-36 xl:w-36 h-24 md:h-36 xl:h-36 bg-center bg-cover bg-no-repeat border-1 border-purple-300 "
-							style={{ backgroundImage: `url(${creator!.imageUrl})` }}
+							style={{ backgroundImage: `url(${avatarImageUrl(creator)})` }}
 						></div>
 						<div className="flex-1 p-3 items-center gap-1.5 justify-end hidden lg:flex ">
 							{loggedInUser?.id === creator.id ? (
@@ -130,7 +154,7 @@ export default function Username(props: any) {
 						</div>
 					</Container>
 				</div>
-				<Tabs color="grape" value={activeTab} onChange={setActiveTab}>
+				<Tabs color="grape" value={activeTab} onChange={handleTabChange}>
 					<Tabs.List className="w-[97%] md:w-[70%] xl:w-3/5 mx-auto ">
 						<Tabs.Tab value="about" leftSection={<FaInfoCircle style={iconStyle} />}>
 							About
