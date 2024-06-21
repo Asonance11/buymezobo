@@ -12,6 +12,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel, TabIndicator } from '@chakra-u
 import { Button } from '@/components/ui/button';
 import { useUser } from '@/store/UserDataStore';
 import AboutTab from './_tabs/About';
+import { CustomContainer } from '@/components/custom/container';
 
 export default function Username(props: any) {
 	const creatorname = props.params.username;
@@ -89,7 +90,7 @@ export default function Username(props: any) {
 							<TabIndicator mt="-1.5px" height="2px" bg="purple.500" borderRadius="1px" />
 
 							<TabPanels>
-								<TabPanel bg="tomato" padding={'o'}>
+								<TabPanel bg="" padding={'o'}>
 									<AboutTab creator={creator} creatorname={creatorname} tabIndex={tabIndex} />
 								</TabPanel>
 							</TabPanels>
@@ -100,6 +101,28 @@ export default function Username(props: any) {
 		</main>
 	);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
     <div className="flex-1 flex flex-col-reverse lg:flex-row justify-center md:gap-3 items-center py-5 lg:py-3 lg:items-start bg-purple-500 "></div>

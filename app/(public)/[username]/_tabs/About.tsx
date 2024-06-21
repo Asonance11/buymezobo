@@ -18,7 +18,7 @@ interface AboutTab {
 export default function AboutTab({ creatorname, creator, tabIndex }: AboutTab) {
 	const [reloadSupporters, setReloadSupporters] = useState(false);
 	return (
-		<div className="w-full flex flex-col-reverse lg:flex-row justify-around md:gap-3 items-center lg:items-start bg-purple-500 ">
+		<div className="w-full flex flex-col-reverse lg:flex-row justify-around md:gap-3 items-center lg:items-start ">
 			<section className="flex-col flex gap-2 ">
 				<AboutCard creatorname={creatorname} />
 			</section>
