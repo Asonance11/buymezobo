@@ -26,7 +26,6 @@ const WithdrawPayoutModal = dynamic(() => import('@/components/Profile/WithdrawP
 const NotificationModal = dynamic(() => import('@/components/Notifications/NotificationModal'), { ssr: false });
 const ImageSelectModal = dynamic(() => import('@/components/Posts/ImageSelectModal'), { ssr: false });
 const SocialMediaLinkModal = dynamic(() => import('@/components/Profile/SocialMediaLinkModal'), { ssr: false });
-const SupportWindow = dynamic(() => import('@/components/Profile/SupportWindow'), { ssr: false });
 
 export function InterfaceProvider() {
 	const [isMounted, setIsMounted] = useState(false);

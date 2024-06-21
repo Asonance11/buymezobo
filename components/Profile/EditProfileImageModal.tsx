@@ -61,7 +61,7 @@ export default function EditProfileImageModal() {
 
 	return (
 		<Dialog open={open} onOpenChange={onClose}>
-			<DialogContent className='space-y-5'>
+			<DialogContent className="space-y-5">
 				<DialogDescription className="handle">
 					<p>Change profile image</p>
 				</DialogDescription>
@@ -79,7 +79,7 @@ export default function EditProfileImageModal() {
 				</div>
 
 				<div className="w-full flex items-center justify-end gap-2">
-					<Button disabled={loading} variant={'secondary'} onClick={onClose} type="button" className='hidden'>
+					<Button disabled={loading} variant={'secondary'} onClick={onClose} type="button" className="hidden">
 						Cancel
 					</Button>
 
