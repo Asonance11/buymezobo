@@ -1,31 +1,26 @@
 import { useInterface } from '@/store/InterfaceStore';
 import React, { useEffect, useState } from 'react';
 import CreatableSelect from 'react-select/creatable';
-import { MultiValue, StylesConfig } from 'react-select';
+import { MultiValue} from 'react-select';
 import { Dialog, DialogContent, DialogDescription } from '@/components/ui/dialog';
 import { Optional } from '@prisma/client/runtime/library';
 import { updateProfile } from '@/actions/profile';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button} from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '../ui/textarea';
 import { User } from 'lucia';
-import chroma from 'chroma-js';
 import { ProfileTagsOptions } from '@/lib/tagsOptions';
 import { toast } from 'sonner';
 import { getCreatorTags } from '@/actions/tags';
-import FileUploader from '@/lib/fileUploader';
-import { Label } from '../ui/label';
 
 export default function EditUsernamePageModal() {
 	const { isOpen, type, data, onClose } = useInterface();
 	const open = isOpen && type === 'editUsernamePage';
 	const { creator } = data;
 
-	const [profileImage, setProfileImage] = useState(creator?.imageUrl);
-	const [headerImage, setHeaderImage] = useState(creator?.headerImageUrl);
 	const [loading, setLoading] = useState(false);
 	const [tags, setTags] = useState<MultiValue<{ label: string; value: string }>>([]);
 
@@ -65,14 +60,6 @@ export default function EditUsernamePageModal() {
 		}
 	}, [open]);
 
-	const updateProfileImage = (image: string) => {
-		setProfileImage(image);
-	};
-
-	const updateHeaderImage = (image: string) => {
-		setHeaderImage(image);
-	};
-
 	const handleChange = (e: MultiValue<{ label: string; value: string }>) => {
 		setTags(e);
 	};
@@ -80,8 +67,6 @@ export default function EditUsernamePageModal() {
 	function onSubmit(values: z.infer<typeof formSchema>) {
 		const data: Optional<User> = {
 			id: creator?.id,
-			imageUrl: profileImage,
-			headerImageUrl: headerImage,
 			tags: tags.map((tag) => tag.value),
 			...values,
 		};
@@ -126,28 +111,6 @@ export default function EditUsernamePageModal() {
 				<DialogDescription className="handle">
 					<p>Edit {creator?.userName} page</p>
 				</DialogDescription>
-				<div className="flex items-center justify-around">
-					{profileImage ? (
-						<img src={profileImage} className="w-9 h-9 rounded-lg object-cover" />
-					) : (
-						<FileUploader
-							hidden
-							storageRefDir="images"
-							onUploadSuccess={updateProfileImage}
-							prompt="upload profile image"
-						/>
-					)}
-					{headerImage ? (
-						<img src={headerImage} className="w-16 h-16 rounded-lg object-cover" />
-					) : (
-						<FileUploader
-							hidden
-							storageRefDir="images"
-							onUploadSuccess={updateHeaderImage}
-							prompt="Uploader header image"
-						/>
-					)}
-				</div>
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
 						<FormField
