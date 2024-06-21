@@ -34,4 +34,3 @@ export async function GET(request: NextRequest, { params }: { params: { username
 		return NextResponse.json({ error, message: 'Internal Server Error' }, { status: 500 });
 	}
 }
-

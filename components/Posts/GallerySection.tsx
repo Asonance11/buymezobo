@@ -20,6 +20,8 @@ export default function GallerySection({ isFetching, lastElementRef, posts, clas
 		return null;
 	}
 
+    console.log({posts, lastElementRef, isFetching})
+
 	return (
 		<section className={cn('w-full', className)}>
 			<Box>

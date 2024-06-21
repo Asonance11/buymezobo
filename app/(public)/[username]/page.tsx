@@ -125,7 +125,7 @@ export default function Username(props: any) {
 					</Container>
 				</div>
 				<Tabs color="grape" defaultValue={'about'}>
-					<Tabs.List className='w-[97%] md:w-[70%] xl:w-3/5 mx-auto '>
+					<Tabs.List className="w-[97%] md:w-[70%] xl:w-3/5 mx-auto ">
 						<Tabs.Tab value="about" leftSection={<FaInfoCircle style={iconStyle} />}>
 							About
 						</Tabs.Tab>
@@ -136,7 +136,7 @@ export default function Username(props: any) {
 							Articles
 						</Tabs.Tab>
 					</Tabs.List>
-					<div className="bg-purple-200 h-full">
+					<div className="bg-purple-200 h-full pt-5">
 						<Container className="p-0">
 							<Tabs.Panel value="about">
 								<AboutTab creatorname={creatorname} creator={creator} tabIndex={tabIndex} />
