@@ -93,11 +93,14 @@ export default function Username(props: any) {
 			<UserNameHeader className="" user={creator as User} />
 			<section className="flex-1  w-full flex flex-col ">
 				<div
-					className="w-full h-32 lg:h-36 xl:h-48 bg-gray-300 bg-center bg-cover bg-no-repeat relative"
+					className="w-full h-32 lg:h-36 xl:h-48 bg-white bg-center bg-cover bg-no-repeat relative"
 					style={{ backgroundImage: `url(${creator?.headerImageUrl})` }}
 				>
 					<CustomContainer className="absolute top-2 right-1 flex flex-row gap-2 ">
-						<Button className="bg-white/60 hover:bg-white text-gray-700 p-2 rounded-full">
+						<Button
+							className="bg-white/60 hover:bg-white text-gray-700 p-2 rounded-full"
+							onClick={() => onOpen('editHeaderImageMModal')}
+						>
 							<CiCamera size={20} />
 						</Button>
 						<Button className="bg-white/60 hover:bg-white text-gray-700 p-2 rounded-full">
@@ -186,3 +189,4 @@ export default function Username(props: any) {
 		</main>
 	);
 }
+

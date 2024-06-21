@@ -10,6 +10,8 @@ const AdminSideMenuNavigationComponent = dynamic(
 	() => import('@/components/Navigation/AdminSidebarMenuNavigationSheet'),
 	{ ssr: false },
 );
+
+const EditHeaderImageModal = dynamic(() => import('@/components/Profile/EditHeaderImageModal'), { ssr: false });
 const EditUsernamePageModal = dynamic(() => import('@/components/Profile/EditUsernamePageModal'), { ssr: false });
 const MakeImagePostModal = dynamic(() => import('@/components/Posts/MakeImagePostModal'), { ssr: false });
 const PayoutInfoModal = dynamic(() => import('@/components/Profile/PayoutInfoModal'), { ssr: false });
@@ -38,6 +40,7 @@ export function InterfaceProvider() {
 
 	return (
 		<>
+			<EditHeaderImageModal />
 			<NotificationsProvider />
 			<PopUpWidgetModal />
 			<ImageSelectModal />

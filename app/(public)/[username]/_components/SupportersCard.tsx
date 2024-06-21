@@ -43,7 +43,7 @@ interface Support extends SupportType {
 
 // TODO: Migrate file to react query
 
-export default function SupportersCard({  creator, className }: Props) {
+export default function SupportersCard({ creator, className }: Props) {
 	const [supports, setSupports] = useState<Support[]>([]); // this is just criminal tbh
 	const [count, setCount] = useState(0);
 	const [isTheSameUser, setIsTheSameUser] = useState(false);
