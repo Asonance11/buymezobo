@@ -1,8 +1,4 @@
-import { getCurrentUser } from '@/lib/authentication';
 import { db } from '@/lib/database';
-import { Post, Profile } from '@prisma/client';
-import { Optional } from '@prisma/client/runtime/library';
-import { User } from 'lucia';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest, { params }: { params: { username: string } }) {
@@ -17,6 +13,9 @@ export async function GET(request: NextRequest, { params }: { params: { username
 				profile: {
 					userName: params.username,
 				},
+			},
+			include: {
+				profile: true,
 			},
 			orderBy: {
 				createdAt: 'desc',

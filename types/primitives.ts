@@ -1,4 +1,12 @@
-import { Post, Support as SupportType, Comment as CommentType, Profile, Article, Follows } from '@prisma/client';
+import {
+	Post,
+	Support as SupportType,
+	Comment as CommentType,
+	Profile,
+	Article,
+	Follows,
+	SocialMediaLink,
+} from '@prisma/client';
 
 export interface ArticlePrimitive extends Article {
 	profile: Profile;
@@ -12,6 +20,7 @@ export interface ProfilePrimitive extends Profile {
 	comments?: CommentPrimitive[];
 	followers?: Follows[];
 	following?: Follows[];
+	socialMediaLink: SocialMediaLink[];
 }
 
 export interface PostPrimitive extends Post {
