@@ -2,13 +2,14 @@
 
 import { Post, Profile, SocialMediaLink } from '@prisma/client';
 import { db } from './database';
+import { ProfilePrimitive } from '@/types/primitives';
 
 interface User extends Profile {
 	socialMediaLink: SocialMediaLink[];
 	posts: Post[];
 }
 
-export async function getCreatorByName(name: string): Promise<User | null> {
+export async function getCreatorByName(name: string): Promise<ProfilePrimitive | null> {
 	try {
 		const creator = await db.profile.findFirst({
 			where: {
@@ -22,7 +23,7 @@ export async function getCreatorByName(name: string): Promise<User | null> {
 			},
 		});
 
-		return creator as User;
+		return creator as any;
 	} catch (error) {
 		return null;
 	}

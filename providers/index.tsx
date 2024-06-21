@@ -20,9 +20,9 @@ export default function Provider({ children }: ProviderProps) {
 			<QueryClientProvider client={queryClient}>
 				<ChakraProvider>
 					<SessionProvider>{children}</SessionProvider>
-					<InterfaceProvider />
-					{/* <ReactQueryDevtools initialIsOpen={false} /> */}
 				</ChakraProvider>
+				<InterfaceProvider />
+				{/* <ReactQueryDevtools initialIsOpen={false} /> */}
 			</QueryClientProvider>
 		</>
 	);
