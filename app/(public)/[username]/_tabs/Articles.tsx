@@ -42,7 +42,7 @@ export default function ArticlesTab({ creatorname, tabValue }: Props) {
 		getNextPageParam: (lastPage, allPages) => {
 			return lastPage.length === MAX_ARTICLES_PAGE ? allPages.length + 1 : undefined;
 		},
-		enabled: tabValue === "articles",
+		enabled: tabValue === 'articles',
 		refetchOnWindowFocus: false,
 		refetchOnReconnect: true,
 	});
@@ -102,25 +102,25 @@ export default function ArticlesTab({ creatorname, tabValue }: Props) {
 	return (
 		<main className="min-h-screen flex flex-col">
 			<section className="flex-1 w-full flex flex-col">
-					<div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-						{filteredArticles &&
-							filteredArticles.map((article, index) => {
-								const refProp = index === filteredArticles.length - 1 ? { ref: lastElementRef } : {};
-								return <ArticleCard key={article.id} article={article} {...refProp} />;
-							})}
+				<div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+					{filteredArticles &&
+						filteredArticles.map((article, index) => {
+							const refProp = index === filteredArticles.length - 1 ? { ref: lastElementRef } : {};
+							return <ArticleCard key={article.id} article={article} {...refProp} />;
+						})}
+				</div>
+				{articles && articles.length <= 0 && (
+					<div className="w-full h-80 flex items-center justify-center">
+						<div>
+							<p className="font-bold text-lg tracking-wide">{creatorname} has no articles</p>
+						</div>
 					</div>
-					{articles && articles.length <= 0 && (
-						<div className="w-full h-80 flex items-center justify-center">
-							<div>
-								<p className="font-bold text-lg tracking-wide">{creatorname} has no articles</p>
-							</div>
-						</div>
-					)}
-					{isFetching && (
-						<div className="w-full flex items-center justify-center p-3">
-							<LoadingOutlined />
-						</div>
-					)}
+				)}
+				{isFetching && (
+					<div className="w-full flex items-center justify-center p-3">
+						<LoadingOutlined />
+					</div>
+				)}
 			</section>
 		</main>
 	);
