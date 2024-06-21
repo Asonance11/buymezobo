@@ -18,9 +18,6 @@ export async function GET(request: NextRequest, { params }: { params: { username
 					userName: params.username,
 				},
 			},
-			include: {
-				profile: true,
-			},
 			orderBy: {
 				createdAt: 'desc',
 			},

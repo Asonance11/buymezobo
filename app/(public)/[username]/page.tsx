@@ -124,7 +124,7 @@ export default function Username(props: any) {
 						</div>
 					</Container>
 				</div>
-				<Tabs color="grape" defaultValue={'about'}>
+				<Tabs color="grape" value={activeTab} onChange={setActiveTab}>
 					<Tabs.List className="w-[97%] md:w-[70%] xl:w-3/5 mx-auto ">
 						<Tabs.Tab value="about" leftSection={<FaInfoCircle style={iconStyle} />}>
 							About
@@ -142,7 +142,7 @@ export default function Username(props: any) {
 								<AboutTab creatorname={creatorname} creator={creator} tabIndex={tabIndex} />
 							</Tabs.Panel>
 							<Tabs.Panel value="gallery">
-								<GalleryTab creatorname={creatorname} tabIndex={tabIndex} />
+								<GalleryTab tabValue={activeTab || ""} creatorname={creatorname} tabIndex={tabIndex} />
 							</Tabs.Panel>
 							<Tabs.Panel value="articles">
 								<p>three!</p>
