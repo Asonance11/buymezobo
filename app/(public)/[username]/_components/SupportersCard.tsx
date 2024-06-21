@@ -29,9 +29,7 @@ import { HiOutlineEmojiHappy } from 'react-icons/hi';
 import Emoji from '@/components/tools/EmojiPicker';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-	post: Post | null;
 	creator: User;
-	reload: boolean;
 }
 
 interface Comment extends CommentType {
@@ -45,7 +43,7 @@ interface Support extends SupportType {
 
 // TODO: Migrate file to react query
 
-export default function SupportersCard({ post, creator, reload, className }: Props) {
+export default function SupportersCard({  creator, className }: Props) {
 	const [supports, setSupports] = useState<Support[]>([]); // this is just criminal tbh
 	const [count, setCount] = useState(0);
 	const [isTheSameUser, setIsTheSameUser] = useState(false);
