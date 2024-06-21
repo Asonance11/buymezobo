@@ -1,14 +1,14 @@
 import { useInterface } from '@/store/InterfaceStore';
 import React, { useEffect, useState } from 'react';
 import CreatableSelect from 'react-select/creatable';
-import { MultiValue} from 'react-select';
+import { MultiValue } from 'react-select';
 import { Dialog, DialogContent, DialogDescription } from '@/components/ui/dialog';
 import { Optional } from '@prisma/client/runtime/library';
 import { updateProfile } from '@/actions/profile';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { Button} from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '../ui/textarea';
 import { User } from 'lucia';

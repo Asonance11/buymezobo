@@ -8,22 +8,22 @@ import { User } from 'lucia';
 import { toast } from 'sonner';
 import FileUploader from '@/lib/fileUploader';
 
-export default function EditHeaderImageModal() {
+export default function EditProfileImageModal() {
 	const { isOpen, type, data, onClose } = useInterface();
-	const open = isOpen && type === 'editHeaderImageMModal';
+	const open = isOpen && type === 'editProfileImageMModal';
 	const { creator } = data;
 
-	const [headerImage, setHeaderImage] = useState('');
+	const [profileImage, setprofileImage] = useState('');
 	const [loading, setLoading] = useState(false);
 
-	const updateHeaderImage = (image: string) => {
-		setHeaderImage(image);
+	const updateprofileImage = (image: string) => {
+		setprofileImage(image);
 	};
 
 	function onSubmit() {
 		const data: Optional<User> = {
 			id: creator?.id,
-			headerImageUrl: headerImage,
+			imageUrl: profileImage,
 		};
 		onSubmitFinally(data);
 	}
@@ -63,17 +63,17 @@ export default function EditHeaderImageModal() {
 		<Dialog open={open} onOpenChange={onClose}>
 			<DialogContent className='space-y-5'>
 				<DialogDescription className="handle">
-					<p>Change cover image</p>
+					<p>Change profile image</p>
 				</DialogDescription>
 				<div className="flex items-center justify-around">
-					{headerImage ? (
-						<img src={headerImage} className="w-56 h-56 rounded-sm object-cover" />
+					{profileImage ? (
+						<img src={profileImage} className="w-56 h-56 rounded-sm object-cover" />
 					) : (
 						<FileUploader
 							hidden
 							storageRefDir="images"
-							onUploadSuccess={updateHeaderImage}
-							prompt="Uploader header image"
+							onUploadSuccess={updateprofileImage}
+							prompt="Uploade profile image"
 						/>
 					)}
 				</div>
@@ -84,7 +84,7 @@ export default function EditHeaderImageModal() {
 					</Button>
 
 					<Button disabled={loading} type="submit" onClick={onSubmit}>
-						Update cover image
+						Update profile image
 					</Button>
 				</div>
 			</DialogContent>

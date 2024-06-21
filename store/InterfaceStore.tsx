@@ -18,6 +18,7 @@ export type InterfaceType =
 	| 'socialMediaLinksModal'
 	| 'supportwindow'
 	| 'editHeaderImageMModal'
+	| 'editProfileImageMModal'
 
 	//Buttons and widget modal
 	| 'QRCodeModal';

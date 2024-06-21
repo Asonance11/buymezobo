@@ -11,6 +11,7 @@ const AdminSideMenuNavigationComponent = dynamic(
 	{ ssr: false },
 );
 
+const EditProfileImageModal = dynamic(() => import('@/components/Profile/EditProfileImageModal'), { ssr: false });
 const EditHeaderImageModal = dynamic(() => import('@/components/Profile/EditHeaderImageModal'), { ssr: false });
 const EditUsernamePageModal = dynamic(() => import('@/components/Profile/EditUsernamePageModal'), { ssr: false });
 const MakeImagePostModal = dynamic(() => import('@/components/Posts/MakeImagePostModal'), { ssr: false });
@@ -25,7 +26,7 @@ const WithdrawPayoutModal = dynamic(() => import('@/components/Profile/WithdrawP
 const NotificationModal = dynamic(() => import('@/components/Notifications/NotificationModal'), { ssr: false });
 const ImageSelectModal = dynamic(() => import('@/components/Posts/ImageSelectModal'), { ssr: false });
 const SocialMediaLinkModal = dynamic(() => import('@/components/Profile/SocialMediaLinkModal'), { ssr: false });
-const SupportWIndow = dynamic(() => import('@/components/Profile/SupportWindow'), { ssr: false });
+const SupportWindow = dynamic(() => import('@/components/Profile/SupportWindow'), { ssr: false });
 
 export function InterfaceProvider() {
 	const [isMounted, setIsMounted] = useState(false);
@@ -41,6 +42,7 @@ export function InterfaceProvider() {
 	return (
 		<>
 			<EditHeaderImageModal />
+			<EditProfileImageModal />
 			<NotificationsProvider />
 			<PopUpWidgetModal />
 			<ImageSelectModal />
