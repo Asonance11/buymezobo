@@ -25,6 +25,7 @@ import { avatarImageUrl } from '@/utility/avatar';
 import { FaCog, FaEllipsisH } from 'react-icons/fa';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useOrigin } from '@/hooks/useOrigin';
+import { SlOptionsVertical } from 'react-icons/sl';
 
 export type TabOptions = 'about' | 'gallery' | 'articles';
 
@@ -98,16 +99,16 @@ export default function Username(props: any) {
 				>
 					<CustomContainer className="absolute top-2 right-1 flex flex-row gap-2 ">
 						<Button
-							className="bg-white/60 hover:bg-white text-gray-700 p-2 rounded-full"
+							className="bg-white/60 hover:bg-white text-gray-700 p-1 text-xs lg:text-base lg:p-2 rounded-full hidden lg:block"
 							onClick={() => onOpen('editHeaderImageMModal')}
 						>
 							<CiCamera size={20} />
 						</Button>
-						<Button className="bg-white/60 hover:bg-white text-gray-700 p-2 rounded-full">
+						<Button className="bg-white/60 hover:bg-white text-gray-700 p-2 rounded-full hidden lg:block">
 							<FaCog size={20} />
 						</Button>
-						<Button className="bg-white/60 hover:bg-white text-gray-700 p-2 rounded-full">
-							<FaEllipsisH size={20} />
+						<Button className="bg-transparent lg:bg-white/60 hover:bg-white text-gray-700 p-2 rounded-full">
+							<SlOptionsVertical size={20} />
 						</Button>
 					</CustomContainer>{' '}
 					<CustomContainer className="w-[97%] md:w-[70%] xl:w-3/5 mx-auto absolute inset-x-0 bottom-0 transform translate-y-1/2 flex flex-col gap-1 md:gap-2 md:flex-row md:items-end md:justify-between lg:p-1 ">
@@ -189,4 +190,3 @@ export default function Username(props: any) {
 		</main>
 	);
 }
-

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogDescription } from '@/components/ui/dialog';
 import { Optional } from '@prisma/client/runtime/library';
 import { updateProfile } from '@/actions/profile';
-import { Button} from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { User } from 'lucia';
 import { toast } from 'sonner';
 import FileUploader from '@/lib/fileUploader';
@@ -13,7 +13,7 @@ export default function EditHeaderImageModal() {
 	const open = isOpen && type === 'editHeaderImageMModal';
 	const { creator } = data;
 
-	const [headerImage, setHeaderImage] = useState("");
+	const [headerImage, setHeaderImage] = useState('');
 	const [loading, setLoading] = useState(false);
 
 	const updateHeaderImage = (image: string) => {
@@ -91,4 +91,3 @@ export default function EditHeaderImageModal() {
 		</Dialog>
 	);
 }
-
