@@ -59,8 +59,13 @@ export default function EditProfileImageModal() {
 		}
 	};
 
+    const onCloseclose = () => {
+        setprofileImage("")
+        onClose()
+    }
+
 	return (
-		<Dialog open={open} onOpenChange={onClose}>
+		<Dialog open={open} onOpenChange={onCloseclose}>
 			<DialogContent className="space-y-5">
 				<DialogDescription className="handle">
 					<p>Change profile image</p>

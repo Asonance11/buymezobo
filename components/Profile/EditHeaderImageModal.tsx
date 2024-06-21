@@ -59,8 +59,15 @@ export default function EditHeaderImageModal() {
 		}
 	};
 
+
+    const onCloseclose = () => {
+        setHeaderImage("")
+        onClose()
+    }
+
+
 	return (
-		<Dialog open={open} onOpenChange={onClose}>
+		<Dialog open={open} onOpenChange={onCloseclose}>
 			<DialogContent className="space-y-5">
 				<DialogDescription className="handle">
 					<p>Change cover image</p>
