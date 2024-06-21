@@ -56,5 +56,5 @@ export const NotificationsProvider = () => {
 	}
 
         */
-        return null;
+	return null;
 };
