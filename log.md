@@ -50,4 +50,4 @@ article page revision -- done this
 views ---- no more doing views, it's irrelevant
 comments -- done this
 
-# 21 June , your chainging of getCreatorPosts was good, but it fucked shit up, convert it to api
+# 21 June , your changing of getCreatorPosts was good, but it fucked shit up, convert it to api
