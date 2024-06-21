@@ -112,10 +112,23 @@ export default function Username(props: any) {
 						</Button>
 					</CustomContainer>{' '}
 					<CustomContainer className="w-[97%] md:w-[70%] xl:w-3/5 mx-auto absolute inset-x-0 bottom-0 transform translate-y-1/2 flex flex-col gap-1 md:gap-2 md:flex-row md:items-end md:justify-between lg:p-1 ">
-						<div
-							className="cursor-pointer rounded-full w-24 md:w-36 xl:w-36 h-24 md:h-36 xl:h-36 bg-center bg-cover bg-no-repeat border-1 border-purple-300 "
-							style={{ backgroundImage: `url(${avatarImageUrl(creator)})` }}
-						></div>
+						<div className="relative cursor-pointer rounded-full w-24 md:w-36 xl:w-36 h-24 md:h-36 xl:h-36 border-1 border-purple-300 overflow-hidden group">
+							<div
+								className="bg-center bg-cover bg-no-repeat w-full h-full"
+								style={{ backgroundImage: `url(${avatarImageUrl(creator)})` }}
+							></div>
+							{loggedInUser?.id == creator.id && (
+								<div
+									className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+									onClick={() => onOpen('editProfileImageMModal')}
+								>
+									<FaEdit
+										className="text-white text-2xl"
+										onClick={() => onOpen('editProfileImageMModal')}
+									/>
+								</div>
+							)}
+						</div>{' '}
 						<div className="flex-1 p-3 items-center gap-1.5 justify-end hidden lg:flex ">
 							{loggedInUser?.id === creator.id ? (
 								<Button
