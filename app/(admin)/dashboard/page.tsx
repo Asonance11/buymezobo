@@ -44,6 +44,7 @@ export default function Page() {
 				<ProfileCardComponent
 					profile={user as Profile}
 					className="hidden md:block col-span-2 lg:col-span-2 xl:col-span-1 "
+                    showFollowingStats={false}
 				/>
 				<PostPage
 					creator={profile}

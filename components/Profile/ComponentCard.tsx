@@ -30,9 +30,10 @@ export function HoverProfileCardOnHover({ children, profile }: { children: React
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	profile: Profile;
+	showFollowingStats?: boolean;
 }
 
-export default function ProfileCardComponent({ profile, className }: Props) {
+export default function ProfileCardComponent({ showFollowingStats = true, profile, className }: Props) {
 	const getTagLabel = (tagValue: string) => {
 		const tagOption = ProfileTagsOptions.find((option) => option.value === tagValue);
 		return tagOption ? tagOption.label : tagValue; // Return the tag value if no match is found
@@ -112,8 +113,12 @@ export default function ProfileCardComponent({ profile, className }: Props) {
 			</div>
 			<div className="p-1.5 text-xs flex items-center justify-between text-gray-600 font-light">
 				<div className="flex items-center justify-start gap-3">
-					<p>{user.following?.length} following</p>
-					<p>{user.followers?.length} followers</p>
+					{showFollowingStats && (
+						<>
+							<p>{user.following?.length} following</p>
+							<p>{user.followers?.length} followers</p>
+						</>
+					)}
 				</div>
 
 				{loggedInUser?.id !== user.id && (
