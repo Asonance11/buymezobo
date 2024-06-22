@@ -94,7 +94,7 @@ export default function Username(props: any) {
 			<UserNameHeader className="" user={creator as User} />
 			<section className="flex-1  w-full flex flex-col ">
 				<div
-					className="w-full h-32 lg:h-36 xl:h-48 bg-white bg-center bg-cover bg-no-repeat relative"
+					className={`w-full ${creator.headerImageUrl ? ("h-32 lg:h-36 xl:h-48 "):("h-16 lg:h-20 xl:h-28 ")}   bg-white bg-center bg-cover bg-no-repeat relative`}
 					style={{ backgroundImage: `url(${creator?.headerImageUrl})` }}
 				>
 					{loggedInUser?.id == creator.id && (
