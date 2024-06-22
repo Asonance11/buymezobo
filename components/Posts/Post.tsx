@@ -20,11 +20,11 @@ import { useEffect } from 'react';
 interface PostProps extends HTMLAttributes<HTMLDivElement> {
 	post: Post;
 	imageOnly?: boolean;
+	lastElementRef?: any
 }
 
-export default function PostImageComponent({ post, imageOnly = false, className, ...props }: PostProps) {
+export default function PostImageComponent({ post, lastElementRef,imageOnly = false, className, ...props }: PostProps) {
 	const { loggedInUser } = useUser();
-
 	const [isTheSameUser, setIsTheSameUser] = useState(false);
 
 	useEffect(() => {
@@ -70,10 +70,11 @@ export default function PostImageComponent({ post, imageOnly = false, className,
 		}
 	};
 
-	const shareImage = async () => {};
+	//const shareImage = async () => {};
+
 
 	return (
-		<div {...props} className={cn('cursor-pointer overflow-hidden rounded-lg', className)}>
+		<div {...props} ref={lastElementRef} className={cn('cursor-pointer overflow-hidden rounded-lg', className)}>
 			<div className={cn('relative overflow-hidden', imageOnly ? 'h-full' : null)}>
 				<img
 					className="w-full h-auto transition-transform duration-500 hover:scale-110 "

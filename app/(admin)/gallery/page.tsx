@@ -3,7 +3,6 @@ import PostImageComponent from '@/components/Posts/Post';
 import { Button } from '@/components/ui/button';
 import { getCurrentUser } from '@/lib/authentication';
 import { useInterface } from '@/store/InterfaceStore';
-import { Post } from '@prisma/client';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import queryKeys from '@/query-key-factory';
@@ -34,16 +33,16 @@ export default function Page() {
 		return posts as PostPrimitive[] | [];
 	};
 
-	const { data, fetchNextPage, hasNextPage, isFetching, isLoading } = useInfiniteQuery({
+	const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading } = useInfiniteQuery({
 		queryKey: queryKeys.post.many(),
 		queryFn: ({ pageParam }) => fetchPosts({ pageParam }),
 		getNextPageParam: (lastPage, allPages) => {
 			console.log('Determining next page param...', lastPage, allPages);
-			return lastPage.length === 0 ? undefined : allPages.length + 1;
+			return lastPage.length === MAX_ARTICLES_PAGE ? allPages.length + 1 : undefined;
 		},
 		initialPageParam: 1,
-		enabled: !!creator,
 		refetchOnWindowFocus: false,
+		enabled: !!creator,
 		refetchOnReconnect: true,
 	});
 
@@ -58,18 +57,24 @@ export default function Page() {
 				}
 			});
 			if (node) observer.current.observe(node);
+			if (node) {
+				console.log('Observing last element:', node);
+			}
 		},
 		[fetchNextPage, hasNextPage, isFetching, isLoading],
 	);
 
 	const posts = useMemo(() => {
-		if (!data || !data.pages) return [];
-		return data.pages.flat();
+		return data?.pages.flat();
 	}, [data]);
+
+	if (isLoading) return <h1>Loading...</h1>;
+	if (error) return <h1>Error fetching data...</h1>;
 
 	return (
 		<div className="w-11/12 lg:3/4 xl:w-2/3 mx-auto m-3 lg:my-8">
 			<section className="w-full flex items-center justify-end px-2">
+				<p>{posts?.length}</p>
 				<Button
 					onClick={() => onOpen('makeImagePostModal')}
 					className="-tracking-wide text-xs md:text-sm font-bold bg-purple-800"
@@ -88,7 +93,15 @@ export default function Page() {
 								const refProp = index === posts.length - 1 ? { ref: lastElementRef } : {};
 								return (
 									<PhotoView key={post.id} src={post.imageUrl}>
-										<PostImageComponent {...refProp} imageOnly={false} post={post} />
+										<>
+											<button>{index}</button>
+											<PostImageComponent
+												{...refProp}
+												imageOnly={false}
+												post={post}
+												lastElementRef={lastElementRef}
+											/>
+										</>
 									</PhotoView>
 								);
 							})}
