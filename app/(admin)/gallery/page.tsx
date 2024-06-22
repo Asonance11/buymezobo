@@ -93,15 +93,12 @@ export default function Page() {
 								const refProp = index === posts.length - 1 ? { ref: lastElementRef } : {};
 								return (
 									<PhotoView key={post.id} src={post.imageUrl}>
-										<>
-											<button>{index}</button>
 											<PostImageComponent
 												{...refProp}
 												imageOnly={false}
 												post={post}
 												lastElementRef={lastElementRef}
 											/>
-										</>
 									</PhotoView>
 								);
 							})}
