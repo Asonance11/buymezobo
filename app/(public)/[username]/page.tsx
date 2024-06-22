@@ -94,7 +94,7 @@ export default function Username(props: any) {
 			<UserNameHeader className="" user={creator as User} />
 			<section className="flex-1  w-full flex flex-col ">
 				<div
-					className={`w-full ${creator.headerImageUrl ? ("h-32 lg:h-36 xl:h-48 "):("h-16 lg:h-20 xl:h-28 ")}   bg-white bg-center bg-cover bg-no-repeat relative`}
+					className={`w-full ${creator.headerImageUrl ? 'h-32 lg:h-36 xl:h-48 ' : 'h-16 lg:h-20 xl:h-28 '}   bg-white bg-center bg-cover bg-no-repeat relative`}
 					style={{ backgroundImage: `url(${creator?.headerImageUrl})` }}
 				>
 					{loggedInUser?.id == creator.id && (
@@ -152,7 +152,7 @@ export default function Username(props: any) {
                                     </Button>
                                 }
                                     */
-								<FollowButton />
+								<FollowButton followingId={creator.id} />
 							)}
 						</div>
 					</CustomContainer>
@@ -185,10 +185,8 @@ export default function Username(props: any) {
 							Articles
 						</Tabs.Tab>
 					</Tabs.List>
-					<div className="bg-purple-100 h-full pt-5">
+					<div className="bg-purple-100 h-full pt-0  lg:pt-5">
 						<CustomContainer className="p-0 w-[97%] md:w-[70%] xl:w-3/5 mx-auto">
-							{/*
-							 */}
 							<Tabs.Panel value="about">
 								<AboutTab creatorname={creatorname} creator={creator} tabIndex={tabIndex} />
 							</Tabs.Panel>

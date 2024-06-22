@@ -1,14 +1,15 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useState } from 'react';
+import React, { HTMLAttributes, useState } from 'react';
 
-interface AnimatedSubscribeButtonProps {
+interface AnimatedSubscribeButtonProps extends HTMLAttributes<HTMLButtonElement> {
 	brand: string;
 	subscribeStatus: boolean;
 	buttonTextColor?: string;
 	initialText: React.ReactElement | string;
 	changeText: React.ReactElement | string;
+	onClick?: () => void; // Add onClick prop
 }
 
 export const AnimatedSubscribeButton: React.FC<AnimatedSubscribeButtonProps> = ({
@@ -17,15 +18,23 @@ export const AnimatedSubscribeButton: React.FC<AnimatedSubscribeButtonProps> = (
 	buttonTextColor,
 	changeText,
 	initialText,
+	onClick, // Add onClick prop
 }) => {
 	const [isSubscribed, setIsSubscribed] = useState<boolean>(subscribeStatus);
+
+	const handleButtonClick = () => {
+		setIsSubscribed(!isSubscribed);
+		if (onClick) {
+			onClick();
+		}
+	};
 
 	return (
 		<AnimatePresence mode="wait">
 			{isSubscribed ? (
 				<motion.button
 					className="relative flex w-[200px] items-center justify-center bg-white p-[10px]"
-					onClick={() => setIsSubscribed(false)}
+					onClick={handleButtonClick}
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
@@ -44,7 +53,7 @@ export const AnimatedSubscribeButton: React.FC<AnimatedSubscribeButtonProps> = (
 				<motion.button
 					className="relative flex w-[200px] cursor-pointer items-center justify-center rounded-md border-none p-[10px]"
 					style={{ backgroundColor: brand, color: buttonTextColor }}
-					onClick={() => setIsSubscribed(true)}
+					onClick={handleButtonClick}
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
@@ -62,3 +71,4 @@ export const AnimatedSubscribeButton: React.FC<AnimatedSubscribeButtonProps> = (
 		</AnimatePresence>
 	);
 };
+

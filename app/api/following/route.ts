@@ -2,6 +2,40 @@ import { getCurrentUser } from '@/lib/authentication';
 import { db } from '@/lib/database';
 import { NextRequest, NextResponse } from 'next/server';
 
+export async function GET(req: NextRequest) {
+	const { searchParams } = new URL(req.url);
+	const followingId = searchParams.get('followingId');
+
+	if (!followingId) {
+		return new NextResponse('Following ID is required', { status: 400 });
+	}
+
+	try {
+		const profile = await getCurrentUser();
+		if (!profile) {
+			return new NextResponse('User is not authenticated', { status: 401 });
+		}
+
+		const existingFollow = await db.follows.findUnique({
+			where: {
+				followerId_followingId: {
+					followerId: profile.id,
+					followingId: followingId,
+				},
+			},
+		});
+
+		if (existingFollow) {
+			return NextResponse.json({ message: 'User is following', status: 200, isFollowing: true });
+		} else {
+			return NextResponse.json({ message: 'User is not following', status: 200, isFollowing: false });
+		}
+	} catch (err) {
+		console.log('SERVER ERROR, CHECK FOLLOW STATUS', { status: 500, err });
+		return new NextResponse('Server error occurred', { status: 500 });
+	}
+}
+
 export async function POST(req: NextRequest) {
 	const data = await req.json();
 	try {
