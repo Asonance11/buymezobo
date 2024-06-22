@@ -263,7 +263,7 @@ export default function Page(props: any) {
 									<Link href={`/${comment.profile.userName}`}>
 										<div
 											className="cursor-pointer rounded-full min-w-8 lg:min-w-10 min-h-8 lg:min-h-10 bg-center bg-cover bg-no-repeat border-1 border-purple-300"
-											style={{ backgroundImage: `url(${comment.profile.imageUrl})` }}
+											style={{ backgroundImage: `url(${ avatarImageUrl( comment.profile) })` }}
 										></div>
 									</Link>
 								</HoverProfileCardOnHover>

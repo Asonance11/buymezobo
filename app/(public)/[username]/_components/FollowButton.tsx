@@ -2,6 +2,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { FaHeart, FaHeartBroken, FaSpinner } from 'react-icons/fa';
 import axios from 'axios';
+import { HTMLAttributes } from 'react';
+import { cn } from '@/utility/style';
 
 async function fetchFollowStatus(followingId: string) {
 	const res = await axios.get(`/api/following?followingId=${followingId}`);
@@ -35,11 +37,11 @@ async function unfollowUser(followingId: string) {
 	return res.json();
 }
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLButtonElement> {
 	followingId: string;
 }
 
-export function FollowButton({ followingId }: Props) {
+export function FollowButton({ followingId, className, ...opts }: Props) {
 	const queryClient = useQueryClient();
 
 	const { data, error, isLoading } = useQuery({
@@ -79,8 +81,8 @@ export function FollowButton({ followingId }: Props) {
 
 	if (isLoading) {
 		return (
-			<Button className="bg-purple-900 hover:bg-purple-800 text-white" disabled>
-				<FaSpinner className="mr-2 h-4 w-4 animate-spin" />
+			<Button className="bg-purple-900 hover:bg-purple-800 text-white text-xs lg:text-sm" disabled>
+				<FaSpinner className="mr-2 lg:h-4 lg:w-4 h-2.5 w-2.5 animate-spin" />
 				Loading
 			</Button>
 		);
@@ -92,18 +94,18 @@ export function FollowButton({ followingId }: Props) {
 
 	return (
 		<Button
-			className="bg-purple-900 text-white"
+			className={cn('bg-purple-900 text-white ', className)}
 			onClick={handleFollowToggle}
 			disabled={followMutation.isPending || unfollowMutation.isPending}
 		>
 			{data.isFollowing ? (
-				<span className="inline-flex items-center">
-					<FaHeartBroken className="mr-2 h-4 w-4" />
+				<span className="inline-flex items-center ">
+					<FaHeartBroken className="mr-2 lg:h-4 lg:w-4 h-2.5 w-2.5 " />
 					Following
 				</span>
 			) : (
-				<span className="inline-flex items-center">
-					<FaHeart className="mr-2 h-4 w-4" />
+				<span className="inline-flex items-center ">
+					<FaHeart className="mr-2 lg:h-4 lg:w-4 h-2.5 w-2.5 " />
 					Follow
 				</span>
 			)}

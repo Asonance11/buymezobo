@@ -71,4 +71,3 @@ export const AnimatedSubscribeButton: React.FC<AnimatedSubscribeButtonProps> = (
 		</AnimatePresence>
 	);
 };
-
