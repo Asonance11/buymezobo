@@ -59,12 +59,10 @@ export default function EditHeaderImageModal() {
 		}
 	};
 
-
-    const onCloseclose = () => {
-        setHeaderImage("")
-        onClose()
-    }
-
+	const onCloseclose = () => {
+		setHeaderImage('');
+		onClose();
+	};
 
 	return (
 		<Dialog open={open} onOpenChange={onCloseclose}>

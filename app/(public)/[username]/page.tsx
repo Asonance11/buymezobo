@@ -97,20 +97,22 @@ export default function Username(props: any) {
 					className="w-full h-32 lg:h-36 xl:h-48 bg-white bg-center bg-cover bg-no-repeat relative"
 					style={{ backgroundImage: `url(${creator?.headerImageUrl})` }}
 				>
-					<CustomContainer className="absolute top-2 right-1 flex flex-row gap-2 ">
-						<Button
-							className="bg-white/60 hover:bg-white text-gray-700 p-1 text-xs lg:text-base lg:p-2 rounded-full hidden lg:block"
-							onClick={() => onOpen('editHeaderImageMModal')}
-						>
-							<CiCamera size={20} />
-						</Button>
-						<Button className="bg-white/60 hover:bg-white text-gray-700 p-2 rounded-full hidden lg:block">
-							<FaCog size={20} />
-						</Button>
-						<Button className="bg-transparent lg:bg-white/60 hover:bg-white text-gray-700 p-2 rounded-full">
-							<SlOptionsVertical size={20} />
-						</Button>
-					</CustomContainer>{' '}
+					{loggedInUser?.id == creator.id && (
+						<CustomContainer className="absolute top-2 right-1 flex flex-row gap-2 ">
+							<Button
+								className="bg-white/60 hover:bg-white text-gray-700 p-1 text-xs lg:text-base lg:p-2 rounded-full hidden lg:block"
+								onClick={() => onOpen('editHeaderImageMModal')}
+							>
+								<CiCamera size={20} />
+							</Button>
+							<Button className="bg-white/60 hover:bg-white text-gray-700 p-2 rounded-full hidden lg:block">
+								<FaCog size={20} />
+							</Button>
+							<Button className="bg-transparent lg:bg-white/60 hover:bg-white text-gray-700 p-2 rounded-full">
+								<SlOptionsVertical size={20} />
+							</Button>
+						</CustomContainer>
+					)}
 					<CustomContainer className="w-[97%] md:w-[70%] xl:w-3/5 mx-auto absolute inset-x-0 bottom-0 transform translate-y-1/2 flex flex-col gap-1 md:gap-2 md:flex-row md:items-end md:justify-between lg:p-1 ">
 						<div className="relative cursor-pointer rounded-full w-24 md:w-36 xl:w-36 h-24 md:h-36 xl:h-36 border-1 border-purple-300 overflow-hidden group">
 							<div

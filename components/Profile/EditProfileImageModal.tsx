@@ -59,10 +59,10 @@ export default function EditProfileImageModal() {
 		}
 	};
 
-    const onCloseclose = () => {
-        setprofileImage("")
-        onClose()
-    }
+	const onCloseclose = () => {
+		setprofileImage('');
+		onClose();
+	};
 
 	return (
 		<Dialog open={open} onOpenChange={onCloseclose}>
