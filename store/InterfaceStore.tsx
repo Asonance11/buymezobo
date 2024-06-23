@@ -19,6 +19,7 @@ export type InterfaceType =
 	| 'supportwindow'
 	| 'editHeaderImageMModal'
 	| 'editProfileImageMModal'
+	| 'feedbackFormModal'
 
 	//Buttons and widget modal
 	| 'QRCodeModal';

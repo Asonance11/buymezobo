@@ -18,11 +18,14 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { truncateText } from '@/utility/text';
+import { useInterface } from '@/store/InterfaceStore';
+import { FaAnchor } from 'react-icons/fa6';
 
 // Functional component definition
 const UserButton: React.FC = () => {
 	// Destructuring necessary values and methods from useUser hook
 	const { loggedInUser, updateUser, logOut } = useUser();
+	const { onOpen } = useInterface();
 
 	// Effect hook to fetch profile data if user is not logged in
 	useEffect(() => {
@@ -89,6 +92,10 @@ const UserButton: React.FC = () => {
 								<FaCog className="mr-2" size={16} /> Settings
 							</DropdownMenuItem>
 						</Link>
+						<DropdownMenuItem onClick={() => onOpen("feedbackFormModal")}>
+							<FaAnchor className="mr-2" size={16} /> Provide Feedback
+						</DropdownMenuItem>
+
 						<DropdownMenuItem className="hidden">
 							<FaShareAlt className="mr-2" size={16} />
 							<SharePage className="text-xs hidden" profile={loggedInUser!} />

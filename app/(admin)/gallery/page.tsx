@@ -3,7 +3,7 @@ import PostImageComponent from '@/components/Posts/Post';
 import { Button } from '@/components/ui/button';
 import { getCurrentUser } from '@/lib/authentication';
 import { useInterface } from '@/store/InterfaceStore';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState, useEffect } from 'react';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import queryKeys from '@/query-key-factory';
 import { Separator } from '@/components/ui/separator';
@@ -17,6 +17,8 @@ const MAX_ARTICLES_PAGE = 10;
 export default function Page() {
 	const { onOpen } = useInterface();
 	const observer = useRef<IntersectionObserver | null>(null);
+	const [imagesLoaded, setImagesLoaded] = useState(0);
+	const [initialLoadComplete, setInitialLoadComplete] = useState(false);
 
 	const { data: creator } = useQuery({
 		queryKey: queryKeys.user.current(),
@@ -47,8 +49,8 @@ export default function Page() {
 	});
 
 	const lastElementRef = useCallback(
-		(node: HTMLDivElement) => {
-			if (isLoading) return;
+		(node: HTMLDivElement | null) => {
+			if (isLoading || !initialLoadComplete) return;
 			if (observer.current) observer.current.disconnect();
 			observer.current = new IntersectionObserver((entries) => {
 				if (entries[0].isIntersecting && hasNextPage && !isFetching) {
@@ -57,16 +59,23 @@ export default function Page() {
 				}
 			});
 			if (node) observer.current.observe(node);
-			if (node) {
-				console.log('Observing last element:', node);
-			}
 		},
-		[fetchNextPage, hasNextPage, isFetching, isLoading],
+		[fetchNextPage, hasNextPage, isFetching, isLoading, initialLoadComplete],
 	);
 
 	const posts = useMemo(() => {
-		return data?.pages.flat();
+		return data?.pages?.flat();
 	}, [data]);
+
+	useEffect(() => {
+		if (posts && posts.length > 0 && imagesLoaded === posts.length) {
+			setInitialLoadComplete(true);
+		}
+	}, [posts, imagesLoaded]);
+
+	const handleImageLoad = () => {
+		setImagesLoaded((prev) => prev + 1);
+	};
 
 	if (isLoading) return <h1>Loading...</h1>;
 	if (error) return <h1>Error fetching data...</h1>;
@@ -85,23 +94,22 @@ export default function Page() {
 			<Separator className="my-2 md:my-3 lg:my-5 " />
 			{posts && posts.length > 0 && (
 				<PhotoProvider maskOpacity={0.9}>
-					<ResponsiveMasonry columnsCountBreakPoints={{ 300: 2, 500: 3, 700: 4 }}>
-						{/*
-						 */}
+					<ResponsiveMasonry columnsCountBreakPoints={{ 300: 2, 500: 3 }}>
 						<Masonry gutter="1rem">
-							{posts.map((post, index) => {
-								const refProp = index === posts.length - 1 ? { ref: lastElementRef } : {};
-								return (
-									<PhotoView key={post.id} src={post.imageUrl}>
-										<PostImageComponent
-											{...refProp}
-											imageOnly={false}
-											post={post}
-											lastElementRef={lastElementRef}
-										/>
-									</PhotoView>
-								);
-							})}
+							{posts.map((post, index) => (
+								<PhotoView key={post.id} src={post.imageUrl}>
+									<PostImageComponent
+										ref={
+											index === posts.length - 1 && initialLoadComplete
+												? lastElementRef
+												: undefined
+										}
+										imageOnly={false}
+										post={post}
+										onImageLoad={handleImageLoad}
+									/>
+								</PhotoView>
+							))}
 						</Masonry>
 					</ResponsiveMasonry>
 				</PhotoProvider>

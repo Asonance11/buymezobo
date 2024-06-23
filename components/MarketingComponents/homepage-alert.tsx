@@ -14,7 +14,7 @@ export function HomepageAlertButton() {
 				>
 					We are almost set to launch!{' '}
 				</span>
-				<ChevronRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5 inline" />
+				<ChevronRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5 iinline hidden" />
 			</AnimatedGradientText>
 		</div>
 	);

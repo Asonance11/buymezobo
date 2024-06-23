@@ -26,6 +26,7 @@ const WithdrawPayoutModal = dynamic(() => import('@/components/Profile/WithdrawP
 const NotificationModal = dynamic(() => import('@/components/Notifications/NotificationModal'), { ssr: false });
 const ImageSelectModal = dynamic(() => import('@/components/Posts/ImageSelectModal'), { ssr: false });
 const SocialMediaLinkModal = dynamic(() => import('@/components/Profile/SocialMediaLinkModal'), { ssr: false });
+const FeedbackFormModal = dynamic(() => import('@/components/MarketingComponents/FeedbackModal'), { ssr: false });
 
 export function InterfaceProvider() {
 	const [isMounted, setIsMounted] = useState(false);
@@ -40,6 +41,7 @@ export function InterfaceProvider() {
 
 	return (
 		<>
+			<FeedbackFormModal />
 			<EditHeaderImageModal />
 			<EditProfileImageModal />
 			<NotificationsProvider />
