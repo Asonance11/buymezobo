@@ -24,7 +24,7 @@ model Profile {
     imageUrl              String?
     headerImageUrl        String?           @db.Text
     bio                   String?
-    userName              String            @unique
+    userName              String?            @unique
     accountNumber         String?           @unique
     bankCode              String?
     bankAccountName       String?
