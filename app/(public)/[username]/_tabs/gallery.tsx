@@ -22,10 +22,8 @@ export function GalleryTab({ creatorName, tabValue }: GalleryTabProps) {
 
 	const fetchPosts = async ({ pageParam = 1 }: { pageParam?: number }) => {
 		console.log(`Fetching posts for page: ${pageParam}`);
-        console.log("Creator name is: "+creatorName)
-		const response = await axios.get(
-			`/api/posts/user/${creatorName}?page=${pageParam}&limit=${MAX_ARTICLES_PAGE}`,
-		);
+		console.log('Creator name is: ' + creatorName);
+		const response = await axios.get(`/api/posts/user/${creatorName}?page=${pageParam}&limit=${MAX_ARTICLES_PAGE}`);
 		const posts = response.data.posts || [];
 		console.log(`Fetched posts: `, posts);
 		return posts as PostPrimitive[] | [];
@@ -65,8 +63,8 @@ export function GalleryTab({ creatorName, tabValue }: GalleryTabProps) {
 
 	const handleImageLoad = () => setImagesLoaded((prev) => prev + 1);
 
-    console.log(data?.pages)
-    console.log(posts)
+	console.log(data?.pages);
+	console.log(posts);
 
 	if (isLoading) return <Loader className="m-auto" />;
 	if (isError) return <p className="text-center text-red-500">Error loading images</p>;

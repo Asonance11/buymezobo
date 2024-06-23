@@ -8,10 +8,10 @@ export async function POST(request: NextRequest) {
 
 		await db.feedback.create({
 			data: {
-                name:data.name,
-                email:data.email,
-                content:data.content,
-                userId:data.userId
+				name: data.name,
+				email: data.email,
+				content: data.content,
+				userId: data.userId,
 			},
 		});
 

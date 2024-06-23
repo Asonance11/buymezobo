@@ -92,7 +92,7 @@ const UserButton: React.FC = () => {
 								<FaCog className="mr-2" size={16} /> Settings
 							</DropdownMenuItem>
 						</Link>
-						<DropdownMenuItem onClick={() => onOpen("feedbackFormModal")}>
+						<DropdownMenuItem onClick={() => onOpen('feedbackFormModal')}>
 							<FaAnchor className="mr-2" size={16} /> Provide Feedback
 						</DropdownMenuItem>
 
