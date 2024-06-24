@@ -1,10 +1,10 @@
 import { cn } from '@/utility/style';
 import React, { HTMLAttributes } from 'react';
-import { Separator } from '../ui/separator';
 import SharePage from '../Profile/SharePage';
 import { formatNumberWithCommas } from '@/utility/text';
 import { User } from 'lucia';
-import { Skeleton } from '../ui/skeleton';
+import { avatarImageUrl } from '@/utility/avatar';
+import { Profile } from '@prisma/client';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	profile: User | null;
@@ -25,7 +25,7 @@ export default function DashBoardEarningPage({ profile, className }: Props) {
 			<div className="flex items-center gap-2 h-2/5 ">
 				<div
 					className="cursor-pointer rounded-lg w-10 h-10 bg-center bg-cover bg-no-repeat"
-					style={{ backgroundImage: `url(${profile?.imageUrl})` }}
+					style={{ backgroundImage: `url(${avatarImageUrl(profile as Profile)})` }}
 				></div>
 				<div className="flex-1">
 					<p className="text-sm lg:text-xl font-semibold tracking-tight">
