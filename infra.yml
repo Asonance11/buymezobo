@@ -19,6 +19,9 @@ services:
         depends_on:
             - buymezobo
             - socketserver
+        volumes:
+            - /etc/letsencrypt:/etc/letsencrypt:ro
+            - /var/lib/letsencrypt:/var/lib/letsencrypt
     db:
         container_name: buy-me-zobo-db
         image: postgres
