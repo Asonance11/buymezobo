@@ -13,14 +13,18 @@ services:
             - kafka
     nginx:
         container_name: nginx
-        build: ./nginx
+        build:
+            context: ./nginx
+            dockerfile: Dockerfile
+            args:
+                - ENV=${ENV}
         env_file:
             - .env
         ports:
             - 80:80
-        depends_on:
-            - buymezobo
-            - socketserver
+        # depends_on:
+        #     - buymezobo
+        #     - socketserver
         volumes:
             - /etc/letsencrypt:/etc/letsencrypt:ro
             - /var/lib/letsencrypt:/var/lib/letsencrypt
