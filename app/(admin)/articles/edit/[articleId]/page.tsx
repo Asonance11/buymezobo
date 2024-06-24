@@ -21,8 +21,8 @@ import moment from 'moment';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { HiX } from 'react-icons/hi';
-import { SlOptionsVertical } from 'react-icons/sl';
 import { toast } from 'sonner';
+import { IoOptions } from "react-icons/io5";
 
 export default function Page(props: any) {
 	const isMobile = useIsMobile();
@@ -105,7 +105,7 @@ export default function Page(props: any) {
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
 								<div className="rounded-full hover:bg-zinc-200 transition-colors duration-300 cursor-pointer p-1.5">
-									<SlOptionsVertical />
+									<IoOptions className='text-3xl' />
 								</div>
 							</DropdownMenuTrigger>
 							<DropdownMenuContent>
