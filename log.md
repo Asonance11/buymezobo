@@ -94,7 +94,9 @@
 
 41. optimizations
 
-42. launch
+42. there are alot of console.log stuff everywhere, we have to remove that for prod, we can extend console.log, error, table to check if it the env is in test before printing
+
+43. launch
 
 ---
 
