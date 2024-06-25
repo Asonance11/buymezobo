@@ -110,8 +110,9 @@
 
 49. we need a good footer for the marketing pages
 
-50. Email service, very simple imo 
+50. we need to fix the loader and custom error pages, it's ass, ass af.
 
+51. the server tends to crash sometimes, we have to find out why
 
 ---
 
