@@ -95,7 +95,7 @@ const FileUploader: React.FC<FileUploaderProps> = function ({
 		<input type="file" accept={accept} onChange={handleFileChange} />
 	) : (
 		<label className="">
-			<div className="flex flex-col items-center bg-gray-500 rounded-lg p-7 border border-gray-200 cursor-pointer">
+			<div className="flex flex-col items-center bg-gray-500 rounded-lg p-4 border border-gray-200 cursor-pointer">
 				{uploading ? <LoadingOutlined /> : <PlusOutlined />}
 				<div className="mt-2 text-gray-700 font-light text-sm">{prompt ? prompt : 'Upload image'}</div>
 				<input hidden type="file" accept={accept} onChange={handleFileChange} />
@@ -105,7 +105,7 @@ const FileUploader: React.FC<FileUploaderProps> = function ({
 
 	return (
 		<div className="bg-blue-600">
-			<div className="bg-red-900 w-20 h-20">
+			<div className="bg-red-900 w-20 h-20 flex items-center">
 				{imageUrl ? (
 					<img hidden={simple} src={imageUrl} alt="avatar" className="w-full h-full max-h-20 rounded-lg" />
 				) : (

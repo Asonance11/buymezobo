@@ -11,6 +11,8 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlinePlus, AiOutlineSearch } from 'react-icons/ai';
+import { IoOptions } from "react-icons/io5";
+
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -87,32 +89,32 @@ export default function Page() {
 				<div className="flex items-center justify-between mt-6 space-x-1">
 					<div className="relative w-full md:w-fit">
 						<Input
-							className="hidden md:block w-full md:w-fit pl-10"
+							className="w-full md:w-fit pl-10"
 							placeholder="Search Posts"
 							value={searchTerm}
 							onChange={handleSearchChange}
 						/>
 						<AiOutlineSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 hidden md:block" />
-					</div>{' '}
+					</div>
 					<div className="flex items-center gap-2">
-						<Button className="hidden md:flex" onClick={toggleShowDraft} variant="outline">
+						<Button className="hidden lg:flex" onClick={toggleShowDraft} variant="outline">
 							{showDraft ? <AiOutlineEyeInvisible className="mr-2" /> : <AiOutlineEye className="mr-2" />}
-							{showDraft ? 'Hide Draft Articles' : 'Show Draft Articles'}
+							{showDraft ? 'Hide Drafts' : 'Show Drafts'}
 						</Button>
-						<Button className="hidden md:flex" onClick={() => router.push('/articles/new')}>
+						<Button className="hidden lg:flex" onClick={() => router.push('/articles/new')}>
 							<AiOutlinePlus className="mr-2" />
-							Create new Post
+							New Post
 						</Button>
-						<div className="md:hidden">
+						<div className="lg:hidden">
 							<DropdownMenu>
 								<DropdownMenuTrigger asChild>
 									<Button variant="outline">
-										<AiOutlinePlus />
+										<IoOptions />
 									</Button>
 								</DropdownMenuTrigger>
 								<DropdownMenuContent>
 									<DropdownMenuItem onClick={toggleShowDraft}>
-										{showDraft ? 'Hide Draft Articles' : 'Show Draft Articles'}
+										{showDraft ? 'Hide Drafts' : 'Show Drafts'}
 									</DropdownMenuItem>
 									<DropdownMenuItem onClick={() => router.push('/articles/new')}>
 										Create new Post

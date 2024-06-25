@@ -49,7 +49,7 @@ export function ArticleCard({ article }: Props) {
 	};
 
 	return (
-		<div key={article.id} className="p-2 lg:p-3 rounded-lg my-2 bg-white shadow-md space-y-0.5 md:space-y-1">
+		<div key={article.id} className="p-2 lg:p-3 rounded-lg my-2 bg-white shadow-md space-y-0.5 md:space-y-1 w-full">
 			{article.image && (
 				<div
 					className="w-full h-20 lg:h-32 bg-center bg-cover rounded-t-lg"
