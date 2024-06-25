@@ -96,15 +96,22 @@
 
 42. there are alot of console.log stuff everywhere, we have to remove that for prod, we can extend console.log, error, table to check if it the env is in test before printing
 
-43. for articles to be hidden in draft and only the author can see it, we have to do some vefication in the page, if any user get's the id of the user and then adds it to the url bar, we have to check
-            - is this the author of the article, if it is we show some extra features like edit, hange to draft and vice versa
-            - we also have to check if it's a draft, if it is, we drop a notfound page there, preferrable from a notfound page for nextjs, and then the user can route back to where he came from, that'll be nice.
+43. for articles to be hidden in draft and only the author can see it, we have to do some vefication in the page, if any user get's the id of the user and then adds it to the url bar, we have to check - is this the author of the article, if it is we show some extra features like edit, hange to draft and vice versa - we also have to check if it's a draft, if it is, we drop a notfound page there, preferrable from a notfound page for nextjs, and then the user can route back to where he came from, that'll be nice.
 
 44. the options in the username page header sectoin do nothing, the settings icon should route to /settings and the options should drop a dropdown with more options e.g share, report
 
 45. some social media icons on the about card are not impelemented
 
-46. launch
+46. the landing page needs a revamp, with change of sub heading (leave the rotating words pls), but with proper keywords to attract users, ideally revamp should be done by francis and provision for keywords should be by sammy boy
+
+47. we need a privacy page like https://buymeacoffee.com/privacy-policy
+
+48. we need a terms page like https://buymeacoffee.com/terms
+
+49. we need a good footer for the marketing pages
+
+50. Email service, very simple imo 
+
 
 ---
 
