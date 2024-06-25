@@ -1,7 +1,7 @@
 # todo
 
-- these are noticeable errors.
-- these aren't new features, just ones that we need to work on before i think we have an mvp, very simple tasks are here, after workin on one, just commit with your name and hashtag in front of it, e.g
+-   these are noticeable errors.
+-   these aren't new features, just ones that we need to work on before i think we have an mvp, very simple tasks are here, after workin on one, just commit with your name and hashtag in front of it, e.g
 
 0. get a girlfriend - #francis
 
@@ -79,15 +79,16 @@
 
 37. favicon
 
-38. better metadata for pages, the metadata for pages are weird af, we need to make them more descriptive and better 
+38. better metadata for pages, the metadata for pages are weird af, we need to make them more descriptive and better
 
 39. we need to do SEO so bad, that when people search zobo, they see our site pop, we need to make the sign in, sign up, about and faq show up too, the person that does this will probably have to also do the metadata task (task 38)
+
     - https://www.reddit.com/r/smallbusiness/comments/uv7wce/comment/i9kj0lg/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
     - https://www.reddit.com/r/smallbusiness/comments/uv7wce/comment/i9jvf6v/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
     - https://www.reddit.com/r/smallbusiness/comments/uv7wce/comment/i9juyzu/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
     - https://www.reddit.com/r/smallbusiness/comments/uv7wce/comment/i9k018l/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
     - https://www.reddit.com/r/smallbusiness/comments/uv7wce/comment/i9km0y5/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-    - according to this seo notes, we need to make sure our pages show up, especially in nigeria, so we have to use keywords to target nigerians, 
+    - according to this seo notes, we need to make sure our pages show up, especially in nigeria, so we have to use keywords to target nigerians,
 
 40. keywords to target nigerians searching, zobo, buy, content creators in nigeria, idk etc
 
@@ -95,7 +96,7 @@
 
 42. launch
 
----------------------------------------------------------------------------------
+---
 
     - so build locally - done
     - push to remote repo - done
@@ -105,17 +106,17 @@
 
 33. setup github actions
 
-    - it should build everything and see if it works - done
-    - add space for tests (soon) - soon
-    - build the buymezobo and push to docker hub -done
-    - write a script that will pull sijirama/buymezobo and re run the repo - done (deploy.sh)
-    - test the script on my system -- it works too, dev actually works too, it's funny
-    - test it works -- it does
-    - do the same for socketserver ---- we are gonna fashi this and build it on the server
+    -   it should build everything and see if it works - done
+    -   add space for tests (soon) - soon
+    -   build the buymezobo and push to docker hub -done
+    -   write a script that will pull sijirama/buymezobo and re run the repo - done (deploy.sh)
+    -   test the script on my system -- it works too, dev actually works too, it's funny
+    -   test it works -- it does
+    -   do the same for socketserver ---- we are gonna fashi this and build it on the server
 
 34. create a prod env and test it properly that it works
-    - test prod.yml works -- it works perfectly on pathfinder
-    - use script to clone repo fetch new repo and run it - done
+    -   test prod.yml works -- it works perfectly on pathfinder
+    -   use script to clone repo fetch new repo and run it - done
 
 ---
 

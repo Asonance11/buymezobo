@@ -89,7 +89,7 @@ export function FollowButton({ followingId, className, ...opts }: Props) {
 	}
 
 	if (error) {
-		return null
+		return null;
 	}
 
 	return (
