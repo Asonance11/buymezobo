@@ -83,7 +83,7 @@ export default function Page() {
 	return (
 		<div className="w-11/12 lg:3/4 xl:w-2/3 mx-auto m-3 lg:my-8">
 			<section className="w-full flex items-center justify-end px-2">
-				<p>{posts?.length}</p>
+				{/* <p>{posts?.length}</p> */}
 				<Button
 					onClick={() => onOpen('makeImagePostModal')}
 					className="-tracking-wide text-xs md:text-sm font-bold bg-purple-800"
